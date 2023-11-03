@@ -58,6 +58,6 @@ const router = createBrowserRouter([
     path: '*',
     // This route is the wildcard. Any route that does not exist would be redirected to this route. replace it with your 404 page.
     element: <Navigate to="/tasks" replace />,
-  }
+  },
 ]);
 export default router;

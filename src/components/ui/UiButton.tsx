@@ -24,7 +24,6 @@ export default function UiButton({
     primary: 'bg-primary text-white ',
     neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
     transparent: 'bg-transparent hover:bg-gray-10 text-gray-900',
-
   };
   return (
     <button

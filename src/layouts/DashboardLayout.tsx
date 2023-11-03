@@ -10,10 +10,12 @@ export default function DashboardLayout() {
   return (
     <div className="flex">
       <div className="hidden md:block">
-
-      <TheSidebar />
+        <TheSidebar />
       </div>
-      <div className="w-full h-screen overflow-auto md:w-5/6" style={{minWidth: '1200px'}}>
+      <div
+        className="w-full h-screen overflow-auto md:w-5/6"
+        style={{ minWidth: '1200px' }}
+      >
         {isLoading ? <UiLoader /> : <Outlet />}
       </div>
     </div>

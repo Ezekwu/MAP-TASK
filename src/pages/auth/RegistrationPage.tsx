@@ -4,6 +4,7 @@ import { useRecordUserQuery, useRegisterQuery } from '../../api/queries';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
+import UiSelect from '../../components/ui/UiSelect';
 import OnChangeParams from '../../types/OnChangeParams';
 import RegistrationSchema from '../../utils/schemas/RegistrationSchema';
 
@@ -18,6 +19,16 @@ export default function RegistrationPage() {
     name: '',
     cPassword: '',
   });
+  const roleOptions = [
+    {
+      label: 'Hr',
+      value: 'hr',
+    },
+    {
+      label: 'User',
+      value: 'user',
+    },
+  ];
   function onChange({ name, value }: OnChangeParams) {
     setFormData((currentValue) => ({
       ...currentValue,
@@ -72,21 +83,36 @@ export default function RegistrationPage() {
               onChange={onChange}
             />
             <UiInput
+              placeholder="Enter your email"
+              label="Company name"
+              value={formData.email}
+              name="email"
+              error={errors.email}
+              onChange={onChange}
+            />
+            <UiSelect
+              label="Role"
+              value={formData.email}
+              options={roleOptions}
+              name="email"
+              error={errors.email}
+              onChange={onChange}
+            />
+            <UiInput
+              placeholder="Enter your email"
+              label="Company name"
+              value={formData.email}
+              name="email"
+              error={errors.email}
+              onChange={onChange}
+            />
+            <UiInput
               placeholder="Enter your Password"
               label="Password"
               value={formData.password}
               name="password"
               type="password"
               error={errors.password}
-              onChange={onChange}
-            />
-            <UiInput
-              placeholder="Confirm your Password"
-              label="Confirm Password"
-              value={formData.cPassword}
-              error={errors.cPassword}
-              name="cPassword"
-              type="password"
               onChange={onChange}
             />
             <UiButton
