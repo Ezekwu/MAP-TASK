@@ -37,7 +37,7 @@ export default function UiInput({
   return (
     <UiField label={label} error={error}>
       <input
-        className={`outline-none rounded-md w-full border placeholder:text-sm text-sm  h-12 pl-4 ${
+        className={`outline-none rounded-md w-full border placeholder:text-sm text-xs  h-12 pl-4 ${
           !!error
             ? 'bg-danger-100 placeholder:text-danger border-danger'
             : `bg-white border-gray-50`

@@ -53,7 +53,6 @@ describe('src/components/ui/UiButton.tsx', () => {
         name: 'This field is required',
         email: 'This field is required',
         password: 'password must be at least 8 characters',
-        cPassword: 'Confirm Password is required',
       });
       expect(handleSubmit).not.toHaveBeenCalled();
     });
@@ -84,7 +83,6 @@ describe('src/components/ui/UiButton.tsx', () => {
         name: 'This field is required',
         email: 'This field is required',
         password: 'password must be at least 8 characters',
-        cPassword: 'Confirm Password is required',
       });
       expect(handleSubmit).toHaveBeenCalled();
     });

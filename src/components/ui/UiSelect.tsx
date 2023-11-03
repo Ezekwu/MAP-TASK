@@ -36,15 +36,24 @@ export default function UiSelect({
 }: Props) {
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
   const valueLabel = useMemo(() => {
-    return 'Value';
+    if (!value) return placeholder;
+
+    return (
+      options.find((option) => value === option.value)?.label || placeholder
+    );
   }, [value]);
+
+  function selectOption(value: string) {
+    onChange({ name, value });
+    setOptionsAreVisible(false);
+  }
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
       <UiField error={error} label={label}>
         <button
           type="button"
-          data-testid="ui-select"
-          className={`outline-none rounded-md w-full border text-left text-sm  h-12 pl-4 ${
+          data-testid="ui-select-trigger"
+          className={`outline-none rounded-md w-full border text-left text-xs  h-12 pl-4 ${
             !!error
               ? 'bg-danger-100 placeholder:text-danger border-danger'
               : `bg-white border-gray-50`
@@ -58,11 +67,15 @@ export default function UiSelect({
           )}
         </button>
         {optionsAreVisible && (
-          <ul className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full">
+          <ul
+            data-testid="ui-select-options"
+            className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
+          >
             {options.map((option) => (
               <li
                 className={`p-2 hover:bg-gray-25 text-sm rounded-sm`}
-                onClick={() => onChange({ value: option.value, name })}
+                data-testid="ui-select-option"
+                onClick={() => selectOption(option.value)}
               >
                 {option.label}
               </li>
