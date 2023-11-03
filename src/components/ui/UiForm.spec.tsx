@@ -15,7 +15,7 @@ const filledData = {
   name: 'Henry Eze',
   email: 'henryeze019@gmail.com',
   password: "it don't matter to me",
-  cPassword: "it don't matter to me",
+  role: "it don't matter to me",
 };
 
 describe('src/components/ui/UiButton.tsx', () => {
@@ -52,6 +52,7 @@ describe('src/components/ui/UiButton.tsx', () => {
       expect(formErrors).toEqual({
         name: 'This field is required',
         email: 'This field is required',
+        role: 'This field is required',
         password: 'password must be at least 8 characters',
       });
       expect(handleSubmit).not.toHaveBeenCalled();
@@ -83,6 +84,7 @@ describe('src/components/ui/UiButton.tsx', () => {
         name: 'This field is required',
         email: 'This field is required',
         password: 'password must be at least 8 characters',
+        role: 'This field is required',
       });
       expect(handleSubmit).toHaveBeenCalled();
     });

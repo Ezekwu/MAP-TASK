@@ -17,7 +17,8 @@ export default function RegistrationPage() {
     email: '',
     password: '',
     name: '',
-    cPassword: '',
+    role: '',
+    companyName: ''
   });
   const roleOptions = [
     {
@@ -44,8 +45,7 @@ export default function RegistrationPage() {
       })) as { uid: string };
       const userData = {
         _id: uid,
-        name: formData.name,
-        email: formData.email,
+        ...formData,
       };
       recordUserRequest(userData).then(() => {
         localStorage.setItem('uid', userData._id);
@@ -58,14 +58,14 @@ export default function RegistrationPage() {
 
   return (
     <>
-      <h1 className="my-14 font-bold text-lg">Nice to e-meet you!</h1>
+      <h1 className="my-8 font-bold text-lg">Nice to e-meet you!</h1>
       <UiForm
         formData={formData}
         schema={RegistrationSchema}
         onSubmit={registerUser}
       >
         {({ errors }) => (
-          <div className="grid gap-8">
+          <div className="grid gap-4">
             <UiInput
               placeholder="Enter your name"
               label="Name"
@@ -82,28 +82,12 @@ export default function RegistrationPage() {
               error={errors.email}
               onChange={onChange}
             />
-            <UiInput
-              placeholder="Enter your email"
-              label="Company name"
-              value={formData.email}
-              name="email"
-              error={errors.email}
-              onChange={onChange}
-            />
             <UiSelect
               label="Role"
-              value={formData.email}
+              value={formData.role}
               options={roleOptions}
-              name="email"
-              error={errors.email}
-              onChange={onChange}
-            />
-            <UiInput
-              placeholder="Enter your email"
-              label="Company name"
-              value={formData.email}
-              name="email"
-              error={errors.email}
+              name="role"
+              error={errors.role}
               onChange={onChange}
             />
             <UiInput
