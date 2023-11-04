@@ -23,13 +23,24 @@ export default function DashboardPage() {
       <div className="grid gap-4 p-5">
         <div className="grid grid-cols-3 gap-2">
           {metricsArr.map((metric) => (
-            <div key={metric} className="bg-white p-16 rounded-md flex items-center justify-center">Coming soon</div>
+            <div
+              key={metric}
+              className="bg-white p-16 rounded-md flex items-center justify-center"
+            >
+              Coming soon
+            </div>
           ))}
         </div>
-        <div className="bg-white p-52 rounded-md flex items-center justify-center">Coming soon</div>
+        <div className="bg-white p-52 rounded-md flex items-center justify-center">
+          Coming soon
+        </div>
         <div className="grid grid-cols-3 gap-2">
-        <div className="bg-white p-16 rounded-md flex items-center justify-center col-span-2">Coming soon</div>
-        <div className="bg-white p-16 rounded-md flex items-center justify-center">Coming soon</div>
+          <div className="bg-white p-16 rounded-md flex items-center justify-center col-span-2">
+            Coming soon
+          </div>
+          <div className="bg-white p-16 rounded-md flex items-center justify-center">
+            Coming soon
+          </div>
         </div>
       </div>
     </>

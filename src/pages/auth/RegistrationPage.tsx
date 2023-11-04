@@ -6,6 +6,7 @@ import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
 import UiSelect from '../../components/ui/UiSelect';
 import OnChangeParams from '../../types/OnChangeParams';
+import User from '../../types/User';
 import RegistrationSchema from '../../utils/schemas/RegistrationSchema';
 
 export default function RegistrationPage() {
@@ -18,7 +19,6 @@ export default function RegistrationPage() {
     password: '',
     name: '',
     role: '',
-    companyName: '',
   });
   const roleOptions = [
     {
@@ -43,10 +43,11 @@ export default function RegistrationPage() {
         email: formData.email,
         password: formData.password,
       })) as { uid: string };
-      const userData = {
+      const { password, ...data } = formData;
+      const userData: User = {
         _id: uid,
-        ...formData,
-      };
+        ...data,
+      } as User;
       recordUserRequest(userData).then(() => {
         localStorage.setItem('uid', userData._id);
         window.location.reload();

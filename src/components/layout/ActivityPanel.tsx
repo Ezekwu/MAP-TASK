@@ -68,8 +68,12 @@ export default function ActivityPanel() {
       <div className="mt-12">
         <h3 className="text-gray-500 text-md font-semibold">Messages</h3>
         <div className="grid gap-2 pt-6">
-          {messages.map((message) => (
-            <InfoCard title={message.title} subtitle={message.subtitle} />
+          {messages.map((message, index) => (
+            <InfoCard
+              title={message.title}
+              key={index}
+              subtitle={message.subtitle}
+            />
           ))}
         </div>
       </div>
@@ -78,8 +82,8 @@ export default function ActivityPanel() {
           Recently Added Jobs
         </h3>
         <div className="grid gap-2 pt-6">
-          {jobs.map((job) => (
-            <InfoCard title={job.title} subtitle={job.subtitle} />
+          {jobs.map((job, index) => (
+            <InfoCard title={job.title} key={index} subtitle={job.subtitle} />
           ))}
         </div>
       </div>

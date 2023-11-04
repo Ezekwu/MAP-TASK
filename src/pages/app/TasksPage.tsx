@@ -103,15 +103,16 @@ export default function TasksPage() {
 
   return (
     <div className="overflow-hidden">
-      <TheTopNav>
-        <div className="w-60">
-          <UiInput
-            value={searchQuery}
-            name="searchQuery"
-            placeholder="Search for tasks"
-            onChange={({ value }) => setSearchQuery(value!)}
-          />
-        </div>
+      <TheTopNav
+        pageTitle="Tasks"
+        subtitle="Add personal tasks for your to-do list"
+      >
+        <UiInput
+          value={searchQuery}
+          name="searchQuery"
+          placeholder="Search for tasks"
+          onChange={({ value }) => setSearchQuery(value!)}
+        />
       </TheTopNav>
       <div className="p-4 flex gap-4 overflow-auto">
         {taskGroups.map((taskGroup, index) => (

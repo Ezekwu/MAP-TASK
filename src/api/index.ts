@@ -50,6 +50,14 @@ class ApiService {
       value: userId,
     });
   }
+  getCandidates() {
+    return this.query<User>({
+      collectionName: 'user',
+      key: 'role',
+      condition: '==',
+      value: 'applicant',
+    });
+  }
   getTaskGroupsOfUser(userId: string) {
     return this.query<TaskGroup>({
       collectionName: 'task-group',

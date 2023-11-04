@@ -32,6 +32,9 @@ export function useGetTaskGroupOfUserQuery(userId: string) {
 export function useGetTasksOfUserQuery(userId: string) {
   return useQuery(['tasks', userId], () => api.getTasksOfUser(userId));
 }
+export function useGetCandidatesQuery() {
+  return useQuery(['candidates'], () => api.getCandidates());
+}
 
 export function useGetUserProfile(userId: string) {
   return useQuery(['userDetails', userId], () => api.getUser(userId));

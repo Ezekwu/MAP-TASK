@@ -83,8 +83,8 @@ export default function TheSidebar() {
               {group.name}
             </div>
             <ul>
-              {group.routes.map((route) => (
-                <li className="my-2 ">
+              {group.routes.map((route, index) => (
+                <li className="my-2 " key={index}>
                   <Link
                     to={route.path}
                     className={`${
