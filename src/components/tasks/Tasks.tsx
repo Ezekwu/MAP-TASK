@@ -20,7 +20,7 @@ export default function Tasks({
   saveTaskGroup,
 }: Props) {
   return (
-    <div className="bg-gray-10 p-2 rounded-lg min-h-screen w-80">
+    <div className="bg-gray-50 p-2 rounded-lg min-h-screen w-80">
       <TasksHeader
         taskGroupDetails={taskGroup}
         removeUnsavedTaskGroup={removeUnsavedTaskGroup}

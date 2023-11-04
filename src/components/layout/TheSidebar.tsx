@@ -1,58 +1,68 @@
 import {
   SquaresFour,
   ListBullets,
-  BookOpen,
-  Books,
-  GearSix,
-  Database,
-  BookBookmark,
+  UserList,
   SignOut,
+  Calendar,
+  Suitcase,
+  Users,
+  Chat,
 } from '@phosphor-icons/react';
 import { Link, useLocation } from 'react-router-dom';
 
 import AppLogo from '../../assets/app-logo.svg';
 
 export default function TheSidebar() {
-  const router = useLocation();
-  const routes = [
+  const location = useLocation();
+  const routeGroups = [
     {
-      path: '/',
-      name: 'Dashboard',
-      icon: <SquaresFour size={20} />,
+      name: 'Menu',
+      routes: [
+        {
+          path: '/',
+          name: 'Dashboard',
+          icon: <SquaresFour size={20} />,
+        },
+        {
+          path: '/message',
+          name: 'Message',
+          icon: <Chat size={20} />,
+        },
+        {
+          path: '/calendar',
+          name: 'Calendar',
+          icon: <Calendar size={20} />,
+        },
+      ],
     },
     {
-      path: '/tasks',
-      name: 'Tasks',
-      icon: <ListBullets size={20} />,
-    },
-    {
-      path: '/courses',
-      name: 'Courses',
-      icon: <BookBookmark size={20} />,
-    },
-    {
-      path: '/score',
-      name: 'Score',
-      icon: <BookOpen size={20} />,
-    },
-    {
-      path: '/library',
-      name: 'Library',
-      icon: <Books size={20} />,
-    },
-    {
-      path: '/database',
-      name: 'Database',
-      icon: <Database size={20} />,
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      icon: <GearSix size={20} />,
+      name: 'Recruitment',
+      routes: [
+        {
+          path: '/jobs',
+          name: 'Jobs',
+          icon: <Suitcase size={20} />,
+        },
+        {
+          path: '/candidates',
+          name: 'Candidates',
+          icon: <Users size={20} />,
+        },
+        {
+          path: '/referralss',
+          name: 'My Referrals',
+          icon: <UserList size={20} />,
+        },
+        {
+          path: '/tasks',
+          name: 'Tasks',
+          icon: <ListBullets size={20} />,
+        },
+      ],
     },
   ];
 
-  const activeRoute = router.pathname;
+  const activeRoute = location.pathname;
 
   function logUserOut() {
     localStorage.removeItem('uid');
@@ -63,25 +73,32 @@ export default function TheSidebar() {
     <nav className="hidden relative md:block h-screen border-r-2 border-gray-25 w-64">
       <div className="flex items-center justify-center mb-16 gap-2 py-4">
         <img src={AppLogo} alt="school logo" />
-        <span className="text-2xl text-gray-500 font-bold">School</span>
+        <span className="text-2xl text-gray-500 font-bold">Human R.</span>
       </div>
 
       <ul>
-        {routes.map((route, index) => (
-          <li className="h-12 p-0 flex items-start mt-1" key={index}>
-            <Link
-              to={route.path}
-              className={`w-full border-l-4  ${
-                activeRoute === route.path
-                  ? 'text-primary border-primary bg-gray-10'
-                  : 'text-gray-900 text-sm border-transparent hover:text-primary hover:border-primary hover:bg-gray-10'
-              }`}
-            >
-              <div className="h-12 flex items-center gap-4 w-4/5 mx-auto">
-                {route.icon}
-                <span>{route.name}</span>
-              </div>
-            </Link>
+        {routeGroups.map((group, index) => (
+          <li key={index}>
+            <div className="w-4/5 mx-auto p-2 text-sm text-gray-500">
+              {group.name}
+            </div>
+            <ul>
+              {group.routes.map((route) => (
+                <li className="my-2 ">
+                  <Link
+                    to={route.path}
+                    className={`${
+                      activeRoute === route.path
+                        ? 'bg-primary text-white'
+                        : 'text-gray-300 hover:bg-primary hover:text-white'
+                    }  h-12 p-2 flex items-center gap-4 w-4/5 mx-auto rounded-lg text-sm `}
+                  >
+                    {route.icon}
+                    <span>{route.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
         <li

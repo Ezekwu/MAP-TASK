@@ -18,7 +18,7 @@ export default function RegistrationPage() {
     password: '',
     name: '',
     role: '',
-    companyName: ''
+    companyName: '',
   });
   const roleOptions = [
     {
@@ -26,8 +26,8 @@ export default function RegistrationPage() {
       value: 'hr',
     },
     {
-      label: 'User',
-      value: 'user',
+      label: 'Applicant',
+      value: 'applicant',
     },
   ];
   function onChange({ name, value }: OnChangeParams) {

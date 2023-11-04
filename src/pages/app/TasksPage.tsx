@@ -124,13 +124,11 @@ export default function TasksPage() {
             saveTaskGroup={saveTaskGroup}
           />
         ))}
-        <UiButton
-          variant="neutral"
-          disabled={taskGroups.length >= 3}
-          onClick={addTaskGroup}
-        >
-          <Plus size={24} />
-        </UiButton>
+        {taskGroups.length < 3 && (
+          <UiButton variant="neutral" onClick={addTaskGroup}>
+            <Plus size={24} />
+          </UiButton>
+        )}
       </div>
       <UiModal
         onClose={closeCreateTask}
