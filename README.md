@@ -14,13 +14,17 @@ You can find the hosted version of this application here: (Link)[https://school-
 
 ## Features
 
-This applications provides a way for students to prioritize their schedules through a TO DO list interface and also plan ahead.
+This application is a HR management tool that allows you create schedules by selecting the user to pair in a meeting with.
+It also provides a calendar that can be used to visualize the schedule accoring to the date.
+
+To use the scheduling feature on the calendar, click on a day in a month and a create schedule modal would pop up.
+Select User and input reason for the meeting and everything should work as expected.
+
+It also provides an interface to view applicants who can then be promoted to HR.
 
 ### Upcoming application features
 
-- Scheduling
 - Detail dashboard
-- Course registration.
 - Re-ordering tasks.
 
 ### Upcoming code features
