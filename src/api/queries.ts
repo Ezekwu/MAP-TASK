@@ -4,6 +4,7 @@ import AuthDetails from '../types/AuthDetails';
 import Task from '../types/Task';
 import TaskGroup from '../types/TaskGroup';
 import User from '../types/User';
+import { CANDIDATES_QUERY_KEY, TASKS_QUERY_KEY, TASK_GROUPS_QUERY_KEY, USER_DETAILS_QUERY_KEY } from './queryKeys';
 
 export function useRegisterQuery() {
   return mutationWrapper<AuthDetails>(api.createUserWithEmailAndPassword);
@@ -25,19 +26,19 @@ export function useCreateTaskQuery() {
 }
 
 export function useGetTaskGroupOfUserQuery(userId: string) {
-  return useQuery(['taskGroups', userId], () =>
+  return useQuery([TASK_GROUPS_QUERY_KEY, userId], () =>
     api.getTaskGroupsOfUser(userId),
   );
 }
 export function useGetTasksOfUserQuery(userId: string) {
-  return useQuery(['tasks', userId], () => api.getTasksOfUser(userId));
+  return useQuery([TASKS_QUERY_KEY, userId], () => api.getTasksOfUser(userId));
 }
 export function useGetCandidatesQuery() {
-  return useQuery(['candidates'], () => api.getCandidates());
+  return useQuery([CANDIDATES_QUERY_KEY], () => api.getCandidates());
 }
 
 export function useGetUserProfile(userId: string) {
-  return useQuery(['userDetails', userId], () => api.getUser(userId));
+  return useQuery([USER_DETAILS_QUERY_KEY, userId], () => api.getUser(userId));
 }
 
 function mutationWrapper<

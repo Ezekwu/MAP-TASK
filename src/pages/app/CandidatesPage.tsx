@@ -1,14 +1,18 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { useGetCandidatesQuery } from '../../api/queries';
+import { useGetCandidatesQuery, useRecordUserQuery } from '../../api/queries';
+import { CANDIDATES_QUERY_KEY } from '../../api/queryKeys';
 import TheTopNav from '../../components/layout/TheTopNav';
-import UiAvatar from '../../components/ui/UiAvatar';
 import { DropDownData } from '../../components/ui/UiDropdownMenu';
 import UiInput from '../../components/ui/UiInput';
-import UiLoader from '../../components/ui/UiLoader';
 import UiTable from '../../components/ui/UiTable';
+import UserProfile from '../../components/user/UserProfile';
 
 export default function CandidatesPage() {
+  const queryClient = useQueryClient();
   const { data: candidates } = useGetCandidatesQuery();
+  const { request: recordUserRequest } =
+    useRecordUserQuery();
 
   const tableHeaders = [
     {
@@ -31,16 +35,8 @@ export default function CandidatesPage() {
         func: promoteToHr,
       },
       {
-        label: 'Move to next stage',
-        func: moveApplicantToNextStage,
-      },
-      {
         label: 'Schedule Next Steps',
         func: scheduleNextSteps,
-      },
-      {
-        label: 'Disqualify Applicant',
-        func: disqualifyApplicant,
       },
     ];
   }
@@ -49,28 +45,28 @@ export default function CandidatesPage() {
     return (
       candidates?.map((candidate) => ({
         ...candidate,
-        user: (
-          <div className="flex items-center gap-2">
-            <div>
-              <UiAvatar />
-            </div>
-            <div className="w-3/5">
-              <div className="text-sm font-semibold text-gray-500">
-                {candidate.name}
-              </div>
-              <div className="line-clamp-1 truncate text-ellipsis text-xs text-gray-300">
-                {candidate.email}
-              </div>
-            </div>
-          </div>
-        ),
+        user: <UserProfile name={candidate.name} subtitle={candidate.email} />,
       })) || []
     );
   }, [candidates]);
 
-  function promoteToHr(userId?: string) {}
-  function disqualifyApplicant(userId?: string) {}
-  function moveApplicantToNextStage(userId?: string) {}
+  function promoteToHr(userId?: string) {
+    if (!userId) {
+      alert('candidate id must be present to carry out this operation')
+      return;
+    }
+    const userData = candidates?.find(({ _id }) => _id === userId)
+
+    if (!userData) {
+      alert("Candidate does not exist")
+      return;
+    }
+
+    recordUserRequest({...userData, role: 'hr'}).then(() => {
+      queryClient.invalidateQueries([CANDIDATES_QUERY_KEY])
+    })
+
+  }
   function scheduleNextSteps(userId?: string) {}
 
   return (

@@ -2,7 +2,6 @@ import { expect, describe, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
 
 import UiDropdownMenu from './UiDropdownMenu';
-import OnChangeParams from '../../types/OnChangeParams';
 
 describe('src/components/ui/UiDropdownMenu.tsx', () => {
   it('UiDropdownMenu sends data to parent component.', async () => {
