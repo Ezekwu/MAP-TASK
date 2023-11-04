@@ -49,6 +49,10 @@ export default function RegistrationPage() {
         ...data,
       } as User;
       recordUserRequest(userData).then(() => {
+        if (userData.role !== 'hr') {
+          alert('Applied successfully');
+          return;
+        }
         localStorage.setItem('uid', userData._id);
         window.location.reload();
       });
