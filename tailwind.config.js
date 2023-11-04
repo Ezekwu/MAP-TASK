@@ -9,6 +9,8 @@ export default {
         danger: "#EB5757",
         "danger-10": "#EB575710",
         primary: "#007AFF",
+        "primary-05": "#007AFF05",
+        "primary-10": "#007AFF10",
         "danger-100": "#EB575710",
         "gray-10": "#F8F8F8",
         "gray-25": "#F9F9F9",
