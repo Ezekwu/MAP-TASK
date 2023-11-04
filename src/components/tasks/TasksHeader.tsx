@@ -37,7 +37,7 @@ export default function TasksHeader({
             variant="light"
             value={taskGroupName}
             onChange={({ value }) => {
-              setTaskGroupName(value!);
+              setTaskGroupName(value! as string);
             }}
           />
           <div className="flex justify-end gap-2">

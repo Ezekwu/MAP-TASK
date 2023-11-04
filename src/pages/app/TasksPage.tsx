@@ -111,7 +111,7 @@ export default function TasksPage() {
           value={searchQuery}
           name="searchQuery"
           placeholder="Search for tasks"
-          onChange={({ value }) => setSearchQuery(value!)}
+          onChange={({ value }) => setSearchQuery(value! as string)}
         />
       </TheTopNav>
       <div className="p-4 flex gap-4 overflow-auto">
