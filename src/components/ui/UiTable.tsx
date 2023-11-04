@@ -32,6 +32,7 @@ export default function UiTable({ headers, data, options }: Props) {
           {headers.map((header, index) => (
             <th
               key={index}
+              data-testid={`ui-table-header-${header.query}`}
               className="py-2 px-4 text-sm font-medium text-gray-700"
             >
               {header.title}
@@ -44,7 +45,11 @@ export default function UiTable({ headers, data, options }: Props) {
         {data.map((item) => (
           <tr key={item._id} className="border-b border-gray-50">
             {headers.map((header, index) => (
-              <td key={index} className="p-4 text-sm text-gray-300 capitalize">
+              <td
+                data-testid={`ui-table-data-${header.query}`}
+                key={index}
+                className="p-4 text-sm text-gray-300 capitalize"
+              >
                 {item[header.query]}
               </td>
             ))}

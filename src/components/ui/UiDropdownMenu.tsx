@@ -22,7 +22,7 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
   }
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
-      <button onClick={() => setOptionsAreVisible(!optionsAreVisible)}>
+      <button data-testid="ui-dropdown-trigger" onClick={() => setOptionsAreVisible(!optionsAreVisible)}>
         {trigger || <DotsThreeOutlineVertical />}
       </button>
 
@@ -34,7 +34,7 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
           {options.map((option) => (
             <li
               className={`p-2 hover:bg-gray-25 text-sm rounded-sm cursor-pointer`}
-              data-testid="ui-dropdown-option"
+              data-testid={`ui-dropdown-option-${option.label}`}
               onClick={() => selectOption(option)}
             >
               {option.label}

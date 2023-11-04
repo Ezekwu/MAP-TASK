@@ -31,12 +31,16 @@ export default function CandidatesPage() {
         func: promoteToHr,
       },
       {
-        label: 'Disqualify Applicant',
-        func: disqualifyApplicant,
-      },
-      {
         label: 'Move to next stage',
         func: moveApplicantToNextStage,
+      },
+      {
+        label: 'Schedule Next Steps',
+        func: scheduleNextSteps,
+      },
+      {
+        label: 'Disqualify Applicant',
+        func: disqualifyApplicant,
       },
     ];
   }
@@ -67,6 +71,7 @@ export default function CandidatesPage() {
   function promoteToHr(userId?: string) {}
   function disqualifyApplicant(userId?: string) {}
   function moveApplicantToNextStage(userId?: string) {}
+  function scheduleNextSteps(userId?: string) {}
 
   return (
     <div>
