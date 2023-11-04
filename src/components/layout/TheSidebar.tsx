@@ -24,7 +24,7 @@ export default function TheSidebar() {
           icon: <SquaresFour size={20} />,
         },
         {
-          path: '/message',
+          path: '/calendar?',
           name: 'Message',
           icon: <Chat size={20} />,
         },
@@ -39,7 +39,7 @@ export default function TheSidebar() {
       name: 'Recruitment',
       routes: [
         {
-          path: '/jobs',
+          path: '/tasks?',
           name: 'Jobs',
           icon: <Suitcase size={20} />,
         },
@@ -49,7 +49,7 @@ export default function TheSidebar() {
           icon: <Users size={20} />,
         },
         {
-          path: '/referralss',
+          path: '/candidates?',
           name: 'My Referrals',
           icon: <UserList size={20} />,
         },
