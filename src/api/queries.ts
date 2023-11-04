@@ -1,11 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import api from '.';
 import AuthDetails from '../types/AuthDetails';
+import Schedule from '../types/Schedule';
 import Task from '../types/Task';
 import TaskGroup from '../types/TaskGroup';
 import User from '../types/User';
 import {
   CANDIDATES_QUERY_KEY,
+  GET_SCHEDULE_QUERY_KEY,
   TASKS_QUERY_KEY,
   TASK_GROUPS_QUERY_KEY,
   USER_DETAILS_QUERY_KEY,
@@ -29,7 +31,15 @@ export function useCreateTaskGroupQuery() {
 export function useCreateTaskQuery() {
   return mutationWrapper<Task>(api.createTask.bind(api));
 }
+export function useCreateScheduleQuery() {
+  return mutationWrapper<Schedule>(api.createSchedule.bind(api));
+}
 
+export function useGetScheduleOfUserQuery(userId: string) {
+  return useQuery([GET_SCHEDULE_QUERY_KEY, userId], () =>
+    api.getScheduleOfUser(userId),
+  );
+}
 export function useGetTaskGroupOfUserQuery(userId: string) {
   return useQuery([TASK_GROUPS_QUERY_KEY, userId], () =>
     api.getTaskGroupsOfUser(userId),

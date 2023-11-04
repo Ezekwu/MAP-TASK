@@ -15,8 +15,14 @@ interface Props {
   size?: 'sm' | 'lg';
   data?: { date: string | Dayjs; name: string; [key: string]: unknown }[];
   selectDate?: (day: Dayjs) => void;
+  itemNode?: (day: Dayjs) => React.ReactNode;
 }
-export default function CalendarWidget({ value, size, selectDate }: Props) {
+export default function CalendarWidget({
+  value,
+  size,
+  itemNode,
+  selectDate,
+}: Props) {
   const today = dayjs().format('YYYY-MM-DD');
 
   const [activeMonthDayReference, setActiveMonthDayReference] = useState(value);
@@ -128,6 +134,7 @@ export default function CalendarWidget({ value, size, selectDate }: Props) {
             size={size}
             isToday={day.date.format('YYYY-MM-DD') === today}
             day={day.date}
+            itemNode={(() => itemNode?.(day.date))()}
             isCurrentMonth={day.isCurrentMonth}
             dateClicked={selectDay}
           />

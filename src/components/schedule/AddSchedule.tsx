@@ -1,3 +1,4 @@
+import { uuidv4 } from '@firebase/util';
 import UiModal from '../ui/UiModal';
 import UiForm from '../ui/UiForm';
 import { useMemo, useState } from 'react';
@@ -6,9 +7,14 @@ import { Dayjs } from 'dayjs';
 import UiButton from '../ui/UiButton';
 import UiDatePicker from '../ui/UiDatePicker';
 import UiSelect from '../ui/UiSelect';
-import { useGetCandidatesQuery } from '../../api/queries';
+import {
+  useCreateScheduleQuery,
+  useGetCandidatesQuery,
+} from '../../api/queries';
 import UserProfile from '../user/UserProfile';
 import OnChangeParams from '../../types/OnChangeParams';
+import { useQueryClient } from '@tanstack/react-query';
+import { GET_SCHEDULE_QUERY_KEY } from '../../api/queryKeys';
 
 interface Props {
   isOpen: boolean;
@@ -16,11 +22,16 @@ interface Props {
   selectedDate: Dayjs;
 }
 export default function AddSchedule({ isOpen, selectedDate, onClose }: Props) {
+  const queryClient = useQueryClient();
+  const uid = localStorage.getItem('uid')!;
   const { data: candidates } = useGetCandidatesQuery();
+  const { request: createScheduleRequest, isLoading } =
+    useCreateScheduleQuery();
   const [formData, setFormData] = useState({
     name: '',
     userToInvite: '',
     date: selectedDate,
+    userId: uid,
   });
 
   const invitableCandidates = useMemo(() => {
@@ -42,7 +53,16 @@ export default function AddSchedule({ isOpen, selectedDate, onClose }: Props) {
     setFormData((data) => ({ ...data, [name]: value }));
   }
 
-  function createSchedule() {}
+  function createSchedule() {
+    createScheduleRequest({
+      ...formData,
+      date: formData.date.format('YYYY-MM-DD'),
+      _id: uuidv4(),
+    }).then(() => {
+      queryClient.invalidateQueries([GET_SCHEDULE_QUERY_KEY]);
+      onClose();
+    });
+  }
 
   return (
     <UiModal isOpen={isOpen} onClose={onClose} title="Add new Schedule">
@@ -55,6 +75,12 @@ export default function AddSchedule({ isOpen, selectedDate, onClose }: Props) {
               value={formData.name}
               label="What's this meeting for?"
             />
+            <UiDatePicker
+              name="date"
+              onChange={handleChange}
+              value={formData.date}
+              label="When is it scheduled for?"
+            />
             <UiSelect
               name="userToInvite"
               onChange={handleChange}
@@ -62,14 +88,7 @@ export default function AddSchedule({ isOpen, selectedDate, onClose }: Props) {
               value={formData.userToInvite}
               label="Who's invited?"
             />
-            <UiDatePicker
-              name="date"
-              onChange={handleChange}
-              value={formData.date}
-              label="When is it scheduled for?"
-            />
-
-            <UiButton>Create Schedule</UiButton>
+            <UiButton loading={isLoading}>Create Schedule</UiButton>
           </div>
         )}
       </UiForm>

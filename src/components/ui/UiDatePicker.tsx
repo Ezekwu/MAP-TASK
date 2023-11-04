@@ -56,12 +56,12 @@ export default function UiSelect({
           {calendarIsVisible ? <CaretUp /> : <CaretDown />}
         </button>
         {calendarIsVisible && (
-          <ul
-            data-testid="ui-select-options"
+          <div
+            data-testid="ui-date-picker-calendar"
             className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
           >
             <CalendarWidget value={value} size="sm" selectDate={selectDate} />
-          </ul>
+          </div>
         )}
       </UiField>
     </OutsideClickHandler>

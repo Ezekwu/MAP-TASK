@@ -7,6 +7,7 @@ interface Props {
   isToday: boolean;
   day: Dayjs;
   size?: 'sm' | 'lg';
+  itemNode?: React.ReactNode;
   dateClicked: (day: Dayjs) => void;
 }
 
@@ -14,6 +15,7 @@ export default function CalendarWidgetDayItem({
   day,
   isToday,
   size,
+  itemNode,
   isCurrentMonth,
   dateClicked,
 }: Props) {
@@ -43,6 +45,7 @@ export default function CalendarWidgetDayItem({
       >
         {label}
       </div>
+      {itemNode}
     </li>
   );
 }
