@@ -24,7 +24,6 @@ To Test the project
 npm run test
 ```
 
-
 ## Live URL
 
 You can find the hosted version of this application here: (Link)[https://school-dashboard-9k336unyi-hernysleek51.vercel.app/auth/login]
