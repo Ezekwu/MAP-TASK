@@ -11,8 +11,7 @@ import UserProfile from '../../components/user/UserProfile';
 export default function CandidatesPage() {
   const queryClient = useQueryClient();
   const { data: candidates } = useGetCandidatesQuery();
-  const { request: recordUserRequest } =
-    useRecordUserQuery();
+  const { request: recordUserRequest } = useRecordUserQuery();
 
   const tableHeaders = [
     {
@@ -52,20 +51,19 @@ export default function CandidatesPage() {
 
   function promoteToHr(userId?: string) {
     if (!userId) {
-      alert('candidate id must be present to carry out this operation')
+      alert('candidate id must be present to carry out this operation');
       return;
     }
-    const userData = candidates?.find(({ _id }) => _id === userId)
+    const userData = candidates?.find(({ _id }) => _id === userId);
 
     if (!userData) {
-      alert("Candidate does not exist")
+      alert('Candidate does not exist');
       return;
     }
 
-    recordUserRequest({...userData, role: 'hr'}).then(() => {
-      queryClient.invalidateQueries([CANDIDATES_QUERY_KEY])
-    })
-
+    recordUserRequest({ ...userData, role: 'hr' }).then(() => {
+      queryClient.invalidateQueries([CANDIDATES_QUERY_KEY]);
+    });
   }
   function scheduleNextSteps(userId?: string) {}
 

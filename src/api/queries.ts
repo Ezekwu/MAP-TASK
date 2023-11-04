@@ -4,7 +4,12 @@ import AuthDetails from '../types/AuthDetails';
 import Task from '../types/Task';
 import TaskGroup from '../types/TaskGroup';
 import User from '../types/User';
-import { CANDIDATES_QUERY_KEY, TASKS_QUERY_KEY, TASK_GROUPS_QUERY_KEY, USER_DETAILS_QUERY_KEY } from './queryKeys';
+import {
+  CANDIDATES_QUERY_KEY,
+  TASKS_QUERY_KEY,
+  TASK_GROUPS_QUERY_KEY,
+  USER_DETAILS_QUERY_KEY,
+} from './queryKeys';
 
 export function useRegisterQuery() {
   return mutationWrapper<AuthDetails>(api.createUserWithEmailAndPassword);

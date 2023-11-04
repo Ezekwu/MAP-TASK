@@ -22,7 +22,10 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
   }
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
-      <button data-testid="ui-dropdown-trigger" onClick={() => setOptionsAreVisible(!optionsAreVisible)}>
+      <button
+        data-testid="ui-dropdown-trigger"
+        onClick={() => setOptionsAreVisible(!optionsAreVisible)}
+      >
         {trigger || <DotsThreeOutlineVertical />}
       </button>
 
