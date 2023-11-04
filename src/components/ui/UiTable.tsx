@@ -23,7 +23,6 @@ interface Props {
   options?: DropDownData[] | ((row: Row) => DropDownData[]);
   onRowClick?: (id: string) => void;
 }
-
 export default function UiTable({ headers, data, options }: Props) {
   return (
     <table className="w-full text-left rounded overflow-hidden">
@@ -33,7 +32,7 @@ export default function UiTable({ headers, data, options }: Props) {
             <th
               key={index}
               data-testid={`ui-table-header-${header.query}`}
-              className="py-2 px-4 text-sm font-medium text-gray-700"
+              className="py-2 px-4 text-xs uppercase font-medium text-gray-700"
             >
               {header.title}
             </th>

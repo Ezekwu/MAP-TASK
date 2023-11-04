@@ -12,18 +12,17 @@ dayjs.extend(weekOfYear);
 
 interface Props {
   value: Dayjs;
+  size?: 'sm' | 'lg';
   data?: { date: string | Dayjs; name: string; [key: string]: unknown }[];
-  clickDay?: (day: Dayjs) => void;
+  selectDate?: (day: Dayjs) => void;
 }
-export default function CalendarWidget({
-  value,clickDay
-}: Props) {
+export default function CalendarWidget({ value, size, selectDate }: Props) {
   const today = dayjs().format('YYYY-MM-DD');
 
   const [activeMonthDayReference, setActiveMonthDayReference] = useState(value);
   const activeDate = useMemo(() => {
     return activeMonthDayReference || dayjs();
-  }, [value]);
+  }, [activeMonthDayReference]);
 
   const yearOfActiveDate = useMemo(() => {
     return dayjs(activeDate).year();
@@ -44,7 +43,7 @@ export default function CalendarWidget({
         isCurrentMonth: true,
       };
     });
-  }, [numberOfDaysInSelectedMonth]);
+  }, [numberOfDaysInSelectedMonth, yearOfActiveDate, monthOfActiveDate]);
 
   const visibleDaysInPreviousMonth = useMemo(() => {
     const firstDayOfTheMonthWeekday = getWeekday(daysInSelectedMonth[0].date);
@@ -112,20 +111,21 @@ export default function CalendarWidget({
   }
 
   function selectDay(e: Dayjs) {
-    clickDay?.(e);
+    selectDate?.(e);
   }
 
   return (
     <div className="calendar">
       <CalenderWidgetMonthNavigator
         selectedDate={activeMonthDayReference}
-        selectMonth={selectMonth}
+        changeMonth={selectMonth}
       />
       <CalendarWidgetWeekDays />
       <ol className="grid grid-cols-7">
         {visibleDays.map((day, index) => (
           <CalenderWidgetDayItem
             key={index}
+            size={size}
             isToday={day.date.format('YYYY-MM-DD') === today}
             day={day.date}
             isCurrentMonth={day.isCurrentMonth}

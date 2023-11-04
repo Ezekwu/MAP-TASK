@@ -3,15 +3,12 @@ import { CaretDown, CaretUp } from '@phosphor-icons/react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
-
-interface Option {
-  label: React.ReactNode;
-  value: string;
-}
+import dayjs, { Dayjs } from 'dayjs';
+import CalendarWidget from '../calendar/CalendarWidget';
 
 interface Props {
   label?: string;
-  value: string | null | number;
+  value: Dayjs;
   placeholder?: string;
   /** The name property should always be the same as the model value. example if the input belongs to
    * formData.confirm_password, the name prop should be confirm_password.
@@ -19,65 +16,51 @@ interface Props {
   name: string;
   error?: string;
   disabled?: boolean;
-  options: Option[];
-  inputRef?: React.RefObject<HTMLInputElement>;
   onChange: (event: OnChangeParams) => void;
 }
 export default function UiSelect({
-  value,
+  value = dayjs(),
   label,
-  placeholder = 'Select from the options',
+  placeholder = 'Pick a date from the calendar',
   name,
-  options,
   error,
   onChange,
 }: Props) {
-  const [optionsAreVisible, setOptionsAreVisible] = useState(false);
+  const [calendarIsVisible, setCalendarIsVisible] = useState(false);
   const valueLabel = useMemo(() => {
     if (!value) return placeholder;
 
-    return (
-      options.find((option) => value === option.value)?.label || placeholder
-    );
+    return value.format('YYYY-MM-DD');
   }, [value]);
 
-  function selectOption(value: string) {
+  function selectDate(value: Dayjs) {
     onChange({ name, value });
-    setOptionsAreVisible(false);
+    setCalendarIsVisible(false);
   }
   return (
-    <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
+    <OutsideClickHandler onOutsideClick={() => setCalendarIsVisible(false)}>
       <UiField error={error} label={label}>
         <button
           type="button"
           data-testid="ui-select-trigger"
-          style={{ minHeight: '48px' }}
-          className={`outline-none rounded-md w-full border text-left text-xs py-2  flex items-center justify-between px-4 ${
+          className={`outline-none rounded-md w-full border text-left text-xs py-2  flex items-center h-12 justify-between px-4 ${
             !!error
               ? 'bg-danger-100 placeholder:text-danger border-danger'
               : `bg-white border-gray-50`
           }`}
-          onClick={() => setOptionsAreVisible(!optionsAreVisible)}
+          onClick={() => setCalendarIsVisible(!calendarIsVisible)}
         >
           <div className="w-full">
             {!!valueLabel ? valueLabel : placeholder}
           </div>
-          {optionsAreVisible ? <CaretUp /> : <CaretDown />}
+          {calendarIsVisible ? <CaretUp /> : <CaretDown />}
         </button>
-        {optionsAreVisible && (
+        {calendarIsVisible && (
           <ul
             data-testid="ui-select-options"
             className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
           >
-            {options.map((option) => (
-              <li
-                className={`p-2 hover:bg-gray-25 text-sm rounded-sm`}
-                data-testid="ui-select-option"
-                onClick={() => selectOption(option.value)}
-              >
-                {option.label}
-              </li>
-            ))}
+            <CalendarWidget value={value} size="sm" selectDate={selectDate} />
           </ul>
         )}
       </UiField>
