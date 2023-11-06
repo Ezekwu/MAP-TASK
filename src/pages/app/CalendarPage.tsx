@@ -29,8 +29,11 @@ export default function CalendarPage() {
     return (
       <div className="grid gap-1">
         {schedule
-          ?.filter(({ date }) => date === day.format('YYYY-MM-DD')).slice(0, 4)
-          .map((s) => <div className="bg-primary-10 text-xs p-1 truncate">{s.name}</div>)}
+          ?.filter(({ date }) => date === day.format('YYYY-MM-DD'))
+          .slice(0, 4)
+          .map((s) => (
+            <div className="bg-primary-10 text-xs p-1 truncate">{s.name}</div>
+          ))}
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { CaretDown, CaretUp } from '@phosphor-icons/react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
+import UiDropdownItem from './UiDropdownItem';
 
 interface Option {
   label: React.ReactNode;
@@ -69,14 +70,13 @@ export default function UiSelect({
             data-testid="ui-select-options"
             className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
           >
-            {options.map((option) => (
-              <li
-                className={`p-2 hover:bg-gray-25 text-sm rounded-sm`}
-                data-testid="ui-select-option"
-                onClick={() => selectOption(option.value)}
-              >
-                {option.label}
-              </li>
+            {options.map((option, index) => (
+              <UiDropdownItem
+                key={index}
+                dataTestId="ui-select-option"
+                label={option.label}
+                func={() => selectOption(option.value)}
+              />
             ))}
           </ul>
         )}

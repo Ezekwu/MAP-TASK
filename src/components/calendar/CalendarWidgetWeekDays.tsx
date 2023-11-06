@@ -4,7 +4,10 @@ export default function CalendarWidgetWeekDays() {
   return (
     <ul className="grid grid-cols-7">
       {weekdays.map((weekday, index) => (
-        <li key={index} className="p-1 text-left text-xs -mb-12 dark:text-gray-900">
+        <li
+          key={index}
+          className="p-1 text-left text-xs -mb-12 dark:text-gray-900"
+        >
           {weekday}
         </li>
       ))}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DotsThreeOutlineVertical } from '@phosphor-icons/react';
 import OutsideClickHandler from 'react-outside-click-handler';
+import UiDropdownItem from './UiDropdownItem';
 
 export interface DropDownData {
   label: string;
@@ -32,16 +33,16 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
       {optionsAreVisible && (
         <ul
           data-testid="ui-dropdown-options"
-          className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-20 p-2 w-full"
+          className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-20 p-2"
         >
-          {options.map((option) => (
-            <li
-              className={`p-2 hover:bg-gray-25 text-sm rounded-sm cursor-pointer`}
-              data-testid={`ui-dropdown-option-${option.label}`}
-              onClick={() => selectOption(option)}
-            >
-              {option.label}
-            </li>
+          {options.map((option, index) => (
+            
+            <UiDropdownItem
+              key={index}
+              dataTestId={`ui-dropdown-option-${option.label}`}
+              label={option.label}
+              func={() => selectOption(option)}
+            />
           ))}
         </ul>
       )}
