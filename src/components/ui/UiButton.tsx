@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import UiLoader from './UiLoader';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   loading?: boolean;
   size?: 'lg' | 'sm';
   type?: 'button' | 'submit';
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 export default function UiButton({
   children,
@@ -21,7 +22,7 @@ export default function UiButton({
   onClick,
 }: Props) {
   const variantClasses = {
-    primary: 'bg-primary text-white ',
+    primary: 'bg-primary text-white',
     neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
     transparent: 'bg-transparent hover:bg-gray-10 text-gray-900',
   };

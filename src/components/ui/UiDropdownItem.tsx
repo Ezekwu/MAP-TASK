@@ -3,11 +3,7 @@ interface Props {
   func: () => void;
   dataTestId: string;
 }
-export default function UiDropdownItem({
-  dataTestId,
-  label,
-  func,
-}: Props) {
+export default function UiDropdownItem({ dataTestId, label, func }: Props) {
   return (
     <li
       className={`p-2 hover:bg-gray-25 text-sm rounded-sm`}

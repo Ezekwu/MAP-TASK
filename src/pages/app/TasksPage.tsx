@@ -1,12 +1,13 @@
 import { Plus } from '@phosphor-icons/react';
 import { useMemo, useState } from 'react';
 import TheTopNav from '../../components/layout/TheTopNav';
-import Tasks from '../../components/tasks/Tasks';
+import TaskList from '../../components/tasks/TaskList';
 import UiButton from '../../components/ui/UiButton';
 import TaskGroup from '../../types/TaskGroup';
 import { uuidv4 } from '@firebase/util';
 import {
   useCreateTaskGroupQuery,
+  useCreateTaskQuery,
   useGetTaskGroupOfUserQuery,
   useGetTasksOfUserQuery,
 } from '../../api/queries';
@@ -14,18 +15,30 @@ import UiModal from '../../components/ui/UiModal';
 import CreateTask from '../../components/tasks/CreateTask';
 import Task from '../../types/Task';
 import UiInput from '../../components/ui/UiInput';
+import { useQueryClient } from '@tanstack/react-query';
+import { TASKS_QUERY_KEY } from '../../api/queryKeys';
+import UiSelect from '../../components/ui/UiSelect';
+import { priorities } from '../../config/constants';
 
 export default function TasksPage() {
-  // TODO: fix issue with overflow
   const uid = localStorage.getItem('uid')!;
   const { request } = useCreateTaskGroupQuery();
   const { data: remoteTaskGroups } = useGetTaskGroupOfUserQuery(uid);
   const [localTaskGroups, setLocalTaskGroups] = useState<TaskGroup[]>([]);
-  const [localTasks, setLocalTasks] = useState<Task[]>([]);
+  const { request: createTaskRequest } = useCreateTaskQuery();
   const { data: remoteTasks } = useGetTasksOfUserQuery(uid);
   const [createTaskIsVisible, setCreateTaskIsVisible] = useState(false);
   const [activeTaskGroupId, setActiveTaskGroupId] = useState('');
+  const [activeTaskId, setActiveTaskId] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterPriorityQuery, setFilterPriorityQuery] = useState('');
+
+  const queryClient = useQueryClient();
+
+  const priorityOptions = priorities.map((priority) => ({
+    label: priority,
+    value: priority,
+  }));
 
   const taskGroups = useMemo<TaskGroup[]>(
     () => [
@@ -36,15 +49,18 @@ export default function TasksPage() {
   );
 
   const tasks = useMemo<Task[]>(() => {
-    const unfilteredTasks = [
-      ...localTasks,
-      ...(remoteTasks?.length ? remoteTasks : []),
-    ];
+    let taskArr = remoteTasks || [];
+    
+    if (searchQuery) taskArr = searchTasks(taskArr);
 
-    if (searchQuery) return searchTasks(unfilteredTasks);
+    if (filterPriorityQuery) taskArr = taskArr.filter(({ priority }) => priority === filterPriorityQuery)
 
-    return unfilteredTasks;
-  }, [localTasks, remoteTasks, searchQuery]);
+    return taskArr;
+  }, [remoteTasks, searchQuery, filterPriorityQuery]);
+
+  const taskToUpdate = useMemo<Task | null>(() => {
+    return tasks.find(({ _id }) => _id === activeTaskId) || null;
+  }, [activeTaskId]);
 
   function searchTasks(unfilteredTasks: Task[]): Task[] {
     if (!searchQuery) {
@@ -59,6 +75,7 @@ export default function TasksPage() {
   function filterTasksByGroupId(groupId: string) {
     return tasks.filter(({ taskGroupId }) => taskGroupId === groupId);
   }
+
   function addTaskGroup() {
     const newTaskGroup: TaskGroup = {
       name: '',
@@ -73,6 +90,17 @@ export default function TasksPage() {
     setLocalTaskGroups((curr) =>
       curr.filter((taskGroup) => taskGroup._id !== id),
     );
+  }
+
+  function changeGroupOfTask(taskId: string, taskGroupId: string) {
+    const task = tasks.find(({ _id }) => taskId === _id);
+    if (!task) {
+      alert('Task does not exist');
+      return;
+    }
+    createTaskRequest({ ...task, taskGroupId }).then(() => {
+      queryClient.invalidateQueries([TASKS_QUERY_KEY]);
+    });
   }
 
   function saveTaskGroup(newTaskGroup: TaskGroup) {
@@ -91,13 +119,18 @@ export default function TasksPage() {
     setActiveTaskGroupId(taskGroupId);
     setCreateTaskIsVisible(true);
   }
+  function initUpdateTask(taskId: string) {
+    setActiveTaskId(taskId);
+    setCreateTaskIsVisible(true);
+  }
 
   function closeCreateTask() {
     setCreateTaskIsVisible(false);
+    setActiveTaskId('');
   }
 
-  function setNewTaskAndCloseCreateTask(newlyAddedTask: Task) {
-    setLocalTasks((curr) => [...curr, newlyAddedTask]);
+  function setNewTaskAndCloseCreateTask() {
+    queryClient.invalidateQueries([TASKS_QUERY_KEY]);
     closeCreateTask();
   }
 
@@ -107,20 +140,35 @@ export default function TasksPage() {
         pageTitle="Tasks"
         subtitle="Add personal tasks for your to-do list"
       >
-        <UiInput
-          value={searchQuery}
-          name="searchQuery"
-          placeholder="Search for tasks"
-          onChange={({ value }) => setSearchQuery(value! as string)}
-        />
+        <div className="flex gap-2">
+          <div className="w-full">
+            <UiInput
+              value={searchQuery}
+              name="searchQuery"
+              placeholder="Search for tasks"
+              onChange={({ value }) => setSearchQuery(value! as string)}
+            />
+          </div>
+          <div className="w-32">
+            <UiSelect
+              value={filterPriorityQuery}
+              options={priorityOptions}
+              name="filterPriorityQuery"
+              placeholder="All"
+              onChange={({ value }) => setFilterPriorityQuery(value! as string)}
+            />
+          </div>
+        </div>
       </TheTopNav>
       <div className="p-4 flex gap-4 overflow-auto">
         {taskGroups.map((taskGroup, index) => (
-          <Tasks
+          <TaskList
             key={index}
             tasks={filterTasksByGroupId(taskGroup._id)}
             taskGroup={taskGroup}
             createTask={initCreateTask}
+            updateTask={initUpdateTask}
+            changeGroupOfTask={changeGroupOfTask}
             removeUnsavedTaskGroup={removeUnsavedTaskGroup}
             saveTaskGroup={saveTaskGroup}
           />
@@ -138,7 +186,8 @@ export default function TasksPage() {
       >
         <CreateTask
           taskGroupId={activeTaskGroupId}
-          finishCreatingTask={setNewTaskAndCloseCreateTask}
+          task={taskToUpdate}
+          taskRequestCompleted={setNewTaskAndCloseCreateTask}
         />
       </UiModal>
     </div>

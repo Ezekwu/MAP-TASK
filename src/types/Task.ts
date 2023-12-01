@@ -3,4 +3,6 @@ export default interface Task {
   _id: string;
   taskGroupId: string;
   userId: string;
+  description: string;
+  priority: string;
 }

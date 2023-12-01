@@ -18,7 +18,7 @@ interface Props {
   disabled?: boolean;
   onChange: (event: OnChangeParams) => void;
 }
-export default function UiSelect({
+export default function UiDatePicker({
   value = dayjs(),
   label,
   placeholder = 'Pick a date from the calendar',

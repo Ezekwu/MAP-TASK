@@ -36,7 +36,6 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
           className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-20 p-2"
         >
           {options.map((option, index) => (
-            
             <UiDropdownItem
               key={index}
               dataTestId={`ui-dropdown-option-${option.label}`}

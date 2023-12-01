@@ -1,4 +1,5 @@
 import { Plus } from '@phosphor-icons/react';
+import React from 'react';
 import Task from '../../types/Task';
 import TaskGroup from '../../types/TaskGroup';
 import UiButton from '../ui/UiButton';
@@ -11,6 +12,8 @@ interface Props {
   removeUnsavedTaskGroup: (taskId: string) => void;
   saveTaskGroup: (taskGrup: TaskGroup) => void;
   createTask: (taskGroupId: string) => void;
+  updateTask: (taskId: string) => void;
+  changeGroupOfTask: (taskId: string, taskGroupId: string) => void;
 }
 export default function Tasks({
   taskGroup,
@@ -18,9 +21,20 @@ export default function Tasks({
   removeUnsavedTaskGroup,
   createTask,
   saveTaskGroup,
+  updateTask,
+  changeGroupOfTask,
 }: Props) {
+  function acceptTask(e: React.DragEvent) {
+    const taskId = e.dataTransfer?.getData('taskId');
+    changeGroupOfTask(taskId, taskGroup._id);
+  }
   return (
-    <div className="bg-gray-50 p-2 rounded-lg min-h-screen w-80">
+    <div
+      className="bg-gray-50 p-2 rounded-lg min-h-screen w-80"
+      onDrop={acceptTask}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => e.preventDefault()}
+    >
       <TasksHeader
         taskGroupDetails={taskGroup}
         removeUnsavedTaskGroup={removeUnsavedTaskGroup}
@@ -28,7 +42,13 @@ export default function Tasks({
       />
       <div className="grid gap-2 mt-4">
         {tasks.map((task) => (
-          <TaskDetails name={task.name} key={task._id} />
+          <TaskDetails
+            name={task.name}
+            taskId={task._id}
+            priority={task.priority}
+            key={task._id}
+            updateTask={() => updateTask(task._id)}
+          />
         ))}
       </div>
       <div className="my-12">
