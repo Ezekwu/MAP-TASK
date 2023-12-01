@@ -35,10 +35,17 @@ export default function TasksPage() {
 
   const queryClient = useQueryClient();
 
-  const priorityOptions = priorities.map((priority) => ({
-    label: priority,
-    value: priority,
-  }));
+  const priorityOptions = [
+    {
+      label: 'All',
+      value: '',
+    },
+  ].concat(
+    priorities.map((priority) => ({
+      label: priority,
+      value: priority,
+    })),
+  );
 
   const taskGroups = useMemo<TaskGroup[]>(
     () => [
@@ -50,10 +57,13 @@ export default function TasksPage() {
 
   const tasks = useMemo<Task[]>(() => {
     let taskArr = remoteTasks || [];
-    
+
     if (searchQuery) taskArr = searchTasks(taskArr);
 
-    if (filterPriorityQuery) taskArr = taskArr.filter(({ priority }) => priority === filterPriorityQuery)
+    if (filterPriorityQuery)
+      taskArr = taskArr.filter(
+        ({ priority }) => priority === filterPriorityQuery,
+      );
 
     return taskArr;
   }, [remoteTasks, searchQuery, filterPriorityQuery]);
