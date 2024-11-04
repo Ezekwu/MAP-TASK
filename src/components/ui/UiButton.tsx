@@ -1,16 +1,30 @@
 import { MouseEventHandler } from 'react';
 import UiLoader from './UiLoader';
 
+const sizeClasses = {
+  lg: 'h-[43px] text-base leading-5',
+  md: 'h-[34px] text-sm',
+  sm: 'h-8 text-xs leading-5',
+};
+
+const variantClasses = {
+  primary: 'bg-primary text-white',
+  neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
+  transparent: 'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
+};
+
 interface Props {
   children: React.ReactNode;
-  variant?: 'primary' | 'neutral' | 'transparent';
+  variant?: keyof typeof variantClasses;
   block?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  size?: 'lg' | 'sm';
+  size?: keyof typeof sizeClasses;
   type?: 'button' | 'submit';
+  injectedClasses?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
+
 export default function UiButton({
   children,
   variant = 'primary',
@@ -19,20 +33,15 @@ export default function UiButton({
   size = 'lg',
   type = 'submit',
   block,
+  injectedClasses,
   onClick,
 }: Props) {
-  const variantClasses = {
-    primary: 'bg-primary text-white',
-    neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
-    transparent: 'bg-transparent hover:bg-gray-10 text-gray-900',
-  };
+  
   return (
     <button
-      className={`outline-none rounded-md px-4 ${
-        size === 'lg' ? 'h-12 text-md' : 'h-8 text-sm'
-      } flex gap-2 items-center justify-center  ${block && 'w-full'} ${
-        variantClasses[variant]
-      }`}
+      className={`outline-none rounded-2xl px-4 flex gap-2 items-center justify-center font-semibold ${
+        block && 'w-full'
+      } ${variantClasses[variant]} ${sizeClasses[size]} ${injectedClasses}`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"

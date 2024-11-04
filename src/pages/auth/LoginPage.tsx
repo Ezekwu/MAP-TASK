@@ -33,7 +33,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <h1 className="my-8 font-bold text-lg">Welcome back! </h1>
+      {/* <h1 className="my-8 font-bold text-lg">Welcome back! </h1>
       <UiForm formData={formData} schema={LoginSchema} onSubmit={loginUser}>
         {({ errors }) => (
           <div className="grid gap-4">
@@ -65,7 +65,7 @@ export default function LoginPage() {
             </p>
           </div>
         )}
-      </UiForm>
+      </UiForm> */}
     </>
   );
 }

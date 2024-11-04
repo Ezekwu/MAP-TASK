@@ -1,84 +1,36 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useRecordUserQuery, useRegisterQuery } from '../../api/queries';
-import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import UiSelect from '../../components/ui/UiSelect';
-import OnChangeParams from '../../types/OnChangeParams';
-import User from '../../types/User';
-import RegistrationSchema from '../../utils/schemas/RegistrationSchema';
+import UiButton from '../../components/ui/UiButton';
+import UiIcon from '../../components/ui/UiIcon';
+import { Link } from 'react-router-dom';
+
 
 export default function RegistrationPage() {
-  const { request: registerUserRequest, isLoading: registerUserIsLoading } =
-    useRegisterQuery();
-  const { request: recordUserRequest, isLoading: recordUserIsLoading } =
-    useRecordUserQuery();
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: '',
-    role: '',
   });
-  const roleOptions = [
-    {
-      label: 'Hr',
-      value: 'hr',
-    },
-    {
-      label: 'Applicant',
-      value: 'applicant',
-    },
-  ];
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((currentValue) => ({
-      ...currentValue,
-      [name]: value,
-    }));
+
+  function registerUser() {
+
   }
 
-  async function registerUser() {
-    try {
-      const { uid } = (await registerUserRequest({
-        email: formData.email,
-        password: formData.password,
-      })) as { uid: string };
-      const { password, ...data } = formData;
-      const userData: User = {
-        _id: uid,
-        ...data,
-      } as User;
-      recordUserRequest(userData).then(() => {
-        if (userData.role !== 'hr') {
-          alert('Applied successfully');
-          return;
-        }
-        localStorage.setItem('uid', userData._id);
-        window.location.reload();
-      });
-    } catch (e) {
-      console.log(e);
-    }
+  function onChange() {
+    
   }
 
   return (
-    <>
-      <h1 className="my-8 font-bold text-lg">Nice to e-meet you!</h1>
-      <UiForm
-        formData={formData}
-        schema={RegistrationSchema}
-        onSubmit={registerUser}
-      >
+    <div className="w-full">
+      <h1 className="font-semibold text-[32px] leading-10 text-center mb-10">
+        Ready to Eatrite?
+      </h1>
+      <UiButton injectedClasses="mb-5" variant="transparent" block>
+        <UiIcon size="20" icon="Google" />
+        <p className="text-sm">Sign in with Google</p>
+      </UiButton>
+      <UiForm formData={formData} onSubmit={registerUser}>
         {({ errors }) => (
           <div className="grid gap-4">
-            <UiInput
-              placeholder="Enter your name"
-              label="Name"
-              value={formData.name}
-              name="name"
-              error={errors.name}
-              onChange={onChange}
-            />
             <UiInput
               placeholder="Enter your email"
               label="Email"
@@ -87,38 +39,16 @@ export default function RegistrationPage() {
               error={errors.email}
               onChange={onChange}
             />
-            <UiSelect
-              label="Role"
-              value={formData.role}
-              options={roleOptions}
-              name="role"
-              error={errors.role}
-              onChange={onChange}
-            />
-            <UiInput
-              placeholder="Enter your Password"
-              label="Password"
-              value={formData.password}
-              name="password"
-              type="password"
-              error={errors.password}
-              onChange={onChange}
-            />
-            <UiButton
-              block
-              loading={registerUserIsLoading || recordUserIsLoading}
-            >
-              Submit
-            </UiButton>
+            <UiButton block>Submit</UiButton>
             <p className="text-sm text-center">
-              Already a member?{' '}
+              Already have an account?
               <Link to="/auth/login" className="text-primary underline">
-                Login
+                Log in
               </Link>
             </p>
           </div>
         )}
       </UiForm>
-    </>
+    </div>
   );
 }
