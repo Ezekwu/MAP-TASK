@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
 
@@ -18,6 +17,7 @@ interface Props {
   disabled?: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   onChange: (event: OnChangeParams) => void;
+  hideLabel?: boolean;
 }
 export default function UiInput({
   type = 'text',
@@ -28,6 +28,7 @@ export default function UiInput({
   placeholder,
   disabled,
   error,
+  hideLabel,
   onChange,
 }: Props) {
   function sendValue(e: { target: { name: string; value: string } }) {
@@ -35,12 +36,12 @@ export default function UiInput({
   }
 
   return (
-    <UiField label={label} error={error}>
+    <UiField hideLabel={hideLabel} label={label} error={error}>
       <input
-        className={`outline-none rounded-md w-full border placeholder:text-sm text-xs  h-12 pl-4 ${
+        className={`outline-none rounded-2xl w-full  border placeholder:text-sm text-xs h-[52px] pl-4 ${
           !!error
             ? 'bg-danger-100 placeholder:text-danger border-danger'
-            : `bg-white border-gray-50`
+            : `bg-white border-gray-400 placeholder:text-gray-500`
         }`}
         data-testid="ui-input"
         placeholder={placeholder}

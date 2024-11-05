@@ -8,9 +8,9 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  primary: 'bg-primary text-white',
+  primary: 'bg-primary-500 text-white',
   neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
-  transparent: 'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
+  transparent: 'bg-transparent text-gray-1000 border border-gray-400',
 };
 
 interface Props {
