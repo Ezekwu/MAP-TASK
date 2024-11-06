@@ -13,12 +13,8 @@ export default function DashboardLayout() {
       <div className="hidden md:block">
         <TheSidebar />
       </div>
-      <div className="w-full md:w-4/6 h-screen overflow-auto bg-primary-05">
+      <div className="w-full md:w-5/6 h-screen overflow-auto bg-primary-05">
         {isLoading ? <UiLoader /> : <Outlet />}
-      </div>
-
-      <div className="hidden md:block w-1/6 mx-auto">
-        <ActivityPanel />
       </div>
     </div>
   );

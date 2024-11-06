@@ -1,62 +1,54 @@
-import {
-  SquaresFour,
-  ListBullets,
-  UserList,
-  SignOut,
-  Calendar,
-  Suitcase,
-  Users,
-  Chat,
-} from '@phosphor-icons/react';
+import { Calendar, SignOut, SquaresFour } from '@phosphor-icons/react';
 import { Link, useLocation } from 'react-router-dom';
 
-import AppLogo from '../../assets/app-logo.svg';
+import EatriteLogo from '../../assets/EatriteLogo.svg';
+import UiIcon, { Icons } from '../ui/UiIcon';
+
+interface Group {
+  name: string;
+  routes: Array<{
+    path: string;
+    name: string;
+    icon: Icons;
+  }>;
+}
 
 export default function TheSidebar() {
   const location = useLocation();
-  const routeGroups = [
+
+  const routeGroups: Group[] = [
     {
-      name: 'Menu',
+      name: 'MAIN MENU',
       routes: [
         {
           path: '/',
-          name: 'Dashboard',
-          icon: <SquaresFour size={20} />,
-        },
-        {
-          path: '/calendar?',
-          name: 'Message',
-          icon: <Chat size={20} />,
+          name: 'Overview',
+          icon: 'Overview',
         },
         {
           path: '/calendar',
           name: 'Calendar',
-          icon: <Calendar size={20} />,
+          icon: 'Calendar',
+        },
+        {
+          path: '/calendar',
+          name: 'Meal plans',
+          icon: 'Meal',
         },
       ],
     },
     {
-      name: 'Recruitment',
+      name: 'MORE',
       routes: [
         {
-          path: '/tasks?',
-          name: 'Jobs',
-          icon: <Suitcase size={20} />,
+          path: '/support',
+          name: 'Support',
+          icon: 'CustomerSupport',
         },
         {
-          path: '/candidates',
-          name: 'Candidates',
-          icon: <Users size={20} />,
-        },
-        {
-          path: '/candidates?',
-          name: 'My Referrals',
-          icon: <UserList size={20} />,
-        },
-        {
-          path: '/tasks',
-          name: 'Tasks',
-          icon: <ListBullets size={20} />,
+          path: '/settings',
+          name: 'Settings',
+          icon: 'Cog',
         },
       ],
     },
@@ -70,30 +62,29 @@ export default function TheSidebar() {
   }
 
   return (
-    <nav className="hidden relative md:block h-screen border-r-2 border-gray-25 w-64">
-      <div className="flex items-center justify-center mb-16 gap-2 py-4">
-        <img src={AppLogo} alt="school logo" />
-        <span className="text-2xl text-gray-500 font-bold">Human R.</span>
+    <nav className="hidden relative md:block h-screen bg-navigation-background w-60 pr-4">
+      <div className="py-8 px-6 mb-6">
+        <img src={EatriteLogo} alt="Eatrite logo" />
       </div>
 
       <ul>
         {routeGroups.map((group, index) => (
-          <li key={index}>
-            <div className="w-4/5 mx-auto p-2 text-sm text-gray-500">
+          <li key={index} className="mb-4">
+            <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
               {group.name}
             </div>
             <ul>
               {group.routes.map((route, index) => (
-                <li className="my-2 " key={index}>
+                <li key={index}>
                   <Link
                     to={route.path}
                     className={`${
                       activeRoute === route.path
-                        ? 'bg-primary text-white'
-                        : 'text-gray-300 hover:bg-primary hover:text-white'
-                    }  h-12 p-2 flex items-center gap-4 w-4/5 mx-auto rounded-lg text-sm `}
+                        ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
+                        : 'text-typography-inactive hover:text-typography-base'
+                    }  h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
                   >
-                    {route.icon}
+                    <UiIcon icon={route.icon} />
                     <span>{route.name}</span>
                   </Link>
                 </li>
