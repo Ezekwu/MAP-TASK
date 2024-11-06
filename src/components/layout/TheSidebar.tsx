@@ -1,7 +1,7 @@
-import { Calendar, SignOut, SquaresFour } from '@phosphor-icons/react';
 import { Link, useLocation } from 'react-router-dom';
 
 import EatriteLogo from '../../assets/EatriteLogo.svg';
+import UiButton from '../ui/UiButton';
 import UiIcon, { Icons } from '../ui/UiIcon';
 
 interface Group {
@@ -92,16 +92,18 @@ export default function TheSidebar() {
             </ul>
           </li>
         ))}
-        <li
-          className="h-12 p-0 cursor-pointer w-full mb-12 absolute bottom-0 flex border-l-4 text-gray-900 text-sm border-transparent hover:text-danger hover:border-danger hover:bg-danger-10 items-start mt-1"
-          onClick={logUserOut}
-        >
-          <div className="h-12 flex items-center gap-4 w-4/5 mx-auto">
-            <SignOut size={20} />
-            <span>Log out</span>
-          </div>
-        </li>
       </ul>
+      <div className="w-full mb-12 absolute bottom-0 flex items-center justify-between text-typography-base text-sm pl-7 pr-4">
+        <div className="flex gap-2 items-center">
+          <div className="rounded-full w-8 h-8 bg-neutral-600" />
+          <span className="text-sm text-typography-base font-medium">
+            Henry Eze{' '}
+          </span>
+        </div>
+        <UiButton rounded="sm" variant="neutral" onClick={logUserOut}>
+          <UiIcon icon="Logout" />
+        </UiButton>
+      </div>
     </nav>
   );
 }
