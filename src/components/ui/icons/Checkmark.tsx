@@ -10,8 +10,8 @@ export default function Checkmark() {
       <path
         d="M0.75 3.63095L3.78819 7.5L9.08333 1.25"
         stroke="white"
-        stroke-width="1.875"
-        stroke-linejoin="round"
+        strokeWidth="1.875"
+        strokeLinejoin="round"
       />
     </svg>
   );
