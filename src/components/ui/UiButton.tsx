@@ -13,7 +13,7 @@ const variantClasses = {
   transparent:
     'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
   dark: '',
-  gray: 'bg-gray-100 text-base',
+  gray: 'bg-gray-100 hover:bg-gray-200 text-base',
   'gray-outlined': '',
 };
 

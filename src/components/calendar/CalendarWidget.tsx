@@ -4,7 +4,7 @@ import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useMemo, useState } from 'react';
 
-import CalenderWidgetDayItem from './CalendarWidgetDayItem';
+import CalenderWidgetDataItem from './CalendarWidgetDataItem';
 import CalenderWidgetControls from './CalendarWidgetControls';
 import CalendarWidgetWeekDays from './CalendarWidgetWeekDays';
 dayjs.extend(weekday);
@@ -130,14 +130,12 @@ export default function CalendarWidget({
         <CalendarWidgetWeekDays />
         <ol className="grid grid-cols-7">
           {visibleDays.map((day, index) => (
-            <CalenderWidgetDayItem
+            <CalenderWidgetDataItem
               key={index}
               size={size}
-              isToday={day.date.format('YYYY-MM-DD') === today}
               day={day.date}
               itemNode={(() => itemNode?.(day.date))()}
               isCurrentMonth={day.isCurrentMonth}
-              dateClicked={selectDay}
             />
           ))}
         </ol>
