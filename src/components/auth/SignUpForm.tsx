@@ -26,10 +26,10 @@ export default function SignUpForm() {
 
   return (
     <div className="w-full">
-      <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
+      <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-10">
         Ready to Eatrite?
       </h2>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-8">
         <UiButton variant="transparent" block>
           <UiIcon size="20" icon="Google" />
           <p className="text-sm">Sign in with Google</p>

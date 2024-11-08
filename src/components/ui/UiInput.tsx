@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
 import UiIcon from './UiIcon';
@@ -35,6 +35,8 @@ export default function UiInput({
 }: Props) {
   const [inputType, setInputType] = useState(type);
 
+  const validationStyle = useMemo(() => {}, []);
+
   function sendValue(e: { target: { name: string; value: string } }) {
     onChange({ name: e.target.name, value: e.target.value });
   }
@@ -49,15 +51,11 @@ export default function UiInput({
   }
 
   return (
-    <UiField hideLabel={!label} label={label} error={error}>
+    <UiField label={label} error={error}>
       <div className="relative">
         {type === 'phone' ? (
           <div
-            className={`flex items-center gap-2 rounded-2xl w-full border  text-xs h-[52px] p-1 pl-4 ${
-              !!error
-                ? 'border-danger-700 placeholder:text-danger-700'
-                : `bg-white border-gray-400`
-            }`}
+            className={`flex items-center gap-2 rounded-2xl w-full border  text-xs h-[52px] p-1 pl-4 ${validationStyle}`}
           >
             <span className="text-gray-500 text-sm">+234</span>
             <PhoneInput
@@ -70,11 +68,7 @@ export default function UiInput({
           </div>
         ) : (
           <input
-            className={`outline-none text-gray-1000 rounded-2xl w-full border placeholder:text-sm placeholder:font-normal text-sm font-semibold h-[52px] pl-4 ${
-              !!error
-                ? 'border-danger-700 placeholder:text-danger-700'
-                : `bg-white border-gray-400 placeholder:text-gray-500`
-            }`}
+            className={`outline-none text-gray-1000 rounded-2xl w-full border placeholder:text-sm placeholder:font-normal text-sm font-semibold h-[52px] pl-4 ${validationStyle}`}
             data-testid="ui-input"
             placeholder={placeholder}
             type={inputType}

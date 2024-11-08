@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import { useState } from 'react';
 import OnChangeParams from '../../types/OnChangeParams';
 import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
 
@@ -10,6 +10,7 @@ export default function ForgotPasswordForm() {
   const [formData, setFormData] = useState({
     email: '',
   });
+
   function onChange({ name, value }: OnChangeParams) {
     setFormData((currentValue) => ({
       ...currentValue,

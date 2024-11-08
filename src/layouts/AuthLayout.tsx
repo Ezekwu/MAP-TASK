@@ -12,11 +12,12 @@ export default function AuthLayout() {
             Eatrite
           </h2>{' '}
         </div>
-        <div className="sm:max-w-[420px] px-4 box-border mx-auto pb-5">
+        <div className="sm:max-w-[450px] px-4 box-border mx-auto pb-5">
           <Outlet />
         </div>
       </div>
       <div className="hidden md:block md:w-[50%] lg:w-[45%] h-screen p-3 fixed -z-10 right-0">
+        {/* TODO: this should be a slideshow of some of our foods/reviews */}
         <div
           className="relative w-full h-full bg-no-repeat bg-center bg-cover rounded-2xl"
           style={{
