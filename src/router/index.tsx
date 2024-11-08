@@ -13,6 +13,9 @@ const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
 const TasksPage = lazy(() => import('../pages/app/TasksPage'));
 const RegistrationPage = lazy(() => import('../pages/auth/RegistrationPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
+const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
+
 const PageError = lazy(() => import('../components/errors/PageError'));
 
 const router = createBrowserRouter([
@@ -61,6 +64,14 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />,
+      },
+      {
+        path: 'reset-password',
+        element: <RestPassword />,
       },
     ],
   },

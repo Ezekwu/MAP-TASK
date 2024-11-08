@@ -4,20 +4,19 @@ import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   return (
-    <div className="flex overflow-y-auto">
-      <div className="w-[55%] h-screen">
-        <div className="flex items-center gap-2 py-7 px-5 mb-10">
-          {/* <img className="w-6" src={AppLogo} alt="App logo" /> */}
+    <div className="flex overflow-y-auto h-screen">
+      <div className="w-full h-screen md:w-[50%] lg:w-[55%] box-border">
+        <div className="flex items-center gap-2 py-4 sm:py-7 px-4 sm:px-5 mb-5 md:mb-10 2xl:mb-20">
           <span className="text-2xl">🥦</span>
           <h2 className="text-xl leading-10 font-semibold text-gray-1000">
             Eatrite
-          </h2>
+          </h2>{' '}
         </div>
-        <div className="flex items-center justify-center max-w-[420px] l mx-auto box-border pb-8">
+        <div className="sm:max-w-[420px] px-4 box-border mx-auto pb-5">
           <Outlet />
         </div>
       </div>
-      <div className="w-[45%] h-screen p-3 fixed -z-10 right-0">
+      <div className="hidden md:block md:w-[50%] lg:w-[45%] h-screen p-3 fixed -z-10 right-0">
         <div
           className="relative w-full h-full bg-no-repeat bg-center bg-cover rounded-2xl"
           style={{

@@ -1,7 +1,11 @@
+import Eye from '../../assets/icons/eye.svg?react';
+import EyeSlash from '../../assets/icons/eye-slash.svg?react';
 import Google from '../../assets/icons/google.svg?react';
 
 // These icons should be arranged alphabetically for easy sorting
 const icons = {
+  Eye,
+  EyeSlash,
   Google,
 };
 

@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLoginUserQuery } from '../../api/queries';
-import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
 import OnChangeParams from '../../types/OnChangeParams';
-import LoginSchema from '../../utils/schemas/LoginSchema';
-import UiIcon from '../../components/ui/UiIcon';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import UiButton from '../../components/ui/UiButton';
+import { Link } from 'react-router-dom';
+import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
 
-export default function LoginPage() {
-  const { request, isLoading } = useLoginUserQuery();
+export default function ResetPasswordPage() {
   const [formData, setFormData] = useState({
-    email: '',
     password: '',
+    confirm_password: '',
   });
   function onChange({ name, value }: OnChangeParams) {
     setFormData((currentValue) => ({
@@ -22,45 +18,41 @@ export default function LoginPage() {
     }));
   }
 
-  async function loginUser() {}
+  async function resetPassword() {}
 
   return (
     <div className="w-full">
       <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
-        Ready to Eatrite?
+        Reset password
       </h2>
-      <UiForm formData={formData} schema={SignUpSchema} onSubmit={loginUser}>
+      <UiForm
+        formData={formData}
+        schema={ResetPasswordSchema}
+        onSubmit={resetPassword}
+      >
         {({ errors }) => (
           <div className="grid gap-5">
             <UiInput
-              placeholder="Enter email address"
-              value={formData.email}
-              label="Email"
-              name="email"
-              error={errors.email}
-              onChange={onChange}
-            />
-            <UiInput
-              placeholder="Enter your password"
-              type="password"
+              label="New password"
+              placeholder="Enter new password"
               value={formData.password}
               name="password"
-              label="Password"
+              type="password"
               error={errors.password}
               onChange={onChange}
             />
-            <p className="text-xs">
-              Forgot password?{' '}
-              <Link
-                to="/auth/forgot-password"
-                className="text-primary font-bold"
-              >
-                Reset password
-              </Link>
-            </p>
+            <UiInput
+              label="Confirm password"
+              placeholder="Confirm new password"
+              value={formData.confirm_password}
+              name="confirm_password"
+              type="password"
+              error={errors.confirm_password}
+              onChange={onChange}
+            />
             <div className="mt-5">
               <UiButton variant="primary" block>
-                Submit
+                Reset password
               </UiButton>
             </div>
           </div>

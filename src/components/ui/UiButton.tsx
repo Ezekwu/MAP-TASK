@@ -9,7 +9,7 @@ const sizeClasses = {
 
 const variantClasses = {
   primary: 'bg-primary-500 text-white',
-  neutral: 'bg-gray-10 hover:bg-gray-50 text-gray-900',
+  neutral: 'bg-gray-300 text-gray-1000',
   transparent: 'bg-transparent text-gray-1000 border border-gray-400',
 };
 
@@ -21,7 +21,6 @@ interface Props {
   loading?: boolean;
   size?: keyof typeof sizeClasses;
   type?: 'button' | 'submit';
-  injectedClasses?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -33,15 +32,13 @@ export default function UiButton({
   size = 'lg',
   type = 'submit',
   block,
-  injectedClasses,
   onClick,
 }: Props) {
-  
   return (
     <button
-      className={`outline-none rounded-2xl px-4 flex gap-2 items-center justify-center font-semibold ${
+      className={`outline-none w-fit rounded-2xl px-5 flex gap-2 items-center justify-center font-semibold ${
         block && 'w-full'
-      } ${variantClasses[variant]} ${sizeClasses[size]} ${injectedClasses}`}
+      } ${variantClasses[variant]} ${sizeClasses[size]}`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"
