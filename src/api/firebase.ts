@@ -29,6 +29,6 @@
 
 // export default db;
 
-export const auth = ''
-const  db = ''
-export default db
+export const auth = '';
+const db = '';
+export default db;

@@ -8,9 +8,7 @@ import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 
 const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
-const CandidatesPage = lazy(() => import('../pages/app/CandidatesPage'));
 const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
-const TasksPage = lazy(() => import('../pages/app/TasksPage'));
 const RegistrationPage = lazy(() => import('../pages/auth/RegistrationPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 const PageError = lazy(() => import('../components/errors/PageError'));
@@ -31,14 +29,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <DashboardPage />,
-      },
-      {
-        path: '/tasks',
-        element: <TasksPage />,
-      },
-      {
-        path: '/candidates',
-        element: <CandidatesPage />,
       },
       {
         path: '/calendar',
