@@ -3,7 +3,7 @@ import UiLoader from './UiLoader';
 
 const sizeClasses = {
   sm: 'p-2',
-  md: '',
+  md: 'p-3',
   lg: '',
 };
 
@@ -13,7 +13,7 @@ const variantClasses = {
   transparent:
     'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
   dark: '',
-  gray: '',
+  gray: 'bg-gray-100 text-base',
   'gray-outlined': '',
 };
 

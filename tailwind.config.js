@@ -10,7 +10,13 @@ export default {
           500: '#009F67',
         },
         secondary: {},
-        gray: {},
+        gray: {
+          100: '#F7F7F8',
+          200: '#E3E3E8',
+          300: '#EEEEEE',
+          400: '#C3C3C3',
+          500: '#696969',
+        },
         neutral: {
           100: '',
           200: '',

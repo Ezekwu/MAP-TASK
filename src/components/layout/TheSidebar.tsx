@@ -31,7 +31,7 @@ export default function TheSidebar() {
           icon: 'Calendar',
         },
         {
-          path: '/calendar',
+          path: '/plans',
           name: 'Meal plans',
           icon: 'Meal',
         },

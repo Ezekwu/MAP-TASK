@@ -5,7 +5,7 @@ import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useMemo, useState } from 'react';
 
 import CalenderWidgetDayItem from './CalendarWidgetDayItem';
-import CalenderWidgetMonthNavigator from './CalendarWidgetMonthNavigator';
+import CalenderWidgetControls from './CalendarWidgetControls';
 import CalendarWidgetWeekDays from './CalendarWidgetWeekDays';
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -122,24 +122,26 @@ export default function CalendarWidget({
 
   return (
     <div className="calendar">
-      <CalenderWidgetMonthNavigator
+      <CalenderWidgetControls
         selectedDate={activeMonthDayReference}
-        changeMonth={selectMonth}
+        onChange={selectMonth}
       />
-      <CalendarWidgetWeekDays />
-      <ol className="grid grid-cols-7">
-        {visibleDays.map((day, index) => (
-          <CalenderWidgetDayItem
-            key={index}
-            size={size}
-            isToday={day.date.format('YYYY-MM-DD') === today}
-            day={day.date}
-            itemNode={(() => itemNode?.(day.date))()}
-            isCurrentMonth={day.isCurrentMonth}
-            dateClicked={selectDay}
-          />
-        ))}
-      </ol>
+      <div className="overflow-hidden rounded-t-2xl rounded-b-lg border border-gray-200">
+        <CalendarWidgetWeekDays />
+        <ol className="grid grid-cols-7">
+          {visibleDays.map((day, index) => (
+            <CalenderWidgetDayItem
+              key={index}
+              size={size}
+              isToday={day.date.format('YYYY-MM-DD') === today}
+              day={day.date}
+              itemNode={(() => itemNode?.(day.date))()}
+              isCurrentMonth={day.isCurrentMonth}
+              dateClicked={selectDay}
+            />
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }

@@ -1,16 +1,15 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
-import { useGetScheduleOfUserQuery } from '../../api/queries';
+// import { useGetScheduleOfUserQuery } from '../../api/queries';
 import CalendarWidget from '../../components/calendar/CalendarWidget';
 import TheTopNav from '../../components/layout/TheTopNav';
-import AddSchedule from '../../components/schedule/AddSchedule';
 import UiButton from '../../components/ui/UiButton';
 
 export default function CalendarPage() {
   const uid = localStorage.getItem('uid')!;
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [addScheduleIsVisible, setAddScheduleIsVisible] = useState(false);
-  const { data: schedule } = useGetScheduleOfUserQuery(uid);
+  // const { data: schedule } = useGetScheduleOfUserQuery(uid);
 
   function openAddSchedule() {
     setAddScheduleIsVisible(true);
@@ -28,12 +27,12 @@ export default function CalendarPage() {
   function getScheduleNodeOfParticularDate(day: Dayjs) {
     return (
       <div className="grid gap-1">
-        {schedule
+        {/* {schedule
           ?.filter(({ date }) => date === day.format('YYYY-MM-DD'))
           .slice(0, 4)
           .map((s) => (
             <div className="bg-primary-10 text-xs p-1 truncate">{s.name}</div>
-          ))}
+          ))} */}
       </div>
     );
   }
@@ -55,12 +54,6 @@ export default function CalendarPage() {
           selectDate={selectDate}
         />
       </div>
-      <AddSchedule
-        key={selectedDate.format('DD/MM/YYYY')}
-        isOpen={addScheduleIsVisible}
-        selectedDate={selectedDate}
-        onClose={resetAndCloseAddSchedule}
-      />
     </div>
   );
 }
