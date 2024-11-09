@@ -47,7 +47,7 @@ export default function UiToggleButton(props: Props) {
           }}
           className={`relative px-4 py-2 text-xs font-semibold rounded-lg transition-colors duration-300 ${
             option.value === props.active
-              ? 'text-typography-light bg-primary-500'
+              ? 'text-light bg-primary-500'
               : 'text-typography-secondary'
           }`}
           onClick={() => props.onSelect(option.value)}

@@ -19,7 +19,7 @@ const mealTypeConfigs = {
     time: '7:30 PM',
     timeColor: 'text-typography-highlight-soft',
     backgroundColor: 'bg-primary-500',
-    textColor: 'text-typography-light',
+    textColor: 'text-light',
   },
 };
 
@@ -39,9 +39,9 @@ const pastMealTypeConfigs = {
   },
   dinner: {
     time: '7:30 PM',
-    timeColor: 'text-typography-light',
+    timeColor: 'text-light',
     backgroundColor: 'bg-tertiary-1000',
-    textColor: 'text-typography-light',
+    textColor: 'text-light',
   },
 };
 

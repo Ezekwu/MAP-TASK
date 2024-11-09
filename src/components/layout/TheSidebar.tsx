@@ -111,7 +111,7 @@ export default function TheSidebar() {
           size="icon"
           onClick={logUserOut}
         >
-          <UiIcon icon="Logout" />
+          <UiIcon icon="Logout" size="12" />
         </UiButton>
       </div>
     </nav>

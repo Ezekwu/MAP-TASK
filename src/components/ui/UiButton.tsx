@@ -5,22 +5,26 @@ const sizeClasses = {
   lg: 'h-[43px] text-base leading-5',
   md: 'h-[34px] text-sm',
   sm: 'h-8 text-xs leading-5',
-  icon: 'w-8 h-8 box-border',
+  icon: 'w-6 h-8 box-border',
 };
 
 const variantClasses = {
   primary: 'bg-primary-500 text-white',
   neutral: 'bg-neutral-600 hover:bg-neutral-700 text-neutral-900',
-  dark: '',
+  secondary: 'bg-secondary-1500 text-light',
+  danger: 'bg-danger-200 text-light',
+  'danger-text': 'bg-light hover:bg-danger-100 text-danger-200',
+  'danger-light':
+    'bg-danger-100 hover:bg-danger-200 hover:text-light text-danger-200',
   tertiary: 'bg-tertiary-300 hover:bg-tertiary-500 text-typography-base',
   'tertiary-outlined':
-    'bg-[#fff] hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
+    'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
 };
 
 const roundedClasses = {
   sm: 'rounded-lg',
   md: 'rounded-2xl',
-  lg: '',
+  lg: 'rounded-3xl',
 };
 
 interface Props {

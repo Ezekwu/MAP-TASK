@@ -1,8 +1,8 @@
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import UiButton from '../ui/UiButton';
+import UiIcon from '../ui/UiIcon';
 import UiToggleButton from '../ui/UiToggleButton';
 
 export enum Display {
@@ -62,11 +62,11 @@ export default function CalendarWidgetControls({
     <div className="w-full flex flex-col-reverse xs:flex-row items-start xs:items-center justify-between gap-5 xs:gap-8 py-4 dark:text-gray-900">
       <div className="flex items-center w-full justify-between xs:justify-start gap-3 sm:gap-8 dark:text-gray-900">
         <UiButton variant="tertiary" size="icon" onClick={goToPrev}>
-          <ArrowLeft />
+          <UiIcon icon="CaretLeft" size="10" />
         </UiButton>
         <span className="text-sm font-semibold">{durationDisplayText}</span>
         <UiButton variant="tertiary" size="icon" onClick={goToNext}>
-          <ArrowRight />
+          <UiIcon icon="CaretRight" size="10" />
         </UiButton>
       </div>
       <UiToggleButton
