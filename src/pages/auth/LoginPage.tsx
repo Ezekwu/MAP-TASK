@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLoginUserQuery } from '../../api/queries';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
@@ -8,20 +7,14 @@ import OnChangeParams from '../../types/OnChangeParams';
 import LoginSchema from '../../utils/schemas/LoginSchema';
 import UiIcon from '../../components/ui/UiIcon';
 import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import useObjectState from '@/hooks/useObjectState';
 
 export default function LoginPage() {
-  const { request, isLoading } = useLoginUserQuery();
-  const [formData, setFormData] = useState({
+  const formData = useObjectState({
     email: '',
     password: '',
   });
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((currentValue) => ({
-      ...currentValue,
-      [name]: value,
-    }));
-  }
-
+  
   async function loginUser() {}
 
   return (
@@ -29,25 +22,25 @@ export default function LoginPage() {
       <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
         Ready to Eatrite?
       </h2>
-      <UiForm formData={formData} schema={SignUpSchema} onSubmit={loginUser}>
+      <UiForm formData={formData.value} schema={SignUpSchema} onSubmit={loginUser}>
         {({ errors }) => (
           <div className="grid gap-5">
             <UiInput
               placeholder="Enter email address"
-              value={formData.email}
+              value={formData.value.email}
               label="Email"
               name="email"
               error={errors.email}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <UiInput
               placeholder="Enter your password"
               type="password"
-              value={formData.password}
+              value={formData.value.password}
               name="password"
               label="Password"
               error={errors.password}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <p className="text-xs">
               Forgot password?{' '}
@@ -59,7 +52,11 @@ export default function LoginPage() {
               </Link>
             </p>
             <div className="mt-5">
-              <UiButton variant="primary" block>
+              <UiButton
+                size="lg"
+                rounded="md"
+                block
+              >
                 Submit
               </UiButton>
             </div>

@@ -9,8 +9,18 @@ const sizeClasses = {
 
 const variantClasses = {
   primary: 'bg-primary-500 text-white',
-  neutral: 'bg-gray-300 text-gray-1000',
-  transparent: 'bg-transparent text-gray-1000 border border-gray-400',
+  neutral: 'bg-neutral-600 hover:bg-neutral-700 text-neutral-900',
+  transparent:
+    'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
+  dark: '',
+  gray: 'bg-gray-400 trxt-gray-950',
+  'gray-outlined': '',
+};
+
+const roundedClasses = {
+  sm: 'rounded-lg',
+  md: 'rounded-2xl',
+  lg: '',
 };
 
 interface Props {
@@ -19,6 +29,7 @@ interface Props {
   block?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  rounded?: keyof typeof roundedClasses;
   size?: keyof typeof sizeClasses;
   type?: 'button' | 'submit';
   onClick?: MouseEventHandler<HTMLButtonElement>;
@@ -29,16 +40,19 @@ export default function UiButton({
   variant = 'primary',
   disabled,
   loading,
-  size = 'lg',
+  size = 'sm',
+  rounded = 'sm',
   type = 'submit',
   block,
   onClick,
 }: Props) {
   return (
     <button
-      className={`outline-none w-fit rounded-2xl px-5 flex gap-2 items-center justify-center font-semibold ${
+      className={`outline-none w-fit px-5 flex gap-2 items-center justify-center font-semibold ${
         block && 'w-full'
-      } ${variantClasses[variant]} ${sizeClasses[size]}`}
+      } ${variantClasses[variant]} ${sizeClasses[size]} ${
+        roundedClasses[rounded]
+      }`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"

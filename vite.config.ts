@@ -2,8 +2,9 @@ import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr';
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
+import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -13,6 +14,11 @@ export default defineConfig({
       devOptions: {
         enabled: true
       }
-    })
+    }),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, './src')
+    }
+  }
 })

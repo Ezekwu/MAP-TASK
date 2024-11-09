@@ -5,20 +5,18 @@ import OnChangeParams from '../../types/OnChangeParams';
 import UiButton from '../../components/ui/UiButton';
 import { Link } from 'react-router-dom';
 import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
+import useObjectState from '@/hooks/useObjectState';
 
 export default function ResetPasswordPage() {
-  const [formData, setFormData] = useState({
+  const formData = useObjectState({
     password: '',
     confirm_password: '',
   });
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((currentValue) => ({
-      ...currentValue,
-      [name]: value,
-    }));
+  
+  async function resetPassword() {
+    console.log(formData.value);
+    
   }
-
-  async function resetPassword() {}
 
   return (
     <div className="w-full">
@@ -26,7 +24,7 @@ export default function ResetPasswordPage() {
         Reset password
       </h2>
       <UiForm
-        formData={formData}
+        formData={formData.value}
         schema={ResetPasswordSchema}
         onSubmit={resetPassword}
       >
@@ -35,23 +33,26 @@ export default function ResetPasswordPage() {
             <UiInput
               label="New password"
               placeholder="Enter new password"
-              value={formData.password}
+              value={formData.value.password}
               name="password"
               type="password"
               error={errors.password}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <UiInput
               label="Confirm password"
               placeholder="Confirm new password"
-              value={formData.confirm_password}
+              value={formData.value.confirm_password}
               name="confirm_password"
               type="password"
               error={errors.confirm_password}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <div className="mt-5">
-              <UiButton variant="primary" block>
+              <UiButton size="lg"
+                rounded="md"
+                variant="primary" 
+                block>
                 Reset password
               </UiButton>
             </div>

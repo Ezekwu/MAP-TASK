@@ -1,12 +1,42 @@
-import Eye from '../../assets/icons/eye.svg?react';
-import EyeSlash from '../../assets/icons/eye-slash.svg?react';
-import Google from '../../assets/icons/google.svg?react';
+import Eye from '@/assets/icons/eye.svg?react';
+import EyeSlash from '@/assets/icons/eye-slash.svg?react';
+import Google from '@/assets/icons/google.svg?react';
+import Calendar from '@/assets/icons/calendar.svg?react';
+import CalendarNoDots from '@/assets/icons/calandar-no-dot.svg?react';
+import Checkmark from '@/assets/icons/check-mark.svg?react';
+import Cog from '@/assets/icons/cog.svg?react';
+import CustomerSupport from '@/assets/icons/customer-support.svg?react';
+import Logout from '@/assets/icons/logout.svg?react';
+import Meal from '@/assets/icons/meal.svg?react';
+import Minus from '@/assets/icons/minus.svg?react';
+import Notification from '@/assets/icons/notification.svg?react';
+import Overview from '@/assets/icons/overview.svg?react';
+import Plate from '@/assets/icons/plate.svg?react';
+import Plus from '@/assets/icons/plus.svg?react';
+import Trash from '@/assets/icons/trash.svg?react';
+import Tray from '@/assets/icons/tray.svg?react';
+import Warning from '@/assets/icons/warning.svg?react';
 
-// These icons should be arranged alphabetically for easy sorting
+// These icons are arranged alphabetically for easy sorting
 const icons = {
   Eye,
   EyeSlash,
   Google,
+  Calendar,
+  CalendarNoDots,
+  Checkmark,
+  Cog,
+  CustomerSupport,
+  Logout,
+  Meal,
+  Minus,
+  Notification,
+  Overview,
+  Plate,
+  Plus,
+  Trash,
+  Tray,
+  Warning,
 };
 
 export type Icons = keyof typeof icons;
@@ -25,3 +55,4 @@ export default function UiIcon({ icon, size = '16' }: Props) {
     </span>
   );
 }
+

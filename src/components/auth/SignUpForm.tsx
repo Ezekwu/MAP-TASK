@@ -4,11 +4,11 @@ import UiForm from '../ui/UiForm';
 import UiIcon from '../ui/UiIcon';
 import UiInput from '../ui/UiInput';
 import { Link } from 'react-router-dom';
-import OnChangeParams from '../../types/OnChangeParams';
 import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import useObjectState from '@/hooks/useObjectState';
 
 export default function SignUpForm() {
-  const [formData, setFormData] = useState({
+  const formData = useObjectState({
     email: '',
     password: '',
   });
@@ -17,20 +17,13 @@ export default function SignUpForm() {
     console.log(formData);
   }
 
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }
-
   return (
     <div className="w-full">
       <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
         Ready to Eatrite?
       </h2>
-      <div className="flex flex-col gap-5">
-        <UiButton variant="transparent" block>
+      <div className="flex flex-col gap-8">
+        <UiButton rounded="md" size="lg" variant="transparent" block>
           <UiIcon size="20" icon="Google" />
           <p className="text-sm">Sign in with Google</p>
         </UiButton>
@@ -40,7 +33,7 @@ export default function SignUpForm() {
           </p>
         </div>
         <UiForm
-          formData={formData}
+          formData={formData.value}
           schema={SignUpSchema}
           onSubmit={registerUser}
         >
@@ -48,21 +41,21 @@ export default function SignUpForm() {
             <div className="grid gap-5">
               <UiInput
                 placeholder="Enter email address"
-                value={formData.email}
+                value={formData.value.email}
                 name="email"
                 error={errors.email}
-                onChange={onChange}
+                onChange={formData.set}
               />
               <UiInput
                 placeholder="Enter your password"
                 type="password"
-                value={formData.password}
+                value={formData.value.password}
                 name="password"
                 error={errors.password}
-                onChange={onChange}
+                onChange={formData.set}
               />
               <div className="mt-5">
-                <UiButton variant="primary" block>
+                <UiButton size="lg" rounded='md' variant="primary" block>
                   Submit
                 </UiButton>
               </div>

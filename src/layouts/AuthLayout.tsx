@@ -12,7 +12,7 @@ export default function AuthLayout() {
             Eatrite
           </h2>{' '}
         </div>
-        <div className="sm:max-w-[420px] px-4 box-border mx-auto pb-5">
+        <div className="sm:max-w-[450px] px-4 box-border mx-auto pb-5">
           <Outlet />
         </div>
       </div>

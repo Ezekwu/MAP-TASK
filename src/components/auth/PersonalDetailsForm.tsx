@@ -5,9 +5,11 @@ import { useState } from 'react';
 import UiImageUploader from '../ui/UiImageUploader';
 import OnChangeParams from '../../types/OnChangeParams';
 import PersonalDetailsSchema from '../../utils/schemas/PersonalDetailsSchema';
+import { Link } from 'react-router-dom';
+import useObjectState from '@/hooks/useObjectState';
 
 export default function PersonalDetailsForm() {
-  const [formData, setFormData] = useState({
+  const formData = useObjectState({
     first_name: '',
     last_name: '',
     phone_numner: '',
@@ -18,20 +20,6 @@ export default function PersonalDetailsForm() {
 
   function submitDetails() {
     console.log(formData);
-  }
-
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  }
-
-  function handleSelectImage(param: { name: string; value: File }) {
-    setFormData((prevData) => ({
-      ...prevData,
-      [param.name]: param.value,
-    }));
   }
 
   function getImgSrc(src: string | null) {
@@ -45,7 +33,7 @@ export default function PersonalDetailsForm() {
       </h2>
       <UiForm
         schema={PersonalDetailsSchema}
-        formData={formData}
+        formData={formData.value}
         onSubmit={submitDetails}
       >
         {({ errors }) => (
@@ -54,35 +42,35 @@ export default function PersonalDetailsForm() {
               <UiInput
                 placeholder="Enter your first name"
                 label="First name"
-                value={formData.first_name}
+                value={formData.value.first_name}
                 name="first_name"
                 error={errors.first_name}
-                onChange={onChange}
+                onChange={formData.set}
               />
               <UiInput
                 placeholder="Enter your last name"
                 label="Last name"
-                value={formData.last_name}
+                value={formData.value.last_name}
                 name="last_name"
                 error={errors.last_name}
-                onChange={onChange}
+                onChange={formData.set}
               />
             </div>
             <UiInput
               label="Phone number"
               type="phone"
-              value={formData.phone_numner}
+              value={formData.value.phone_numner}
               name="phone_numner"
               error={errors.phone_numner}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <UiInput
               placeholder="Enter your home address"
               label="Home address"
-              value={formData.home_adress}
+              value={formData.value.home_adress}
               name="home_adress"
               error={errors.home_adress}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <div className="flex items-center gap-4">
               <div>
@@ -96,12 +84,12 @@ export default function PersonalDetailsForm() {
                   <div className="w-20 h-20 rounded-full bg-primary-500"></div>
                 )}
               </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 mt-5">
                 <UiImageUploader
                   name="profile_img"
                   getImgSrc={getImgSrc}
-                  onChange={handleSelectImage}
-                  value={formData.profile_img}
+                  onChange={formData.set}
+                  value={formData.value.profile_img}
                 />
                 <p className="text-xs text-gray-450 font-medium">
                   *jpg, *jpeg, *png files up to 10MB max.{' '}
@@ -109,13 +97,19 @@ export default function PersonalDetailsForm() {
               </div>
             </div>
             <div className="mt-5">
-              <UiButton variant="primary" block>
+              <UiButton size="lg" rounded="md" variant="primary" block>
                 Submit
               </UiButton>
             </div>
           </div>
         )}
       </UiForm>
+      <p className="text-gray-500 text-center mt-20 text-xs font-medium">
+        Already have an account?{' '}
+        <Link to="/auth/login" className="text-primary font-bold text-gray-950">
+          Log in
+        </Link>
+      </p>
     </div>
   );
 }

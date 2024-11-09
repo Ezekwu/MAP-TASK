@@ -5,18 +5,13 @@ import UiInput from '../../components/ui/UiInput';
 import { useState } from 'react';
 import OnChangeParams from '../../types/OnChangeParams';
 import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
+import useObjectState from '@/hooks/useObjectState';
 
 export default function ForgotPasswordForm() {
-  const [formData, setFormData] = useState({
+  const formData = useObjectState({
     email: '',
   });
-  function onChange({ name, value }: OnChangeParams) {
-    setFormData((currentValue) => ({
-      ...currentValue,
-      [name]: value,
-    }));
-  }
-
+  
   async function loginUser() {}
 
   return (
@@ -25,7 +20,7 @@ export default function ForgotPasswordForm() {
         Forgot password?
       </h2>
       <UiForm
-        formData={formData}
+        formData={formData.value}
         schema={ForgotPasswordSchema}
         onSubmit={loginUser}
       >
@@ -33,14 +28,14 @@ export default function ForgotPasswordForm() {
           <div className="grid gap-5">
             <UiInput
               placeholder="Enter email address"
-              value={formData.email}
+              value={formData.value.email}
               label="Email"
               name="email"
               error={errors.email}
-              onChange={onChange}
+              onChange={formData.set}
             />
             <div className="mt-4">
-              <UiButton variant="primary" block>
+              <UiButton size="lg" rounded="md" variant="primary" block>
                 Send recovery link
               </UiButton>
             </div>

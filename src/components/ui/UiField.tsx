@@ -4,14 +4,13 @@ interface Props {
   error?: string;
   label?: string;
   children: React.ReactNode;
-  hideLabel?: boolean;
 }
 
-export default function UiField({ error, label, children, hideLabel }: Props) {
+export default function UiField({ error, label, children }: Props) {
   return (
     <div className="text-left relative w-full">
-      {!hideLabel && (
-        <label className="text-xs font-medium text-gray-700 leading-5">
+      {label && (
+        <label className="text-xs font-medium text-gray-700 leading-9">
           {label}
         </label>
       )}
