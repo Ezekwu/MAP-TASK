@@ -5,7 +5,7 @@ const sizeClasses = {
   lg: 'h-[43px] text-base leading-5',
   md: 'h-[34px] text-sm',
   sm: 'h-8 text-xs leading-5',
-  icon: 'w-8 h-8',
+  icon: 'w-8 h-8 box-border',
 };
 
 const variantClasses = {
