@@ -17,6 +17,7 @@ export default function AuthLayout() {
         </div>
       </div>
       <div className="hidden md:block md:w-[50%] lg:w-[45%] h-screen p-3 fixed -z-10 right-0">
+        {/* TODO: this should be a slideshow of some of our foods/reviews */}
         <div
           className="relative w-full h-full bg-no-repeat bg-center bg-cover rounded-2xl"
           style={{

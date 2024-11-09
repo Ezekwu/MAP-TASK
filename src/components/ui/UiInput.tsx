@@ -35,6 +35,8 @@ export default function UiInput({
 }: Props) {
   const [inputType, setInputType] = useState(type);
 
+  const validationStyle = useMemo(() => {}, []);
+
   function sendValue(e: { target: { name: string; value: string } }) {
     onChange({ name: e.target.name, value: e.target.value });
   }
