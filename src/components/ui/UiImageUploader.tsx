@@ -46,7 +46,7 @@ export default function UiImageUploader({
         rounded="md"
         type="button"
         onClick={openFilePicker}
-        variant="gray"
+        variant="tertiary"
         block={false}
       >
         <p className="text-xs">{value ? 'Replace Image' : 'Upload Image'}</p>

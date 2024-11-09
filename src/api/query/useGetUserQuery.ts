@@ -11,7 +11,7 @@ export function useGetUserQuery(userId: string) {
     queryKey,
     queryFn: async () => {
       try {
-        const response = await useGetUserData();
+        const response = await useGetUserData(userId);
 
         return response;
       } catch (err) {

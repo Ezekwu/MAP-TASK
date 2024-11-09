@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       screens: {
-        xs: '516px'
+        xs: '516px',
       },
       screens: {
-        xs: '516px'
+        xs: '516px',
       },
       colors: {
         primary: {
@@ -16,17 +16,19 @@ export default {
           500: '#009F67',
         },
         danger: {
-          700: '#A10603'
+          700: '#A10603',
         },
-        gray: {
+        tertiary: {
+          100: '#F7F7F8',
+          200: '#F6F6F7',
           300: '#F0F0F0',
-          400: '#E3E3E8',
-          450: '#8A8AA3',
-          500: '#88888B',
-          600: '#5B6161',
-          700: '#55556D',
-          950: '#121217',
-          1000: '#101413',
+          400: '#EEEEEE',
+          500: '#EBEBEB',
+          600: '#E4E4E7',
+          700: '#E3E3E8',
+          800: '#E1E1E2',
+          900: '#C3C3C3',
+          1000: '#696969',
         },
         secondary: {},
         neutral: {

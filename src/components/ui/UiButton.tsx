@@ -5,16 +5,16 @@ const sizeClasses = {
   lg: 'h-[43px] text-base leading-5',
   md: 'h-[34px] text-sm',
   sm: 'h-8 text-xs leading-5',
+  icon: 'w-8 h-8',
 };
 
 const variantClasses = {
   primary: 'bg-primary-500 text-white',
   neutral: 'bg-neutral-600 hover:bg-neutral-700 text-neutral-900',
-  transparent:
-    'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
   dark: '',
-  gray: 'bg-gray-400 trxt-gray-950',
-  'gray-outlined': '',
+  tertiary: 'bg-tertiary-300 hover:bg-tertiary-500 text-typography-base',
+  'tertiary-outlined':
+    'bg-[#fff] hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
 };
 
 const roundedClasses = {

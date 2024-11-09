@@ -32,6 +32,16 @@ export default function CalendarPage() {
           meal={{ name: 'Greek yoghurt, mixed fruits and nuts', id: '123' }}
           isPast
         />
+        <MealScheduleCard
+          type="lunch"
+          meal={{ name: 'Greek yoghurt, mixed fruits and nuts', id: '123' }}
+          isPast
+        />
+        <MealScheduleCard
+          type="dinner"
+          meal={{ name: 'Greek yoghurt, mixed fruits and nuts', id: '123' }}
+          isPast
+        />
       </div>
     );
   }

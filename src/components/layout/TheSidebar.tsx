@@ -98,15 +98,19 @@ export default function TheSidebar() {
         </ul>
       </div>
 
-      {/* Profile section (fixed at the bottom) */}
-      <div className="w-full mb-12 flex items-center justify-between text-typography-base text-sm px-6">
+      <div className="w-full mb-12 flex items-center justify-between text-typography-base text-sm pl-6">
         <div className="flex gap-2 items-center">
           <div className="rounded-full w-8 h-8 bg-neutral-600" />
           <span className="text-sm text-typography-base font-medium">
             Henry Eze
           </span>
         </div>
-        <UiButton rounded="sm" variant="neutral" onClick={logUserOut}>
+        <UiButton
+          rounded="sm"
+          variant="neutral"
+          size="icon"
+          onClick={logUserOut}
+        >
           <UiIcon icon="Logout" />
         </UiButton>
       </div>

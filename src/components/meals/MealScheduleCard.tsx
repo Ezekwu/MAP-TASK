@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import Meal from '../../types/Meal';
 
 const mealTypeConfigs = {
@@ -27,19 +28,19 @@ const pastMealTypeConfigs = {
   breakfast: {
     time: '9:00 AM',
     timeColor: '',
-    backgroundColor: 'bg-gray-300',
+    backgroundColor: 'bg-tertiary-300',
     textColor: 'text-typography-base',
   },
   lunch: {
     time: '1:30 PM',
     timeColor: '',
-    backgroundColor: 'bg-gray-400',
+    backgroundColor: 'bg-tertiary-900',
     textColor: 'text-typography-base',
   },
   dinner: {
     time: '7:30 PM',
-    timeColor: '',
-    backgroundColor: 'bg-gray-500',
+    timeColor: 'text-typography-light',
+    backgroundColor: 'bg-tertiary-1000',
     textColor: 'text-typography-light',
   },
 };

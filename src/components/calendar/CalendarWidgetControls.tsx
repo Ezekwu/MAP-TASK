@@ -61,11 +61,11 @@ export default function CalendarWidgetControls({
   return (
     <div className="w-full flex flex-col-reverse xs:flex-row items-start xs:items-center justify-between gap-5 xs:gap-8 py-4 dark:text-gray-900">
       <div className="flex items-center w-full justify-between xs:justify-start gap-3 sm:gap-8 dark:text-gray-900">
-        <UiButton variant="gray" size="md" onClick={goToPrev}>
+        <UiButton variant="tertiary" size="icon" onClick={goToPrev}>
           <ArrowLeft />
         </UiButton>
         <span className="text-sm font-semibold">{durationDisplayText}</span>
-        <UiButton variant="gray" size="md" onClick={goToNext}>
+        <UiButton variant="tertiary" size="icon" onClick={goToNext}>
           <ArrowRight />
         </UiButton>
       </div>
