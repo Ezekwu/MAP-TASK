@@ -1,21 +1,18 @@
-import { useState } from 'react';
+import useObjectState from '@/hooks/useObjectState';
+import { Link } from 'react-router-dom';
+import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import OnChangeParams from '../../types/OnChangeParams';
-import UiButton from '../../components/ui/UiButton';
-import { Link } from 'react-router-dom';
 import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
-import useObjectState from '@/hooks/useObjectState';
 
 export default function ResetPasswordPage() {
   const formData = useObjectState({
     password: '',
     confirm_password: '',
   });
-  
+
   async function resetPassword() {
     console.log(formData.value);
-    
   }
 
   return (
@@ -49,10 +46,7 @@ export default function ResetPasswordPage() {
               onChange={formData.set}
             />
             <div className="mt-5">
-              <UiButton size="lg"
-                rounded="md"
-                variant="primary" 
-                block>
+              <UiButton size="lg" rounded="md" variant="primary" block>
                 Reset password
               </UiButton>
             </div>

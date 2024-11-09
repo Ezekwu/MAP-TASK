@@ -1,6 +1,5 @@
-import AppLogo from '../assets/images/logo.png';
-import SignUpImg from '../assets/images/sign-up-image.png';
 import { Outlet } from 'react-router-dom';
+import SignUpImg from '../assets/images/sign-up-image.png';
 
 export default function AuthLayout() {
   return (

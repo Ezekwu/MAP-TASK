@@ -1,20 +1,16 @@
-import { useState } from 'react';
+import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import OnChangeParams from '../../types/OnChangeParams';
-import LoginSchema from '../../utils/schemas/LoginSchema';
-import UiIcon from '../../components/ui/UiIcon';
 import SignUpSchema from '../../utils/schemas/SignUpSchema';
-import useObjectState from '@/hooks/useObjectState';
 
 export default function LoginPage() {
   const formData = useObjectState({
     email: '',
     password: '',
   });
-  
+
   async function loginUser() {}
 
   return (
@@ -22,7 +18,11 @@ export default function LoginPage() {
       <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
         Ready to Eatrite?
       </h2>
-      <UiForm formData={formData.value} schema={SignUpSchema} onSubmit={loginUser}>
+      <UiForm
+        formData={formData.value}
+        schema={SignUpSchema}
+        onSubmit={loginUser}
+      >
         {({ errors }) => (
           <div className="grid gap-5">
             <UiInput
@@ -52,11 +52,7 @@ export default function LoginPage() {
               </Link>
             </p>
             <div className="mt-5">
-              <UiButton
-                size="lg"
-                rounded="md"
-                block
-              >
+              <UiButton size="lg" rounded="md" block>
                 Submit
               </UiButton>
             </div>

@@ -1,11 +1,12 @@
-import UiForm from '../ui/UiForm';
-import UiButton from '../ui/UiButton';
-import UiInput from '../ui/UiInput';
 import { useState } from 'react';
-import UiImageUploader from '../ui/UiImageUploader';
-import PersonalDetailsSchema from '../../utils/schemas/PersonalDetailsSchema';
 import { Link } from 'react-router-dom';
+
 import useObjectState from '@/hooks/useObjectState';
+import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
+import UiButton from '../ui/UiButton';
+import UiForm from '../ui/UiForm';
+import UiImageUploader from '../ui/UiImageUploader';
+import UiInput from '../ui/UiInput';
 
 export default function PersonalDetailsForm() {
   const formData = useObjectState({

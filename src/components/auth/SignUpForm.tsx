@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import useObjectState from '@/hooks/useObjectState';
+import { Link } from 'react-router-dom';
+import SignUpSchema from '../../utils/schemas/SignUpSchema';
 import UiButton from '../ui/UiButton';
 import UiForm from '../ui/UiForm';
 import UiIcon from '../ui/UiIcon';
 import UiInput from '../ui/UiInput';
-import { Link } from 'react-router-dom';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
-import useObjectState from '@/hooks/useObjectState';
 
 export default function SignUpForm() {
   const formData = useObjectState({
@@ -55,7 +54,7 @@ export default function SignUpForm() {
                 onChange={formData.set}
               />
               <div className="mt-5">
-                <UiButton size="lg" rounded='md' variant="primary" block>
+                <UiButton size="lg" rounded="md" variant="primary" block>
                   Submit
                 </UiButton>
               </div>

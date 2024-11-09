@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import UiButton from './UiButton';
 
 interface Props {
@@ -25,6 +25,7 @@ export default function UiImageUploader({
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const selectedFile = event.target.files;
+
     if (!selectedFile) return;
 
     onChange({ name, value: selectedFile[0] });

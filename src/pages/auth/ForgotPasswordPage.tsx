@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import OnChangeParams from '../../types/OnChangeParams';
 import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
-import useObjectState from '@/hooks/useObjectState';
 
 export default function ForgotPasswordForm() {
   const formData = useObjectState({
     email: '',
   });
-  
+
   async function loginUser() {}
 
   return (
