@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "target": "ESNext",
     "lib": [
       "dom",
@@ -24,7 +28,6 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": [
-    "src"
-, "src/components/ui/icons/.tsx"  ]
+   "include": ["src"]
+
 }

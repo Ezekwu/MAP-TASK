@@ -6,24 +6,29 @@ export default {
       screens: {
         xs: '516px'
       },
+      screens: {
+        xs: '516px'
+      },
       colors: {
         primary: {
           300: '#CCFFED',
           400: '#4DFFC1',
           500: '#009F67',
         },
-        secondary: {},
+        danger: {
+          700: '#A10603'
+        },
         gray: {
-          100: '#F7F7F8',
-          200: '#E3E3E8',
-          300: '#EEEEEE',
-          400: '#C3C3C3',
-          500: '#696969',
+          300: '#F0F0F0',
+          400: '#E3E3E8',
+          450: '#8A8AA3',
+          500: '#88888B',
+          600: '#5B6161',
+          700: '#55556D',
+          950: '#121217',
+          1000: '#101413',
         },
-        dark: {
-          200: '#272932',
-          300: '#101413',
-        },
+        secondary: {},
         neutral: {
           100: '',
           200: '',
@@ -52,7 +57,6 @@ export default {
           muted: '#A3988A',
           disabled: '#88888B',
         },
-        danger: {},
       },
       fontFamily: {
         poppins: ['Poppins', 'sans'],

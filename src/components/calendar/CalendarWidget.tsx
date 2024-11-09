@@ -134,7 +134,7 @@ export default function CalendarWidget({
         selectedDate={activeMonthDayReference}
         onChange={selectMonth}
       />
-      <div className="overflow-x-scroll ">
+      <div className="overflow-x-scroll">
         <div className="min-w-[750px] rounded-t-2xl rounded-b-lg border border-gray-200">
           <div className="flex">
             {display === Display.WEEK && (

@@ -1,51 +1,58 @@
-import { useMemo } from 'react';
-import Calendar from './icons/Calendar';
-import CalendarNoDots from './icons/CalendarNoDots';
-import Checkmark from './icons/Checkmark';
-import Cog from './icons/Cog';
-import CustomerSupport from './icons/CustomerSupport';
-import Logout from './icons/Logout';
-import Meal from './icons/Meal';
-import Minus from './icons/Minus';
-import Notification from './icons/Notification';
-import Overview from './icons/Overview';
-import Plate from './icons/Plate';
-import Plus from './icons/Plus';
-import Trash from './icons/Trash';
-import Tray from './icons/Tray';
-import Warning from './icons/Warning';
+import Eye from '@/assets/icons/eye.svg?react';
+import EyeSlash from '@/assets/icons/eye-slash.svg?react';
+import Google from '@/assets/icons/google.svg?react';
+import Calendar from '@/assets/icons/calendar.svg?react';
+import CalendarNoDots from '@/assets/icons/calandar-no-dot.svg?react';
+import Checkmark from '@/assets/icons/check-mark.svg?react';
+import Cog from '@/assets/icons/cog.svg?react';
+import CustomerSupport from '@/assets/icons/customer-support.svg?react';
+import Logout from '@/assets/icons/logout.svg?react';
+import Meal from '@/assets/icons/meal.svg?react';
+import Minus from '@/assets/icons/minus.svg?react';
+import Notification from '@/assets/icons/notification.svg?react';
+import Overview from '@/assets/icons/overview.svg?react';
+import Plate from '@/assets/icons/plate.svg?react';
+import Plus from '@/assets/icons/plus.svg?react';
+import Trash from '@/assets/icons/trash.svg?react';
+import Tray from '@/assets/icons/tray.svg?react';
+import Warning from '@/assets/icons/warning.svg?react';
 
 // These icons are arranged alphabetically for easy sorting
 const icons = {
-  Calendar: <Calendar />,
-  CalendarNoDots: <CalendarNoDots />,
-  Checkmark: <Checkmark />,
-  Cog: <Cog />,
-  CustomerSupport: <CustomerSupport />,
-  Logout: <Logout />,
-  Meal: <Meal />,
-  Minus: <Minus />,
-  Notification: <Notification />,
-  Overview: <Overview />,
-  Plate: <Plate />,
-  Plus: <Plus />,
-  Trash: <Trash />,
-  Tray: <Tray />,
-  Warning: <Warning />,
+  Eye,
+  EyeSlash,
+  Google,
+  Calendar,
+  CalendarNoDots,
+  Checkmark,
+  Cog,
+  CustomerSupport,
+  Logout,
+  Meal,
+  Minus,
+  Notification,
+  Overview,
+  Plate,
+  Plus,
+  Trash,
+  Tray,
+  Warning,
 };
 
 export type Icons = keyof typeof icons;
-
 interface Props {
   /** Name of the icon as stored in the icons object */
   icon: Icons;
   size?: string;
 }
-
 export default function UiIcon({ icon, size = '16' }: Props) {
-  const element = useMemo(() => {
-    return icons[icon];
-  }, [icon]);
-
-  return <span>{element}</span>;
+  const LazyLoadedIcon = icons[icon];
+  return (
+    <span>
+      {LazyLoadedIcon && (
+        <LazyLoadedIcon style={{ width: size, height: size }} />
+      )}
+    </span>
+  );
 }
+
