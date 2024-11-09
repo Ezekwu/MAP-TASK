@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 import './CalendarWidgetDayItemStyling.css';
 
 interface Props {
-  isCurrentMonth: boolean;
-  day: Dayjs;
+  isCurrent: boolean;
+  day?: Dayjs;
   size?: 'sm' | 'lg';
   itemNode?: React.ReactNode;
 }
@@ -13,24 +13,26 @@ export default function CalendarWidgetDayItem({
   day,
   size,
   itemNode,
-  isCurrentMonth,
+  isCurrent,
 }: Props) {
   const label = useMemo(() => {
+    if (!day) return;
+
     return dayjs(day).format('D');
   }, [day]);
 
   const hasMeals = useMemo(() => {
-    return day.date() % 5 !== 0;
+    return true;
   }, [day]);
 
   return (
     <li
       className={`day-item p-2 ${size === 'sm' ? 'h-20' : 'min-h-[192px]'} ${
         hasMeals ? 'has-no-meals' : ''
-      }  ${!isCurrentMonth ? 'text-typography-muted cursor-not-allowed' : ''}`}
+      }  ${!isCurrent ? 'text-typography-muted cursor-not-allowed' : ''}`}
     >
-      <div className="text-[10px] text-dark-accent">{label}</div>
-      <div className="h-full">{itemNode}</div>
+      {label && <div className="text-[10px] text-dark-accent">{label}</div>}
+      <div className={`h-full ${label ? 'h-[92%]' : ''}`}>{itemNode}</div>
     </li>
   );
 }

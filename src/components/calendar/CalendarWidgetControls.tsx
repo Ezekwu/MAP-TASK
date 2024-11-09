@@ -1,6 +1,6 @@
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import UiButton from '../ui/UiButton';
 import UiToggleButton from '../ui/UiToggleButton';
@@ -34,16 +34,25 @@ export default function CalendarWidgetControls({
   ];
 
   const durationDisplayText = useMemo(() => {
-    return selectedDate.format('MMMM YYYY');
+    if (display === Display.MONTH) return selectedDate.format('MMMM YYYY');
+
+    const startOfWeek = selectedDate.startOf('week');
+    const endOfWeek = selectedDate.endOf('week');
+
+    const startFormatted = startOfWeek.format('MMMM D');
+    const endFormatted = endOfWeek.format('D');
+    const year = selectedDate.format('YYYY');
+
+    return `${startFormatted}-${endFormatted}, ${year}`;
   }, [selectedDate]);
 
   function goToPrev() {
-    const newSelectedDate = dayjs(selectedDate).subtract(1, 'month');
+    const newSelectedDate = dayjs(selectedDate).subtract(1, display);
     onChange(newSelectedDate);
   }
 
   function goToNext() {
-    const newSelectedDate = dayjs(selectedDate).add(1, 'month');
+    const newSelectedDate = dayjs(selectedDate).add(1, display);
     onChange(newSelectedDate);
   }
 

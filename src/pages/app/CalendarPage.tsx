@@ -26,7 +26,7 @@ export default function CalendarPage() {
 
   function getScheduleNodeOfParticularDate(day: Dayjs) {
     return (
-      <div className="h-[90%] grid gap-1">
+      <div className="h-full grid gap-1">
         <MealScheduleCard
           type="breakfast"
           meal={{ name: 'Greek yoghurt, mixed fruits and nuts', id: '123' }}

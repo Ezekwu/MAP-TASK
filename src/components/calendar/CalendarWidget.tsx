@@ -138,7 +138,10 @@ export default function CalendarWidget({
             <div className="w-10 border-r border-b box-content border-gray-200" />
           )}
           <div className="w-full">
-            <CalendarWidgetWeekDays />
+            <CalendarWidgetWeekDays
+              day={activeMonthDayReference}
+              display={display}
+            />
           </div>
         </div>
 
@@ -164,9 +167,8 @@ export default function CalendarWidget({
                     <CalenderWidgetDataItem
                       key={index}
                       size={size}
-                      day={visibleDays[0].date}
                       itemNode={(() => itemNode?.(visibleDays[0].date))()}
-                      isCurrentMonth={visibleDays[0].isCurrentMonth}
+                      isCurrent
                     />
                   ))}
                 </ol>
@@ -182,7 +184,7 @@ export default function CalendarWidget({
                 size={size}
                 day={day.date}
                 itemNode={(() => itemNode?.(day.date))()}
-                isCurrentMonth={day.isCurrentMonth}
+                isCurrent={day.isCurrentMonth}
               />
             ))}
           </ol>
