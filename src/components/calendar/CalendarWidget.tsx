@@ -185,6 +185,7 @@ export default function CalendarWidget({
                 day={day.date}
                 itemNode={(() => itemNode?.(day.date))()}
                 isCurrent={day.isCurrentMonth}
+                isToday={day.date.format('YYYY-MM-DD') === today}
               />
             ))}
           </ol>

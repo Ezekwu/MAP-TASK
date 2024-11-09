@@ -44,7 +44,7 @@ export default function CalendarWidgetControls({
     const year = selectedDate.format('YYYY');
 
     return `${startFormatted}-${endFormatted}, ${year}`;
-  }, [selectedDate]);
+  }, [selectedDate, display]);
 
   function goToPrev() {
     const newSelectedDate = dayjs(selectedDate).subtract(1, display);
