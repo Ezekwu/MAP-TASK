@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
 
-export default function LoginPage() {
+export default function ForgotPasswordForm() {
   const formData = useObjectState({
     email: '',
-    password: '',
   });
 
   async function loginUser() {}
@@ -16,11 +15,11 @@ export default function LoginPage() {
   return (
     <div className="w-full">
       <h2 className="font-semibold text-2xl sm:text-[32px] leading-10 sm:text-center mb-8 sm:mb-10">
-        Ready to Eatrite?
+        Forgot password?
       </h2>
       <UiForm
         formData={formData.value}
-        schema={SignUpSchema}
+        schema={ForgotPasswordSchema}
         onSubmit={loginUser}
       >
         {({ errors }) => (
@@ -33,27 +32,9 @@ export default function LoginPage() {
               error={errors.email}
               onChange={formData.set}
             />
-            <UiInput
-              placeholder="Enter your password"
-              type="password"
-              value={formData.value.password}
-              name="password"
-              label="Password"
-              error={errors.password}
-              onChange={formData.set}
-            />
-            <p className="text-xs">
-              Forgot password?{' '}
-              <Link
-                to="/auth/forgot-password"
-                className="text-primary font-bold"
-              >
-                Reset password
-              </Link>
-            </p>
-            <div className="mt-5">
-              <UiButton size="lg" rounded="md" block>
-                Submit
+            <div className="mt-4">
+              <UiButton size="lg" rounded="md" variant="primary" block>
+                Send recovery link
               </UiButton>
             </div>
           </div>

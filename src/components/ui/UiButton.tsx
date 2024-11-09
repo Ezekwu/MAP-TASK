@@ -2,18 +2,18 @@ import { MouseEventHandler } from 'react';
 import UiLoader from './UiLoader';
 
 const sizeClasses = {
-  sm: 'p-2',
-  md: '',
-  lg: '',
+  lg: 'h-[43px] text-base leading-5',
+  md: 'h-[34px] text-sm',
+  sm: 'h-8 text-xs leading-5',
 };
 
 const variantClasses = {
-  primary: 'bg-primary text-white',
+  primary: 'bg-primary-500 text-white',
   neutral: 'bg-neutral-600 hover:bg-neutral-700 text-neutral-900',
   transparent:
     'bg-transparent hover:bg-gray-10 text-gray-1000 border border-gray-400',
   dark: '',
-  gray: '',
+  gray: 'bg-gray-400 trxt-gray-950',
   'gray-outlined': '',
 };
 
@@ -48,7 +48,7 @@ export default function UiButton({
 }: Props) {
   return (
     <button
-      className={`outline-none rounded-2xl px-4 flex gap-2 items-center justify-center font-semibold ${
+      className={`outline-none w-fit px-5 flex gap-2 items-center justify-center font-semibold ${
         block && 'w-full'
       } ${variantClasses[variant]} ${sizeClasses[size]} ${
         roundedClasses[rounded]
