@@ -127,71 +127,73 @@ export default function CalendarWidget({
   }
 
   return (
-    <div className="calendar">
+    <div className="calendar w-full">
       <CalenderWidgetControls
         display={display}
         onSelectDisplay={setDisplay}
         selectedDate={activeMonthDayReference}
         onChange={selectMonth}
       />
-      <div className="overflow-hidden rounded-t-2xl rounded-b-lg border border-gray-200">
-        <div className="flex">
-          {display === Display.WEEK && (
-            <div className="w-10 border-r border-b box-content border-gray-200" />
-          )}
-          <div className="w-full">
-            <CalendarWidgetWeekDays
-              day={activeMonthDayReference}
-              display={display}
-            />
-          </div>
-        </div>
-
-        {display === Display.WEEK && (
-          <>
-            {mealTypes.map((type, index) => (
-              <div
-                key={type}
-                className={`flex  border-gray-200 ${
-                  index !== 2 ? 'border-b' : ''
-                }`}
-              >
-                <div
-                  className="w-10 flex items-center justify-center transform rotate-180 text-center border-l border-gray-200 font-medium text-xs text-typography-disabled"
-                  style={{
-                    writingMode: 'vertical-rl',
-                  }}
-                >
-                  {type}
-                </div>
-                <ol className="grid grid-cols-7 w-full">
-                  {arrayForEachDayOfTheWeek.map((index) => (
-                    <CalenderWidgetDataItem
-                      key={index}
-                      size={size}
-                      itemNode={(() => itemNode?.(visibleDays[0].date))()}
-                      isCurrent
-                    />
-                  ))}
-                </ol>
-              </div>
-            ))}
-          </>
-        )}
-        {display === Display.MONTH && (
-          <ol className="grid grid-cols-7">
-            {visibleDays.map((day, index) => (
-              <CalenderWidgetDataItem
-                key={index}
-                size={size}
-                day={day.date}
-                itemNode={(() => itemNode?.(day.date))()}
-                isCurrent={day.isCurrentMonth}
-                isToday={day.date.format('YYYY-MM-DD') === today}
+      <div className="overflow-x-scroll ">
+        <div className="min-w-[750px] rounded-t-2xl rounded-b-lg border border-gray-200">
+          <div className="flex">
+            {display === Display.WEEK && (
+              <div className="w-10 border-r border-b box-content border-gray-200" />
+            )}
+            <div className="w-full">
+              <CalendarWidgetWeekDays
+                day={activeMonthDayReference}
+                display={display}
               />
-            ))}
-          </ol>
-        )}
+            </div>
+          </div>
+
+          {display === Display.WEEK && (
+            <>
+              {mealTypes.map((type, index) => (
+                <div
+                  key={type}
+                  className={`flex  border-gray-200 ${
+                    index !== 2 ? 'border-b' : ''
+                  }`}
+                >
+                  <div
+                    className="w-10 flex items-center justify-center transform rotate-180 text-center border-l border-gray-200 font-medium text-xs text-typography-disabled"
+                    style={{
+                      writingMode: 'vertical-rl',
+                    }}
+                  >
+                    {type}
+                  </div>
+                  <ol className="grid grid-cols-7 w-full">
+                    {arrayForEachDayOfTheWeek.map((index) => (
+                      <CalenderWidgetDataItem
+                        key={index}
+                        size={size}
+                        itemNode={(() => itemNode?.(visibleDays[0].date))()}
+                        isCurrent
+                      />
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </>
+          )}
+          {display === Display.MONTH && (
+            <ol className="grid grid-cols-7">
+              {visibleDays.map((day, index) => (
+                <CalenderWidgetDataItem
+                  key={index}
+                  size={size}
+                  day={day.date}
+                  itemNode={(() => itemNode?.(day.date))()}
+                  isCurrent={day.isCurrentMonth}
+                  isToday={day.date.format('YYYY-MM-DD') === today}
+                />
+              ))}
+            </ol>
+          )}
+        </div>
       </div>
     </div>
   );
