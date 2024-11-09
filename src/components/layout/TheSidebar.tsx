@@ -31,7 +31,7 @@ export default function TheSidebar() {
           icon: 'Calendar',
         },
         {
-          path: '/calendar',
+          path: '/plans',
           name: 'Meal plans',
           icon: 'Meal',
         },
@@ -62,42 +62,48 @@ export default function TheSidebar() {
   }
 
   return (
-    <nav className="hidden relative md:block h-screen bg-navigation-background w-60 pr-4">
-      <div className="py-8 px-6 mb-6">
+    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4  flex-col">
+      {/* Logo section (fixed at the top) */}
+      <div className="py-8 px-6">
         <img src={EatriteLogo} alt="Eatrite logo" />
       </div>
 
-      <ul>
-        {routeGroups.map((group, index) => (
-          <li key={index} className="mb-4">
-            <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
-              {group.name}
-            </div>
-            <ul>
-              {group.routes.map((route, index) => (
-                <li key={index}>
-                  <Link
-                    to={route.path}
-                    className={`${
-                      activeRoute === route.path
-                        ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
-                        : 'text-typography-inactive hover:text-typography-base'
-                    }  h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
-                  >
-                    <UiIcon icon={route.icon} />
-                    <span>{route.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-      <div className="w-full mb-12 absolute bottom-0 flex items-center justify-between text-typography-base text-sm pl-7 pr-4">
+      {/* Navigation routes (takes up remaining space) */}
+      <div className="flex-1 overflow-y-auto">
+        <ul>
+          {routeGroups.map((group, index) => (
+            <li key={index} className="mb-4">
+              <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
+                {group.name}
+              </div>
+              <ul>
+                {group.routes.map((route, index) => (
+                  <li key={index}>
+                    <Link
+                      to={route.path}
+                      className={`${
+                        activeRoute === route.path
+                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
+                          : 'text-typography-inactive hover:text-typography-base'
+                      } h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
+                    >
+                      <UiIcon icon={route.icon} />
+                      <span>{route.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Profile section (fixed at the bottom) */}
+      <div className="w-full mb-12 flex items-center justify-between text-typography-base text-sm px-6">
         <div className="flex gap-2 items-center">
           <div className="rounded-full w-8 h-8 bg-neutral-600" />
           <span className="text-sm text-typography-base font-medium">
-            Henry Eze{' '}
+            Henry Eze
           </span>
         </div>
         <UiButton rounded="sm" variant="neutral" onClick={logUserOut}>

@@ -14,7 +14,7 @@ export default function DashboardLayout() {
       <div className="hidden md:block">
         <TheSidebar />
       </div>
-      <div className="w-full md:w-5/6 h-screen overflow-auto bg-primary-05">
+      <div className="w-full  h-screen overflow-auto">
         {isLoading ? <UiLoader /> : <Outlet />}
       </div>
     </div>

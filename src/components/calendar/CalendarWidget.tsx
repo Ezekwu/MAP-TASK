@@ -4,9 +4,10 @@ import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useMemo, useState } from 'react';
 
-import CalenderWidgetDayItem from './CalendarWidgetDayItem';
-import CalenderWidgetMonthNavigator from './CalendarWidgetMonthNavigator';
+import CalenderWidgetDataItem from './CalendarWidgetDataItem';
+import CalenderWidgetControls, { Display } from './CalendarWidgetControls';
 import CalendarWidgetWeekDays from './CalendarWidgetWeekDays';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -19,13 +20,18 @@ interface Props {
 }
 export default function CalendarWidget({
   value,
-  size,
+  size = 'lg',
   itemNode,
   selectDate,
 }: Props) {
+  const [display, setDisplay] = useState(Display.WEEK);
+
   const today = dayjs().format('YYYY-MM-DD');
+  const mealTypes = ['Breakfast', 'Lunch', 'Dinner'];
+  const arrayForEachDayOfTheWeek = Array.from({ length: 7 }, (_, i) => i + 1);
 
   const [activeMonthDayReference, setActiveMonthDayReference] = useState(value);
+
   const activeDate = useMemo(() => {
     return activeMonthDayReference || dayjs();
   }, [activeMonthDayReference]);
@@ -121,25 +127,74 @@ export default function CalendarWidget({
   }
 
   return (
-    <div className="calendar">
-      <CalenderWidgetMonthNavigator
+    <div className="calendar w-full">
+      <CalenderWidgetControls
+        display={display}
+        onSelectDisplay={setDisplay}
         selectedDate={activeMonthDayReference}
-        changeMonth={selectMonth}
+        onChange={selectMonth}
       />
-      <CalendarWidgetWeekDays />
-      <ol className="grid grid-cols-7">
-        {visibleDays.map((day, index) => (
-          <CalenderWidgetDayItem
-            key={index}
-            size={size}
-            isToday={day.date.format('YYYY-MM-DD') === today}
-            day={day.date}
-            itemNode={(() => itemNode?.(day.date))()}
-            isCurrentMonth={day.isCurrentMonth}
-            dateClicked={selectDay}
-          />
-        ))}
-      </ol>
+      <div className="overflow-x-scroll">
+        <div className="min-w-[750px] rounded-t-2xl rounded-b-lg border border-gray-200">
+          <div className="flex">
+            {display === Display.WEEK && (
+              <div className="w-10 border-r border-b box-content border-gray-200" />
+            )}
+            <div className="w-full">
+              <CalendarWidgetWeekDays
+                day={activeMonthDayReference}
+                display={display}
+              />
+            </div>
+          </div>
+
+          {display === Display.WEEK && (
+            <>
+              {mealTypes.map((type, index) => (
+                <div
+                  key={type}
+                  className={`flex  border-gray-200 ${
+                    index !== 2 ? 'border-b' : ''
+                  }`}
+                >
+                  <div
+                    className="w-10 flex items-center justify-center transform rotate-180 text-center border-l border-gray-200 font-medium text-xs text-typography-disabled"
+                    style={{
+                      writingMode: 'vertical-rl',
+                    }}
+                  >
+                    {type}
+                  </div>
+                  <ol className="grid grid-cols-7 w-full">
+                    {arrayForEachDayOfTheWeek.map((index) => (
+                      <CalenderWidgetDataItem
+                        key={index}
+                        size={size}
+                        itemNode={(() => itemNode?.(visibleDays[0].date))()}
+                        isCurrent
+                      />
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </>
+          )}
+          {display === Display.MONTH && (
+            <ol className="grid grid-cols-7">
+              {visibleDays.map((day, index) => (
+                <CalenderWidgetDataItem
+                  key={index}
+                  size={size}
+                  day={day.date}
+                  itemNode={(() => itemNode?.(day.date))()}
+                  isCurrent={day.isCurrentMonth}
+                  isToday={day.date.format('YYYY-MM-DD') === today}
+                />
+              ))}
+            </ol>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

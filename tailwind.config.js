@@ -6,6 +6,9 @@ export default {
       screens: {
         xs: '516px'
       },
+      screens: {
+        xs: '516px'
+      },
       colors: {
         primary: {
           300: '#CCFFED',
