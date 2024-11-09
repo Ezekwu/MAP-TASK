@@ -1,9 +1,9 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
-// import { useGetScheduleOfUserQuery } from '../../api/queries';
 import CalendarWidget from '../../components/calendar/CalendarWidget';
 import TheTopNav from '../../components/layout/TheTopNav';
 import UiButton from '../../components/ui/UiButton';
+import MealScheduleCard from '../../components/meals/MealScheduleCard';
 
 export default function CalendarPage() {
   const uid = localStorage.getItem('uid')!;
@@ -26,13 +26,12 @@ export default function CalendarPage() {
 
   function getScheduleNodeOfParticularDate(day: Dayjs) {
     return (
-      <div className="grid gap-1">
-        {/* {schedule
-          ?.filter(({ date }) => date === day.format('YYYY-MM-DD'))
-          .slice(0, 4)
-          .map((s) => (
-            <div className="bg-primary-10 text-xs p-1 truncate">{s.name}</div>
-          ))} */}
+      <div className="h-[90%] grid gap-1">
+        <MealScheduleCard
+          type="breakfast"
+          meal={{ name: 'Greek yoghurt, mixed fruits and nuts', id: '123' }}
+          isPast
+        />
       </div>
     );
   }

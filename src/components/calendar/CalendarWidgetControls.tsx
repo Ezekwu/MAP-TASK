@@ -5,24 +5,31 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import UiButton from '../ui/UiButton';
 import UiToggleButton from '../ui/UiToggleButton';
 
+export enum Display {
+  WEEK = 'week',
+  MONTH = 'month',
+}
+
 interface Props {
   selectedDate: Dayjs;
+  display: Display;
+  onSelectDisplay: (display: Display) => void;
   onChange: (val: Dayjs) => void;
 }
 export default function CalendarWidgetControls({
+  display = Display.MONTH,
   selectedDate,
   onChange,
+  onSelectDisplay,
 }: Props) {
-  const [display, setDisplay] = useState('week');
-
   const displayOptions = [
     {
       title: 'Week',
-      value: 'week',
+      value: Display.WEEK,
     },
     {
       title: 'Month',
-      value: 'month',
+      value: Display.MONTH,
     },
   ];
 
@@ -54,7 +61,7 @@ export default function CalendarWidgetControls({
       <UiToggleButton
         active={display}
         options={displayOptions}
-        onSelect={setDisplay}
+        onSelect={(param) => onSelectDisplay(param as Display)}
       />
     </div>
   );

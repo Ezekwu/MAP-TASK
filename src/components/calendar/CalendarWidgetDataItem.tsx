@@ -25,12 +25,12 @@ export default function CalendarWidgetDayItem({
 
   return (
     <li
-      className={`day-item p-2 ${size === 'sm' ? 'h-20' : 'h-40'} ${
+      className={`day-item p-2 ${size === 'sm' ? 'h-20' : 'min-h-[192px]'} ${
         hasMeals ? 'has-no-meals' : ''
       }  ${!isCurrentMonth ? 'text-typography-muted cursor-not-allowed' : ''}`}
     >
       <div className="text-[10px] text-dark-accent">{label}</div>
-      {itemNode}
+      <div className="h-full">{itemNode}</div>
     </li>
   );
 }
