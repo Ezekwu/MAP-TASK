@@ -33,7 +33,7 @@ export default function CalendarWidgetDayItem({
       className={`day-item box-border p-2 flex flex-col ${
         size === 'sm' ? 'h-20' : 'min-h-[192px]'
       } ${hasMeals ? 'has-no-meals' : ''} ${
-        !isCurrent ? 'text-typography-muted cursor-not-allowed' : ''
+        !isCurrent ? 'text-typography-muted opacity-75' : ''
       }`}
     >
       {label && (
