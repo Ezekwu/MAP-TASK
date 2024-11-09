@@ -3,7 +3,6 @@ import UiButton from '../ui/UiButton';
 import UiInput from '../ui/UiInput';
 import { useState } from 'react';
 import UiImageUploader from '../ui/UiImageUploader';
-import OnChangeParams from '../../types/OnChangeParams';
 import PersonalDetailsSchema from '../../utils/schemas/PersonalDetailsSchema';
 import { Link } from 'react-router-dom';
 import useObjectState from '@/hooks/useObjectState';
