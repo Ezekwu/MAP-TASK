@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react';
 import CalenderWidgetDataItem from './CalendarWidgetDataItem';
 import CalenderWidgetControls, { Display } from './CalendarWidgetControls';
 import CalendarWidgetWeekDays from './CalendarWidgetWeekDays';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -19,7 +20,7 @@ interface Props {
 }
 export default function CalendarWidget({
   value,
-  size,
+  size = 'lg',
   itemNode,
   selectDate,
 }: Props) {
@@ -30,6 +31,7 @@ export default function CalendarWidget({
   const arrayForEachDayOfTheWeek = Array.from({ length: 7 }, (_, i) => i + 1);
 
   const [activeMonthDayReference, setActiveMonthDayReference] = useState(value);
+
   const activeDate = useMemo(() => {
     return activeMonthDayReference || dayjs();
   }, [activeMonthDayReference]);

@@ -38,15 +38,8 @@ export default function CalendarPage() {
 
   return (
     <div>
-      <TheTopNav
-        pageTitle="Calendar"
-        subtitle="View your schedule, view your booking, book meetings"
-      >
-        <div className="flex justify-end">
-          <UiButton onClick={openAddSchedule}>Add Schedule</UiButton>
-        </div>
-      </TheTopNav>
-      <div className="m-5 bg-white rounded-md pb-4">
+      <TheTopNav pageTitle="Calendar" />
+      <div className="m-5 bg-white rounded-md pb-4 min-w-[650px] overflow-x-scroll md:overflow-x-hidden overflow-y-hidden">
         <CalendarWidget
           value={selectedDate}
           itemNode={getScheduleNodeOfParticularDate}

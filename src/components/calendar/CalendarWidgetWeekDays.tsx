@@ -13,7 +13,7 @@ export default function CalendarWidgetWeekDays(props: Props) {
     if (props.display === Display.MONTH || !props.day) return;
 
     return Number(props.day.startOf('week').format('D'));
-  }, [props.day]);
+  }, [props.day, props.display]);
 
   return (
     <ul className="grid grid-cols-7 text-center text-xs text-typography-disabled">

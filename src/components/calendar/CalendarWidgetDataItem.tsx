@@ -27,11 +27,14 @@ export default function CalendarWidgetDayItem({
     return true;
   }, [day]);
 
+  // TODO: style no meals
   return (
     <li
-      className={`day-item p-2 ${size === 'sm' ? 'h-20' : 'min-h-[192px]'} ${
-        hasMeals ? 'has-no-meals' : ''
-      }  ${!isCurrent ? 'text-typography-muted cursor-not-allowed' : ''}`}
+      className={`day-item box-border p-2 flex flex-col ${
+        size === 'sm' ? 'h-20' : 'min-h-[192px]'
+      } ${hasMeals ? 'has-no-meals' : ''} ${
+        !isCurrent ? 'text-typography-muted cursor-not-allowed' : ''
+      }`}
     >
       {label && (
         <div
@@ -44,7 +47,7 @@ export default function CalendarWidgetDayItem({
           {label}
         </div>
       )}
-      <div className={`h-full ${label ? 'h-[88%]' : ''}`}>{itemNode}</div>
+      <div className="flex-1">{itemNode}</div>
     </li>
   );
 }

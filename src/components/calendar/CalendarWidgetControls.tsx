@@ -48,11 +48,13 @@ export default function CalendarWidgetControls({
 
   function goToPrev() {
     const newSelectedDate = dayjs(selectedDate).subtract(1, display);
+
     onChange(newSelectedDate);
   }
 
   function goToNext() {
     const newSelectedDate = dayjs(selectedDate).add(1, display);
+
     onChange(newSelectedDate);
   }
 
