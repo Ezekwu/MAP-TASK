@@ -6,7 +6,7 @@ const mealTypeConfigs = {
   breakfast: {
     time: '9:00 AM',
     timeColor: 'text-success',
-    backgroundColor: 'bg-primary-300',
+    backgroundColor: 'bg-primary-200',
     textColor: 'text-typography-base',
   },
   lunch: {
@@ -48,7 +48,7 @@ const pastMealTypeConfigs = {
 interface Props {
   type: keyof typeof mealTypeConfigs;
   meal: Meal;
-  isPast: boolean;
+  isPast?: boolean;
 }
 export default function MealScheduleCard(props: Props) {
   const timeSlotConfig = useMemo(() => {
@@ -58,7 +58,7 @@ export default function MealScheduleCard(props: Props) {
   }, [props.meal, props.type, props.isPast]);
 
   return (
-    <div className={`rounded p-3 ${timeSlotConfig.backgroundColor}`}>
+    <div className={`rounded p-3 ${timeSlotConfig.backgroundColor} h-full`}>
       <div className={`text-[8px] ${timeSlotConfig.timeColor}`}>
         {timeSlotConfig.time}
       </div>

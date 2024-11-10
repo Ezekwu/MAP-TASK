@@ -59,12 +59,14 @@ export default function CalendarWidgetControls({
   }
 
   return (
-    <div className="w-full flex flex-col-reverse xs:flex-row items-start xs:items-center justify-between gap-5 xs:gap-8 py-4 dark:text-gray-900">
-      <div className="flex items-center w-full justify-between xs:justify-start gap-3 sm:gap-8 dark:text-gray-900">
+    <div className="w-full flex flex-col-reverse xs:flex-row items-start xs:items-center justify-between gap-5 xs:gap-8 py-4">
+      <div className="flex items-center w-full justify-between xs:justify-start gap-3 sm:gap-8">
         <UiButton variant="tertiary" size="icon" onClick={goToPrev}>
           <UiIcon icon="CaretLeft" size="10" />
         </UiButton>
-        <span className="text-sm font-semibold">{durationDisplayText}</span>
+        <span className="text-sm font-semibold text-typography-base">
+          {durationDisplayText}
+        </span>
         <UiButton variant="tertiary" size="icon" onClick={goToNext}>
           <UiIcon icon="CaretRight" size="10" />
         </UiButton>

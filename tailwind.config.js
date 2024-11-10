@@ -12,15 +12,20 @@ export default {
       colors: {
         light: '#ffffff',
         primary: {
-          300: '#CCFFED',
+          100: '#E0FFF4',
+          200: '#CCFFED',
+          300: '#DBFAE0',
           400: '#4DFFC1',
           500: '#009F67',
+          600: '#026412',
+          700: '#006642',
         },
         danger: {
           100: '#FFE6E6',
           200: '#A10603',
         },
         tertiary: {
+          50: '#F8F8F8', // moved to the top (lightest)
           100: '#F7F7F8',
           200: '#F6F6F7',
           300: '#F0F0F0',
@@ -72,6 +77,7 @@ export default {
           'highlight-soft': '#AFD7C9',
           light: '#FFFFFF',
           success: '#426C5D',
+          subtitle: '#404342',
           'dark-accent': '#272932',
           secondary: '#52545B',
           muted: '#A3988A',
@@ -83,5 +89,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.border-b-dashed': {
+          borderBottom: '1px dashed #EBEBEB',
+        },
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ],
 };
