@@ -16,8 +16,8 @@ export default function RegistrationPage() {
 
   return (
     <div className="w-full">
-      {/* <SignUpForm /> */}
-      <PersonDetailsForm />
+      <SignUpForm />
+      {/* <PersonDetailsForm /> */}
     </div>
   );
 }

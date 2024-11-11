@@ -1,34 +1,22 @@
-// import { initializeApp } from 'firebase/app';
-// import { getFirestore } from 'firebase/firestore';
-// import { getAuth } from 'firebase/auth';
-// import {
-//   VITE_FIREBASE_API_KEY,
-//   VITE_FIREBASE_APP_ID,
-//   VITE_FIREBASE_AUTH_DOMAIN,
-//   VITE_FIREBASE_MEASUREMENT_ID,
-//   VITE_FIREBASE_MESSAGING_SENDER_ID,
-//   VITE_FIREBASE_PROJECT_ID,
-//   VITE_FIREBASE_STORAGE_BUCKET,
-// } from '../config';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// const firebaseConfig = {
-//   apiKey: VITE_FIREBASE_API_KEY,
-//   authDomain: VITE_FIREBASE_AUTH_DOMAIN,
-//   projectId: VITE_FIREBASE_PROJECT_ID,
-//   storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: VITE_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: VITE_FIREBASE_APP_ID,
-//   measurementId: VITE_FIREBASE_MEASUREMENT_ID,
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyBkcxvpqSnInPXwWs8oaOweOwHy1TV9f1s",
+  authDomain: "eat-rite-43d83.firebaseapp.com",
+  projectId: "eat-rite-43d83",
+  storageBucket: "eat-rite-43d83.firebasestorage.app",
+  messagingSenderId: "997452131327",
+  appId: "1:997452131327:web:4e38119689915f5909d5ca",
+  measurementId: "G-3SM96ZW2CR"
+};
 
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const db = getFirestore(app);
 
-// export const auth = getAuth(app);
-
-// export default db;
-
-export const auth = '';
-const db = '';
-export default db;
+export {auth, googleProvider};
+export default db

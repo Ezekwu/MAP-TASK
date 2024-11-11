@@ -127,14 +127,14 @@ export default function CalendarWidget({
   }
 
   return (
-    <div className="calendar w-full">
+    <div className="calendar w-full overflow-x-hidden">
       <CalenderWidgetControls
         display={display}
         onSelectDisplay={setDisplay}
         selectedDate={activeMonthDayReference}
         onChange={selectMonth}
       />
-      <div className="overflow-x-scroll">
+      <div className="overflow-x-scroll md:overflow-x-hidden">
         <div className="min-w-[750px] rounded-t-2xl rounded-b-lg border border-gray-200">
           <div className="flex">
             {display === Display.WEEK && (
