@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from 'firebase/auth';
 import 'firebase/firestore';
 import {
@@ -14,20 +15,28 @@ import {
   where,
 } from 'firebase/firestore';
 import AuthDetails from '../types/AuthDetails';
-import db, { auth } from './firebase';
+import db from './firebase';
+import { auth, googleProvider } from './firebase';
 
 class ApiService {
-  createUserWithEmailAndPassword(data: AuthDetails) {
-    return createUserWithEmailAndPassword(auth, data.email, data.password).then(
-      ({ user }) => user,
-    );
+  async createUserWithEmailAndPassword(data: AuthDetails) {
+    return await createUserWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password,
+    ).then(({ user }) => user);
   }
 
-  signInWithEmailAndPassword(data: AuthDetails) {
-    return Promise.resolve();
-    // return signInWithEmailAndPassword(auth, data.email, data.password).then(
-    //   ({ user }) => user,
-    // );
+  async signInWithGoogle() {
+    return await signInWithPopup(auth, googleProvider).then(({ user }) => user);
+  }
+
+  async signInWithEmailAndPassword(data: AuthDetails) {
+    return await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password,
+    ).then(({ user }) => user);
   }
 
   getUser(userId: string) {
