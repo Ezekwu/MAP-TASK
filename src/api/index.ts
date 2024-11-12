@@ -18,10 +18,9 @@ import db, { auth } from './firebase';
 
 class ApiService {
   createUserWithEmailAndPassword(data: AuthDetails) {
-    return Promise.resolve();
-    // return createUserWithEmailAndPassword(auth, data.email, data.password).then(
-    //   ({ user }) => user,
-    // );
+    return createUserWithEmailAndPassword(auth, data.email, data.password).then(
+      ({ user }) => user,
+    );
   }
 
   signInWithEmailAndPassword(data: AuthDetails) {

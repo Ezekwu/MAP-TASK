@@ -1,11 +1,12 @@
 import { lazy } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
 import { ProtectedRoute } from './ProtectedRoute';
 import { userIsLoggedIn } from './navigationGuards';
 
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
+import AdminLoginPage from '@/pages/admin/auth/AdminLoginPage';
 
 const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
 const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
@@ -62,6 +63,26 @@ const router = createBrowserRouter([
       {
         path: 'reset-password',
         element: <RestPassword />,
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    element: <Outlet />,
+    children: [
+      {
+        path: 'auth',
+        element: (
+          <ProtectedRoute reRouteUrl="/" allowNavigation={!userIsLoggedIn()}>
+            <AuthLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: 'login',
+            element: <AdminLoginPage />,
+          },
+        ],
       },
     ],
   },

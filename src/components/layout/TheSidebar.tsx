@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import EatriteLogo from '../../assets/EatriteLogo.svg';
+import EatriteLogo from '../../assets/EatriteWithLuluLogo.svg';
 import UiButton from '../ui/UiButton';
 import UiIcon, { Icons } from '../ui/UiIcon';
 
@@ -62,13 +62,11 @@ export default function TheSidebar() {
   }
 
   return (
-    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4  flex-col">
-      {/* Logo section (fixed at the top) */}
-      <div className="py-8 px-6">
-        <img src={EatriteLogo} alt="Eatrite logo" />
+    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4 flex-col">
+      <div className="py-8 px-6 flex justify-center">
+        <img src={EatriteLogo} width={110} alt="Eatrite logo" />
       </div>
 
-      {/* Navigation routes (takes up remaining space) */}
       <div className="flex-1 overflow-y-auto">
         <ul>
           {routeGroups.map((group, index) => (
@@ -84,7 +82,7 @@ export default function TheSidebar() {
                       className={`${
                         activeRoute === route.path
                           ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
-                          : 'text-typography-inactive hover:text-typography-base'
+                          : 'text-typography-inactive hover:text-typography-base border-transparent'
                       } h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
                     >
                       <UiIcon icon={route.icon} />

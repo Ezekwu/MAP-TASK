@@ -4,4 +4,5 @@ export default interface Meal {
   id: string;
   price: number;
   nutrients: Record<string, string>;
+  highCalorie?: boolean;
 }

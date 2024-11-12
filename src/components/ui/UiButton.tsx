@@ -62,7 +62,7 @@ export default function UiButton({
       data-testid="ui-button"
       onClick={onClick}
     >
-      {loading ? <UiLoader /> : children}
+      {loading ? <UiLoader variant="light" size="sm" /> : children}
     </button>
   );
 }

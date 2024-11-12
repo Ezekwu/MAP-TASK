@@ -16,7 +16,14 @@ export default function MealCard(props: Props) {
   return (
     <div className="w-56 flex flex-col justify-between">
       <div>
-        <img src={props.meal.img} alt={props.meal.name} className="w-full" />
+        <div className="overflow-hidden rounded relative">
+          {props.meal.highCalorie && (
+            <div className="bg-primary-500 text-typography-light text-[10px] py-1 px-4 absolute rounded-br-xl">
+              HIGH CALORIE
+            </div>
+          )}
+          <img src={props.meal.img} alt={props.meal.name} className="w-full" />
+        </div>
         <div className="text-sm font-semibold text-typography-base my-2">
           {props.meal.name}
         </div>
