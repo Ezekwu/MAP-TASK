@@ -1,4 +1,4 @@
-import { meals } from '@/api/mock/meals';
+import { meals } from '@/Api/mock/meals';
 import WeekDisplay from '@/components/calendar/WeekDisplay';
 import BasePage from '@/components/layout/BasePage';
 import MealCard from '@/components/meals/MealCard';

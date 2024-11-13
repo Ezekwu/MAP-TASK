@@ -1,8 +1,9 @@
 import { MouseEventHandler } from 'react';
+
 import UiLoader from './UiLoader';
 
 const sizeClasses = {
-  lg: 'h-[43px] text-base leading-5',
+  lg: 'h-[43px] text-sm leading-5',
   md: 'h-[34px] text-sm',
   sm: 'h-8 text-xs leading-5',
   icon: 'w-4 h-8 box-border',
@@ -22,6 +23,7 @@ const variantClasses = {
 };
 
 const roundedClasses = {
+  xs: 'rounded',
   sm: 'rounded-lg',
   md: 'rounded-2xl',
   lg: 'rounded-3xl',
@@ -38,7 +40,6 @@ interface Props {
   type?: 'button' | 'submit';
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-
 export default function UiButton({
   children,
   variant = 'primary',

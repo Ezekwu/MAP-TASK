@@ -70,7 +70,7 @@ export default function UiInput({
           </div>
         ) : (
           <input
-            className={`outline-none text-gray-1000 rounded-2xl w-full border placeholder:text-sm placeholder:font-normal placeholder:text-typography-disabled text-sm font-semibold h-[52px] pl-4 ${validationStyle}`}
+            className={`outline-none text-gray-1000 rounded w-full border placeholder:text-sm placeholder:font-normal placeholder:text-typography-disabled text-xs font-semibold h-[52px] pl-4 ${validationStyle}`}
             data-testid="ui-input"
             placeholder={placeholder}
             type={inputType}

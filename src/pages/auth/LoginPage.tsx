@@ -1,9 +1,9 @@
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
 import useObjectState from '@/hooks/useObjectState';
+import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Link } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
 
 export default function LoginPage() {
   const formData = useObjectState({
@@ -20,7 +20,7 @@ export default function LoginPage() {
       </h2>
       <UiForm
         formData={formData.value}
-        schema={SignUpSchema}
+        schema={EmailAndPasswordSchema}
         onSubmit={loginUser}
       >
         {({ errors }) => (

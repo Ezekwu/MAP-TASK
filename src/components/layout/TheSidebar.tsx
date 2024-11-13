@@ -4,7 +4,7 @@ import EatriteLogo from '../../assets/EatriteWithLuluLogo.svg';
 import UiButton from '../ui/UiButton';
 import UiIcon, { Icons } from '../ui/UiIcon';
 
-interface Group {
+export interface Group {
   name: string;
   routes: Array<{
     path: string;
@@ -13,46 +13,12 @@ interface Group {
   }>;
 }
 
-export default function TheSidebar() {
+interface Props {
+  routeGroups: Group[];
+  isAdmin?: boolean;
+}
+export default function TheSidebar(props: Props) {
   const location = useLocation();
-
-  const routeGroups: Group[] = [
-    {
-      name: 'MAIN MENU',
-      routes: [
-        {
-          path: '/',
-          name: 'Overview',
-          icon: 'Overview',
-        },
-        {
-          path: '/calendar',
-          name: 'Calendar',
-          icon: 'Calendar',
-        },
-        {
-          path: '/plans',
-          name: 'Meal plans',
-          icon: 'Meal',
-        },
-      ],
-    },
-    {
-      name: 'MORE',
-      routes: [
-        {
-          path: '/support',
-          name: 'Support',
-          icon: 'CustomerSupport',
-        },
-        {
-          path: '/settings',
-          name: 'Settings',
-          icon: 'Cog',
-        },
-      ],
-    },
-  ];
 
   const activeRoute = location.pathname;
 
@@ -69,7 +35,7 @@ export default function TheSidebar() {
 
       <div className="flex-1 overflow-y-auto">
         <ul>
-          {routeGroups.map((group, index) => (
+          {props.routeGroups.map((group, index) => (
             <li key={index} className="mb-4">
               <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
                 {group.name}
@@ -100,7 +66,7 @@ export default function TheSidebar() {
         <div className="flex gap-2 items-center">
           <div className="rounded-full w-8 h-8 bg-neutral-600" />
           <span className="text-sm text-typography-base font-medium">
-            Henry Eze
+            {props.isAdmin ? 'Eatrite Admin' : 'Henry Eze'}
           </span>
         </div>
         <UiButton

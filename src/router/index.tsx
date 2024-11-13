@@ -6,7 +6,7 @@ import { userIsLoggedIn } from './navigationGuards';
 
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
-import AdminLoginPage from '@/pages/admin/auth/AdminLoginPage';
+import AdminLayout from '@/layouts/AdminLayout';
 
 const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
 const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
@@ -14,6 +14,13 @@ const RegistrationPage = lazy(() => import('../pages/auth/RegistrationPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
 const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
 const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
+
+// ADMIN ROUTES
+
+const AdminLoginPage = lazy(() => import('../pages/admin/auth/LoginPage'));
+const AdminOverview = lazy(
+  () => import('../pages/admin/dashboard/OverviewPage'),
+);
 
 const PageError = lazy(() => import('../components/errors/PageError'));
 
@@ -70,6 +77,16 @@ const router = createBrowserRouter([
     path: '/admin',
     element: <Outlet />,
     children: [
+      {
+        path: '',
+        element: <AdminLayout />,
+        children: [
+          {
+            path: '',
+            element: <AdminOverview />,
+          },
+        ],
+      },
       {
         path: 'auth',
         element: (

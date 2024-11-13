@@ -15,7 +15,7 @@ export default function UiField({ error, label, children }: Props) {
         </label>
       )}
       <div>{children}</div>
-      <div data-testid="error-text" className=" text-danger-700 text-xs mt-1">
+      <div data-testid="error-text" className=" text-danger-200 text-xs mt-1">
         {error}
       </div>
     </div>
