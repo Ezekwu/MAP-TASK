@@ -138,7 +138,7 @@ export default function CalendarWidget({
         <div className="min-w-[750px] rounded-t-2xl rounded-b-lg border border-gray-200">
           <div className="flex">
             {display === Display.WEEK && (
-              <div className="w-10 border-r border-b box-content border-gray-200" />
+              <div className="w-10 border-r border-b box-content  border-tertiary-700" />
             )}
             <div className="w-full">
               <CalendarWidgetWeekDays
@@ -153,12 +153,12 @@ export default function CalendarWidget({
               {mealTypes.map((type, index) => (
                 <div
                   key={type}
-                  className={`flex  border-gray-200 ${
+                  className={`flex  border-tertiary-700 ${
                     index !== 2 ? 'border-b' : ''
                   }`}
                 >
                   <div
-                    className="w-10 flex items-center justify-center transform rotate-180 text-center border-l border-gray-200 font-medium text-xs text-typography-disabled"
+                    className="w-10 flex items-center justify-center transform rotate-180 text-center border-l  border-tertiary-700 font-medium text-xs text-typography-disabled"
                     style={{
                       writingMode: 'vertical-rl',
                     }}

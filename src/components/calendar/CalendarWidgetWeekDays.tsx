@@ -29,7 +29,7 @@ export default function CalendarWidgetWeekDays(props: Props) {
       {weekdays.map((weekday, index) => (
         <li
           key={index}
-          className="p-1 border-b border-r last:border-r-0 border-gray-200 h-10 flex items-center justify-center"
+          className="p-1 border-b border-r last:border-r-0   border-tertiary-700  h-10 flex items-center justify-center"
         >
           {weekday} {startOfWeek ? startOfWeek[index] : ''}
         </li>

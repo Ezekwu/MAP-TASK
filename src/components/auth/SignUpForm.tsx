@@ -22,7 +22,7 @@ export default function SignUpForm() {
         Ready to Eatrite?
       </h2>
       <div className="flex flex-col gap-8">
-        <UiButton rounded="md" size="lg" variant="transparent" block>
+        <UiButton rounded="md" size="lg" variant="tertiary-outlined" block>
           <UiIcon size="20" icon="Google" />
           <p className="text-sm">Sign in with Google</p>
         </UiButton>

@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
+
 import Meal from '../../types/Meal';
 
 const mealTypeConfigs = {
   breakfast: {
     time: '9:00 AM',
     timeColor: 'text-success',
-    backgroundColor: 'bg-primary-300',
+    backgroundColor: 'bg-primary-200',
     textColor: 'text-typography-base',
   },
   lunch: {
@@ -18,7 +19,7 @@ const mealTypeConfigs = {
     time: '7:30 PM',
     timeColor: 'text-typography-highlight-soft',
     backgroundColor: 'bg-primary-500',
-    textColor: 'text-typography-light',
+    textColor: 'text-light',
   },
 };
 
@@ -27,27 +28,27 @@ const pastMealTypeConfigs = {
   breakfast: {
     time: '9:00 AM',
     timeColor: '',
-    backgroundColor: 'bg-gray-300',
+    backgroundColor: 'bg-tertiary-300',
     textColor: 'text-typography-base',
   },
   lunch: {
     time: '1:30 PM',
     timeColor: '',
-    backgroundColor: 'bg-gray-400',
+    backgroundColor: 'bg-tertiary-900',
     textColor: 'text-typography-base',
   },
   dinner: {
     time: '7:30 PM',
-    timeColor: '',
-    backgroundColor: 'bg-gray-500',
-    textColor: 'text-typography-light',
+    timeColor: 'text-light',
+    backgroundColor: 'bg-tertiary-1000',
+    textColor: 'text-light',
   },
 };
 
 interface Props {
   type: keyof typeof mealTypeConfigs;
   meal: Meal;
-  isPast: boolean;
+  isPast?: boolean;
 }
 export default function MealScheduleCard(props: Props) {
   const timeSlotConfig = useMemo(() => {
@@ -57,7 +58,7 @@ export default function MealScheduleCard(props: Props) {
   }, [props.meal, props.type, props.isPast]);
 
   return (
-    <div className={`rounded p-3 ${timeSlotConfig.backgroundColor}`}>
+    <div className={`rounded p-3 ${timeSlotConfig.backgroundColor} h-full`}>
       <div className={`text-[8px] ${timeSlotConfig.timeColor}`}>
         {timeSlotConfig.time}
       </div>

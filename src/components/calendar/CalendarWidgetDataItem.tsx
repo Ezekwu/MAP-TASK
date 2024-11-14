@@ -40,7 +40,7 @@ export default function CalendarWidgetDayItem({
         <div
           className={`text-[10px] w-fit py-[2px] px-2 mb-1 rounded-[4px] ${
             isToday
-              ? 'text-typography-light bg-dark-200'
+              ? 'text-light bg-secondary-#272932'
               : 'text-typography-dark-accent'
           }`}
         >

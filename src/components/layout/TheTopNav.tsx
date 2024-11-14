@@ -6,12 +6,12 @@ interface Props {
 
 export default function TheTopNav({ pageTitle, subtitle, children }: Props) {
   return (
-    <nav className="p-5 flex w-full justify-between sticky">
-      <div>
-        <div className="font-semibold">{pageTitle}</div>
-        <p className="text-gray-700 text-sm">{subtitle}</p>
+    <nav className="p-8 flex w-full justify-between sticky">
+      <div className="grid gap-1">
+        <div className="font-semibold text-xl leading-7">{pageTitle}</div>
+        <p className="text-typography-subtitle text-sm leading-5">{subtitle}</p>
       </div>
-      <div style={{ minWidth: '300px' }}>{children}</div>
+      <div>{children}</div>
     </nav>
   );
 }
