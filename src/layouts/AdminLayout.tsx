@@ -5,7 +5,7 @@ import TheSidebar, { Group } from '@/components/layout/TheSidebar';
 export default function AdminLayout() {
   const routeGroups: Group[] = [
     {
-      name: 'Main Menu',
+      name: 'MAIN MENU',
       routes: [
         {
           path: '/',
