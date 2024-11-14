@@ -5,21 +5,20 @@ interface Props {
   name: string;
   value: File | null;
   onChange: (event: { name: string; value: File }) => void;
-  getImgSrc: (src: string | null) => void;
+  setPreviewUrl: (src: string | null) => void;
 }
 
 export default function UiImageUploader({
   name,
   value,
   onChange,
-  getImgSrc,
+  setPreviewUrl,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function openFilePicker() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
-      getImgSrc(null);
     }
   }
 
@@ -33,21 +32,22 @@ export default function UiImageUploader({
 
   function previewImage() {
     if (!value) return;
+
     const imgUrl = URL.createObjectURL(value);
-    getImgSrc(imgUrl);
+
+    setPreviewUrl(imgUrl);
   }
 
   useEffect(previewImage, [value]);
 
   return (
-    <div>
+    <>
       <UiButton
         size="lg"
-        rounded="md"
+        rounded="sm"
         type="button"
         onClick={openFilePicker}
         variant="tertiary"
-        block={false}
       >
         <p className="text-xs">{value ? 'Replace Image' : 'Upload Image'}</p>
       </UiButton>
@@ -58,6 +58,6 @@ export default function UiImageUploader({
         accept="image/*"
         type="file"
       />
-    </div>
+    </>
   );
 }
