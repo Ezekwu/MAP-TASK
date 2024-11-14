@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function DashboardPage() {
-  const pageMetaData = {
+  const pagenavDetails = {
     title: 'Hello, Henry! 👋',
     subtitle: 'Begin your journey to better health today',
   };
@@ -26,7 +26,7 @@ export default function DashboardPage() {
   }, [dayjs()]);
 
   return (
-    <BasePage metadata={pageMetaData}>
+    <BasePage navDetails={pagenavDetails}>
       <header className="flex justify-between flex-col sm:flex-row gap-2">
         <div className="text-sm">
           Here are you upcoming meals for the week <br />(

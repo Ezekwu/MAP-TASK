@@ -8,22 +8,22 @@ export default function AdminLayout() {
       name: 'MAIN MENU',
       routes: [
         {
-          path: '/',
+          path: '/admin',
           icon: 'Overview',
           name: 'Overview',
         },
         {
-          path: '/meals',
+          path: '/admin/meals',
           icon: 'Meal',
           name: 'Meals',
         },
         {
-          path: '/payments',
+          path: '/admin/payments',
           icon: 'Meal',
           name: 'Payments',
         },
         {
-          path: '/schedules',
+          path: '/admin/schedules',
           icon: 'Calendar',
           name: 'Schedules',
         },

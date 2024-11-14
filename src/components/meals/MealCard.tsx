@@ -28,8 +28,10 @@ export default function MealCard(props: Props) {
           {props.meal.name}
         </div>
         <div className="flex flex-wrap gap-1 mb-4">
-          {nutrients.map((nutrient) => (
-            <UiTag variant="primary">{nutrient}</UiTag>
+          {nutrients.map((nutrient, index) => (
+            <UiTag variant="primary" key={`${nutrient}-${index}`}>
+              {nutrient}
+            </UiTag>
           ))}
         </div>
       </div>
