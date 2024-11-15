@@ -5,15 +5,44 @@ import UiButton from '../ui/UiButton';
 import UiForm from '../ui/UiForm';
 import UiIcon from '../ui/UiIcon';
 import UiInput from '../ui/UiInput';
+import { Api } from '@/api';
+import useToggle from '@/hooks/useToggle';
+import { FirebaseError } from 'firebase/app';
 
-export default function SignUpForm() {
+interface Props {
+  setStep: (step: number) => void
+}
+
+export default function SignUpForm({setStep}: Props) {
   const formData = useObjectState({
     email: '',
     password: '',
   });
+  
+  const loading = useToggle();
 
-  function registerUser() {
-    console.log(formData);
+  async function signInWithEmailAndPassword() {
+    try {
+      loading.on();
+      const user = await Api.createUserWithEmailAndPassword({
+        email: formData.value.email,
+        password: formData.value.password,
+      });
+
+      console.log(user);
+      setStep(1);
+    } catch (error) {
+      const firebaseError = error as FirebaseError;
+      if (firebaseError.message === 'Firebase: Error (auth/email-already-in-use).') {
+        console.log('email already in use ');
+      }
+    } finally {
+      loading.off()
+    }
+  }
+
+  async function signInWithGoogle() {
+
   }
 
   return (
@@ -34,7 +63,7 @@ export default function SignUpForm() {
         <UiForm
           formData={formData.value}
           schema={SignUpSchema}
-          onSubmit={registerUser}
+          onSubmit={signInWithEmailAndPassword}
         >
           {({ errors }) => (
             <div className="grid gap-5">
@@ -54,7 +83,7 @@ export default function SignUpForm() {
                 onChange={formData.set}
               />
               <div className="mt-5">
-                <UiButton size="lg" rounded="md" variant="primary" block>
+                <UiButton loading={loading.value} size="lg" rounded="md" variant="primary" block>
                   Submit
                 </UiButton>
               </div>

@@ -5,7 +5,7 @@ import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
 import UiDropdownItem from './UiDropdownItem';
 
-interface Option {
+export interface Option {
   label: React.ReactNode;
   value: string;
 }
@@ -46,6 +46,11 @@ export default function UiSelect({
     onChange({ name, value });
     setOptionsAreVisible(false);
   }
+
+  const validationStyle = useMemo(() => {
+    return !!error ? 'border-danger-700' : `bg-white border-gray-400`;
+  }, [error]);
+
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
       <UiField error={error} label={label}>
@@ -53,14 +58,10 @@ export default function UiSelect({
           type="button"
           data-testid="ui-select-trigger"
           style={{ minHeight: '48px' }}
-          className={`outline-none rounded-md w-full border text-left text-xs py-2  flex items-center justify-between px-4 ${
-            !!error
-              ? 'bg-danger-100 placeholder:text-danger border-danger'
-              : `bg-white border-gray-50`
-          }`}
+          className={`outline-none rounded-2xl w-full border text-left text-xs py-2 flex items-center justify-between px-4 ${validationStyle}`}
           onClick={() => setOptionsAreVisible(!optionsAreVisible)}
         >
-          <div className="w-full">
+          <div className="w-full text-gray-500 text-sm">
             {!!valueLabel ? valueLabel : placeholder}
           </div>
           {optionsAreVisible ? <CaretUp /> : <CaretDown />}
@@ -68,16 +69,18 @@ export default function UiSelect({
         {optionsAreVisible && (
           <ul
             data-testid="ui-select-options"
-            className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
+            className="absolute bg-white border-gray-400 border rounded-2xl text-gray-700 mt-2  z-20 p-2 w-full"
           >
-            {options.map((option, index) => (
-              <UiDropdownItem
-                key={index}
-                dataTestId="ui-select-option"
-                label={option.label}
-                func={() => selectOption(option.value)}
-              />
-            ))}
+            <div className="overflow-auto max-h-72 custom-sidebar">
+              {options.map((option, index) => (
+                <UiDropdownItem
+                  key={index}
+                  dataTestId="ui-select-option"
+                  label={option.label}
+                  func={() => selectOption(option.value)}
+                />
+              ))}
+            </div>
           </ul>
         )}
       </UiField>

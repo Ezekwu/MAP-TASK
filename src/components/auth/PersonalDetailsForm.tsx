@@ -7,19 +7,51 @@ import UiButton from '../ui/UiButton';
 import UiForm from '../ui/UiForm';
 import UiImageUploader from '../ui/UiImageUploader';
 import UiInput from '../ui/UiInput';
+import UiSelect from '../ui/UiSelect';
+import { getAuth } from 'firebase/auth';
+import { LGAS, Goals } from '@/config/constants';
+import useCloudinaryUpload from '@/hooks/useCloudinaryUpload';
+import useToggle from '@/hooks/useToggle';
+import User from '@/types/User';
+import { Api } from '@/api';
 
 export default function PersonalDetailsForm() {
-  const formData = useObjectState({
+  const formData = useObjectState<User>({
+    id: '',
     first_name: '',
     last_name: '',
     phone_numner: '',
     home_adress: '',
     profile_img: null,
+    local_government: '',
+    goals: '',
+    allergies: '',
   });
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const { uploadFile } = useCloudinaryUpload();
+  const loading = useToggle();
 
-  function submitDetails() {
-    console.log(formData);
+  const auth = getAuth();
+  const user = auth.currentUser;
+  
+  async function submitDetails() {
+    if(!user) return;
+    loading.on();
+    let userDetails = {
+      ...formData.value,
+      id: user.uid,
+      email: user.email,
+    };
+
+    if(formData.value.profile_img){
+      const imgUrl = await uploadFile(formData.value.profile_img as File);
+      userDetails = {
+        ...userDetails,
+        profile_img: imgUrl
+      }
+    }
+    Api.createOrUpdateUser(userDetails).then(() => loading.off());
+  
   }
 
   function getImgSrc(src: string | null) {
@@ -72,6 +104,32 @@ export default function PersonalDetailsForm() {
               error={errors.home_adress}
               onChange={formData.set}
             />
+            <UiSelect
+              name="local_government"
+              label="Local government"
+              placeholder="Select your LGA"
+              onChange={formData.set}
+              error={errors.local_government}
+              options={LGAS}
+              value={formData.value.local_government}
+            />
+            <UiInput
+              placeholder="Enter your allergies"
+              label="Allergies (Optional)"
+              value={formData.value.allergies}
+              name="allergies"
+              error={errors.allergies}
+              onChange={formData.set}
+            />
+            <UiSelect
+              name="goals"
+              label="Goals (Optional)"
+              placeholder="Select your goals"
+              onChange={formData.set}
+              error={errors.goals}
+              options={Goals}
+              value={formData.value.goals}
+            />
             <div className="flex items-center gap-4">
               <div>
                 {imgSrc ? (
@@ -89,7 +147,7 @@ export default function PersonalDetailsForm() {
                   name="profile_img"
                   getImgSrc={getImgSrc}
                   onChange={formData.set}
-                  value={formData.value.profile_img}
+                  value={formData.value.profile_img as File}
                 />
                 <p className="text-xs text-gray-450 font-medium">
                   *jpg, *jpeg, *png files up to 10MB max.{' '}
@@ -97,7 +155,7 @@ export default function PersonalDetailsForm() {
               </div>
             </div>
             <div className="mt-5">
-              <UiButton size="lg" rounded="md" variant="primary" block>
+              <UiButton loading={loading.value} size="lg" rounded="md" variant="primary" block>
                 Submit
               </UiButton>
             </div>
