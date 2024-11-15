@@ -4,31 +4,56 @@ export default {
   theme: {
     extend: {
       screens: {
-        xs: '516px'
+        xs: '516px',
       },
       screens: {
-        xs: '516px'
+        xs: '516px',
       },
       colors: {
+        light: '#ffffff',
         primary: {
-          300: '#CCFFED',
+          100: '#E0FFF4',
+          200: '#CCFFED',
+          300: '#DBFAE0',
           400: '#4DFFC1',
           500: '#009F67',
+          600: '#026412',
+          700: '#006642',
         },
         danger: {
-          700: '#A10603'
+          100: '#FFE6E6',
+          200: '#A10603',
         },
-        gray: {
+        tertiary: {
+          50: '#F8F8F8', // moved to the top (lightest)
+          100: '#F7F7F8',
+          200: '#F6F6F7',
           300: '#F0F0F0',
-          400: '#E3E3E8',
-          450: '#8A8AA3',
-          500: '#88888B',
-          600: '#5B6161',
-          700: '#55556D',
-          950: '#121217',
-          1000: '#101413',
+          400: '#EEEEEE',
+          500: '#EBEBEB',
+          600: '#E4E4E7',
+          700: '#E3E3E8',
+          800: '#E1E1E2',
+          900: '#C3C3C3',
+          1000: '#696969',
         },
-        secondary: {},
+        secondary: {
+          100: '#F7F7F8',
+          200: '#F6F6F7',
+          300: '#F0F0F0',
+          400: '#EEEEEE',
+          500: '#EBEBEB',
+          600: '#E4E4E7',
+          700: '#E3E3E8',
+          800: '#E1E1E2',
+          900: '#C3C3C3',
+          1000: '#696969',
+          1100: '#272932', // Extra color added here
+          1200: '#A10603', // Extra color added here
+          1300: '#141414', // Extra color added here
+          1400: '#121217', // Extra color added here
+          1500: '#101413', // Extra color added here
+        },
         neutral: {
           100: '',
           200: '',
@@ -52,6 +77,7 @@ export default {
           'highlight-soft': '#AFD7C9',
           light: '#FFFFFF',
           success: '#426C5D',
+          subtitle: '#404342',
           'dark-accent': '#272932',
           secondary: '#52545B',
           muted: '#A3988A',
@@ -63,5 +89,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.border-b-dashed': {
+          borderBottom: '1px dashed #EBEBEB',
+        },
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+  ],
 };
