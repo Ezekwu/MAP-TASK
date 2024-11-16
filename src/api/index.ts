@@ -2,6 +2,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendPasswordResetEmail,
+  verifyPasswordResetCode,
+  confirmPasswordReset,
 } from 'firebase/auth';
 import 'firebase/firestore';
 import {
@@ -16,13 +19,14 @@ import {
 } from 'firebase/firestore';
 import AuthDetails from '../types/AuthDetails';
 import db from './firebase';
-import {auth, googleProvider} from './firebase'
+import { auth, googleProvider } from './firebase';
 import User from '@/types/User';
-
 
 class ApiService {
   createUserWithEmailAndPassword(data: AuthDetails) {
-    return createUserWithEmailAndPassword(auth, data.email, data.password).then(({ user }) => user)
+    return createUserWithEmailAndPassword(auth, data.email, data.password).then(
+      ({ user }) => user,
+    );
   }
 
   signInWithGoogle() {
@@ -30,19 +34,36 @@ class ApiService {
   }
 
   signInWithEmailAndPassword(data: AuthDetails) {
-    return signInWithEmailAndPassword(auth, data.email, data.password).then(({ user }) => user);
+    return signInWithEmailAndPassword(auth, data.email, data.password).then(
+      ({ user }) => user,
+    );
+  }
+
+  sendPasswordResetEmail(email: string) {
+    return sendPasswordResetEmail(auth, email);
+  }
+
+  verifyPasswordResetCode(code: string) {
+    return verifyPasswordResetCode(auth, code);
+  }
+
+  resetPassword(actionCode: string, newPassword: string) {
+    return confirmPasswordReset(auth, actionCode, newPassword);
   }
 
   getUser(userId: string) {
     return Promise.resolve({ userId, name: 'Henry Eze' });
-    // return this.getItem<User>('user', userId);
   }
 
-  createOrUpdateUser(userData: User){
-    return this.setItem('users', userData.id, userData)
+  createOrUpdateUser(userData: User) {
+    return this.setItem('users', userData.id, userData);
   }
 
-
+  async doesDocumentExist(collectionName: string, id: string) {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists();
+  }
 
   private async getCollection<T>(collectionName: string): Promise<T[]> {
     const rawObjects = await getDocs(collection(db, collectionName));
@@ -84,16 +105,11 @@ class ApiService {
     }
   }
 
-  private async setItem(
-    collectionName: string,
-    id: string,
-    data: unknown,
-  ) {
+  private async setItem(collectionName: string, id: string, data: unknown) {
     return await setDoc(doc(db, collectionName, id), data);
   }
 }
 
 const Api = new ApiService();
 
-export {Api}
-
+export { Api };

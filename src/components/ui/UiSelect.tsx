@@ -48,7 +48,7 @@ export default function UiSelect({
   }
 
   const validationStyle = useMemo(() => {
-    return !!error ? 'border-danger-700' : `bg-white border-gray-400`;
+    return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
   }, [error]);
 
   return (
@@ -61,7 +61,11 @@ export default function UiSelect({
           className={`outline-none rounded-2xl w-full border text-left text-xs py-2 flex items-center justify-between px-4 ${validationStyle}`}
           onClick={() => setOptionsAreVisible(!optionsAreVisible)}
         >
-          <div className="w-full text-gray-500 text-sm">
+          <div
+            className={`w-full text-typography-disabled text-sm ${
+              value && 'font-semibold text-secondary-1400'
+            }`}
+          >
             {!!valueLabel ? valueLabel : placeholder}
           </div>
           {optionsAreVisible ? <CaretUp /> : <CaretDown />}
@@ -69,7 +73,7 @@ export default function UiSelect({
         {optionsAreVisible && (
           <ul
             data-testid="ui-select-options"
-            className="absolute bg-white border-gray-400 border rounded-2xl text-gray-700 mt-2  z-20 p-2 w-full"
+            className="absolute bg-white border-tertiary-700 border rounded-2xl text-gray-700 mt-2  z-20 p-2 w-full"
           >
             <div className="overflow-auto max-h-72 custom-sidebar">
               {options.map((option, index) => (

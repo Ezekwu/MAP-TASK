@@ -9,8 +9,11 @@ import DashboardLayout from '../layouts/DashboardLayout';
 
 const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
 const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
-const RegistrationPage = lazy(() => import('../pages/auth/RegistrationPage'));
+const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+const PersonalDetalsPage = lazy(
+  () => import('../pages/auth/PersonalDetailPage'),
+);
 const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
 const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
 
@@ -49,7 +52,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'join',
-        element: <RegistrationPage />,
+        element: <SignUpPage />,
+      },
+      {
+        path: 'personal-details',
+        element: <PersonalDetalsPage />,
       },
       {
         path: 'login',

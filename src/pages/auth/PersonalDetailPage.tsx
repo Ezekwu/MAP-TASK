@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 
 import useObjectState from '@/hooks/useObjectState';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
-import UiButton from '../ui/UiButton';
-import UiForm from '../ui/UiForm';
-import UiImageUploader from '../ui/UiImageUploader';
-import UiInput from '../ui/UiInput';
-import UiSelect from '../ui/UiSelect';
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiImageUploader from '@/components/ui/UiImageUploader';
+import UiInput from '@/components/ui/UiInput';
+import UiSelect from '@/components/ui/UiSelect';
 import { getAuth } from 'firebase/auth';
 import { LGAS, Goals } from '@/config/constants';
 import useCloudinaryUpload from '@/hooks/useCloudinaryUpload';
 import useToggle from '@/hooks/useToggle';
 import User from '@/types/User';
+import { useNavigate } from 'react-router-dom';
 import { Api } from '@/api';
 
 export default function PersonalDetailsForm() {
@@ -28,33 +29,38 @@ export default function PersonalDetailsForm() {
     allergies: '',
   });
   const [imgSrc, setImgSrc] = useState<string | null>(null);
+
+  const navigate = useNavigate();
   const { uploadFile } = useCloudinaryUpload();
   const loading = useToggle();
-
   const auth = getAuth();
   const user = auth.currentUser;
-  
+
   async function submitDetails() {
-    if(!user) return;
+    if (!user) return;
+
     loading.on();
+
     let userDetails = {
       ...formData.value,
       id: user.uid,
       email: user.email,
     };
 
-    if(formData.value.profile_img){
+    if (formData.value.profile_img) {
       const imgUrl = await uploadFile(formData.value.profile_img as File);
       userDetails = {
         ...userDetails,
-        profile_img: imgUrl
-      }
+        profile_img: imgUrl,
+      };
     }
-    Api.createOrUpdateUser(userDetails).then(() => loading.off());
-  
+
+    Api.createOrUpdateUser(userDetails)
+      .then(() => navigate('/'))
+      .finally(() => loading.off());
   }
 
-  function getImgSrc(src: string | null) {
+  function handleSetImgSrc(src: string | null) {
     setImgSrc(src);
   }
 
@@ -145,7 +151,7 @@ export default function PersonalDetailsForm() {
               <div className="flex flex-col gap-3 mt-5">
                 <UiImageUploader
                   name="profile_img"
-                  getImgSrc={getImgSrc}
+                  handleSetImgSrc={handleSetImgSrc}
                   onChange={formData.set}
                   value={formData.value.profile_img as File}
                 />
@@ -155,7 +161,13 @@ export default function PersonalDetailsForm() {
               </div>
             </div>
             <div className="mt-5">
-              <UiButton loading={loading.value} size="lg" rounded="md" variant="primary" block>
+              <UiButton
+                loading={loading.value}
+                size="lg"
+                rounded="md"
+                variant="primary"
+                block
+              >
                 Submit
               </UiButton>
             </div>

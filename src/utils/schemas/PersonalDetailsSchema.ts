@@ -6,6 +6,5 @@ export default Yup.object({
   last_name: Yup.string().required(isRequiredMessage),
   phone_numner: Yup.string().required(isRequiredMessage),
   home_adress: Yup.string().required(isRequiredMessage),
-  profile_img: Yup.string().required(isRequiredMessage),
   local_government: Yup.string().required(isRequiredMessage),
 });
