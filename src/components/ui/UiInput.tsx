@@ -7,6 +7,7 @@ import 'react-phone-number-input/style.css';
 
 export type InputType = 'text' | 'password' | 'number' | 'phone' | 'date';
 
+const sizes = {};
 interface Props {
   label?: string;
   type?: InputType;

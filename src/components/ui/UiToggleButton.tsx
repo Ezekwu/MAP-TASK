@@ -2,13 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface Option {
   title: string;
-  value: string;
+  value: string | boolean;
 }
 
 interface Props {
-  active: string;
+  active: string | boolean;
   options: Option[];
-  onSelect: (value: string) => void;
+  onSelect: (value: string | boolean) => void;
 }
 export default function UiToggleButton(props: Props) {
   const [bgPosition, setBgPosition] = useState(0);
@@ -40,7 +40,8 @@ export default function UiToggleButton(props: Props) {
 
       {props.options.map((option, index) => (
         <button
-          key={option.value}
+          key={`${option.value}`}
+          type="button"
           ref={(el) => {
             if (el) buttonRefs.current[index] = el;
           }}

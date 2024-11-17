@@ -15,7 +15,8 @@ export default function UiImagePreview(props: Props) {
 
   return (
     <div className={baseStyle}>
-      {props.img && <img src={props.img} className="rounded h-32"></img>}
+      {/* TODO: style this for different rounded variants */}
+      {props.img && <img src={props.img} className="rounded h-60 w-full"></img>}
     </div>
   );
 }

@@ -19,7 +19,9 @@ export default function UiImageUploadWithView(props: Props) {
 
   return (
     <div className="flex gap-4 items-end">
-      <UiImagePreview img={previewUrl} />
+      <div className="w-full">
+        <UiImagePreview img={previewUrl} />
+      </div>
 
       <UiImageUploader
         name={props.name}

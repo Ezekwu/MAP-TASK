@@ -23,11 +23,11 @@ export default function UiImageUploader({
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const selectedFile = event.target.files;
+    const files = event.target.files;
 
-    if (!selectedFile) return;
+    if (!files || !files.length) return;
 
-    onChange({ name, value: selectedFile[0] });
+    onChange({ name, value: files[0] });
   }
 
   function previewImage() {

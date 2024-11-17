@@ -16,9 +16,11 @@ export default function UiModal({
   title,
   onClose,
 }: Props) {
+  // TODO: animate modals
   const cardStyle = useMemo(() => {
     // TODO: handle sizing seperately from card styling.
-    if (alignRight) return 'fixed top-0 right-0 bottom-0 z-50 w-2/5 bg-[#fff]';
+    if (alignRight)
+      return 'fixed top-0 right-0 bottom-0 z-50 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
     return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white p-8 w-2/5 rounded';
   }, [alignRight]);
@@ -44,7 +46,7 @@ export default function UiModal({
             <X size="16" />
           </UiButton>
         </header>
-        <div className="p-8">{children}</div>
+        <div className="p-8 overflow-y-auto">{children}</div>
       </div>
     </>
   );

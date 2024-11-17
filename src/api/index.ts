@@ -18,6 +18,7 @@ import AuthDetails from '../types/AuthDetails';
 import db from './firebase';
 import { auth, googleProvider } from './firebase';
 import Admin from '@/types/Admin';
+import Meal from '@/types/Meal';
 
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
@@ -42,9 +43,13 @@ class ApiService {
     return this.setDoc('admin', data.id, data);
   }
 
+  setMeal(data: Meal) {
+    return this.setDoc('meal', data.id, data);
+  }
+
   getUser(userId: string) {
     return Promise.resolve({ userId, name: 'Henry Eze' });
-    // return this.getItem<User>('user', userId);
+    // return this.getItem<User>('users', userId);
   }
 
   private async setDoc(
