@@ -36,6 +36,7 @@ export default function SignUpForm() {
       if (
         firebaseError.message === 'Firebase: Error (auth/email-already-in-use).'
       ) {
+        //TODO: IMPLEMENT TOAST
         console.log('email already in use ');
       }
     } finally {

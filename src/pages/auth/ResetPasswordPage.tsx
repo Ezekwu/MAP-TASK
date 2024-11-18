@@ -24,6 +24,7 @@ export default function ResetPasswordPage() {
     try {
       await Api.resetPassword(actionCode, formData.value.password);
       console.log('password has been reset');
+      //TODO: IMPLEMENT TOAST
     } catch (error) {
       const firebaseError = error as FirebaseError;
       if (

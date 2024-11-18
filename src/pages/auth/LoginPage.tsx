@@ -38,6 +38,7 @@ export default function LoginPage() {
       if (
         firebaseError.message === 'Firebase: Error (auth/invalid-credential).'
       ) {
+        //TODO: IMPLEMENT TOAST
         console.log('invalid email or password');
       }
     } finally {

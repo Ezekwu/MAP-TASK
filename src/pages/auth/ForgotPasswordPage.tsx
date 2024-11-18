@@ -17,6 +17,7 @@ export default function ForgotPasswordForm() {
     loading.on();
     Api.sendPasswordResetEmail(formData.value.email)
       .then(() =>
+        //TODO: IMPLEMENT TOAST
         console.log('password reset link has been sent to your email'),
       )
       .finally(() => loading.off());
