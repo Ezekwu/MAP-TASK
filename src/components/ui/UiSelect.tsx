@@ -34,6 +34,7 @@ export default function UiSelect({
   onChange,
 }: Props) {
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
+
   const valueLabel = useMemo(() => {
     if (!value) return placeholder;
 
@@ -42,14 +43,14 @@ export default function UiSelect({
     );
   }, [value]);
 
+  const validationStyle = useMemo(() => {
+    return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
+  }, [error]);
+
   function selectOption(value: string) {
     onChange({ name, value });
     setOptionsAreVisible(false);
   }
-
-  const validationStyle = useMemo(() => {
-    return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
-  }, [error]);
 
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
