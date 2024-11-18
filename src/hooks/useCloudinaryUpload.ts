@@ -1,14 +1,17 @@
+import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from "@/config";
+
+
 export default function useCloudinaryUpload() {
   async function uploadFile(file: File) {
     try {
       const formData = new FormData();
 
       formData.append('file', file);
-      formData.append('upload_preset', 'brdhoutx');
+      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
       formData.append('resource_type', 'raw');
 
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/dcdfqrryo/upload`,
+      `${CLOUDINARY_URL}`,
         { method: 'POST', body: formData },
       );
 
