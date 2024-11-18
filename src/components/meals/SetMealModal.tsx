@@ -48,8 +48,9 @@ export default function SetMealModal(props: Props) {
 
       props.onDone(formData.value);
     } catch (err) {
+      console.error(err);
     } finally {
-      // loading.off();
+      loading.off();
     }
   }
 

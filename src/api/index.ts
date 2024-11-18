@@ -57,7 +57,10 @@ class ApiService {
     id: string,
     data: unknown,
   ): Promise<unknown> {
-    return setDoc(doc(db, collectionName, id), data);
+    // TODO: handle alerts here
+    return setDoc(doc(db, collectionName, id), data)
+      .then((res) => Promise.resolve(res))
+      .catch((err) => Promise.reject(err));
   }
 
   private async getCollection<T>(collectionName: string): Promise<T[]> {
