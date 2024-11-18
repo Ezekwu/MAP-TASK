@@ -1,11 +1,15 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
+
+import { Api } from '@/api';
+
+import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
+
 import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
-import { Api } from '@/api';
-import useToggle from '@/hooks/useToggle';
 
 export default function ForgotPasswordForm() {
   const formData = useObjectState({
