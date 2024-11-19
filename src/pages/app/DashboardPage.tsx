@@ -42,9 +42,9 @@ export default function DashboardPage() {
       </header>
       <div className="border-b-dashed pb-8 overflow-hidden">
         <WeekDisplay>
-          <MealScheduleCard meal={meals[0]} type="breakfast" />
+          {/* <MealScheduleCard meal={meals[0]} type="breakfast" />
           <MealScheduleCard meal={meals[1]} type="lunch" />
-          <MealScheduleCard meal={meals[2]} type="dinner" />
+          <MealScheduleCard meal={meals[2]} type="dinner" /> */}
         </WeekDisplay>
       </div>
       <div>

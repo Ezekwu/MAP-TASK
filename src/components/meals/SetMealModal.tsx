@@ -2,6 +2,7 @@ import { Api } from '@/Api';
 import useBooleanState from '@/hooks/useBooleanState';
 import useObjectState from '@/hooks/useObjectState';
 import Meal from '@/types/Meal';
+import Cloudinary from '@/utils/Cloudinary';
 import { generateUuid, isFile } from '@/utils/helpers';
 import SetMealSchema from '@/utils/schemas/SetMealSchema';
 import UiButton from '../ui/UiButton';
@@ -12,11 +13,10 @@ import UiInput from '../ui/UiInput';
 import UiModal from '../ui/UiModal';
 import UiMultiInput from '../ui/UiMultiInput';
 import UiSwitch from '../ui/UiSwitch';
-import Cloudinary from '@/utils/Cloudinary';
 
 interface Props {
   isOpen: boolean;
-  meal?: Meal;
+  meal?: Meal | null;
   onClose: () => void;
   onDone: (data: Meal) => void;
 }
@@ -48,13 +48,16 @@ export default function SetMealModal(props: Props) {
         img = await Cloudinary.upload(formData.value.img);
       }
 
-      await Api.setMeal({
+      // TODO: handle nutrients when no nutrient was added. make it compulsory
+      const data = {
         ...formData.value,
         id: formData.value.id || generateUuid(),
         img,
-      });
+      };
 
-      props.onDone(formData.value);
+      await Api.setMeal(data);
+
+      props.onDone(data);
     } catch (err) {
       console.error(err);
     } finally {

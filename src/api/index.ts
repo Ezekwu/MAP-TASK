@@ -54,7 +54,6 @@ class ApiService {
     return confirmPasswordReset(auth, actionCode, newPassword);
   }
 
-
   createAdmin(data: Admin) {
     return this.set('admin', data.id, data);
   }
@@ -62,7 +61,7 @@ class ApiService {
   setMeal(data: Meal) {
     return this.set('meal', data.id, data);
   }
-  
+
   getUser(userId: string) {
     return Promise.resolve({ userId, name: 'Henry Eze' });
   }
@@ -75,6 +74,10 @@ class ApiService {
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
+  }
+
+  getMeals() {
+    return this.getCollection<Meal>('meal');
   }
 
   private async getCollection<T>(collectionName: string): Promise<T[]> {

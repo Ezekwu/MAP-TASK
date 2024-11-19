@@ -4,13 +4,13 @@ import UiTag from '../ui/UiTag';
 import UiButton from '../ui/UiButton';
 
 interface Props {
+  btnLabel?: string;
+  onAction: (data: Meal) => void;
   meal: Meal;
 }
 export default function MealCard(props: Props) {
   const nutrients = useMemo(() => {
-    return Object.entries(props.meal.nutrients).map(
-      ([key, value]) => `${value} ${key}`,
-    );
+    return Object.entries(props.meal.nutrients).map(([_, value]) => `${value}`);
   }, [props.meal]);
 
   return (
@@ -39,8 +39,12 @@ export default function MealCard(props: Props) {
         <div className="text-secondary-1300 text-sm font-semibold mb-2">
           &#8358; {props.meal.price.toLocaleString()}
         </div>
-        <UiButton variant="tertiary" block>
-          Add to Tray
+        <UiButton
+          variant="tertiary"
+          block
+          onClick={() => props.onAction(props.meal)}
+        >
+          {props.btnLabel || 'Add to Tray'}
         </UiButton>
       </div>
     </div>

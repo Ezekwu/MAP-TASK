@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useGetUserQuery } from '../Api/query/useGetUserQuery';
+import { useUserQuery } from '../Api/query/useUserQuery';
 import TheSidebar, { Group } from '../components/layout/TheSidebar';
 import UiLoader from '../components/ui/UiLoader';
 
@@ -8,7 +8,7 @@ export default function DashboardLayout() {
 
   const {
     query: { isLoading },
-  } = useGetUserQuery(uid);
+  } = useUserQuery(uid);
 
   const routeGroups: Group[] = [
     {

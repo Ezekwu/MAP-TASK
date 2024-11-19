@@ -9,7 +9,9 @@ interface Props {
   onChange: (params: OnChangeParams) => void;
 }
 export default function UiImageUploadWithView(props: Props) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    typeof props.value === 'string' ? props.value : null,
+  );
 
   const validatedValue = useMemo(() => {
     if (typeof props.value === 'string') return null;
