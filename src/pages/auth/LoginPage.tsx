@@ -1,6 +1,6 @@
 import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
+import UiButton from '@/components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
 import UiIcon from '@/components/ui/UiIcon';
@@ -10,7 +10,7 @@ import { Api } from '@/api';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
 import useToggle from '@/hooks/useToggle';
-import { setAuthToken } from '@/utils/localStorageMethods';
+import TokenHandler from '@/utils/TokenHandler';
 
 export default function LoginPage() {
   const formData = useObjectState({
@@ -22,17 +22,22 @@ export default function LoginPage() {
   const loading = useToggle();
 
   async function loginWithEmail() {
-    loading.on();
     try {
+      loading.on();
+
       const user = await Api.signInWithEmailAndPassword(formData.value);
-      setAuthToken(user.uid);
+
+      TokenHandler.setToken(user.uid);
 
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
+
       if (doesUserExist) {
         navigate('/');
-      } else {
-        navigate('/auth/personal-details');
+
+        return;
       }
+
+      navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
       if (
@@ -50,7 +55,8 @@ export default function LoginPage() {
     try {
       const user = await Api.signInWithGoogle();
 
-      setAuthToken(user.uid);
+      TokenHandler.setToken(user.uid);
+
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
       if (doesUserExist) {
         navigate('/');

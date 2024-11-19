@@ -1,10 +1,11 @@
+import User from '@/types/User';
 import {
+  confirmPasswordReset,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
-  sendPasswordResetEmail,
   verifyPasswordResetCode,
-  confirmPasswordReset,
 } from 'firebase/auth';
 import 'firebase/firestore';
 import {
@@ -18,9 +19,7 @@ import {
   where,
 } from 'firebase/firestore';
 import AuthDetails from '../types/AuthDetails';
-import db from './firebase';
-import { auth, googleProvider } from './firebase';
-import User from '@/types/User';
+import db, { auth, googleProvider } from './firebase';
 
 class ApiService {
   createUserWithEmailAndPassword(data: AuthDetails) {
@@ -55,8 +54,8 @@ class ApiService {
     return Promise.resolve({ userId, name: 'Henry Eze' });
   }
 
-  createOrUpdateUser(userData: User) {
-    return this.setItem('users', userData.id, userData);
+  setUser(userData: User) {
+    return this.set('users', userData.id, userData);
   }
 
   async doesDocumentExist(collectionName: string, id: string) {
@@ -94,7 +93,7 @@ class ApiService {
     return documentList;
   }
 
-  private async getItem<T>(collectionName: string, id: string): Promise<T> {
+  private async get<T>(collectionName: string, id: string): Promise<T> {
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
 
@@ -105,7 +104,7 @@ class ApiService {
     }
   }
 
-  private async setItem(collectionName: string, id: string, data: unknown) {
+  private async set(collectionName: string, id: string, data: unknown) {
     return await setDoc(doc(db, collectionName, id), data);
   }
 }

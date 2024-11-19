@@ -10,15 +10,16 @@ import { Api } from '@/api';
 import useToggle from '@/hooks/useToggle';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
-import { setAuthToken } from '@/utils/localStorageMethods';
+import TokenHandler from '@/utils/TokenHandler';
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
+
   const formData = useObjectState({
     email: '',
     password: '',
   });
 
-  const navigate = useNavigate();
   const loading = useToggle();
 
   async function signUpWithEmailAndPassword() {
@@ -28,7 +29,7 @@ export default function SignUpForm() {
         email: formData.value.email,
         password: formData.value.password,
       });
-      setAuthToken(user.uid);
+      TokenHandler.setToken(user.uid);
 
       navigate('/auth/personal-details');
     } catch (error) {
@@ -48,14 +49,16 @@ export default function SignUpForm() {
     try {
       const user = await Api.signInWithGoogle();
 
-      setAuthToken(user.uid);
+      TokenHandler.setToken(user.uid);
 
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
       if (doesUserExist) {
         navigate('/');
-      } else {
-        navigate('/auth/personal-details');
+
+        return;
       }
+
+      navigate('/auth/personal-details');
     } catch (error) {
       console.log(error);
     }

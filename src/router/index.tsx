@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { ProtectedRoute } from './ProtectedRoute';
-import { userIsLoggedIn } from './navigationGuards';
+import { authGuard, userIsLoggedIn } from './navigationGuards';
 
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" allowNavigation={!userIsLoggedIn()}>
+      <ProtectedRoute reRouteUrl="/" allowNavigationFunc={authGuard}>
         <AuthLayout />
       </ProtectedRoute>
     ),

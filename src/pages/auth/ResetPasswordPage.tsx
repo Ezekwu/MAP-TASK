@@ -1,30 +1,33 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
+import { Api } from '@/api';
 import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+import { FirebaseError } from 'firebase/app';
+import { useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import UiButton from '../../components/ui/UiButton';
 import UiForm from '../../components/ui/UiForm';
 import UiInput from '../../components/ui/UiInput';
 import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
-import { Api } from '@/api';
-import { FirebaseError } from 'firebase/app';
-import useToggle from '@/hooks/useToggle';
 
 export default function ResetPasswordPage() {
+  const [searchParams] = useSearchParams();
+
   const formData = useObjectState({
     password: '',
     confirm_password: '',
   });
-  const [searchParams] = useSearchParams();
   const actionCode = searchParams.get('oobCode') || '';
   const loading = useToggle();
 
   async function resetPassword() {
-    loading.on();
     try {
+      loading.on();
+
       await Api.resetPassword(actionCode, formData.value.password);
       console.log('password has been reset');
       //TODO: IMPLEMENT TOAST
+
+      // TODO: After resetting send the person to logo
     } catch (error) {
       const firebaseError = error as FirebaseError;
       if (

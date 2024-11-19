@@ -1,13 +1,17 @@
+import { Link } from 'react-router-dom';
+
 import { Api } from '@/api';
+
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
-import { Link } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
 
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
 
-import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
+import ForgotPasswordSchema from '@/utils/schemas/ForgotPasswordSchema';
+
+// ---
 
 export default function ForgotPasswordForm() {
   const formData = useObjectState({
@@ -19,7 +23,7 @@ export default function ForgotPasswordForm() {
     loading.on();
     Api.sendPasswordResetEmail(formData.value.email)
       .then(() =>
-        //TODO: IMPLEMENT TOAST
+        // TODO: IMPLEMENT TOAST
         console.log('password reset link has been sent to your email'),
       )
       .finally(() => loading.off());

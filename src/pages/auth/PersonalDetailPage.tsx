@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import useObjectState from '@/hooks/useObjectState';
-import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
+import { Api } from '@/api';
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiImageUploader from '@/components/ui/UiImageUploader';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
-import { getAuth } from 'firebase/auth';
-import { LGAS, Goals } from '@/config/constants';
-import useCloudinaryUpload from '@/hooks/useCloudinaryUpload';
+import { Goals, LGAS } from '@/config/constants';
+import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 import User from '@/types/User';
+import Cloudinary from '@/utils/Cloudinary';
+import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
+import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { Api } from '@/api';
 
 export default function PersonalDetailsForm() {
+  const navigate = useNavigate();
+
   const formData = useObjectState<User>({
     id: '',
     first_name: '',
@@ -28,12 +30,13 @@ export default function PersonalDetailsForm() {
     goals: '',
     allergies: '',
   });
+
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
-  const navigate = useNavigate();
-  const { uploadFile } = useCloudinaryUpload();
   const loading = useToggle();
   const auth = getAuth();
+
+  // TODO: Do not store token in storage until after filling personal detail page. use auth user.
   const user = auth.currentUser;
 
   async function submitDetails() {
@@ -48,14 +51,17 @@ export default function PersonalDetailsForm() {
     };
 
     if (formData.value.profile_img) {
-      const imgUrl = await uploadFile(formData.value.profile_img as File);
+      const imgUrl = await Cloudinary.upload(
+        formData.value.profile_img as File,
+      );
+
       userDetails = {
         ...userDetails,
         profile_img: imgUrl,
       };
     }
 
-    Api.createOrUpdateUser(userDetails)
+    Api.setUser(userDetails)
       .then(() => navigate('/'))
       .finally(() => loading.off());
   }
@@ -97,6 +103,7 @@ export default function PersonalDetailsForm() {
             <UiInput
               label="Phone number"
               type="phone"
+              // TODO:
               value={formData.value.phone_numner}
               name="phone_numner"
               error={errors.phone_numner}
@@ -136,6 +143,7 @@ export default function PersonalDetailsForm() {
               options={Goals}
               value={formData.value.goals}
             />
+            {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
             <div className="flex items-center gap-4">
               <div>
                 {imgSrc ? (
@@ -151,7 +159,7 @@ export default function PersonalDetailsForm() {
               <div className="flex flex-col gap-3 mt-5">
                 <UiImageUploader
                   name="profile_img"
-                  handleSetImgSrc={handleSetImgSrc}
+                  onSetImgSrc={handleSetImgSrc}
                   onChange={formData.set}
                   value={formData.value.profile_img as File}
                 />
@@ -160,6 +168,7 @@ export default function PersonalDetailsForm() {
                 </p>
               </div>
             </div>
+            {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
             <div className="mt-5">
               <UiButton
                 loading={loading.value}

@@ -1,8 +1,8 @@
 import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from "@/config";
 
 
-export default function useCloudinaryUpload() {
-  async function uploadFile(file: File) {
+class Cloudinary {
+  async upload(file: File) {
     try {
       const formData = new FormData();
 
@@ -27,6 +27,6 @@ export default function useCloudinaryUpload() {
       throw new Error(error);
     }
   }
-
-  return { uploadFile };
 }
+
+export default new Cloudinary();
