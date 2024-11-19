@@ -18,7 +18,7 @@ export default function BasePage({ children, loading, navDetails }: Props) {
         {navDetails.edgeNode}
       </TheTopNav>
       {loading && <UiLoader />}
-      <div className="p-8 pt-4 grid gap-8">{children}</div>
+      <div className="p-8 pt-0 grid gap-8">{children}</div>
     </>
   );
 }
