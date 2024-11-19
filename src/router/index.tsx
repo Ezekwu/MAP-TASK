@@ -2,15 +2,18 @@ import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { ProtectedRoute } from './ProtectedRoute';
-import { userIsLoggedIn } from './navigationGuards';
+import { authGuard, userIsLoggedIn } from './navigationGuards';
 
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 
 const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
 const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
-const RegistrationPage = lazy(() => import('../pages/auth/RegistrationPage'));
+const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+const PersonalDetalsPage = lazy(
+  () => import('../pages/auth/PersonalDetailPage'),
+);
 const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
 const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
 
@@ -42,14 +45,18 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" allowNavigation={!userIsLoggedIn()}>
+      <ProtectedRoute reRouteUrl="/" allowNavigationFunc={authGuard}>
         <AuthLayout />
       </ProtectedRoute>
     ),
     children: [
       {
         path: 'join',
-        element: <RegistrationPage />,
+        element: <SignUpPage />,
+      },
+      {
+        path: 'personal-details',
+        element: <PersonalDetalsPage />,
       },
       {
         path: 'login',

@@ -1,16 +1,33 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import ForgotPasswordSchema from '../../utils/schemas/ForgotPasswordSchema';
+
+import { Api } from '@/api';
+
+import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
+
+import ForgotPasswordSchema from '@/utils/schemas/ForgotPasswordSchema';
+
+// ---
 
 export default function ForgotPasswordForm() {
   const formData = useObjectState({
     email: '',
   });
+  const loading = useToggle();
 
-  async function loginUser() {}
+  async function sendResetPasswordEmail() {
+    loading.on();
+    Api.sendPasswordResetEmail(formData.value.email)
+      .then(() =>
+        // TODO: IMPLEMENT TOAST
+        console.log('password reset link has been sent to your email'),
+      )
+      .finally(() => loading.off());
+  }
 
   return (
     <div className="w-full">
@@ -20,7 +37,7 @@ export default function ForgotPasswordForm() {
       <UiForm
         formData={formData.value}
         schema={ForgotPasswordSchema}
-        onSubmit={loginUser}
+        onSubmit={sendResetPasswordEmail}
       >
         {({ errors }) => (
           <div className="grid gap-5">
@@ -33,7 +50,13 @@ export default function ForgotPasswordForm() {
               onChange={formData.set}
             />
             <div className="mt-4">
-              <UiButton size="lg" rounded="md" variant="primary" block>
+              <UiButton
+                size="lg"
+                rounded="md"
+                variant="primary"
+                block
+                loading={loading.value}
+              >
                 Send recovery link
               </UiButton>
             </div>

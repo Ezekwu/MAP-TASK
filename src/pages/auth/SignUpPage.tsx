@@ -1,19 +1,67 @@
 import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
 import SignUpSchema from '../../utils/schemas/SignUpSchema';
-import UiButton from '../ui/UiButton';
-import UiForm from '../ui/UiForm';
-import UiIcon from '../ui/UiIcon';
-import UiInput from '../ui/UiInput';
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiIcon from '@/components/ui/UiIcon';
+import UiInput from '@/components/ui/UiInput';
+import UiOrSeperator from '@/components/ui/UiOrSeperator';
+import { Api } from '@/api';
+import useToggle from '@/hooks/useToggle';
+import { FirebaseError } from 'firebase/app';
+import { useNavigate } from 'react-router-dom';
+import TokenHandler from '@/utils/TokenHandler';
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
+
   const formData = useObjectState({
     email: '',
     password: '',
   });
 
-  function registerUser() {
-    console.log(formData);
+  const loading = useToggle();
+
+  async function signUpWithEmailAndPassword() {
+    try {
+      loading.on();
+      const user = await Api.createUserWithEmailAndPassword({
+        email: formData.value.email,
+        password: formData.value.password,
+      });
+      TokenHandler.setToken(user.uid);
+
+      navigate('/auth/personal-details');
+    } catch (error) {
+      const firebaseError = error as FirebaseError;
+      if (
+        firebaseError.message === 'Firebase: Error (auth/email-already-in-use).'
+      ) {
+        //TODO: IMPLEMENT TOAST
+        console.log('email already in use ');
+      }
+    } finally {
+      loading.off();
+    }
+  }
+
+  async function signUpWithGoogle() {
+    try {
+      const user = await Api.signInWithGoogle();
+
+      TokenHandler.setToken(user.uid);
+
+      const doesUserExist = await Api.doesDocumentExist('users', user.uid);
+      if (doesUserExist) {
+        navigate('/');
+
+        return;
+      }
+
+      navigate('/auth/personal-details');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -22,19 +70,21 @@ export default function SignUpForm() {
         Ready to Eatrite?
       </h2>
       <div className="flex flex-col gap-8">
-        <UiButton rounded="md" size="lg" variant="tertiary-outlined" block>
+        <UiButton
+          onClick={signUpWithGoogle}
+          rounded="md"
+          size="lg"
+          variant="tertiary-outlined"
+          block
+        >
           <UiIcon size="20" icon="Google" />
           <p className="text-sm">Sign in with Google</p>
         </UiButton>
-        <div className="or-border relative text-white">
-          <p className="text-gray-600 w-fit py-0 mx-auto absolute bg-white px-2 top-[-12px] right-0 left-0">
-            or
-          </p>
-        </div>
+        <UiOrSeperator />
         <UiForm
           formData={formData.value}
           schema={SignUpSchema}
-          onSubmit={registerUser}
+          onSubmit={signUpWithEmailAndPassword}
         >
           {({ errors }) => (
             <div className="grid gap-5">
@@ -54,7 +104,13 @@ export default function SignUpForm() {
                 onChange={formData.set}
               />
               <div className="mt-5">
-                <UiButton size="lg" rounded="md" variant="primary" block>
+                <UiButton
+                  loading={loading.value}
+                  size="lg"
+                  rounded="md"
+                  variant="primary"
+                  block
+                >
                   Submit
                 </UiButton>
               </div>

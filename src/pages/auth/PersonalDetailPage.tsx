@@ -1,28 +1,72 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Api } from '@/api';
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiImageUploader from '@/components/ui/UiImageUploader';
+import UiInput from '@/components/ui/UiInput';
+import UiSelect from '@/components/ui/UiSelect';
+import { Goals, LGAS } from '@/config/constants';
 import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+import User from '@/types/User';
+import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
-import UiButton from '../ui/UiButton';
-import UiForm from '../ui/UiForm';
-import UiImageUploader from '../ui/UiImageUploader';
-import UiInput from '../ui/UiInput';
+import { getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function PersonalDetailsForm() {
-  const formData = useObjectState({
+  const navigate = useNavigate();
+
+  const formData = useObjectState<User>({
+    id: '',
     first_name: '',
     last_name: '',
     phone_numner: '',
     home_adress: '',
     profile_img: null,
+    local_government: '',
+    goals: '',
+    allergies: '',
   });
+
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
-  function submitDetails() {
-    console.log(formData);
+  const loading = useToggle();
+  const auth = getAuth();
+
+  // TODO: Do not store token in storage until after filling personal detail page. use auth user.
+  const user = auth.currentUser;
+
+  async function submitDetails() {
+    if (!user) return;
+
+    loading.on();
+
+    let userDetails = {
+      ...formData.value,
+      id: user.uid,
+      email: user.email,
+    };
+
+    if (formData.value.profile_img) {
+      const imgUrl = await Cloudinary.upload(
+        formData.value.profile_img as File,
+      );
+
+      userDetails = {
+        ...userDetails,
+        profile_img: imgUrl,
+      };
+    }
+
+    Api.setUser(userDetails)
+      .then(() => navigate('/'))
+      .finally(() => loading.off());
   }
 
-  function getImgSrc(src: string | null) {
+  function handleSetImgSrc(src: string | null) {
     setImgSrc(src);
   }
 
@@ -59,6 +103,7 @@ export default function PersonalDetailsForm() {
             <UiInput
               label="Phone number"
               type="phone"
+              // TODO:
               value={formData.value.phone_numner}
               name="phone_numner"
               error={errors.phone_numner}
@@ -72,6 +117,33 @@ export default function PersonalDetailsForm() {
               error={errors.home_adress}
               onChange={formData.set}
             />
+            <UiSelect
+              name="local_government"
+              label="Local government"
+              placeholder="Select your LGA"
+              onChange={formData.set}
+              error={errors.local_government}
+              options={LGAS}
+              value={formData.value.local_government}
+            />
+            <UiInput
+              placeholder="Enter your allergies"
+              label="Allergies (Optional)"
+              value={formData.value.allergies}
+              name="allergies"
+              error={errors.allergies}
+              onChange={formData.set}
+            />
+            <UiSelect
+              name="goals"
+              label="Goals (Optional)"
+              placeholder="Select your goals"
+              onChange={formData.set}
+              error={errors.goals}
+              options={Goals}
+              value={formData.value.goals}
+            />
+            {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
             <div className="flex items-center gap-4">
               <div>
                 {imgSrc ? (
@@ -87,17 +159,24 @@ export default function PersonalDetailsForm() {
               <div className="flex flex-col gap-3 mt-5">
                 <UiImageUploader
                   name="profile_img"
-                  getImgSrc={getImgSrc}
+                  onSetImgSrc={handleSetImgSrc}
                   onChange={formData.set}
-                  value={formData.value.profile_img}
+                  value={formData.value.profile_img as File}
                 />
                 <p className="text-xs text-gray-450 font-medium">
                   *jpg, *jpeg, *png files up to 10MB max.{' '}
                 </p>
               </div>
             </div>
+            {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
             <div className="mt-5">
-              <UiButton size="lg" rounded="md" variant="primary" block>
+              <UiButton
+                loading={loading.value}
+                size="lg"
+                rounded="md"
+                variant="primary"
+                block
+              >
                 Submit
               </UiButton>
             </div>
