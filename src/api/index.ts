@@ -1,7 +1,11 @@
+import User from '@/types/User';
 import {
+  confirmPasswordReset,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  verifyPasswordResetCode,
 } from 'firebase/auth';
 import 'firebase/firestore';
 import {
@@ -14,11 +18,10 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import AuthDetails from '../types/AuthDetails';
-import db from './firebase';
-import { auth, googleProvider } from './firebase';
+import AuthDetails from '@/types/AuthDetails';
 import Admin from '@/types/Admin';
 import Meal from '@/types/Meal';
+import db, { auth, googleProvider } from './firebase';
 
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
@@ -29,38 +32,49 @@ class ApiService {
     ).then(({ user }) => user);
   }
 
-  async signInWithGoogle() {
-    return await signInWithPopup(auth, googleProvider).then(({ user }) => user);
+  signInWithGoogle() {
+    return signInWithPopup(auth, googleProvider).then(({ user }) => user);
   }
 
-  async signInWithEmailAndPassword(data: AuthDetails) {
+  signInWithEmailAndPassword(data: AuthDetails) {
     return signInWithEmailAndPassword(auth, data.email, data.password).then(
       ({ user }) => user,
     );
   }
 
+  sendPasswordResetEmail(email: string) {
+    return sendPasswordResetEmail(auth, email);
+  }
+
+  verifyPasswordResetCode(code: string) {
+    return verifyPasswordResetCode(auth, code);
+  }
+
+  resetPassword(actionCode: string, newPassword: string) {
+    return confirmPasswordReset(auth, actionCode, newPassword);
+  }
+
+
   createAdmin(data: Admin) {
-    return this.setDoc('admin', data.id, data);
+    return this.set('admin', data.id, data);
   }
 
   setMeal(data: Meal) {
-    return this.setDoc('meal', data.id, data);
+    return this.set('meal', data.id, data);
   }
-
+  
   getUser(userId: string) {
     return Promise.resolve({ userId, name: 'Henry Eze' });
-    // return this.getItem<User>('users', userId);
   }
 
-  private async setDoc(
-    collectionName: string,
-    id: string,
-    data: unknown,
-  ): Promise<unknown> {
-    // TODO: handle alerts here
-    return setDoc(doc(db, collectionName, id), data)
-      .then((res) => Promise.resolve(res))
-      .catch((err) => Promise.reject(err));
+  setUser(userData: User) {
+    return this.set('users', userData.id, userData);
+  }
+
+  async doesDocumentExist(collectionName: string, id: string) {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists();
   }
 
   private async getCollection<T>(collectionName: string): Promise<T[]> {
@@ -92,7 +106,7 @@ class ApiService {
     return documentList;
   }
 
-  private async getItem<T>(collectionName: string, id: string): Promise<T> {
+  private async get<T>(collectionName: string, id: string): Promise<T> {
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
 
@@ -102,6 +116,12 @@ class ApiService {
       throw new Error('404: Document not found');
     }
   }
+
+  private async set(collectionName: string, id: string, data: unknown) {
+    return await setDoc(doc(db, collectionName, id), data);
+  }
 }
 
-export default new ApiService();
+const Api = new ApiService();
+
+export { Api };

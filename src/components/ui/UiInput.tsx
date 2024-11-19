@@ -50,7 +50,7 @@ export default function UiInput({
   }
 
   const validationStyle = useMemo(() => {
-    return !!error ? 'border-danger-700' : `bg-white border-tertiary-700`;
+    return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
   }, [error]);
 
   return (

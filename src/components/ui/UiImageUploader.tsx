@@ -1,24 +1,26 @@
 import { useEffect, useRef } from 'react';
+
 import UiButton from './UiButton';
 
 interface Props {
   name: string;
   value: File | null;
   onChange: (event: { name: string; value: File }) => void;
-  setPreviewUrl: (src: string | null) => void;
+  onSetPreviewUrl: (src: string | null) => void;
 }
 
 export default function UiImageUploader({
   name,
   value,
   onChange,
-  setPreviewUrl,
+  onSetPreviewUrl,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function openFilePicker() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
+      onSetPreviewUrl(null);
     }
   }
 
@@ -30,15 +32,15 @@ export default function UiImageUploader({
     onChange({ name, value: files[0] });
   }
 
-  function previewImage() {
+  function getPreviewImage() {
     if (!value) return;
 
     const imgUrl = URL.createObjectURL(value);
 
-    setPreviewUrl(imgUrl);
+    onSetPreviewUrl(imgUrl);
   }
 
-  useEffect(previewImage, [value]);
+  useEffect(getPreviewImage, [value]);
 
   return (
     <>

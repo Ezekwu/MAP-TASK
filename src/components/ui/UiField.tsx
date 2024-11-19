@@ -10,7 +10,7 @@ export default function UiField({ error, label, children }: Props) {
   return (
     <div className="text-left relative">
       {label && (
-        <label className="text-xs font-medium text-gray-700 leading-9">
+        <label className="text-xs font-medium text-tertiary-700 leading-9">
           {label}
         </label>
       )}
