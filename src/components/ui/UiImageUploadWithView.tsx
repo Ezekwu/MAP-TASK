@@ -25,7 +25,7 @@ export default function UiImageUploadWithView(props: Props) {
 
       <UiImageUploader
         name={props.name}
-        setPreviewUrl={(val) => setPreviewUrl(val)}
+        onSetPreviewUrl={(val) => setPreviewUrl(val)}
         onChange={props.onChange}
         value={validatedValue}
       />

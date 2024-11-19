@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Api } from '@/api';
+import { Api } from '@/Api';
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiImageUploader from '@/components/ui/UiImageUploader';

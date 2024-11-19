@@ -6,7 +6,7 @@ import UiForm from '@/components/ui/UiForm';
 import UiIcon from '@/components/ui/UiIcon';
 import UiInput from '@/components/ui/UiInput';
 import UiOrSeperator from '@/components/ui/UiOrSeperator';
-import { Api } from '@/api';
+import { Api } from '@/Api';
 import useToggle from '@/hooks/useToggle';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';

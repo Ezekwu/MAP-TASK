@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Api } from '@/api';
+import { Api } from '@/Api';
 
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';

@@ -1,4 +1,4 @@
-import { Api } from '@/api';
+import { Api } from '@/Api';
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 import { FirebaseError } from 'firebase/app';

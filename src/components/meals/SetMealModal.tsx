@@ -1,8 +1,8 @@
-import Api from '@/Api';
+import { Api } from '@/Api';
 import useBooleanState from '@/hooks/useBooleanState';
 import useObjectState from '@/hooks/useObjectState';
 import Meal from '@/types/Meal';
-import { generateUuid } from '@/utils/helpers';
+import { generateUuid, isFile } from '@/utils/helpers';
 import SetMealSchema from '@/utils/schemas/SetMealSchema';
 import UiButton from '../ui/UiButton';
 import UiField from '../ui/UiField';
@@ -12,6 +12,7 @@ import UiInput from '../ui/UiInput';
 import UiModal from '../ui/UiModal';
 import UiMultiInput from '../ui/UiMultiInput';
 import UiSwitch from '../ui/UiSwitch';
+import Cloudinary from '@/utils/Cloudinary';
 
 interface Props {
   isOpen: boolean;
@@ -41,9 +42,16 @@ export default function SetMealModal(props: Props) {
     try {
       loading.on();
 
+      let img = formData.value.img;
+
+      if (isFile(formData.value.img)) {
+        img = await Cloudinary.upload(formData.value.img);
+      }
+
       await Api.setMeal({
         ...formData.value,
         id: formData.value.id || generateUuid(),
+        img,
       });
 
       props.onDone(formData.value);
