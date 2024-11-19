@@ -33,7 +33,8 @@ export default function SetMealModal(props: Props) {
     inStock: true,
     spotlight: false,
     highCalorie: false,
-    isBestSeller: false,
+    bestSeller: false,
+    soldOut: false,
   };
 
   const formData = useObjectState(props.meal || defaultMeal);
@@ -53,6 +54,7 @@ export default function SetMealModal(props: Props) {
         ...formData.value,
         id: formData.value.id || generateUuid(),
         img,
+        inStock: !formData.value.soldOut,
       };
 
       await Api.setMeal(data);
@@ -101,7 +103,7 @@ export default function SetMealModal(props: Props) {
                 onChange={formData.set}
               />
             </UiField>
-            <div className="grid grid-cols-4 gap-x-5 ">
+            <div className="grid grid-cols-5 gap-x-5 ">
               <UiSwitch
                 label="High Calorie"
                 value={Boolean(formData.value.highCalorie)}
@@ -121,10 +123,15 @@ export default function SetMealModal(props: Props) {
               />
               <UiSwitch
                 label="Best Seller"
-                value={Boolean(formData.value.isBestSeller)}
+                value={Boolean(formData.value.bestSeller)}
                 onChange={(value) =>
-                  formData.set({ name: 'isBestSeller', value })
+                  formData.set({ name: 'bestSeller', value })
                 }
+              />
+              <UiSwitch
+                label="Sold Out"
+                value={Boolean(formData.value.soldOut)}
+                onChange={(value) => formData.set({ name: 'soldOut', value })}
               />
             </div>
             <UiMultiInput

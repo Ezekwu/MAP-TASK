@@ -1,8 +1,10 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useMealsData from '../data/useMealsData';
 import Meal from '@/types/Meal';
+import { useMemo } from 'react';
+import MealFilter from '@/types/enums/MealFilter';
 
-export default function useMealsQuery() {
+export default function useMealsQuery(filter?: MealFilter) {
   const queryClient = useQueryClient();
 
   const queryKey = ['meals'];
@@ -21,6 +23,14 @@ export default function useMealsQuery() {
       }
     },
   });
+
+  const filteredMeals = useMemo(() => {
+    if (!query.data) return [];
+
+    if (!filter || filter === MealFilter.ALL) return query.data;
+
+    return query.data.filter((d) => Boolean(d[filter]));
+  }, [filter, query.data]);
 
   function setData(data: Meal) {
     console.log(data);
@@ -48,6 +58,7 @@ export default function useMealsQuery() {
   }
 
   return {
+    filteredMeals,
     query,
     reloadQuery,
     setData,

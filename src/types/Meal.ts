@@ -8,5 +8,6 @@ export default interface Meal {
   highCalorie?: boolean;
   spotlight?: boolean;
   inStock?: boolean;
-  isBestSeller?: boolean;
+  bestSeller?: boolean;
+  soldOut?: boolean;
 }
