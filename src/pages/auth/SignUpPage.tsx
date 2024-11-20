@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import { t } from 'i18next';
 
 import { Api } from '@/api';
 
@@ -34,7 +33,7 @@ export default function SignUpForm() {
   async function signUpWithEmailAndPassword() {
     try {
       loading.on();
-      const user = await Api.createUserWithEmailAndPassword({
+      await Api.createUserWithEmailAndPassword({
         email: formData.value.email,
         password: formData.value.password,
       });
@@ -43,10 +42,7 @@ export default function SignUpForm() {
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
-      const msg = t(
-        `firebaseErrors.${firebaseError.code}`,
-        t('firebaseErrors.default'),
-      );
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
 
       Toast.error({ msg });
     } finally {

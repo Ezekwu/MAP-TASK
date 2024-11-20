@@ -34,18 +34,13 @@ export default function ResetPasswordPage() {
 
       await Api.resetPassword(actionCode, formData.value.password);
 
-      Toast.error({ msg: 'Password has been reset' });
-
       navigate('/auth/login');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      
-      const msg = t(
-        `firebaseErrors.${firebaseError.code}`,
-        t('firebaseErrors.default'),
-      );
 
-      Toast.error({ msg });
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
+
+      Toast.success({ msg });
     } finally {
       loading.off();
     }
@@ -56,11 +51,9 @@ export default function ResetPasswordPage() {
       await Api.verifyPasswordResetCode(actionCode);
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/expired-action-code).'
-      ) {
-        console.log('Code has expired, send request again');
-      }
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
+
+      Toast.error({ msg });
     }
   }
 

@@ -15,7 +15,8 @@ const toastStyle = {
   borderRadius: '16px',
   padding: "16px",
   fontWeight: '600',
-  boxShadow: "none"
+  boxShadow: "none",
+  maxWidth: "411px"
 };
 
 export const Toast = {

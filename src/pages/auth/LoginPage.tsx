@@ -22,7 +22,7 @@ import { Toast } from '@/utils/toast';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const formData = useObjectState({
     email: '',
@@ -51,10 +51,7 @@ export default function LoginPage() {
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
-      const msg = t(
-        `firebaseErrors.${firebaseError.code}`,
-        t('firebaseErrors.default'),
-      );    
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
 
       Toast.error({msg});
     

@@ -1,13 +1,11 @@
-import firebaseErrors from '@/locales/en/errors.json';
+import en from '@/locales/en.json'
 import i18n from 'i18next';
 
 i18n.init({
   fallbackLng: 'en',
   resources: {
     en: {
-      translation: {
-        ...firebaseErrors, 
-      },
+      translation: en
     },
   },
   interpolation: {
