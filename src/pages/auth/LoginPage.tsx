@@ -1,25 +1,34 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import UiButton from '@/components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import UiIcon from '@/components/ui/UiIcon';
-import UiOrSeperator from '@/components/ui/UiOrSeperator';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
-import { Api } from '@/api';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
+
+import { Api } from '@/api';
+
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
+import UiIcon from '@/components/ui/UiIcon';
+import UiOrSeperator from '@/components/ui/UiOrSeperator';
+
+import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
+
 import TokenHandler from '@/utils/TokenHandler';
+import SignUpSchema from '@/utils/schemas/SignUpSchema';
+import FireBaseErrorHandler from '@/utils/FirebaseErrorHandler';
+
+// ---
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const formData = useObjectState({
     email: '',
     password: '',
   });
 
-  const navigate = useNavigate();
   const loading = useToggle();
+  const { formatFirebaseError } = FireBaseErrorHandler()
 
   async function loginWithEmail() {
     try {
@@ -40,12 +49,10 @@ export default function LoginPage() {
       navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/invalid-credential).'
-      ) {
-        //TODO: IMPLEMENT TOAST
-        console.log('invalid email or password');
-      }
+      const msg = formatFirebaseError(firebaseError.code); 
+      //TODO: IMPLEMENT TOAST
+      console.log(msg);
+    
     } finally {
       loading.off();
     }

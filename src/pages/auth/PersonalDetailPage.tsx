@@ -1,20 +1,26 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 import { Api } from '@/api';
+
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiImageUploader from '@/components/ui/UiImageUploader';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
+
 import { Goals, LGAS } from '@/config/constants';
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
+
 import User from '@/types/User';
+
 import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
-import { getAuth } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import TokenHandler from '@/utils/TokenHandler';
+
+// --
 
 export default function PersonalDetailsForm() {
   const navigate = useNavigate();
@@ -23,7 +29,7 @@ export default function PersonalDetailsForm() {
     id: '',
     first_name: '',
     last_name: '',
-    phone_numner: '',
+    phone_number: '',
     home_adress: '',
     profile_img: null,
     local_government: '',
@@ -36,7 +42,6 @@ export default function PersonalDetailsForm() {
   const loading = useToggle();
   const auth = getAuth();
 
-  // TODO: Do not store token in storage until after filling personal detail page. use auth user.
   const user = auth.currentUser;
 
   async function submitDetails() {
@@ -62,7 +67,11 @@ export default function PersonalDetailsForm() {
     }
 
     Api.setUser(userDetails)
-      .then(() => navigate('/'))
+      .then(() => {
+        TokenHandler.setToken(user.uid);
+
+        navigate('/');
+      })
       .finally(() => loading.off());
   }
 
@@ -104,8 +113,8 @@ export default function PersonalDetailsForm() {
               label="Phone number"
               type="phone"
               // TODO:
-              value={formData.value.phone_numner}
-              name="phone_numner"
+              value={formData.value.phone_number}
+              name="phone_number"
               error={errors.phone_numner}
               onChange={formData.set}
             />

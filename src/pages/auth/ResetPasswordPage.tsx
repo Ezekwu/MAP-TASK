@@ -1,15 +1,22 @@
-import { Api } from '@/api';
-import useObjectState from '@/hooks/useObjectState';
-import useToggle from '@/hooks/useToggle';
 import { FirebaseError } from 'firebase/app';
 import { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+
+import { Api } from '@/api';
+
+import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
+
+import ResetPasswordSchema from '@/utils/schemas/ResetPasswordSchema';
+
+// ---
 
 export default function ResetPasswordPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const formData = useObjectState({
@@ -24,10 +31,9 @@ export default function ResetPasswordPage() {
       loading.on();
 
       await Api.resetPassword(actionCode, formData.value.password);
+      navigate('/auth/login');
       console.log('password has been reset');
       //TODO: IMPLEMENT TOAST
-
-      // TODO: After resetting send the person to logo
     } catch (error) {
       const firebaseError = error as FirebaseError;
       if (

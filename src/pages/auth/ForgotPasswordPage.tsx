@@ -20,13 +20,20 @@ export default function ForgotPasswordForm() {
   const loading = useToggle();
 
   async function sendResetPasswordEmail() {
-    loading.on();
-    Api.sendPasswordResetEmail(formData.value.email)
-      .then(() =>
-        // TODO: IMPLEMENT TOAST
-        console.log('password reset link has been sent to your email'),
-      )
-      .finally(() => loading.off());
+    try {
+      loading.on()
+      await Api.sendPasswordResetEmail(formData.value.email)
+
+      // TODO: IMPLEMENT TOAST
+
+      console.log('password reset link has been sent to your email')
+    } catch (error) {
+      console.log(error);
+      
+    } finally {
+      loading.off()
+    }
+    
   }
 
   return (

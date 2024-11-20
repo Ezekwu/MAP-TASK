@@ -1,16 +1,23 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import { FirebaseError } from 'firebase/app';
+import { useNavigate } from 'react-router-dom';
+
+import { Api } from '@/api';
+
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiIcon from '@/components/ui/UiIcon';
 import UiInput from '@/components/ui/UiInput';
 import UiOrSeperator from '@/components/ui/UiOrSeperator';
-import { Api } from '@/api';
+
 import useToggle from '@/hooks/useToggle';
-import { FirebaseError } from 'firebase/app';
-import { useNavigate } from 'react-router-dom';
-import TokenHandler from '@/utils/TokenHandler';
+import useObjectState from '@/hooks/useObjectState';
+
+
+import FireBaseErrorHandler from '@/utils/FirebaseErrorHandler';
+import SignUpSchema from '@/utils/schemas/SignUpSchema';
+
+// ---
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -21,6 +28,7 @@ export default function SignUpForm() {
   });
 
   const loading = useToggle();
+  const { formatFirebaseError } = FireBaseErrorHandler();
 
   async function signUpWithEmailAndPassword() {
     try {
@@ -29,17 +37,13 @@ export default function SignUpForm() {
         email: formData.value.email,
         password: formData.value.password,
       });
-      TokenHandler.setToken(user.uid);
 
       navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/email-already-in-use).'
-      ) {
-        //TODO: IMPLEMENT TOAST
-        console.log('email already in use ');
-      }
+      const msg = formatFirebaseError(firebaseError.code);
+      console.log(msg);
+      // TODO: IMPLEMENT TOAST
     } finally {
       loading.off();
     }
@@ -48,9 +52,7 @@ export default function SignUpForm() {
   async function signUpWithGoogle() {
     try {
       const user = await Api.signInWithGoogle();
-
-      TokenHandler.setToken(user.uid);
-
+      
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
       if (doesUserExist) {
         navigate('/');
