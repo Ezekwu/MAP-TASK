@@ -25,14 +25,6 @@ export default function MealsPage() {
       value: MealFilter.ALL,
     },
     {
-      title: 'In Stock',
-      value: MealFilter.IN_STOCK,
-    },
-    {
-      title: 'Sold out',
-      value: MealFilter.SOLD_OUT,
-    },
-    {
       title: 'Spotlight',
       value: MealFilter.SPOTLIGHT,
     },
@@ -43,6 +35,10 @@ export default function MealsPage() {
     {
       title: 'Best Sellers',
       value: MealFilter.BEST_SELLER,
+    },
+    {
+      title: 'Sold out',
+      value: MealFilter.SOLD_OUT,
     },
   ];
 
@@ -56,8 +52,12 @@ export default function MealsPage() {
     return {
       title: 'Manage meals',
       edgeNode: (
-        <UiButton variant="secondary" size="lg" onClick={setMealIsVisible.on}>
-          {/* TODO: add a plus icon here */}
+        <UiButton
+          variant="secondary"
+          size="lg"
+          rounded="md"
+          onClick={setMealIsVisible.on}
+        >
           Create new meal
         </UiButton>
       ),

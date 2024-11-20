@@ -10,7 +10,9 @@ interface Props {
 }
 export default function MealCard(props: Props) {
   const nutrients = useMemo(() => {
-    return Object.entries(props.meal.nutrients).map(([_, value]) => `${value}`);
+    return Object.entries(props.meal.nutrients).map(
+      ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
+    );
   }, [props.meal]);
 
   return (

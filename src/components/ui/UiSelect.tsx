@@ -7,12 +7,12 @@ import UiDropdownItem from './UiDropdownItem';
 
 export interface Option {
   label: React.ReactNode;
-  value: string;
+  value: string | boolean;
 }
 
 interface Props {
   label?: string;
-  value: string | null | number;
+  value: string | null | number | boolean;
   placeholder?: string;
   /** The name property should always be the same as the model value. example if the input belongs to
    * formData.confirm_password, the name prop should be confirm_password.
@@ -47,7 +47,7 @@ export default function UiSelect({
     return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
   }, [error]);
 
-  function selectOption(value: string) {
+  function selectOption(value: string | boolean) {
     onChange({ name, value });
     setOptionsAreVisible(false);
   }

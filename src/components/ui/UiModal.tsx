@@ -35,7 +35,7 @@ export default function UiModal({
         onClick={onClose}
       />
       <div className={cardStyle}>
-        <header className="flex mb-4 justify-between items-center border-b border-tertiary-700 p-8 pb-4">
+        <header className="flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
           <h2
             className="text-gray-900 text-md font-bold"
             data-testid="modal-title"

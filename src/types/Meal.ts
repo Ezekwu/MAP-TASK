@@ -4,10 +4,14 @@ export default interface Meal {
   id: string;
   price: number;
   // TODO: figure out if nutrients would be best as array or object.
-  nutrients: string[];
-  highCalorie?: boolean;
+  nutrients: {
+    fibre?: number;
+    fat?: number;
+    kcal?: number;
+    protein?: number;
+  };
+  highCalorie: boolean;
   spotlight?: boolean;
-  inStock?: boolean;
   bestSeller?: boolean;
   soldOut?: boolean;
 }
