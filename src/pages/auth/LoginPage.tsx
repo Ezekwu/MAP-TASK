@@ -1,24 +1,34 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import UiButton from '@/components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import UiIcon from '@/components/ui/UiIcon';
-import UiOrSeperator from '@/components/ui/UiOrSeperator';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
-import { Api } from '@/api';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { Api } from '@/api';
+
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
+import UiIcon from '@/components/ui/UiIcon';
+import UiOrSeperator from '@/components/ui/UiOrSeperator';
+
+import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
+
 import TokenHandler from '@/utils/TokenHandler';
+import SignUpSchema from '@/utils/schemas/SignUpSchema';
+import { Toast } from '@/utils/toast';
+
+// ---
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const formData = useObjectState({
     email: '',
     password: '',
   });
 
-  const navigate = useNavigate();
   const loading = useToggle();
 
   async function loginWithEmail() {
@@ -40,12 +50,11 @@ export default function LoginPage() {
       navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/invalid-credential).'
-      ) {
-        //TODO: IMPLEMENT TOAST
-        console.log('invalid email or password');
-      }
+
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
+
+      Toast.error({msg});
+    
     } finally {
       loading.off();
     }

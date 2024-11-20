@@ -45,7 +45,7 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" allowNavigationFunc={authGuard}>
+      <ProtectedRoute reRouteUrl="/" allowNavigation={!userIsLoggedIn()}>
         <AuthLayout />
       </ProtectedRoute>
     ),
