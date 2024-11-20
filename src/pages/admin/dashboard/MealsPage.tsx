@@ -24,9 +24,13 @@ export default function MealsPage() {
     return {
       title: 'Manage meals',
       edgeNode: (
-        <UiButton variant="secondary" size="lg" onClick={setMealIsVisible.on}>
-          {/* TODO: add a plus icon here */}
-          Create new meal
+        <UiButton
+          variant="secondary"
+          size="lg"
+          rounded="md"
+          onClick={setMealIsVisible.on}
+        >
+          Add new meal
         </UiButton>
       ),
     };
