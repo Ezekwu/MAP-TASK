@@ -1,4 +1,4 @@
-import firebaseErrors from '../public/locales/firebase/errors.json';
+import firebaseErrors from '@/locales/en/errors.json';
 import i18n from 'i18next';
 
 i18n.init({
@@ -14,5 +14,7 @@ i18n.init({
     escapeValue: false, 
   },
 });
+
+export default i18n
 
 

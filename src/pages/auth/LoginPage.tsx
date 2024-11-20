@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Api } from '@/api';
 
@@ -15,12 +16,13 @@ import useToggle from '@/hooks/useToggle';
 
 import TokenHandler from '@/utils/TokenHandler';
 import SignUpSchema from '@/utils/schemas/SignUpSchema';
-import FireBaseErrorHandler from '@/utils/FirebaseErrorHandler';
+import { Toast } from '@/utils/toast';
 
 // ---
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const {t} = useTranslation();
 
   const formData = useObjectState({
     email: '',
@@ -28,7 +30,6 @@ export default function LoginPage() {
   });
 
   const loading = useToggle();
-  const { formatFirebaseError } = FireBaseErrorHandler()
 
   async function loginWithEmail() {
     try {
@@ -49,9 +50,13 @@ export default function LoginPage() {
       navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      const msg = formatFirebaseError(firebaseError.code); 
-      //TODO: IMPLEMENT TOAST
-      console.log(msg);
+
+      const msg = t(
+        `firebaseErrors.${firebaseError.code}`,
+        t('firebaseErrors.default'),
+      );    
+
+      Toast.error({msg});
     
     } finally {
       loading.off();

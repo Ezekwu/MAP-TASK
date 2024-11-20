@@ -10,6 +10,7 @@ import UiForm from '@/components/ui/UiForm';
 import UiInput from '@/components/ui/UiInput';
 
 import ForgotPasswordSchema from '@/utils/schemas/ForgotPasswordSchema';
+import { Toast } from '@/utils/toast';
 
 // ---
 
@@ -24,9 +25,8 @@ export default function ForgotPasswordForm() {
       loading.on()
       await Api.sendPasswordResetEmail(formData.value.email)
 
-      // TODO: IMPLEMENT TOAST
+      Toast.success({ msg: 'password reset link has been sent to your email' });
 
-      console.log('password reset link has been sent to your email')
     } catch (error) {
       console.log(error);
       

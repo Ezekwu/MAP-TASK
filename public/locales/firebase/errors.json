@@ -1,7 +1,0 @@
-{
-  "firebaseErrors": {
-    "auth/invalid-credential": "invalid email or password",
-    "auth/email-already-in-use": "email already in use ",
-    "default": "An unexpected error occurred."
-  }
-}
