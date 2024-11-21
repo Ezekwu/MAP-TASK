@@ -7,12 +7,12 @@ import UiDropdownItem from './UiDropdownItem';
 
 export interface Option {
   label: React.ReactNode;
-  value: string;
+  value: string | boolean;
 }
 
 interface Props {
   label?: string;
-  value: string | null | number;
+  value: string | null | number | boolean;
   placeholder?: string;
   /** The name property should always be the same as the model value. example if the input belongs to
    * formData.confirm_password, the name prop should be confirm_password.
@@ -36,7 +36,7 @@ export default function UiSelect({
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
 
   const valueLabel = useMemo(() => {
-    if (!value) return placeholder;
+    if (!value === null) return placeholder;
 
     return (
       options.find((option) => value === option.value)?.label || placeholder
@@ -47,7 +47,7 @@ export default function UiSelect({
     return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
   }, [error]);
 
-  function selectOption(value: string) {
+  function selectOption(value: string | boolean) {
     onChange({ name, value });
     setOptionsAreVisible(false);
   }
@@ -58,13 +58,13 @@ export default function UiSelect({
         <button
           type="button"
           data-testid="ui-select-trigger"
-          style={{ minHeight: '48px' }}
-          className={`outline-none rounded-2xl w-full border text-left text-xs py-2 flex items-center justify-between px-4 ${validationStyle}`}
+          style={{ minHeight: '52px' }}
+          className={`outline-none rounded w-full border text-left text-xs py-2 flex items-center justify-between px-4 ${validationStyle}`}
           onClick={() => setOptionsAreVisible(!optionsAreVisible)}
         >
           <div
             className={`w-full text-typography-disabled text-sm ${
-              value && 'font-semibold text-secondary-1400'
+              value && ' text-secondary-1400'
             }`}
           >
             {!!valueLabel ? valueLabel : placeholder}

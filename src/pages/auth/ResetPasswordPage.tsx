@@ -1,16 +1,25 @@
-import { Api } from '@/Api';
-import useObjectState from '@/hooks/useObjectState';
-import useToggle from '@/hooks/useToggle';
+import { Api } from '@/api';
 import { FirebaseError } from 'firebase/app';
 import { useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import UiButton from '../../components/ui/UiButton';
-import UiForm from '../../components/ui/UiForm';
-import UiInput from '../../components/ui/UiInput';
-import ResetPasswordSchema from '../../utils/schemas/ResetPasswordSchema';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+
+import useObjectState from '@/hooks/useObjectState';
+import useToggle from '@/hooks/useToggle';
+
+import UiButton from '@/components/ui/UiButton';
+import UiForm from '@/components/ui/UiForm';
+import UiInput from '@/components/ui/UiInput';
+
+import ResetPasswordSchema from '@/utils/schemas/ResetPasswordSchema';
+import { Toast } from '@/utils/toast';
+
+// ---
 
 export default function ResetPasswordPage() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const formData = useObjectState({
     password: '',
@@ -24,17 +33,14 @@ export default function ResetPasswordPage() {
       loading.on();
 
       await Api.resetPassword(actionCode, formData.value.password);
-      console.log('password has been reset');
-      //TODO: IMPLEMENT TOAST
 
-      // TODO: After resetting send the person to logo
+      navigate('/auth/login');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/expired-action-code).'
-      ) {
-        console.log('Code has expired, send request again');
-      }
+
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
+
+      Toast.success({ msg });
     } finally {
       loading.off();
     }
@@ -45,11 +51,9 @@ export default function ResetPasswordPage() {
       await Api.verifyPasswordResetCode(actionCode);
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/expired-action-code).'
-      ) {
-        console.log('Code has expired, send request again');
-      }
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
+
+      Toast.error({ msg });
     }
   }
 

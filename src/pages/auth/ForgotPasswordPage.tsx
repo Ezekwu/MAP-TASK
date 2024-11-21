@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { Api } from '@/Api';
+import { Api } from '@/api';
 
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
@@ -10,23 +11,31 @@ import UiForm from '@/components/ui/UiForm';
 import UiInput from '@/components/ui/UiInput';
 
 import ForgotPasswordSchema from '@/utils/schemas/ForgotPasswordSchema';
+import { Toast } from '@/utils/toast';
 
 // ---
 
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation();
   const formData = useObjectState({
     email: '',
   });
   const loading = useToggle();
 
   async function sendResetPasswordEmail() {
-    loading.on();
-    Api.sendPasswordResetEmail(formData.value.email)
-      .then(() =>
-        // TODO: IMPLEMENT TOAST
-        console.log('password reset link has been sent to your email'),
-      )
-      .finally(() => loading.off());
+    try {
+      loading.on();
+
+      await Api.sendPasswordResetEmail(formData.value.email);
+
+      const msg = t(`messages.passwordResetLinkSent`);
+
+      Toast.error({ msg });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      loading.off();
+    }
   }
 
   return (

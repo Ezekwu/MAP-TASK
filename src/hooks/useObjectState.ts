@@ -12,9 +12,28 @@ export default function useObjectState<T = Record<string, string>>(
       [params.name]: params.value,
     }));
   }
+  function setDeep(params: OnChangeParams) {
+    setValue((val) => {
+      const updatedValue = { ...val };
+      const keys = params.name.split('.');
+      let current: any = updatedValue;
+
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (current[keys[i]] === undefined) {
+          current[keys[i]] = {};
+        }
+        current = current[keys[i]];
+      }
+
+      current[keys[keys.length - 1]] = params.value;
+
+      return updatedValue;
+    });
+  }
 
   return {
     value,
     set,
+    setDeep,
   };
 }

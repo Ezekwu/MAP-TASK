@@ -29,7 +29,7 @@ export default function UiToggleButton(props: Props) {
   }, [props.active, props.options]);
 
   return (
-    <div className="relative flex rounded-lg bg-tertiary-100">
+    <div className="relative flex rounded-lg bg-tertiary-100 w-fit">
       <div
         className="absolute top-0 left-0 h-full bg-primary-500  transition-all duration-300 rounded-lg"
         style={{
@@ -48,7 +48,7 @@ export default function UiToggleButton(props: Props) {
           className={`relative px-4 py-2 text-xs font-semibold rounded-lg transition-colors duration-300 ${
             option.value === props.active
               ? 'text-light bg-primary-500'
-              : 'text-typography-secondary'
+              : 'text-typography-secondary hover:bg-tertiary-300'
           }`}
           onClick={() => props.onSelect(option.value)}
         >

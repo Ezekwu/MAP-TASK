@@ -1,10 +1,11 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useMealsData from '../data/useMealsData';
 import Meal from '@/types/Meal';
+import { useMemo } from 'react';
+import MealFilter from '@/types/enums/MealFilter';
 
-export default function useMealsQuery() {
+export default function useMealsQuery(filter?: MealFilter) {
   const queryClient = useQueryClient();
-
   const queryKey = ['meals'];
 
   const query = useQuery({
@@ -12,9 +13,6 @@ export default function useMealsQuery() {
     queryFn: async () => {
       try {
         const response = await useMealsData();
-
-        console.log(response);
-
         return response;
       } catch (err) {
         return Promise.reject(err);
@@ -22,25 +20,45 @@ export default function useMealsQuery() {
     },
   });
 
-  function setData(data: Meal) {
-    console.log(data);
-    queryClient.setQueryData(queryKey, (oldData: any) => {
-      if (!oldData) return [data];
+  const mealsData = useMemo(() => {
+    return queryClient.getQueryData<Meal[]>(queryKey) || [];
+  }, [queryClient, queryKey]);
 
-      const existingMealIndex = oldData.findIndex(
-        (meal: any) => meal.id === data.id,
+  // TODO: figure out why it does not update when nutrients are changed.
+  const filteredMeals = useMemo(() => {
+    if (!mealsData) return [];
+
+    if (!filter || filter === MealFilter.ALL) return mealsData;
+
+    return mealsData.filter((d) => Boolean(d[filter]));
+  }, [filter, mealsData]);
+
+  function setData(update: Meal) {
+    queryClient.setQueryData(queryKey, (oldData: Meal[] | undefined) => {
+      if (!oldData) return [update];
+
+      const updatedData = oldData.map((meal) =>
+        meal.id === update.id
+          ? {
+              ...meal,
+              ...update,
+              nutrients: {
+                ...meal.nutrients,
+                ...update.nutrients,
+              },
+            }
+          : meal,
       );
 
-      if (existingMealIndex > -1) {
-        const updatedData = [...oldData];
-
-        updatedData[existingMealIndex] = data;
-
-        return updatedData;
-      } else {
-        return [...oldData, data];
+      if (!oldData.some((meal) => meal.id === update.id)) {
+        updatedData.push(update);
       }
+
+      return [...updatedData];
     });
+
+    // Ensure `useMemo` picks up changes by refetching mealsData
+    queryClient.invalidateQueries({ queryKey, refetchType: 'none' });
   }
 
   function reloadQuery() {
@@ -48,6 +66,7 @@ export default function useMealsQuery() {
   }
 
   return {
+    filteredMeals,
     query,
     reloadQuery,
     setData,

@@ -7,18 +7,46 @@ import UiButton from '@/components/ui/UiButton';
 import useBooleanState from '@/hooks/useBooleanState';
 
 import Meal from '@/types/Meal';
-import useMealsQuery from '@/Api/query/useMealsQuery';
+import useMealsQuery from '@/api/query/useMealsQuery';
 import MealCard from '@/components/meals/MealCard';
+import UiToggleButton from '@/components/ui/UiToggleButton';
+import MealFilter from '@/types/enums/MealFilter';
 
 export default function MealsPage() {
-  const {
-    query: { data: meals, isLoading },
-    setData,
-  } = useMealsQuery();
-
   const setMealIsVisible = useBooleanState(false);
 
   const [activeMeal, setActiveMeal] = useState<Meal | null>(null);
+
+  const [filter, setFilter] = useState(MealFilter.ALL);
+
+  const filterOptions = [
+    {
+      title: 'All',
+      value: MealFilter.ALL,
+    },
+    {
+      title: 'Spotlight',
+      value: MealFilter.SPOTLIGHT,
+    },
+    {
+      title: 'High Calorie',
+      value: MealFilter.HIGH_CALORIE,
+    },
+    {
+      title: 'Best Sellers',
+      value: MealFilter.BEST_SELLER,
+    },
+    {
+      title: 'Sold out',
+      value: MealFilter.SOLD_OUT,
+    },
+  ];
+
+  const {
+    query: { isLoading },
+    setData,
+    filteredMeals: meals,
+  } = useMealsQuery(filter);
 
   const navDetails = useMemo(() => {
     return {
@@ -36,7 +64,7 @@ export default function MealsPage() {
     };
   }, []);
 
-  function onMealCreated(meal: Meal) {
+  function onMealSet(meal: Meal) {
     setData(meal);
 
     setMealIsVisible.off();
@@ -56,6 +84,11 @@ export default function MealsPage() {
 
   return (
     <BasePage navDetails={navDetails} loading={isLoading}>
+      <UiToggleButton
+        options={filterOptions}
+        active={filter}
+        onSelect={(val) => setFilter(val as MealFilter)}
+      />
       <div className="flex flex-wrap gap-x-5 gap-y-8">
         {meals?.map((meal) => (
           <MealCard
@@ -71,7 +104,7 @@ export default function MealsPage() {
         key={`set-meal-${setMealIsVisible.value}-${activeMeal?.id || ''}`}
         meal={activeMeal}
         onClose={onCloseSetMeal}
-        onDone={onMealCreated}
+        onDone={onMealSet}
       />
     </BasePage>
   );

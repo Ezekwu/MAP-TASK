@@ -1,4 +1,4 @@
-import { Api } from '@/Api';
+import { Api } from '@/api';
 
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';

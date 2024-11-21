@@ -1,19 +1,26 @@
-import useObjectState from '@/hooks/useObjectState';
 import { Link } from 'react-router-dom';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import { FirebaseError } from 'firebase/app';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { Api } from '@/api';
+
 import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiIcon from '@/components/ui/UiIcon';
 import UiInput from '@/components/ui/UiInput';
 import UiOrSeperator from '@/components/ui/UiOrSeperator';
-import { Api } from '@/Api';
 import useToggle from '@/hooks/useToggle';
-import { FirebaseError } from 'firebase/app';
-import { useNavigate } from 'react-router-dom';
-import TokenHandler from '@/utils/TokenHandler';
+import useObjectState from '@/hooks/useObjectState';
+
+import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
+import { Toast } from '@/utils/toast';
+
+// ---
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const formData = useObjectState({
     email: '',
@@ -25,21 +32,18 @@ export default function SignUpForm() {
   async function signUpWithEmailAndPassword() {
     try {
       loading.on();
-      const user = await Api.createUserWithEmailAndPassword({
+      await Api.createUserWithEmailAndPassword({
         email: formData.value.email,
         password: formData.value.password,
       });
-      TokenHandler.setToken(user.uid);
 
       navigate('/auth/personal-details');
     } catch (error) {
       const firebaseError = error as FirebaseError;
-      if (
-        firebaseError.message === 'Firebase: Error (auth/email-already-in-use).'
-      ) {
-        //TODO: IMPLEMENT TOAST
-        console.log('email already in use ');
-      }
+
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
+
+      Toast.error({ msg });
     } finally {
       loading.off();
     }
@@ -48,8 +52,6 @@ export default function SignUpForm() {
   async function signUpWithGoogle() {
     try {
       const user = await Api.signInWithGoogle();
-
-      TokenHandler.setToken(user.uid);
 
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
       if (doesUserExist) {
@@ -83,7 +85,7 @@ export default function SignUpForm() {
         <UiOrSeperator />
         <UiForm
           formData={formData.value}
-          schema={SignUpSchema}
+          schema={EmailAndPasswordSchema}
           onSubmit={signUpWithEmailAndPassword}
         >
           {({ errors }) => (
