@@ -10,11 +10,10 @@ import UiForm from '@/components/ui/UiForm';
 import UiIcon from '@/components/ui/UiIcon';
 import UiInput from '@/components/ui/UiInput';
 import UiOrSeperator from '@/components/ui/UiOrSeperator';
-
 import useToggle from '@/hooks/useToggle';
 import useObjectState from '@/hooks/useObjectState';
 
-import SignUpSchema from '@/utils/schemas/SignUpSchema';
+import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Toast } from '@/utils/toast';
 
 // ---
@@ -42,7 +41,7 @@ export default function SignUpForm() {
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
-      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
 
       Toast.error({ msg });
     } finally {
@@ -53,7 +52,7 @@ export default function SignUpForm() {
   async function signUpWithGoogle() {
     try {
       const user = await Api.signInWithGoogle();
-      
+
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
       if (doesUserExist) {
         navigate('/');
@@ -86,7 +85,7 @@ export default function SignUpForm() {
         <UiOrSeperator />
         <UiForm
           formData={formData.value}
-          schema={SignUpSchema}
+          schema={EmailAndPasswordSchema}
           onSubmit={signUpWithEmailAndPassword}
         >
           {({ errors }) => (

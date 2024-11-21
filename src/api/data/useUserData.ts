@@ -1,5 +1,5 @@
 import { Api } from '..';
 
-export function useGetUserData(userId: string) {
+export function useUserData(userId: string) {
   return Api.getUser(userId);
 }

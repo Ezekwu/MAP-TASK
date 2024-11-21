@@ -18,11 +18,13 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import AuthDetails from '../types/AuthDetails';
+import AuthDetails from '@/types/AuthDetails';
+import Admin from '@/types/Admin';
+import Meal from '@/types/Meal';
 import db, { auth, googleProvider } from './firebase';
 
 class ApiService {
-  createUserWithEmailAndPassword(data: AuthDetails) {
+  async createUserWithEmailAndPassword(data: AuthDetails) {
     return createUserWithEmailAndPassword(auth, data.email, data.password).then(
       ({ user }) => user,
     );
@@ -50,6 +52,14 @@ class ApiService {
     return confirmPasswordReset(auth, actionCode, newPassword);
   }
 
+  createAdmin(data: Admin) {
+    return this.set('admin', data.id, data);
+  }
+
+  setMeal(data: Meal) {
+    return this.set('meal', data.id, data);
+  }
+
   getUser(userId: string) {
     return Promise.resolve({ userId, name: 'Henry Eze' });
   }
@@ -62,6 +72,10 @@ class ApiService {
     const docRef = doc(db, collectionName, id);
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
+  }
+
+  getMeals() {
+    return this.getCollection<Meal>('meal');
   }
 
   private async getCollection<T>(collectionName: string): Promise<T[]> {

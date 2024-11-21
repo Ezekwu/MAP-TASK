@@ -75,6 +75,7 @@ export default {
           inactive: '#585755',
           base: '#101413',
           'highlight-soft': '#AFD7C9',
+          label: '#55556D',
           light: '#FFFFFF',
           success: '#426C5D',
           subtitle: '#404342',

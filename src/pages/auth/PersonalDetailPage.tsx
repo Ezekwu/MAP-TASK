@@ -168,7 +168,7 @@ export default function PersonalDetailsForm() {
               <div className="flex flex-col gap-3 mt-5">
                 <UiImageUploader
                   name="profile_img"
-                  onSetImgSrc={handleSetImgSrc}
+                  onSetPreviewUrl={setImgSrc}
                   onChange={formData.set}
                   value={formData.value.profile_img as File}
                 />

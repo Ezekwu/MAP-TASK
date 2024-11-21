@@ -16,7 +16,7 @@ import { Toast } from '@/utils/toast';
 // ---
 
 export default function ForgotPasswordForm() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const formData = useObjectState({
     email: '',
   });
@@ -24,19 +24,17 @@ export default function ForgotPasswordForm() {
 
   async function sendResetPasswordEmail() {
     try {
-      loading.on()
+      loading.on();
 
-      await Api.sendPasswordResetEmail(formData.value.email)
+      await Api.sendPasswordResetEmail(formData.value.email);
 
       const msg = t(`messages.passwordResetLinkSent`);
 
       Toast.error({ msg });
-
     } catch (error) {
       console.log(error);
-
     } finally {
-      loading.off()
+      loading.off();
     }
   }
 

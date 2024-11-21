@@ -15,7 +15,7 @@ import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 
 import TokenHandler from '@/utils/TokenHandler';
-import SignUpSchema from '@/utils/schemas/SignUpSchema';
+import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Toast } from '@/utils/toast';
 
 // ---
@@ -51,10 +51,9 @@ export default function LoginPage() {
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
-      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
 
-      Toast.error({msg});
-    
+      Toast.error({ msg });
     } finally {
       loading.off();
     }
@@ -96,7 +95,7 @@ export default function LoginPage() {
         <UiOrSeperator />
         <UiForm
           formData={formData.value}
-          schema={SignUpSchema}
+          schema={EmailAndPasswordSchema}
           onSubmit={loginWithEmail}
         >
           {({ errors }) => (

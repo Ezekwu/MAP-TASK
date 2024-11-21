@@ -18,6 +18,7 @@ import Plus from '@/assets/icons/plus.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import Tray from '@/assets/icons/tray.svg?react';
 import Warning from '@/assets/icons/warning.svg?react';
+import X from '@/assets/icons/x.svg?react';
 
 // These icons are arranged alphabetically for easy sorting
 const icons = {
@@ -41,6 +42,7 @@ const icons = {
   Trash,
   Tray,
   Warning,
+  X,
 };
 
 export type Icons = keyof typeof icons;

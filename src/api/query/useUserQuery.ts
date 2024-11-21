@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useGetUserData } from '../data/useGetUserData';
+import { useUserData } from '../data/useUserData';
 
-export function useGetUserQuery(userId: string) {
+export function useUserQuery(userId: string) {
   const queryClient = useQueryClient();
 
   const queryKey = ['user', userId];
@@ -11,7 +11,7 @@ export function useGetUserQuery(userId: string) {
     queryKey,
     queryFn: async () => {
       try {
-        const response = await useGetUserData(userId);
+        const response = await useUserData(userId);
 
         return response;
       } catch (err) {

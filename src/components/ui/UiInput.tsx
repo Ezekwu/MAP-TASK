@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
 import UiIcon from './UiIcon';
 import PhoneInput from 'react-phone-number-input';
@@ -13,14 +12,13 @@ interface Props {
   value: string | null | number;
   placeholder?: string;
   variant?: 'default' | 'light';
-  /** The name property should always be the same as the model value. example if the input belongs to
-   * formData.confirm_password, the name prop should be confirm_password.
-   */
   name: string;
   error?: string;
   disabled?: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
-  onChange: (event: OnChangeParams) => void;
+  onChange: (event: { name: string; value: string | null }) => void;
+  prefixNode?: React.ReactNode;
+  suffixNode?: React.ReactNode;
 }
 export default function UiInput({
   type = 'text',
@@ -32,46 +30,51 @@ export default function UiInput({
   disabled,
   error,
   onChange,
+  prefixNode,
+  suffixNode,
 }: Props) {
   const [inputType, setInputType] = useState(type);
 
-  function sendValue(e: { target: { name: string; value: string } }) {
+  function sendValue(e: React.ChangeEvent<HTMLInputElement>) {
     onChange({ name: e.target.name, value: e.target.value });
   }
 
   function handlePhoneChange(value: string | undefined) {
-    onChange({ name, value });
+    onChange({ name, value: value! });
   }
 
   function togglePassword() {
-    if (inputType === 'password') setInputType('text');
-    else setInputType('password');
+    setInputType((prev) => (prev === 'password' ? 'text' : 'password'));
   }
 
   const validationStyle = useMemo(() => {
-    return !!error ? 'border-danger-200' : `bg-white border-tertiary-700`;
+    return error ? 'border-danger-200' : `bg-white border-tertiary-700`;
   }, [error]);
 
   return (
     <UiField label={label} error={error}>
-      <div className="relative">
-        {type === 'phone' ? (
-          <div
-            className={`flex items-center gap-2 rounded-2xl w-full border text-xs h-[52px] p-1 pl-4 ${validationStyle}`}
-          >
-            <span className="text-gray-500 text-sm">+234</span>
-            <PhoneInput
-              country="NG"
-              defaultCountry="NG"
-              className="phone-input"
-              value={`${value || ''}`}
-              onChange={handlePhoneChange}
-            />
+      <div
+        className={`relative flex items-center rounded w-full border text-xs h-[52px] ${validationStyle}`}
+      >
+        {prefixNode && (
+          <div className="pl-4 pr-2 text-gray-500 text-sm flex items-center">
+            {prefixNode}
           </div>
+        )}
+
+        {type === 'phone' ? (
+          <PhoneInput
+            country="NG"
+            defaultCountry="NG"
+            className="phone-input flex-1"
+            value={`${value || ''}`}
+            onChange={handlePhoneChange}
+          />
         ) : (
           <input
-            className={`outline-none text-gray-1000 rounded-2xl w-full border placeholder:text-sm placeholder:font-normal placeholder:text-typography-disabled text-sm font-semibold h-[52px] pl-4 ${validationStyle}`}
-            data-testid="ui-input"
+            className={`flex-1 outline-none text-gray-1000 bg-transparent rounded placeholder:text-sm placeholder:font-normal placeholder:text-typography-disabled text-xs font-semibold h-full pl-4 ${
+              prefixNode ? 'pl-0' : ''
+            }`}
             placeholder={placeholder}
             type={inputType}
             value={value || ''}
@@ -81,11 +84,19 @@ export default function UiInput({
             onChange={sendValue}
           />
         )}
+
+        {/* Suffix Node */}
+        {suffixNode && (
+          <div className="pl-2 pr-4 text-gray-500 text-sm flex items-center">
+            {suffixNode}
+          </div>
+        )}
+
         {type === 'password' && (
           <button
             type="button"
             onClick={togglePassword}
-            className="absolute right-0 top-[25%]  mx-3 bg-white"
+            className="absolute right-0 top-[25%] mx-3 bg-white"
           >
             <UiIcon
               size="20"

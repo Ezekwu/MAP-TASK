@@ -1,8 +1,8 @@
+import { Api } from '@/api';
 import { FirebaseError } from 'firebase/app';
 import { useEffect } from 'react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Api } from '@/api';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
     } catch (error) {
       const firebaseError = error as FirebaseError;
 
-      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));    
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
 
       Toast.success({ msg });
     } finally {
