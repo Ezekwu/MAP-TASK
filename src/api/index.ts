@@ -25,11 +25,9 @@ import db, { auth, googleProvider } from './firebase';
 
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
-    return await createUserWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password,
-    ).then(({ user }) => user);
+    return createUserWithEmailAndPassword(auth, data.email, data.password).then(
+      ({ user }) => user,
+    );
   }
 
   signInWithGoogle() {
