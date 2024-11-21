@@ -1,4 +1,4 @@
-import { Api } from '@/Api';
+import { Api } from '@/api';
 import useBooleanState from '@/hooks/useBooleanState';
 import useObjectState from '@/hooks/useObjectState';
 import Meal, { MealType } from '@/types/Meal';

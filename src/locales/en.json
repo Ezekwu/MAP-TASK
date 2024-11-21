@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "auth/invalid-credential": "Invalid email or password",
+    "auth/email-already-in-use": "Email already in use",
+    "auth/expired-action-code": "Password reset link has expired. Please request a new one",
+    "auth/invalid-action-code": "Invalid password reset link. Please request a new one",
+    "default": "An unexpected error occurred."
+  },
+  "messages": {
+    "passwordResetLinkSent": "password reset link has been sent to your email",
+    "passwordResetSuccess": "Password has been reset"
+  }
+}

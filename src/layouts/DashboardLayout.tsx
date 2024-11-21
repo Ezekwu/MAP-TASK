@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useUserQuery } from '../Api/query/useUserQuery';
+import { useUserQuery } from '../api/query/useUserQuery';
 import TheSidebar, { Group } from '../components/layout/TheSidebar';
 import UiLoader from '../components/ui/UiLoader';
 
