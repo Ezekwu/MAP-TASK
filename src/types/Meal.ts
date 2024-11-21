@@ -1,9 +1,15 @@
+export enum MealType {
+  BREAKFAST = 'breakfast',
+  LUNCH = 'lunch',
+  DINNER = 'dinner',
+}
+
 export default interface Meal {
   img: any;
   name: string;
   id: string;
   price: number;
-  // TODO: figure out if nutrients would be best as array or object.
+  mealType: MealType;
   nutrients: {
     fibre?: number;
     fat?: number;

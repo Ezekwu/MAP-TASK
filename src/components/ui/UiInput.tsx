@@ -20,7 +20,6 @@ interface Props {
   prefixNode?: React.ReactNode;
   suffixNode?: React.ReactNode;
 }
-
 export default function UiInput({
   type = 'text',
   value,
@@ -57,7 +56,6 @@ export default function UiInput({
       <div
         className={`relative flex items-center rounded w-full border text-xs h-[52px] ${validationStyle}`}
       >
-        {/* Prefix Node */}
         {prefixNode && (
           <div className="pl-4 pr-2 text-gray-500 text-sm flex items-center">
             {prefixNode}

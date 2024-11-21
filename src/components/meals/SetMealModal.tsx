@@ -1,7 +1,7 @@
 import { Api } from '@/Api';
 import useBooleanState from '@/hooks/useBooleanState';
 import useObjectState from '@/hooks/useObjectState';
-import Meal from '@/types/Meal';
+import Meal, { MealType } from '@/types/Meal';
 import Cloudinary from '@/utils/Cloudinary';
 import { generateUuid, isFile } from '@/utils/helpers';
 import SetMealSchema from '@/utils/schemas/SetMealSchema';
@@ -30,6 +30,7 @@ export default function SetMealModal(props: Props) {
     img: null,
     // Default price because that's the most common price on our catalogue. It could be changed later on to something else if the admin decides to input a different price for the meal
     price: 7000,
+    mealType: MealType.BREAKFAST,
     nutrients: {
       protein: undefined,
       fat: undefined,
@@ -55,7 +56,7 @@ export default function SetMealModal(props: Props) {
     },
     {
       label: 'Low Calorie',
-      value: true,
+      value: false,
     },
   ];
 
@@ -78,6 +79,21 @@ export default function SetMealModal(props: Props) {
     },
   ];
 
+  const mealTypeOptions = [
+    {
+      label: 'Breakfast',
+      value: MealType.BREAKFAST,
+    },
+    {
+      label: 'Lunch',
+      value: MealType.LUNCH,
+    },
+    {
+      label: 'Dinner',
+      value: MealType.DINNER,
+    },
+  ];
+
   async function onSubmit() {
     try {
       loading.on();
@@ -88,11 +104,17 @@ export default function SetMealModal(props: Props) {
         img = await Cloudinary.upload(formData.value.img);
       }
 
-      // TODO: handle nutrients when no nutrient was added. make it compulsory
+      const nutrients = Object.fromEntries(
+        Object.entries(formData.value.nutrients).filter(([key, value]) =>
+          Boolean(value),
+        ),
+      );
+
       const data = {
         ...formData.value,
         id: formData.value.id || generateUuid(),
         img,
+        nutrients,
         inStock: !formData.value.soldOut,
       };
 
@@ -145,13 +167,23 @@ export default function SetMealModal(props: Props) {
                 value={formData.value.name}
                 onChange={formData.set}
               />
-              <UiInput
-                name="price"
-                label="Price of Meal"
-                error={errors.price}
-                value={formData.value.price}
-                onChange={formData.set}
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <UiInput
+                  name="price"
+                  label="Price of Meal"
+                  error={errors.price}
+                  value={formData.value.price}
+                  onChange={formData.set}
+                />
+                <UiSelect
+                  name="mealType"
+                  label="Meal Type"
+                  options={mealTypeOptions}
+                  error={errors.mealType}
+                  value={formData.value.mealType}
+                  onChange={formData.set}
+                />
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-10 border-b-dashed py-8 mb-8">
               <UiImageUploadWithView
@@ -193,6 +225,7 @@ export default function SetMealModal(props: Props) {
                   suffixNode="g"
                   label="How many g of protein?"
                   name="nutrients.protein"
+                  type="number"
                   value={formData.value.nutrients.protein || ''}
                   onChange={formData.setDeep}
                 />
@@ -202,6 +235,7 @@ export default function SetMealModal(props: Props) {
                   suffixNode="g"
                   label="How many g of fat?"
                   name="nutrients.fat"
+                  type="number"
                   value={formData.value.nutrients.fat || ''}
                   onChange={formData.setDeep}
                 />
@@ -209,6 +243,7 @@ export default function SetMealModal(props: Props) {
               {hasNutrient('fibre') && (
                 <UiInput
                   suffixNode="g"
+                  type="number"
                   label="How many g of fibre?"
                   name="nutrients.fibre"
                   value={formData.value.nutrients.fibre || ''}
@@ -218,6 +253,7 @@ export default function SetMealModal(props: Props) {
               {hasNutrient('kcal') && (
                 <UiInput
                   suffixNode="kcal"
+                  type="number"
                   label="How many calories?"
                   name="nutrients.kcal"
                   value={formData.value.nutrients.kcal || ''}

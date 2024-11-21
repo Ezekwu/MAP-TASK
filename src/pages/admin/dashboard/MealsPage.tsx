@@ -64,7 +64,7 @@ export default function MealsPage() {
     };
   }, []);
 
-  function onMealCreated(meal: Meal) {
+  function onMealSet(meal: Meal) {
     setData(meal);
 
     setMealIsVisible.off();
@@ -104,7 +104,7 @@ export default function MealsPage() {
         key={`set-meal-${setMealIsVisible.value}-${activeMeal?.id || ''}`}
         meal={activeMeal}
         onClose={onCloseSetMeal}
-        onDone={onMealCreated}
+        onDone={onMealSet}
       />
     </BasePage>
   );
