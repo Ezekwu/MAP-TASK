@@ -1,7 +1,5 @@
 export default interface Schedule {
-  _id: string;
+  id: string;
   name: string;
-  userToInvite: string;
-  date: string;
-  userId: string;
+  meals: { meal: string; date: string; time: string }[];
 }

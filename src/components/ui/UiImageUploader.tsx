@@ -20,7 +20,6 @@ export default function UiImageUploader({
   function openFilePicker() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
-      onSetPreviewUrl(null);
     }
   }
 
@@ -32,7 +31,7 @@ export default function UiImageUploader({
     onChange({ name, value: files[0] });
   }
 
-  function getPreviewImage() {
+  function setPreviewImage() {
     if (!value) return;
 
     const imgUrl = URL.createObjectURL(value);
@@ -40,7 +39,7 @@ export default function UiImageUploader({
     onSetPreviewUrl(imgUrl);
   }
 
-  useEffect(getPreviewImage, [value]);
+  useEffect(setPreviewImage, [value]);
 
   return (
     <>

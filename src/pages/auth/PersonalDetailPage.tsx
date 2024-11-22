@@ -19,10 +19,12 @@ import User from '@/types/User';
 import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
 import TokenHandler from '@/utils/TokenHandler';
+import { useTranslation } from 'react-i18next';
 
 // --
 
 export default function PersonalDetailsForm() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const formData = useObjectState<User>({
@@ -91,10 +93,10 @@ export default function PersonalDetailsForm() {
       >
         {({ errors }) => (
           <div className="grid gap-5 w-full">
-            <div className="flex gap-5">
+            <div className="grid md:grid-cols-2 gap-5">
               <UiInput
                 placeholder="Enter your first name"
-                label="First name"
+                label={t('fields.first-name')}
                 value={formData.value.first_name}
                 name="first_name"
                 error={errors.first_name}
@@ -102,7 +104,7 @@ export default function PersonalDetailsForm() {
               />
               <UiInput
                 placeholder="Enter your last name"
-                label="Last name"
+                label={t('fields.last-name')}
                 value={formData.value.last_name}
                 name="last_name"
                 error={errors.last_name}
@@ -110,9 +112,8 @@ export default function PersonalDetailsForm() {
               />
             </div>
             <UiInput
-              label="Phone number"
+              label={t('fields.phone-number')}
               type="phone"
-              // TODO:
               value={formData.value.phone_number}
               name="phone_number"
               error={errors.phone_numner}
@@ -120,7 +121,7 @@ export default function PersonalDetailsForm() {
             />
             <UiInput
               placeholder="Enter your home address"
-              label="Home address"
+              label={t('fields.home-address')}
               value={formData.value.home_adress}
               name="home_adress"
               error={errors.home_adress}
@@ -128,7 +129,7 @@ export default function PersonalDetailsForm() {
             />
             <UiSelect
               name="local_government"
-              label="Local government"
+              label={t('fields.local-government')}
               placeholder="Select your LGA"
               onChange={formData.set}
               error={errors.local_government}
@@ -137,7 +138,7 @@ export default function PersonalDetailsForm() {
             />
             <UiInput
               placeholder="Enter your allergies"
-              label="Allergies (Optional)"
+              label={t('fields.allergies')}
               value={formData.value.allergies}
               name="allergies"
               error={errors.allergies}
@@ -145,7 +146,7 @@ export default function PersonalDetailsForm() {
             />
             <UiSelect
               name="goals"
-              label="Goals (Optional)"
+              label={t('fields.goals')}
               placeholder="Select your goals"
               onChange={formData.set}
               error={errors.goals}
@@ -177,7 +178,6 @@ export default function PersonalDetailsForm() {
                 </p>
               </div>
             </div>
-            {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
             <div className="mt-5">
               <UiButton
                 loading={loading.value}

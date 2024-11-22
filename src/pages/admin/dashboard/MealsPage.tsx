@@ -4,7 +4,7 @@ import BasePage from '@/components/layout/BasePage';
 import SetMealModal from '@/components/meals/SetMealModal';
 import UiButton from '@/components/ui/UiButton';
 
-import useBooleanState from '@/hooks/useBooleanState';
+import useToggle from '@/hooks/useToggle';
 
 import Meal from '@/types/Meal';
 import useMealsQuery from '@/api/query/useMealsQuery';
@@ -13,7 +13,7 @@ import UiToggleButton from '@/components/ui/UiToggleButton';
 import MealFilter from '@/types/enums/MealFilter';
 
 export default function MealsPage() {
-  const setMealIsVisible = useBooleanState(false);
+  const setMealIsVisible = useToggle(false);
 
   const [activeMeal, setActiveMeal] = useState<Meal | null>(null);
 

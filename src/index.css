@@ -9,47 +9,52 @@ body {
   height: 100%;
   overflow: hidden;
   text-align: left;
-  font-family: "Montserrat", serif;
+  font-family: 'Montserrat', serif;
 }
 
-.or-border::before{
-  content: "";
+.or-border::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 1px;
-  background-image: linear-gradient(to right, transparent, #E9EAEC, transparent);
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    #e9eaec,
+    transparent
+  );
 }
 
-.phone-input .PhoneInputCountry{
+.phone-input .PhoneInputCountry {
   display: none;
 }
 
-.PhoneInput{
+.PhoneInput {
   width: 100%;
   height: 100%;
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   color: #121217;
+  padding: 16px;
 }
 
-.phone-input .PhoneInputInput{
+.phone-input .PhoneInputInput {
   outline: none;
   width: 100% !important;
   flex-shrink: 0;
   height: 100%;
 }
 
-.custom-sidebar{
+.custom-sidebar {
   overflow-y: auto;
   width: 100%;
 }
 
-
 .custom-sidebar::-webkit-scrollbar-thumb {
-  background: #E3E3E8;
+  background: #e3e3e8;
   border-radius: 4px;
   z-index: -1;
 }

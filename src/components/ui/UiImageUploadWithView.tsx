@@ -20,7 +20,7 @@ export default function UiImageUploadWithView(props: Props) {
   }, [props.value]);
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <UiImagePreview img={previewUrl} />
 
       <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">

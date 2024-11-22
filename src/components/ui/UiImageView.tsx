@@ -14,7 +14,12 @@ export default function UiImagePreview(props: Props) {
 
   return (
     <div className={baseStyle}>
-      {props.img && <img src={props.img} className="rounded h-60 w-full" />}
+      {props.img && (
+        <img
+          src={props.img}
+          className="rounded max-h-[240px] w-full object-cover"
+        />
+      )}
     </div>
   );
 }

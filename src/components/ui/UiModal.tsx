@@ -22,7 +22,7 @@ export default function UiModal({
     if (alignRight)
       return 'fixed top-0 right-0 bottom-0 z-50 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
-    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white p-8 w-2/5 rounded';
+    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white w-2/5 rounded-2xl';
   }, [alignRight]);
 
   if (!isOpen) return <></>;

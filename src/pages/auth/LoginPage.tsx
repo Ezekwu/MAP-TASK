@@ -103,7 +103,7 @@ export default function LoginPage() {
               <UiInput
                 placeholder="Enter email address"
                 value={formData.value.email}
-                label="Email"
+                label={t('fields.email')}
                 name="email"
                 error={errors.email}
                 onChange={formData.set}
@@ -113,7 +113,7 @@ export default function LoginPage() {
                 type="password"
                 value={formData.value.password}
                 name="password"
-                label="Password"
+                label={t('fields.password')}
                 error={errors.password}
                 onChange={formData.set}
               />
