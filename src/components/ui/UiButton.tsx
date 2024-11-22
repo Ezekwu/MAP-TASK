@@ -53,7 +53,7 @@ export default function UiButton({
 }: Props) {
   return (
     <button
-      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-1 items-center justify-center font-semibold ${
+      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-2 items-center justify-center font-semibold ${
         block && 'w-full'
       } ${variantClasses[variant]} ${sizeClasses[size]} ${
         roundedClasses[rounded]

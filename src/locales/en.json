@@ -1,7 +1,10 @@
 {
   "actions": {
+    "create-schedule": "Create schedule",
     "submit": "Submit",
-    "sign-in-with-google": "Sign in with Google"
+    "sign-in-with-google": "Sign in with Google",
+    "click-to-add-meals": "Click to add meals",
+    "assign-schedules-to-users": "Click to assign this schedule to users"
   },
   "errors": {
     "auth/invalid-credential": "Invalid email or password",
@@ -12,6 +15,7 @@
   },
   "fields": {
     "allergies": "Allergies",
+    "assign-schedule-to-users": "Assign schedule to users",
     "confirm-password": "Confirm password",
     "email": "Email",
     "first-name": "First name",
@@ -28,7 +32,9 @@
     "password": "Password",
     "phone-number": "Phone number",
     "price-of-meal": "Price of Meal",
-    "quantity-of-nutrient": "How many {{text}}?"
+    "quantity-of-nutrient": "How many {{text}}?",
+    "schedule-name": "Schedule name",
+    "add-meals-to-schedule": "Add meals to schedule"
   },
   "messages": {
     "passwordResetLinkSent": "password reset link has been sent to your email",
