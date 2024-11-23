@@ -46,7 +46,7 @@ export default function MealsPage() {
     query: { isLoading },
     setData,
     filteredMeals: meals,
-  } = useMealsQuery(filter);
+  } = useMealsQuery({ filter });
 
   const navDetails = useMemo(() => {
     return {

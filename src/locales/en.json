@@ -1,5 +1,6 @@
 {
   "actions": {
+    "add-meals": "Add meals",
     "create-schedule": "Create schedule",
     "submit": "Submit",
     "sign-in-with-google": "Sign in with Google",
@@ -44,8 +45,12 @@
     "set-schedule": {
       "create-title": "Create schedule",
       "update-title": "Update schedule",
-      "description": "Schedules timeline last for a week by default"
+      "description": "Schedules timeline last for a week by default",
+      "select-weekly-meals": "Select up to 7 meals for {{mealType}}",
+      "selected-meals-would-appear-here": "Selected meals would appear here"
     }
   },
-  "placeholder": {}
+  "placeholders": {
+    "search-meals": "Search meals"
+  }
 }

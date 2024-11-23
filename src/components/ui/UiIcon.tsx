@@ -15,6 +15,7 @@ import Notification from '@/assets/icons/notification.svg?react';
 import Overview from '@/assets/icons/overview.svg?react';
 import Plate from '@/assets/icons/plate.svg?react';
 import Plus from '@/assets/icons/plus.svg?react';
+import Search from '@/assets/icons/search.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import Tray from '@/assets/icons/tray.svg?react';
 import Users from '@/assets/icons/user-group.svg?react';
@@ -40,6 +41,7 @@ const icons = {
   Overview,
   Plate,
   Plus,
+  Search,
   Trash,
   Tray,
   Users,

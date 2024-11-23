@@ -57,7 +57,7 @@ export default function UiInput({
         className={`relative flex items-center rounded w-full border text-xs h-[52px] ${validationStyle}`}
       >
         {prefixNode && (
-          <div className="pl-4 pr-2 text-gray-500 text-sm flex items-center">
+          <div className="pl-2  text-gray-500 text-sm flex items-center">
             {prefixNode}
           </div>
         )}

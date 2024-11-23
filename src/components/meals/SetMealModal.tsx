@@ -36,7 +36,7 @@ export default function SetMealModal(props: Props) {
     price: 7000,
     mealType: MealType.BREAKFAST,
     nutrients: {
-      protein: 2,
+      protein: undefined,
       fat: undefined,
       fibre: undefined,
       kcal: undefined,
