@@ -5,11 +5,14 @@ import Meal from '@/types/Meal';
 import UiTag from '../ui/UiTag';
 import { useTranslation } from 'react-i18next';
 import UiIcon from '../ui/UiIcon';
+import UiSelect from '../ui/UiSelect';
+import OnChangeParams from '@/types/OnChangeParams';
 
 interface Props {
   btnLabel?: string;
-  onSelect: (id: string) => void;
-  onRemove: (id: string) => void;
+  onSelect?: (id: string) => void;
+  onSelectDay?: (params: { id: string; day: string }) => void;
+  onRemove?: (id: string) => void;
   meal: Meal;
   isSelected?: boolean;
   showDay?: boolean;
@@ -20,8 +23,40 @@ export default function MealItem({
   onRemove,
   showDay,
   onSelect,
+  onSelectDay,
 }: Props) {
   const { t } = useTranslation();
+
+  const weekdayOptions = [
+    {
+      label: t('options.sunday'),
+      value: 'sunday',
+    },
+    {
+      label: t('options.monday'),
+      value: 'monday',
+    },
+    {
+      label: t('options.tuesday'),
+      value: 'tuesday',
+    },
+    {
+      label: t('options.wednesday'),
+      value: 'wednesday',
+    },
+    {
+      label: t('options.thursday'),
+      value: 'thursday',
+    },
+    {
+      label: t('options.friday'),
+      value: 'friday',
+    },
+    {
+      label: t('options.saturday'),
+      value: 'saturday',
+    },
+  ];
 
   const nutrients = useMemo(() => {
     return Object.entries(meal.nutrients).map(
@@ -31,12 +66,16 @@ export default function MealItem({
 
   function handleClick() {
     if (isSelected) {
-      onRemove(meal.id);
+      onRemove?.(meal.id);
 
       return;
     }
 
-    onSelect(meal.id);
+    onSelect?.(meal.id);
+  }
+
+  function onChange({ value }: OnChangeParams) {
+    onSelectDay?.({ id: meal.id, day: value as string });
   }
 
   return (
@@ -58,9 +97,13 @@ export default function MealItem({
             {meal.name}
           </div>
           {showDay ? (
-            <UiTag variant="tertiary" rounded="pill">
-              Monday
-            </UiTag>
+            <UiSelect
+              options={weekdayOptions}
+              value=""
+              placeholder={t('placeholders.select-day')}
+              name="day-of-week"
+              onChange={onChange}
+            />
           ) : (
             <div
               className={`${

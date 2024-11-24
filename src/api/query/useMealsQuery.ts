@@ -8,7 +8,8 @@ import MealFilter from '@/types/enums/MealFilter';
 import useMealsData from '../data/useMealsData';
 
 interface Props {
-  searchQuery?: string;
+  // TODO: implement search
+  searchQuery?: string | null;
   filter?: MealFilter;
 }
 export default function useMealsQuery(props?: Props) {
@@ -71,6 +72,10 @@ export default function useMealsQuery(props?: Props) {
     queryClient.invalidateQueries({ queryKey, refetchType: 'none' });
   }
 
+  function findMealById(id: string) {
+    return mealsData.find((meal) => meal.id === id);
+  }
+
   function reloadQuery() {
     queryClient.invalidateQueries({ queryKey });
   }
@@ -80,5 +85,6 @@ export default function useMealsQuery(props?: Props) {
     query,
     reloadQuery,
     setData,
+    findMealById,
   };
 }

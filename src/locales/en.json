@@ -2,6 +2,7 @@
   "actions": {
     "add-meals": "Add meals",
     "assign-schedules-to-users": "Click to assign this schedule to users",
+    "back": "Back",
     "click-to-add-meals": "Click to add meals",
     "create-schedule": "Create schedule",
     "set-date": "Set date",
@@ -52,6 +53,7 @@
       "select-weekly-meals": "Select up to 7 meals for {{mealType}}",
       "selected-meals": "Selected meals",
       "selected-meals-would-appear-here": "Selected meals would appear here",
+      "select-day-of-week": "Select day of week for each meal",
       "update-title": "Update schedule"
     }
   },
@@ -63,14 +65,22 @@
     "dinner": "Dinner",
     "fat": "Fat",
     "fibre": "Fibre",
+    "friday": "Friday",
     "high-calorie": "High Calorie",
     "low-calorie": "Low Calorie",
     "lunch": "Lunch",
+    "monday": "Monday",
     "protein": "Protein",
+    "saturday": "Saturday",
     "sold-out": "Sold out",
-    "spotlight": "Spotlight"
+    "spotlight": "Spotlight",
+    "sunday": "Sunday",
+    "thursday": "Thursday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday"
   },
   "placeholders": {
-    "search-meals": "Search meals"
+    "search-meals": "Search meals",
+    "select-day": "Select day"
   }
 }

@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
 import useObjectState from '@/hooks/useObjectState';
+
 import { MealType } from '@/types/Meal';
+import Schedule from '@/types/WeeklyMealSchedule';
 
 import UiButton from '../ui/UiButton';
 import UiField from '../ui/UiField';
@@ -14,7 +16,7 @@ import MealTypeSelector from './MealTypeSelector';
 // ---
 
 interface Props {
-  schedule?: Record<string, string>;
+  schedule?: Schedule;
   onSelectMealType: (type: MealType) => void;
 }
 export default function SetScheduleForm(props: Props) {
