@@ -1,15 +1,26 @@
+import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import EatriteLogo from '../../assets/EatriteLogo.svg';
+import EatriteLogo from '@/assets/EatriteLogo.svg';
+import IconProps from '@/types/IconProps';
+
+
+import CalendarIcon from '../icons/CalendarIcon';
+import OverviewIcon from '../icons/OverviewIcon';
+import MealIcon from '../icons/MealIcon';
+import SupportIcon from '../icons/SupportIcon';
+import CogIcon from '../icons/CogIcon';
 import UiButton from '../ui/UiButton';
 import UiIcon, { Icons } from '../ui/UiIcon';
+
+//--
 
 interface Group {
   name: string;
   routes: Array<{
     path: string;
     name: string;
-    icon: Icons;
+    icon: React.ComponentType<IconProps>;
   }>;
 }
 
@@ -23,17 +34,17 @@ export default function TheSidebar() {
         {
           path: '/',
           name: 'Overview',
-          icon: 'Overview',
+          icon: OverviewIcon,
         },
         {
           path: '/calendar',
           name: 'Calendar',
-          icon: 'Calendar',
+          icon: CalendarIcon,
         },
         {
           path: '/plans',
           name: 'Meal plans',
-          icon: 'Meal',
+          icon: MealIcon,
         },
       ],
     },
@@ -43,12 +54,12 @@ export default function TheSidebar() {
         {
           path: '/support',
           name: 'Support',
-          icon: 'CustomerSupport',
+          icon: SupportIcon,
         },
         {
           path: '/settings',
           name: 'Settings',
-          icon: 'Cog',
+          icon: CogIcon,
         },
       ],
     },
@@ -56,6 +67,11 @@ export default function TheSidebar() {
 
   const activeRoute = location.pathname;
 
+  function isActiveRoute(route: string) {
+    return activeRoute === route;
+  }
+
+  
   function logUserOut() {
     localStorage.removeItem('uid');
     window.location.reload();
@@ -82,12 +98,19 @@ export default function TheSidebar() {
                     <Link
                       to={route.path}
                       className={`${
-                        activeRoute === route.path
-                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
+                        isActiveRoute(route.path)
+                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border stroke-secondary-1500'
                           : 'text-typography-inactive hover:text-typography-base'
                       } h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
                     >
-                      <UiIcon icon={route.icon} />
+                      <route.icon
+                        fillColor={
+                          isActiveRoute(route.path) ? '#E2AC64' : '#DBD7D1'
+                        }
+                        strokeColor={
+                          isActiveRoute(route.path) ? '#101413' : '#585755'
+                        }
+                      />
                       <span>{route.name}</span>
                     </Link>
                   </li>

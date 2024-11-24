@@ -4,20 +4,30 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { authGuard, userIsLoggedIn } from './navigationGuards';
 
-import AuthLayout from '../layouts/AuthLayout';
-import DashboardLayout from '../layouts/DashboardLayout';
+//Layouts
 
-const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
-const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
-const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
-const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+import AuthLayout from '@/layouts/AuthLayout';
+import DashboardLayout from '@/layouts/DashboardLayout';
+
+//Pages
+
+const MealPlansPage = lazy(() => import('@/pages/app/MealPlansPage'));
+const DashboardPage = lazy(() => import('@/pages/app/DashboardPage'));
+const CalendarPage = lazy(() => import('@/pages/app/CalendarPage'));
+
+//Auth pages
+
+const SignUpPage = lazy(() => import('@/pages/auth/SignUpPage'));
+const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 const PersonalDetalsPage = lazy(
-  () => import('../pages/auth/PersonalDetailPage'),
+  () => import('@/pages/auth/PersonalDetailPage'),
 );
-const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
-const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
+const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPasswordPage'));
+const RestPassword = lazy(() => import('@/pages/auth/ResetPasswordPage'));
 
-const PageError = lazy(() => import('../components/errors/PageError'));
+///
+
+const PageError = lazy(() => import('@/components/errors/PageError'));
 
 const router = createBrowserRouter([
   {
@@ -39,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: '/calendar',
         element: <CalendarPage />,
+      },
+      {
+        path: '/plans',
+        element: <MealPlansPage />,
       },
     ],
   },
