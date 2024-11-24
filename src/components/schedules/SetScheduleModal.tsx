@@ -60,6 +60,7 @@ export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
         mealType={mealTypeToFill}
         weeklyMealSchedule={localSchedule}
         onDone={handleSelectedMeals}
+        onUpdateSchedule={setLocalSchedule}
         goBack={() => nextStep(Steps.FORM)}
       />
     ),

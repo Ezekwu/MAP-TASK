@@ -41,6 +41,13 @@ export default function SetMealDays({
           meal.mealId === id ? { ...meal, day } : meal,
         );
 
+        console.log({
+          ...daySchedule,
+          meals: {
+            ...daySchedule.meals,
+            [mealType]: updatedMeals,
+          },
+        });
         return {
           ...daySchedule,
           meals: {

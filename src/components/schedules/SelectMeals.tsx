@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useMealsQuery from '@/api/query/useMealsQuery';
@@ -21,6 +21,7 @@ interface Props {
   weeklyMealSchedule?: WeeklyMealSchedule;
   onDone: (data: WeeklyMealSchedule) => void;
   goBack: () => void;
+  onUpdateSchedule: (data: WeeklyMealSchedule) => void;
 }
 
 export default function SelectMeals({
@@ -28,6 +29,7 @@ export default function SelectMeals({
   weeklyMealSchedule = { id: '', name: '', days: [] },
   onDone,
   goBack,
+  onUpdateSchedule,
 }: Props) {
   const { t } = useTranslation();
 
@@ -38,14 +40,16 @@ export default function SelectMeals({
     query: { isLoading },
   } = useMealsQuery({ searchQuery: query });
 
-  const previouslyAssignedMeals: MealEntryWithDay[] =
-    weeklyMealSchedule.days.flatMap(
+  // TODO: figure out why meals sent to parent don't delete
+  const previouslyAssignedMeals = useMemo<MealEntryWithDay[]>(() => {
+    return weeklyMealSchedule.days.flatMap(
       (day) =>
         day.meals[mealType]?.map((meal) => ({
           ...meal,
           day: day.day,
         })) || [],
     );
+  }, [weeklyMealSchedule]);
 
   const [selectedMeals, setSelectedMeals] = useState<MealEntryWithDay[]>([]);
 
@@ -70,8 +74,31 @@ export default function SelectMeals({
     });
   }
 
-  function onRemoveMeal(mealId: string) {
-    setSelectedMeals((prev) => prev.filter((meal) => meal.mealId !== mealId));
+  function onRemoveMeal(mealId: string, day?: string) {
+    // First, remove from selectedMeals
+    setSelectedMeals((prev) =>
+      prev.filter((meal) => !(meal.mealId === mealId && meal.day === day)),
+    );
+
+    // Then, remove the meal from the WeeklyMealSchedule
+    const updatedDays = weeklyMealSchedule.days.map((daySchedule) => {
+      // Check if the current day's meals have the meal we want to remove
+      if (daySchedule.day === day) {
+        daySchedule.meals[mealType] = daySchedule.meals[mealType]?.filter(
+          (meal) =>
+            !(meal.mealId === mealId && (meal as MealEntryWithDay).day === day),
+        );
+      }
+      return daySchedule;
+    });
+
+    // Update the weeklyMealSchedule after removal
+    const updatedSchedule: WeeklyMealSchedule = {
+      ...weeklyMealSchedule,
+      days: updatedDays,
+    };
+
+    onUpdateSchedule(updatedSchedule);
   }
 
   function isMealSelected(mealId: string) {
