@@ -39,18 +39,10 @@ export default function SelectMeals({ mealType = MealType.BREAKFAST }: Props) {
 
   return (
     <div>
-      <div className="mx-8 pt-8">
-        <UiSearchInput
-          placeholder={t('placeholders.search-meals')}
-          onSearch={onMealSearch}
-        />
-      </div>
-
       <p className="text-sm text-[#585B5A] mx-8 py-2">
         {t('modals.set-schedule.select-weekly-meals', { mealType })}
       </p>
       <div className="max-h-[55vh]  overflow-auto grid gap-4">
-        {isLoading && <UiLoader />}
         {filteredMeals.map((meal) => (
           <MealItem
             meal={meal}
@@ -68,7 +60,7 @@ export default function SelectMeals({ mealType = MealType.BREAKFAST }: Props) {
           size="lg"
           disabled={!selectedMeals.length}
         >
-          {t('actions.set-date')}
+          {t('actions.add-meals')}
         </UiButton>
       </div>
     </div>

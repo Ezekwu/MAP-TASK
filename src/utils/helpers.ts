@@ -8,4 +8,6 @@ export function isFile(variable: unknown): variable is File {
   return variable instanceof File;
 }
 
-export function enumToArray() {}
+export function castToType<T>(val: unknown) {
+  return val as T;
+}

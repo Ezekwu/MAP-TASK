@@ -55,45 +55,45 @@ export default function SetMealModal(props: Props) {
 
   const calorieClassOptions = [
     {
-      label: 'High Calorie',
+      label: t('options.high-calorie'),
       value: true,
     },
     {
-      label: 'Low Calorie',
+      label: t('options.low-calorie'),
       value: false,
     },
   ];
 
   const nutrients = [
     {
-      label: 'Fibre',
+      label: t('options.fibre'),
       value: 'fibre',
     },
     {
-      label: 'Fat',
+      label: t('options.fat'),
       value: 'fat',
     },
     {
-      label: 'Protein',
+      label: t('options.protein'),
       value: 'protein',
     },
     {
-      label: 'Calories(kcal)',
+      label: t('options.calories'),
       value: 'kcal',
     },
   ];
 
   const mealTypeOptions = [
     {
-      label: 'Breakfast',
+      label: t('options.breakfast'),
       value: MealType.BREAKFAST,
     },
     {
-      label: 'Lunch',
+      label: t('options.lunch'),
       value: MealType.LUNCH,
     },
     {
-      label: 'Dinner',
+      label: t('options.dinner'),
       value: MealType.DINNER,
     },
   ];

@@ -1,20 +1,22 @@
 {
   "actions": {
     "add-meals": "Add meals",
-    "create-schedule": "Create schedule",
-    "submit": "Submit",
-    "sign-in-with-google": "Sign in with Google",
+    "assign-schedules-to-users": "Click to assign this schedule to users",
     "click-to-add-meals": "Click to add meals",
-    "assign-schedules-to-users": "Click to assign this schedule to users"
+    "create-schedule": "Create schedule",
+    "set-date": "Set date",
+    "sign-in-with-google": "Sign in with Google",
+    "submit": "Submit"
   },
   "errors": {
-    "auth/invalid-credential": "Invalid email or password",
     "auth/email-already-in-use": "Email already in use",
     "auth/expired-action-code": "Password reset link has expired. Please request a new one",
     "auth/invalid-action-code": "Invalid password reset link. Please request a new one",
+    "auth/invalid-credential": "Invalid email or password",
     "default": "An unexpected error occurred."
   },
   "fields": {
+    "add-meals-to-schedule": "Add meals to schedule",
     "allergies": "Allergies",
     "assign-schedule-to-users": "Assign schedule to users",
     "confirm-password": "Confirm password",
@@ -34,8 +36,10 @@
     "phone-number": "Phone number",
     "price-of-meal": "Price of Meal",
     "quantity-of-nutrient": "How many {{text}}?",
-    "schedule-name": "Schedule name",
-    "add-meals-to-schedule": "Add meals to schedule"
+    "schedule-name": "Schedule name"
+  },
+  "general": {
+    "high-calorie": "HIGH CALORIE"
   },
   "messages": {
     "passwordResetLinkSent": "password reset link has been sent to your email",
@@ -44,11 +48,27 @@
   "modals": {
     "set-schedule": {
       "create-title": "Create schedule",
-      "update-title": "Update schedule",
       "description": "Schedules timeline last for a week by default",
       "select-weekly-meals": "Select up to 7 meals for {{mealType}}",
-      "selected-meals-would-appear-here": "Selected meals would appear here"
+      "selected-meals": "Selected meals",
+      "selected-meals-would-appear-here": "Selected meals would appear here",
+      "update-title": "Update schedule"
     }
+  },
+  "options": {
+    "all": "All",
+    "best-seller": "Best Seller",
+    "breakfast": "Breakfast",
+    "calories": "Calories(kcal)",
+    "dinner": "Dinner",
+    "fat": "Fat",
+    "fibre": "Fibre",
+    "high-calorie": "High Calorie",
+    "low-calorie": "Low Calorie",
+    "lunch": "Lunch",
+    "protein": "Protein",
+    "sold-out": "Sold out",
+    "spotlight": "Spotlight"
   },
   "placeholders": {
     "search-meals": "Search meals"
