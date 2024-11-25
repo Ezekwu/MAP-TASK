@@ -74,21 +74,18 @@ export default function SelectMeals({
     });
   }
 
-  function onRemoveMeal(mealId: string, day?: string) {
+  function onRemoveMeal(mealId: string) {
     // First, remove from selectedMeals
     setSelectedMeals((prev) =>
-      prev.filter((meal) => !(meal.mealId === mealId && meal.day === day)),
+      prev.filter((meal) => !(meal.mealId === mealId)),
     );
 
     // Then, remove the meal from the WeeklyMealSchedule
     const updatedDays = weeklyMealSchedule.days.map((daySchedule) => {
       // Check if the current day's meals have the meal we want to remove
-      if (daySchedule.day === day) {
-        daySchedule.meals[mealType] = daySchedule.meals[mealType]?.filter(
-          (meal) =>
-            !(meal.mealId === mealId && (meal as MealEntryWithDay).day === day),
-        );
-      }
+      daySchedule.meals[mealType] = daySchedule.meals[mealType]?.filter(
+        (meal) => !(meal.mealId === mealId),
+      );
       return daySchedule;
     });
 
@@ -97,6 +94,8 @@ export default function SelectMeals({
       ...weeklyMealSchedule,
       days: updatedDays,
     };
+
+    console.log({ updatedSchedule });
 
     onUpdateSchedule(updatedSchedule);
   }
