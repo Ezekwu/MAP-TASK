@@ -4,20 +4,21 @@ import { useTranslation } from 'react-i18next';
 import useMealsQuery from '@/api/query/useMealsQuery';
 
 import { MealType } from '@/types/Meal';
-import { DaySchedule, WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
+import {
+  DaySchedule,
+  MealEntry,
+  WeeklyMealSchedule,
+} from '@/types/WeeklyMealSchedule';
 
 import UiButton from '../ui/UiButton';
 
 import MealItem from './MealItem';
-
-import { Steps } from './steps';
 
 interface Props {
   schedule: WeeklyMealSchedule;
   mealType?: MealType;
   goBack: () => void;
 }
-
 export default function SetMealDays({
   schedule,
   mealType = MealType.BREAKFAST,
@@ -34,30 +35,71 @@ export default function SetMealDays({
     setUpdatedSchedule(schedule);
   }, [schedule]);
 
-  function onSelectDay({ id, day }: { id: string; day: string }) {
+  function onSelectDay({ id, day: selectedDay }: { id: string; day: string }) {
     setUpdatedSchedule((prevSchedule) => {
-      const newDays = prevSchedule.days.map((daySchedule: DaySchedule) => {
-        const updatedMeals = daySchedule.meals[mealType]?.map((meal) =>
-          meal.mealId === id ? { ...meal, day } : meal,
+      // Create a copy of the current schedule to maintain immutability
+      const updatedDays = [...prevSchedule.days];
+      let mealToUpdate: MealEntry | undefined;
+
+      // Find and remove the meal from its current day
+      updatedDays.forEach((daySchedule) => {
+        const mealIndex = daySchedule.meals[mealType]?.findIndex(
+          ({ mealId }) => mealId === id,
         );
 
-        console.log({
-          ...daySchedule,
-          meals: {
-            ...daySchedule.meals,
-            [mealType]: updatedMeals,
-          },
-        });
-        return {
-          ...daySchedule,
-          meals: {
-            ...daySchedule.meals,
-            [mealType]: updatedMeals,
-          },
-        };
+        if (mealIndex !== undefined && mealIndex > -1) {
+          // Remove the meal
+          mealToUpdate = daySchedule.meals[mealType]?.splice(mealIndex, 1)[0];
+        }
       });
 
-      return { ...prevSchedule, days: newDays };
+      if (!mealToUpdate) return prevSchedule;
+
+      // Check if the selected day already exists in the schedule
+      const dayIndex = updatedDays.findIndex((day) => day.day === selectedDay);
+
+      if (dayIndex > -1) {
+        // Update the existing day's meals
+        const targetDaySchedule = { ...updatedDays[dayIndex] };
+        targetDaySchedule.meals[mealType] = [
+          ...(targetDaySchedule.meals[mealType] || []),
+          { ...mealToUpdate, day: selectedDay },
+        ];
+        updatedDays[dayIndex] = targetDaySchedule;
+      } else {
+        // Insert the new day at the correct position, preserving order
+        const newDaySchedule = {
+          day: selectedDay,
+          meals: {
+            [MealType.BREAKFAST]:
+              MealType.BREAKFAST === mealType
+                ? [{ ...mealToUpdate, day: selectedDay }]
+                : undefined,
+            [MealType.LUNCH]:
+              MealType.LUNCH === mealType
+                ? [{ ...mealToUpdate, day: selectedDay }]
+                : undefined,
+            [MealType.DINNER]:
+              MealType.DINNER === mealType
+                ? [{ ...mealToUpdate, day: selectedDay }]
+                : undefined,
+          },
+        };
+
+        // Insert the new day at the same level as others in sorted order
+        const insertionIndex = updatedDays.findIndex(
+          (day) => day.day > selectedDay,
+        );
+        if (insertionIndex === -1) {
+          // If no larger date is found, add to the end
+          updatedDays.push(newDaySchedule);
+        } else {
+          // Insert before the first day with a larger date
+          updatedDays.splice(insertionIndex, 0, newDaySchedule);
+        }
+      }
+
+      return { ...prevSchedule, days: updatedDays };
     });
   }
 
@@ -70,13 +112,13 @@ export default function SetMealDays({
         {updatedSchedule.days.flatMap((daySchedule) =>
           Object.keys(daySchedule.meals).map((mealType) => {
             const typedMealType = mealType as keyof typeof daySchedule.meals;
-            return daySchedule.meals[typedMealType]?.map((meal) => {
-              const foundMeal = findMealById(meal.mealId)!;
+            return daySchedule.meals[typedMealType]?.map((mealSchedule) => {
+              const foundMeal = findMealById(mealSchedule.mealId)!;
               return (
                 <MealItem
-                  key={meal.mealId}
+                  key={mealSchedule.mealId}
                   meal={foundMeal}
-                  showDay
+                  day={mealSchedule.day}
                   onSelectDay={onSelectDay}
                 />
               );

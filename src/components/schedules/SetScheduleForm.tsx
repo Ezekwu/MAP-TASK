@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import useObjectState from '@/hooks/useObjectState';
 
 import { MealType } from '@/types/Meal';
-import Schedule from '@/types/WeeklyMealSchedule';
+import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 import UiButton from '../ui/UiButton';
 import UiField from '../ui/UiField';
@@ -16,7 +16,7 @@ import MealTypeSelector from './MealTypeSelector';
 // ---
 
 interface Props {
-  schedule?: Schedule;
+  schedule?: WeeklyMealSchedule;
   onSelectMealType: (type: MealType) => void;
 }
 export default function SetScheduleForm(props: Props) {
@@ -54,6 +54,7 @@ export default function SetScheduleForm(props: Props) {
                   {mealTypes.map((type) => (
                     <MealTypeSelector
                       type={type}
+                      key={type}
                       onSelectMealType={props.onSelectMealType}
                     />
                   ))}

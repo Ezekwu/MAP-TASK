@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Meal from '@/types/Meal';
 
 import UiTag from '../ui/UiTag';
-import { useTranslation } from 'react-i18next';
 import UiIcon from '../ui/UiIcon';
 import UiSelect from '../ui/UiSelect';
 import OnChangeParams from '@/types/OnChangeParams';
@@ -16,12 +16,13 @@ interface Props {
   meal: Meal;
   isSelected?: boolean;
   showDay?: boolean;
+  day?: string;
 }
 export default function MealItem({
   meal,
   isSelected,
   onRemove,
-  showDay,
+  day,
   onSelect,
   onSelectDay,
 }: Props) {
@@ -96,10 +97,10 @@ export default function MealItem({
           <div className="text-sm font-semibold text-typography-base my-2">
             {meal.name}
           </div>
-          {showDay ? (
+          {day !== undefined ? (
             <UiSelect
               options={weekdayOptions}
-              value=""
+              value={day}
               placeholder={t('placeholders.select-day')}
               name="day-of-week"
               onChange={onChange}

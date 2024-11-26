@@ -3,6 +3,8 @@ import { MealType } from '@/types/Meal';
 export interface MealEntry {
   mealId: string;
   mealType: MealType;
+  // TODO: figure out if needed
+  day?: string;
 }
 
 export interface DaySchedule {
