@@ -1,13 +1,142 @@
 {
+  "actions": {
+    "add-meals": "Add meals",
+    "assign-schedules-to-users": "Click to assign this schedule to users",
+    "back": "Back",
+    "click-to-add-meals": "Click to add meals",
+    "create-schedule": "Create schedule",
+    "set-date": "Set date",
+    "sign-in-with-google": "Sign in with Google",
+    "submit": "Submit"
+  },
   "errors": {
-    "auth/invalid-credential": "Invalid email or password",
     "auth/email-already-in-use": "Email already in use",
     "auth/expired-action-code": "Password reset link has expired. Please request a new one",
     "auth/invalid-action-code": "Invalid password reset link. Please request a new one",
-    "default": "An unexpected error occurred."
+    "auth/invalid-credential": "Invalid email or password",
+    "default": "An unexpected error occurred.",
+    "home-address": "Home address is a required field",
+    "lga": "Local government area is a required field"
+  },
+  "fields": {
+    "add-meals-to-schedule": "Add meals to schedule",
+    "allergies": "Allergies",
+    "assign-schedule-to-users": "Assign schedule to users",
+    "confirm-password": "Confirm password",
+    "email": "Email",
+    "first-name": "First name",
+    "goals": "Goals",
+    "home-address": "Home address",
+    "last-name": "Last name",
+    "local-government": "Local government",
+    "meal-class": "Meal class",
+    "meal-name": "Meal Name",
+    "meal-status": "Meal Status",
+    "meal-type": "Meal Type",
+    "new-password": "New password",
+    "nutrients-of-meal": "What nutrients does the meal contain?",
+    "optional": "(optional)",
+    "password": "Password",
+    "phone-number": "Phone number",
+    "price-of-meal": "Price of Meal",
+    "quantity-of-nutrient": "How many {{text}}?",
+    "schedule-name": "Schedule name"
+  },
+  "general": {
+    "high-calorie": "HIGH CALORIE"
   },
   "messages": {
-    "passwordResetLinkSent": "password reset link has been sent to your email",
+    "passwordResetLinkSent": "Password reset link has been sent to your email",
     "passwordResetSuccess": "Password has been reset"
+  },
+  "modals": {
+    "set-schedule": {
+      "create-title": "Create schedule",
+      "description": "Schedules timeline last for a week by default",
+      "select-day-of-week": "Select day of week for each meal",
+      "select-weekly-meals": "Select up to 7 meals for {{mealType}}",
+      "selected-meals-would-appear-here": "Selected meals would appear here",
+      "selected-meals": "Selected meals",
+      "update-title": "Update schedule"
+    }
+  },
+  "options": {
+    "all": "All",
+    "best-seller": "Best Seller",
+    "breakfast": "Breakfast",
+    "calories": "Calories(kcal)",
+    "dinner": "Dinner",
+    "fat": "Fat",
+    "fibre": "Fibre",
+    "friday": "Friday",
+    "goals": {
+      "diabetes-management": "Diabetes Management",
+      "hassle-free-diner": "Hassle-Free Diner",
+      "muscle-growth": "Muscle growth",
+      "weight-gain": "Weight gain",
+      "weight-loss": "Weight loss"
+    },
+    "high-calorie": "High Calorie",
+    "locations": {
+      "agege": "Agege",
+      "alimosho": "Alimosho",
+      "apapa": "Apapa",
+      "ifako-ijaye": "Ifako-Ijaye",
+      "ikeja": "Ikeja",
+      "kosofe": "Kosofe",
+      "mushin": "Mushin",
+      "oshodi-isolo": "Oshodi-Isolo",
+      "shomolu": "Shomolu",
+      "eti-osa": "Eti-Osa",
+      "lagos-island": "Lagos Island",
+      "lagos-mainland": "Lagos Mainland",
+      "surulere": "Surulere",
+      "ojo": "Ojo",
+      "ajeromi-ifelodun": "Ajeromi-Ifelodun",
+      "amuwo-odofin": "Amuwo-Odofin",
+      "badagry": "Badagry",
+      "ikorodu": "Ikorodu",
+      "ibeju-lekki": "Ibeju-Lekki",
+      "epe": "Epe"
+    },
+    "low-calorie": "Low Calorie",
+    "lunch": "Lunch",
+    "monday": "Monday",
+    "protein": "Protein",
+    "saturday": "Saturday",
+    "sold-out": "Sold out",
+    "spotlight": "Spotlight",
+    "sunday": "Sunday",
+    "thursday": "Thursday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday"
+  },
+  "pages": {
+    "users": "Users"
+  },
+  "placeholders": {
+    "allergies": "Enter your allergies",
+    "first-name": "Enter your first name",
+    "goals": "Select your goals",
+    "home-address": "Enter your home address",
+    "last-name": "Enter your last name",
+    "local-government": "Select your LGA",
+    "search-meals": "Search meals",
+    "select-day": "Select day"
+  },
+  "titles": {
+    "action": "Action",
+    "dateJoined": "Date Joined",
+    "emailAddress": "Email Address",
+    "homeAddress": "Home Address",
+    "name": "Name",
+    "phoneNumber": "Phone Number",
+    "plan": "Plan",
+    "status": "Status",
+    "email": "Email",
+    "phone-number": "Phone number",
+    "address": "Address",
+    "createdAt": "Created at",
+    "actions": "Actions"
   }
 }

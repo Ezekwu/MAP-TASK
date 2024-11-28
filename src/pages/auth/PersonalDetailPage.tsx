@@ -10,7 +10,7 @@ import UiImageUploader from '@/components/ui/UiImageUploader';
 import UiInput from '@/components/ui/UiInput';
 import UiSelect from '@/components/ui/UiSelect';
 
-import { Goals, LGAS } from '@/config/constants';
+import { goalOptions, localGovernmentAreaOptions } from '@/config/constants';
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 
@@ -19,23 +19,28 @@ import User from '@/types/User';
 import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
 import TokenHandler from '@/utils/TokenHandler';
+import { useTranslation } from 'react-i18next';
 
 // --
 
 export default function PersonalDetailsForm() {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
-  const formData = useObjectState<User>({
+  const [homeAddressNotSetMessage, setHomeAddressNotSetMessage] = useState('');
+  const [lgaNotSetMessage, setLgaNotSetMessage] = useState('');
+
+  const formData = useObjectState({
     id: '',
     first_name: '',
     last_name: '',
     phone_number: '',
-    home_adress: '',
+    location: { home_address: '', local_government: '' },
     profile_img: null,
-    local_government: '',
     goals: '',
     allergies: '',
-  });
+  } as User);
 
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
@@ -47,12 +52,29 @@ export default function PersonalDetailsForm() {
   async function submitDetails() {
     if (!user) return;
 
+    if (!formData.value.location.home_address) {
+      setHomeAddressNotSetMessage(t('errors.home-address'));
+
+      return;
+    } else {
+      setHomeAddressNotSetMessage('');
+    }
+
+    if (!formData.value.location.local_government) {
+      setLgaNotSetMessage(t('errors.lga'));
+
+      return;
+    } else {
+      setLgaNotSetMessage('');
+    }
+
     loading.on();
 
     let userDetails = {
       ...formData.value,
       id: user.uid,
-      email: user.email,
+      email: user.email as string,
+      createdAt: Date.now(),
     };
 
     if (formData.value.profile_img) {
@@ -75,10 +97,6 @@ export default function PersonalDetailsForm() {
       .finally(() => loading.off());
   }
 
-  function handleSetImgSrc(src: string | null) {
-    setImgSrc(src);
-  }
-
   return (
     <div className="w-full pb-3">
       <h2 className="font-semibold text-[32px] text-left leading-10 mb-10">
@@ -91,18 +109,18 @@ export default function PersonalDetailsForm() {
       >
         {({ errors }) => (
           <div className="grid gap-5 w-full">
-            <div className="flex gap-5">
+            <div className="grid grid-cols-2 gap-5">
               <UiInput
-                placeholder="Enter your first name"
-                label="First name"
+                placeholder={t('placeholders.first-name')}
+                label={t('fields.first-name')}
                 value={formData.value.first_name}
                 name="first_name"
                 error={errors.first_name}
                 onChange={formData.set}
               />
               <UiInput
-                placeholder="Enter your last name"
-                label="Last name"
+                placeholder={t('placeholders.last-name')}
+                label={t('fields.last-name')}
                 value={formData.value.last_name}
                 name="last_name"
                 error={errors.last_name}
@@ -110,34 +128,34 @@ export default function PersonalDetailsForm() {
               />
             </div>
             <UiInput
-              label="Phone number"
+              label={t('fields.phone-number')}
               type="phone"
-              // TODO:
               value={formData.value.phone_number}
               name="phone_number"
-              error={errors.phone_numner}
+              error={errors.phone_number}
               onChange={formData.set}
             />
             <UiInput
-              placeholder="Enter your home address"
-              label="Home address"
-              value={formData.value.home_adress}
-              name="home_adress"
-              error={errors.home_adress}
-              onChange={formData.set}
+              placeholder={t('placeholders.home-address')}
+              label={t('fields.home-address')}
+              value={formData.value.location.home_address}
+              name="location.home_address"
+              error={homeAddressNotSetMessage}
+              onChange={formData.setDeep}
             />
             <UiSelect
-              name="local_government"
-              label="Local government"
-              placeholder="Select your LGA"
-              onChange={formData.set}
-              error={errors.local_government}
-              options={LGAS}
-              value={formData.value.local_government}
+              name="location.local_government"
+              label={t('fields.local-government')}
+              placeholder={t('placeholders.local-government')}
+              error={lgaNotSetMessage}
+              onChange={formData.setDeep}
+              options={localGovernmentAreaOptions}
+              value={formData.value.location.local_government}
             />
             <UiInput
-              placeholder="Enter your allergies"
-              label="Allergies (Optional)"
+              placeholder={t('placeholders.allergies')}
+              label={t('fields.allergies')}
+              optional
               value={formData.value.allergies}
               name="allergies"
               error={errors.allergies}
@@ -145,11 +163,11 @@ export default function PersonalDetailsForm() {
             />
             <UiSelect
               name="goals"
-              label="Goals (Optional)"
-              placeholder="Select your goals"
+              label={t('fields.goals')}
+              placeholder={t('placeholders.goals')}
               onChange={formData.set}
               error={errors.goals}
-              options={Goals}
+              options={goalOptions}
               value={formData.value.goals}
             />
             {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}

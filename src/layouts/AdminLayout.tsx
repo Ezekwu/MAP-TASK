@@ -18,9 +18,9 @@ export default function AdminLayout() {
           name: 'Meals',
         },
         {
-          path: '/admin/payments',
-          icon: 'Meal',
-          name: 'Payments',
+          path: '/admin/users',
+          icon: 'Users',
+          name: 'Users',
         },
         {
           path: '/admin/schedules',
@@ -36,7 +36,7 @@ export default function AdminLayout() {
       <div className="hidden md:block">
         <TheSidebar isAdmin routeGroups={routeGroups} />
       </div>
-      <div className="w-full  h-screen overflow-auto">
+      <div className="w-full h-screen overflow-auto">
         <Outlet />
       </div>
     </div>

@@ -4,6 +4,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import OnChangeParams from '../../types/OnChangeParams';
 import UiField from './UiField';
 import UiDropdownItem from './UiDropdownItem';
+import { useTranslation } from 'react-i18next';
 
 export interface Option {
   label: React.ReactNode;
@@ -20,6 +21,7 @@ interface Props {
   name: string;
   error?: string;
   disabled?: boolean;
+  optional?: boolean;
   options: Option[];
   inputRef?: React.RefObject<HTMLInputElement>;
   onChange: (event: OnChangeParams) => void;
@@ -27,20 +29,28 @@ interface Props {
 export default function UiSelect({
   value,
   label,
+  optional,
   placeholder = 'Select from the options',
   name,
   options,
   error,
   onChange,
 }: Props) {
+  const { t } = useTranslation();
+
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
 
-  const valueLabel = useMemo(() => {
+  const displayText = useMemo(() => {
     if (!value === null) return placeholder;
 
-    return (
-      options.find((option) => value === option.value)?.label || placeholder
-    );
+    const foundOptionLabel = options.find((option) => value === option.value)
+      ?.label;
+
+    if (!foundOptionLabel) return placeholder;
+
+    if (typeof foundOptionLabel === 'string') return t(foundOptionLabel);
+
+    return foundOptionLabel;
   }, [value]);
 
   const validationStyle = useMemo(() => {
@@ -54,7 +64,7 @@ export default function UiSelect({
 
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
-      <UiField error={error} label={label}>
+      <UiField error={error} label={label} optional={optional}>
         <button
           type="button"
           data-testid="ui-select-trigger"
@@ -67,7 +77,7 @@ export default function UiSelect({
               value && ' text-secondary-1400'
             }`}
           >
-            {!!valueLabel ? valueLabel : placeholder}
+            {displayText}
           </div>
           {optionsAreVisible ? <CaretUp /> : <CaretDown />}
         </button>
@@ -81,7 +91,11 @@ export default function UiSelect({
                 <UiDropdownItem
                   key={index}
                   dataTestId="ui-select-option"
-                  label={option.label}
+                  label={
+                    typeof option.label === 'string'
+                      ? t(option.label)
+                      : option.label
+                  }
                   func={() => selectOption(option.value)}
                 />
               ))}

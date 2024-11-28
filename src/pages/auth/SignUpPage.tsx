@@ -15,6 +15,7 @@ import useObjectState from '@/hooks/useObjectState';
 
 import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Toast } from '@/utils/toast';
+import User from '@/types/User';
 
 // ---
 
@@ -32,10 +33,16 @@ export default function SignUpForm() {
   async function signUpWithEmailAndPassword() {
     try {
       loading.on();
-      await Api.createUserWithEmailAndPassword({
+
+      const userAuthProfile = await Api.createUserWithEmailAndPassword({
         email: formData.value.email,
         password: formData.value.password,
       });
+
+      await Api.setUser({
+        email: formData.value.email,
+        id: userAuthProfile.uid,
+      } as User);
 
       navigate('/auth/personal-details');
     } catch (error) {
