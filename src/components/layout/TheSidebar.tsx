@@ -1,21 +1,14 @@
-import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import EatriteLogo from '@/assets/EatriteLogo.svg';
 import IconProps from '@/types/IconProps';
 
-
-import CalendarIcon from '../icons/CalendarIcon';
-import OverviewIcon from '../icons/OverviewIcon';
-import MealIcon from '../icons/MealIcon';
-import SupportIcon from '../icons/SupportIcon';
-import CogIcon from '../icons/CogIcon';
 import UiButton from '../ui/UiButton';
-import UiIcon, { Icons } from '../ui/UiIcon';
+import UiIcon from '../ui/UiIcon';
 
 //--
 
-interface Group {
+export interface Group {
   name: string;
   routes: Array<{
     path: string;
@@ -24,46 +17,12 @@ interface Group {
   }>;
 }
 
-export default function TheSidebar() {
+interface Props {
+  routeGroups: Group[];
+  isAdmin?: boolean;
+}
+export default function TheSidebar(props: Props) {
   const location = useLocation();
-
-  const routeGroups: Group[] = [
-    {
-      name: 'MAIN MENU',
-      routes: [
-        {
-          path: '/',
-          name: 'Overview',
-          icon: OverviewIcon,
-        },
-        {
-          path: '/calendar',
-          name: 'Calendar',
-          icon: CalendarIcon,
-        },
-        {
-          path: '/plans',
-          name: 'Meal plans',
-          icon: MealIcon,
-        },
-      ],
-    },
-    {
-      name: 'MORE',
-      routes: [
-        {
-          path: '/support',
-          name: 'Support',
-          icon: SupportIcon,
-        },
-        {
-          path: '/settings',
-          name: 'Settings',
-          icon: CogIcon,
-        },
-      ],
-    },
-  ];
 
   const activeRoute = location.pathname;
 
@@ -71,23 +30,20 @@ export default function TheSidebar() {
     return activeRoute === route;
   }
 
-  
   function logUserOut() {
     localStorage.removeItem('uid');
     window.location.reload();
   }
 
   return (
-    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4  flex-col">
-      {/* Logo section (fixed at the top) */}
-      <div className="py-8 px-6">
-        <img src={EatriteLogo} alt="Eatrite logo" />
+    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4 flex-col">
+      <div className="py-8 px-6 flex justify-center">
+        <img src={EatriteLogo} width={110} alt="Eatrite logo" />
       </div>
 
-      {/* Navigation routes (takes up remaining space) */}
       <div className="flex-1 overflow-y-auto">
         <ul>
-          {routeGroups.map((group, index) => (
+          {props.routeGroups.map((group, index) => (
             <li key={index} className="mb-4">
               <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
                 {group.name}
@@ -121,11 +77,11 @@ export default function TheSidebar() {
         </ul>
       </div>
 
-      <div className="w-full mb-12 flex items-center justify-between text-typography-base text-sm pl-6">
+      <div className="w-full mb-12 flex items-center  justify-between text-typography-base text-sm pl-6">
         <div className="flex gap-2 items-center">
           <div className="rounded-full w-8 h-8 bg-neutral-600" />
           <span className="text-sm text-typography-base font-medium">
-            Henry Eze
+            {props.isAdmin ? 'Eatrite Admin' : 'Henry Eze'}
           </span>
         </div>
         <UiButton

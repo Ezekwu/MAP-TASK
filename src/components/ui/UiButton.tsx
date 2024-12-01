@@ -1,11 +1,12 @@
 import { MouseEventHandler } from 'react';
+
 import UiLoader from './UiLoader';
 
 const sizeClasses = {
-  lg: 'h-[43px] text-base leading-5',
+  lg: 'h-[43px] text-sm leading-5',
   md: 'h-[34px] text-sm',
-  sm: 'h-8 text-xs leading-5',
-  icon: 'w-4 h-8 box-border',
+  sm: 'h-8 text-xs leading-5 px-5 ',
+  icon: 'h-8 px-2',
 };
 
 const variantClasses = {
@@ -16,12 +17,14 @@ const variantClasses = {
   'danger-text': 'bg-light hover:bg-danger-100 text-danger-200',
   'danger-light':
     'bg-danger-100 hover:bg-danger-200 hover:text-light text-danger-200',
+  'danger-outlined': 'bg-danger-100  border border-danger-200 text-danger-200',
   tertiary: 'bg-tertiary-300 hover:bg-tertiary-500 text-typography-base',
   'tertiary-outlined':
     'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
 };
 
 const roundedClasses = {
+  xs: 'rounded',
   sm: 'rounded-lg',
   md: 'rounded-2xl',
   lg: 'rounded-3xl',
@@ -38,7 +41,6 @@ interface Props {
   type?: 'button' | 'submit';
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
-
 export default function UiButton({
   children,
   variant = 'primary',
@@ -52,17 +54,17 @@ export default function UiButton({
 }: Props) {
   return (
     <button
-      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-1 items-center justify-center font-semibold ${
-        block && 'w-full'
-      } ${variantClasses[variant]} ${sizeClasses[size]} ${
-        roundedClasses[rounded]
-      }`}
+      className={`outline-none  whitespace-nowrap w-fit flex gap-1 items-center justify-center font-semibold ${
+        disabled && 'cursor-not-allowed'
+      } ${block ? 'w-full' : ''} ${variantClasses[variant]} ${
+        sizeClasses[size]
+      } ${roundedClasses[rounded]}`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"
       onClick={onClick}
     >
-      {loading ? <UiLoader /> : children}
+      {loading ? <UiLoader variant="light" size="sm" /> : children}
     </button>
   );
 }

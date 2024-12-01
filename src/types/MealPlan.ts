@@ -1,4 +1,4 @@
-export default interface MealPlan{
+export default interface MealPlan {
   name: string;
   price: number;
   meals: string[];

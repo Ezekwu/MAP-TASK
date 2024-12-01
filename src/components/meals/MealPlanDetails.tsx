@@ -1,29 +1,27 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import MealPlan from "@/types/MealPlan"
+import MealPlan from '@/types/MealPlan';
 
-import UiButton from "../ui/UiButton";
-import UiIcon from "../ui/UiIcon";
+import UiButton from '../ui/UiButton';
+import UiIcon from '../ui/UiIcon';
 
 interface Props {
   mealPlan: MealPlan;
   isColumn?: boolean;
 }
 
-export default function MealPlanDetails({ mealPlan, isColumn }: Props) {  
-  const mealTimes = useMemo(()=>{
-    const meals = [...mealPlan.meals];    
+export default function MealPlanDetails({ mealPlan, isColumn }: Props) {
+  const mealTimes = useMemo(() => {
+    const meals = [...mealPlan.meals];
 
-    if(meals.length === 1) {
-      return `${meals[0]} only`
+    if (meals.length === 1) {
+      return `${meals[0]} only`;
     }
 
     const lastMeal = meals.pop();
 
-    return `${meals.join(', ')} & ${lastMeal}`
-    
-  },[mealPlan]);
-
+    return `${meals.join(', ')} & ${lastMeal}`;
+  }, [mealPlan]);
 
   return (
     <article

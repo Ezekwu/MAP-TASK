@@ -1,4 +1,4 @@
-import IconProps from "@/types/IconProps";
+import IconProps from '@/types/IconProps';
 
 export default function CalendarIcon(props: IconProps) {
   return (

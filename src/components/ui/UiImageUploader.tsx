@@ -1,54 +1,55 @@
 import { useEffect, useRef } from 'react';
+
 import UiButton from './UiButton';
 
 interface Props {
   name: string;
   value: File | null;
   onChange: (event: { name: string; value: File }) => void;
-  onSetImgSrc: (src: string | null) => void;
+  onSetPreviewUrl: (src: string | null) => void;
 }
 
 export default function UiImageUploader({
   name,
   value,
   onChange,
-  onSetImgSrc,
+  onSetPreviewUrl,
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function openFilePicker() {
     if (fileInputRef.current) {
       fileInputRef.current.click();
-      onSetImgSrc(null);
+      onSetPreviewUrl(null);
     }
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const selectedFile = event.target.files;
+    const files = event.target.files;
 
-    if (!selectedFile) return;
+    if (!files || !files.length) return;
 
-    onChange({ name, value: selectedFile[0] });
+    onChange({ name, value: files[0] });
   }
 
-  function previewImage() {
+  function getPreviewImage() {
     if (!value) return;
 
     const imgUrl = URL.createObjectURL(value);
-    onSetImgSrc(imgUrl);
+
+    onSetPreviewUrl(imgUrl);
   }
 
-  useEffect(previewImage, [value]);
+  useEffect(getPreviewImage, [value]);
 
   return (
-    <div>
+    <>
       <UiButton
         size="lg"
-        rounded="md"
+        rounded="sm"
         type="button"
         onClick={openFilePicker}
         variant="tertiary"
-        block={false}
       >
         <p className="text-xs">{value ? 'Replace Image' : 'Upload Image'}</p>
       </UiButton>
@@ -59,6 +60,6 @@ export default function UiImageUploader({
         accept="image/*"
         type="file"
       />
-    </div>
+    </>
   );
 }

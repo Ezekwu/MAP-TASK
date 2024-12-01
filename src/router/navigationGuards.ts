@@ -4,7 +4,7 @@ export function userIsLoggedIn() {
 
 // TODO: Jerry handle auth guard
 export function authGuard(url: string) {
-  if (url === 'personal details') return true
+  if (url === 'personal details') return true;
 
   return userIsLoggedIn();
 }

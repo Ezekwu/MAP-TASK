@@ -1,6 +1,6 @@
 import IconProps from '@/types/IconProps';
 
-export default function SupportIcon(props:IconProps) {
+export default function SupportIcon(props: IconProps) {
   return (
     <svg
       width="16"
