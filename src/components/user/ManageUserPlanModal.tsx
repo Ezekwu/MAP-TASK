@@ -77,7 +77,12 @@ export default function ManageUserPlanModal({
               >
                 {t('actions.cancel')}
               </UiButton>
-              <UiButton block size="lg" loading={loading}>
+              <UiButton
+                block
+                size="lg"
+                loading={loading}
+                disabled={plan === formData.value.plan}
+              >
                 {t('actions.change-plan')}
               </UiButton>
             </div>

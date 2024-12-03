@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
+
 import UiButton from './UiButton';
 import UiDropdownItem from './UiDropdownItem';
 import UiIcon from './UiIcon';
+
+// ---
 
 export interface DropDownData {
   label: string;

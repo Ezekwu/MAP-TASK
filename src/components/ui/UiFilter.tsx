@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import OutsideClickHandler from 'react-outside-click-handler';
 
-import UiButton from './UiButton';
-import UiIcon from './UiIcon';
 import useToggle from '@/hooks/useToggle';
 import FilterData from '@/types/FilterData';
+
+import UiButton from './UiButton';
+import UiIcon from './UiIcon';
 
 export interface FilterOption {
   label: string;

@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react';
 import { CaretDown, CaretUp } from '@phosphor-icons/react';
-import OutsideClickHandler from 'react-outside-click-handler';
-import OnChangeParams from '../../types/OnChangeParams';
-import UiField from './UiField';
-import UiDropdownItem from './UiDropdownItem';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import OutsideClickHandler from 'react-outside-click-handler';
+
+import OnChangeParams from '@/types/OnChangeParams';
+
+import UiDropdownItem from './UiDropdownItem';
+import UiField from './UiField';
 
 export interface Option {
   label: React.ReactNode;

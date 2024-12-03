@@ -1,9 +1,11 @@
+import { useMemo } from 'react';
+
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useUsersData } from '../data/useUsersData';
-import User from '@/types/User';
 import FilterData from '@/types/FilterData';
-import { useMemo } from 'react';
+import User from '@/types/User';
+
+import { useUsersData } from '../data/useUsersData';
 
 export function useUsersQuery(filter?: FilterData) {
   const queryClient = useQueryClient();
@@ -14,8 +16,7 @@ export function useUsersQuery(filter?: FilterData) {
     queryKey,
     queryFn: async () => {
       try {
-        const response = await useUsersData();
-        return response;
+        return useUsersData();
       } catch (err) {
         return Promise.reject(err);
       }
