@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import MealQuantityCounter from './MealQuantityCounter';
+
 import UiIcon from '../ui/UiIcon';
 import UiTag from '../ui/UiTag';
 
@@ -12,9 +14,10 @@ export interface TrayMeal extends Meal {
 interface Props {
   meal: TrayMeal;
   removeMeal: (mealId: string) => void;
+  updateMealQuantity: (mealId: string, quantity: number) => void;
 }
 
-export default function TrayMealCard({ meal, removeMeal }: Props) {
+export default function TrayMealCard({ meal, removeMeal, updateMealQuantity }: Props) {
   const nutrients = useMemo(() => {
     return Object.entries(meal.nutrients).map(
       ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
@@ -27,18 +30,18 @@ export default function TrayMealCard({ meal, removeMeal }: Props) {
         onClick={() => removeMeal(meal.id)}
         className="group overflow-hidden rounded-xl relative w-full"
       >
-        {/* {meal.highCalorie && (
+        {meal.highCalorie && (
           <div className="bg-primary-500 text-typography-light font-extrabold text-[10px] py-1 px-4 absolute rounded-br-xl">
             HIGH CALORIE
           </div>
-        )} */}
+        )}
         <img
           src={meal.img}
           alt={meal.name}
           className="w-full rounded-xl group-hover:scale-110 transition-transform duration-300 ease-in-out"
         />
         <div className="absolute top-0 left-0 bg-[#00000099] rounded-xl w-full h-full flex justify-center items-center">
-          <UiIcon icon="Trash" />
+          <UiIcon icon="Trash" size='24'/>
         </div>
       </button>
       <div className="w-full">
@@ -52,10 +55,13 @@ export default function TrayMealCard({ meal, removeMeal }: Props) {
             </UiTag>
           ))}
         </div>
-        {/* incrementer */}
-
-        <div className="text-secondary-1300 text-sm font-semibold mb-2">
-          &#8358; {meal.price.toLocaleString()}
+        <MealQuantityCounter
+          updateMealQuantity={updateMealQuantity}
+          quantity={meal.quantity}
+          mealId={meal.id}
+        />
+        <div className="text-secondary-1300 text-sm font-semibold mt-4 mb-2">
+          &#8358; {(meal.price * meal.quantity).toLocaleString()}
         </div>
       </div>
     </article>

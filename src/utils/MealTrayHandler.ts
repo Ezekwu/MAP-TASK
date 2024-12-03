@@ -30,6 +30,22 @@ class MealTrayHandler {
     localStorage.setItem('trayItems', JSON.stringify(trayItems));
   }
 
+  setMealQuantity(mealId: string, quantity: number) {
+    const trayItems: StoredMeal[] =
+      JSON.parse(localStorage.getItem('trayItems')!) || [];
+
+    const mealIndex = trayItems.findIndex((meal) => meal.id === mealId);
+
+    if(mealIndex === -1) return;
+
+    trayItems[mealIndex].quantity = `${quantity}`;
+
+    console.log(trayItems, quantity);
+    
+
+    localStorage.setItem('trayItems', JSON.stringify(trayItems));
+  }
+
   clearTray() {
     return localStorage.removeItem('trayItems');
   }

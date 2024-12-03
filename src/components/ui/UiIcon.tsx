@@ -11,6 +11,7 @@ import Dish from '@/assets/icons/dish.svg?react';
 import Eye from '@/assets/icons/eye.svg?react';
 import EyeSlash from '@/assets/icons/eye-slash.svg?react';
 import Google from '@/assets/icons/google.svg?react';
+import Info from '@/assets/icons/info.svg?react';
 import Logout from '@/assets/icons/logout.svg?react';
 import Meal from '@/assets/icons/meal.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
@@ -40,6 +41,7 @@ const icons = {
   Eye,
   EyeSlash,
   Google,
+  Info,
   Logout,
   Meal,
   Minus,

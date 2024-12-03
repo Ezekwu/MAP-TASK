@@ -65,6 +65,16 @@ export default function MealPlansPage() {
     setTrayMeals(meals);
   }
 
+  function updateMealQuantity(mealId: string, quantity: number) {
+    const mealIndex = trayMeals.findIndex((meal) => meal.id === mealId);
+
+    if(mealIndex !== -1){
+      const updatedMeals = [...trayMeals];
+      updatedMeals[mealIndex].quantity = `${quantity}`;
+      setTrayMeals(updatedMeals)
+    }
+  }
+
   function addMeal(meal: StoredMeal) {
     try {
       MealTrayHandler.addMeal(meal);
@@ -114,7 +124,11 @@ export default function MealPlansPage() {
                           meal={meal}
                           isMealInTray={MealTrayHandler.isMealInTray(meal.id)}
                           onAction={() => {
-                            addMeal({ id: meal.id, quantity: '1' });
+                            addMeal({
+                              id: meal.id,
+                              quantity: '1',
+                              price: `${meal.price}`,
+                            });
                           }}
                         />
                       ))}
@@ -129,6 +143,7 @@ export default function MealPlansPage() {
       <TrayList
         trayMeals={trayMeals}
         handleTrayMeals={handleTrayMeals}
+        updateMealQuantity={updateMealQuantity}
         isOpen={isTrayVisible.value}
         onClose={() => isTrayVisible.off()}
       />
