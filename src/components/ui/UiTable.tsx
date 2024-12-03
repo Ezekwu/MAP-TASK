@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
 import UidropdownMenu, { DropDownData } from './UiDropdownMenu';
+
 interface Header {
   title: string;
   /** This field would be used to query the data object for how the data should be displayed.
@@ -19,13 +21,24 @@ interface Props {
    */
   data: Row[];
   headers: Header[];
+  controlsNode?: ReactNode;
   /** This prop accepts a function in case there is a need to filter options available for rows based on data available */
   options?: DropDownData[] | ((row: Row) => DropDownData[]);
   onRowClick?: (id: string) => void;
 }
-export default function UiTable({ headers, data, options }: Props) {
+export default function UiTable({
+  headers,
+  data,
+  controlsNode,
+  options,
+}: Props) {
   return (
-    <div className="border border-tertiary-700 rounded-2xl overflow-hidden">
+    <div className="border border-tertiary-700 rounded-2xl">
+      {controlsNode && (
+        <header className="p-4 border-b border-tertiary-700">
+          {controlsNode}
+        </header>
+      )}
       <table className="w-full text-left rounded overflow-hidden ">
         <thead className="bg-primary-10 rounded-md bg-secondary-100">
           <tr>

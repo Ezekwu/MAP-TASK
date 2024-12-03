@@ -7,6 +7,7 @@ import Cog from '@/assets/icons/cog.svg?react';
 import CustomerSupport from '@/assets/icons/customer-support.svg?react';
 import Eye from '@/assets/icons/eye.svg?react';
 import EyeSlash from '@/assets/icons/eye-slash.svg?react';
+import Filter from '@/assets/icons/filter.svg?react';
 import Google from '@/assets/icons/google.svg?react';
 import HorizontalThreeDots from '@/assets/icons/horizontal-three-dots.svg?react';
 import Logout from '@/assets/icons/logout.svg?react';
@@ -33,6 +34,7 @@ const icons = {
   CustomerSupport,
   Eye,
   EyeSlash,
+  Filter,
   Google,
   HorizontalThreeDots,
   Logout,

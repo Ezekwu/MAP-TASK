@@ -14,6 +14,7 @@ import UiDropDownMenu from '@/components/ui/UiDropdownMenu';
 import UiTable from '@/components/ui/UiTable';
 import ManageUserPlanModal from '@/components/user/ManageUserPlanModal';
 import ViewUserModal from '@/components/user/ViewUserModal';
+import UiFilter from '@/components/ui/UiFilter';
 
 export default function UsersPage() {
   const { t } = useTranslation();
@@ -62,12 +63,24 @@ export default function UsersPage() {
       query: 'plan',
     },
     {
-      title: t('titles.createdAt'),
+      title: t('titles.date-joined'),
       query: 'createdAt',
     },
     {
       title: t('titles.actions'),
       query: 'actions',
+    },
+  ];
+
+  const filterData = [
+    {
+      title: '',
+      options: [
+        ...Object.values(Plans).map((plan) => ({
+          label: t(`plans.${plan}`),
+          value: plan,
+        })),
+      ],
     },
   ];
 
@@ -155,7 +168,11 @@ export default function UsersPage() {
 
   return (
     <BasePage navDetails={{ title: t('pages.users') }}>
-      <UiTable data={usersData} headers={headers} />
+      <UiTable
+        data={usersData}
+        headers={headers}
+        controlsNode={<UiFilter data={filterData} onFilterChange={() => {}} />}
+      />
       <ManageUserPlanModal
         isOpen={manageUserPlanIsVisible.value}
         loading={manageUserPlanIsLoading.value}

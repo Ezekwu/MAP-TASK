@@ -9,6 +9,7 @@
     "click-to-add-meals": "Click to add meals",
     "create-schedule": "Create schedule",
     "deactivate-user": "Deactivate user",
+    "filter": "Filter",
     "manage-plan": "Manage plan",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
@@ -33,7 +34,6 @@
     "first-name": "First name",
     "goals": "Goals",
     "home-address": "Home address",
-    "plan": "Plan",
     "last-name": "Last name",
     "local-government": "Local government",
     "meal-class": "Meal class",
@@ -45,6 +45,9 @@
     "optional": "(optional)",
     "password": "Password",
     "phone-number": "Phone number",
+    "plan-end-date": "Plan end date",
+    "plan-start-date": "Plan start date",
+    "plan": "Plan",
     "price-of-meal": "Price of Meal",
     "quantity-of-nutrient": "How many {{text}}?",
     "schedule-name": "Schedule name"
@@ -159,6 +162,7 @@
     "plan-ends": "Plan ends",
     "address": "Address",
     "createdAt": "Created at",
+    "date-joined": "Date joined",
     "actions": "Actions"
   }
 }
