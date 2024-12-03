@@ -31,9 +31,9 @@ export default function UiTable({ headers, data, options }: Props) {
           <tr>
             {headers.map((header, index) => (
               <th
-                key={index}
+                key={`header-${index}`}
                 data-testid={`ui-table-header-${header.query}`}
-                className="py-2.5 px-2.5 text-sm capitalize font-medium text-typography-disabled"
+                className="py-2.5 px-2.5 text-xs capitalize font-medium text-typography-disabled"
               >
                 {header.title}
               </th>
@@ -44,7 +44,7 @@ export default function UiTable({ headers, data, options }: Props) {
         <tbody className="bg-white">
           {data.map((item) => (
             <tr
-              key={item._id}
+              key={`data-item-${item._id}`}
               className="border-b last:border-b-0 border-tertiary-700"
             >
               {headers.map((header, index) => (

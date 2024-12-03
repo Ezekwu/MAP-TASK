@@ -6,7 +6,7 @@ interface Props {
 export default function UiDropdownItem({ dataTestId, label, func }: Props) {
   return (
     <li
-      className={`p-2 hover:bg-gray-25 text-sm rounded-sm`}
+      className={`p-2 hover:bg-gray-25 text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
       data-testid={dataTestId}
       tabIndex={0}
       role="button"

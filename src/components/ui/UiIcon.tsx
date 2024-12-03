@@ -8,6 +8,7 @@ import CustomerSupport from '@/assets/icons/customer-support.svg?react';
 import Eye from '@/assets/icons/eye.svg?react';
 import EyeSlash from '@/assets/icons/eye-slash.svg?react';
 import Google from '@/assets/icons/google.svg?react';
+import HorizontalThreeDots from '@/assets/icons/horizontal-three-dots.svg?react';
 import Logout from '@/assets/icons/logout.svg?react';
 import Meal from '@/assets/icons/meal.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
@@ -33,6 +34,7 @@ const icons = {
   Eye,
   EyeSlash,
   Google,
+  HorizontalThreeDots,
   Logout,
   Meal,
   Minus,

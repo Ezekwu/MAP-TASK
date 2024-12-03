@@ -11,7 +11,11 @@ export default interface User {
   goals: string | null;
   allergies: string | null;
   status?: UserStatus;
-  plan?: Plans;
+  plan?: {
+    plan: Plans;
+    startDate: number;
+    endDate: number;
+  };
   createdAt: number;
   location: {
     home_address: string;

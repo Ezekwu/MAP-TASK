@@ -1,13 +1,19 @@
 {
   "actions": {
+    "activate-user": "Activate user",
     "add-meals": "Add meals",
     "assign-schedules-to-users": "Click to assign this schedule to users",
     "back": "Back",
+    "cancel": "Cancel",
+    "change-plan": "Change plan",
     "click-to-add-meals": "Click to add meals",
     "create-schedule": "Create schedule",
+    "deactivate-user": "Deactivate user",
+    "manage-plan": "Manage plan",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
-    "submit": "Submit"
+    "submit": "Submit",
+    "view": "View"
   },
   "errors": {
     "auth/email-already-in-use": "Email already in use",
@@ -27,6 +33,7 @@
     "first-name": "First name",
     "goals": "Goals",
     "home-address": "Home address",
+    "plan": "Plan",
     "last-name": "Last name",
     "local-government": "Local government",
     "meal-class": "Meal class",
@@ -58,6 +65,9 @@
       "selected-meals-would-appear-here": "Selected meals would appear here",
       "selected-meals": "Selected meals",
       "update-title": "Update schedule"
+    },
+    "manage-user-plan": {
+      "title": "Manager user plan"
     }
   },
   "options": {
@@ -122,7 +132,17 @@
     "last-name": "Enter your last name",
     "local-government": "Select your LGA",
     "search-meals": "Search meals",
-    "select-day": "Select day"
+    "select-day": "Select day",
+    "select-new-plan": "Select new plan"
+  },
+  "plans": {
+    "all-inclusive": "All inclusive",
+    "lunch-1": "Lunch 1",
+    "lunch-2": "Lunch 2",
+    "lunch-extra-1": "Lunch extra 1",
+    "lunch-extra-2": "Lunch extra 2",
+    "no-active-plan": "No active plan",
+    "weekday": "Weekday"
   },
   "titles": {
     "action": "Action",
@@ -135,6 +155,8 @@
     "status": "Status",
     "email": "Email",
     "phone-number": "Phone number",
+    "plan-starts": "Plan starts",
+    "plan-ends": "Plan ends",
     "address": "Address",
     "createdAt": "Created at",
     "actions": "Actions"

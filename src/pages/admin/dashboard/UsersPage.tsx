@@ -1,19 +1,44 @@
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import BasePage from '@/components/layout/BasePage';
-import UiTable from '@/components/ui/UiTable';
+import { Api } from '@/api';
 import { useUsersQuery } from '@/api/query/useUsersQuery';
-import { useMemo } from 'react';
-import UiAvatar from '@/components/ui/UiAvatar';
-import UiImagePreview from '@/components/ui/UiImageView';
+
+import useToggle from '@/hooks/useToggle';
+import Plans from '@/types/enums/Plans';
+import User from '@/types/User';
 import { formatTimestampToDateTime } from '@/utils/helpers';
+
+import BasePage from '@/components/layout/BasePage';
+import UiDropDownMenu from '@/components/ui/UiDropdownMenu';
+import UiTable from '@/components/ui/UiTable';
+import ManageUserPlanModal from '@/components/user/ManageUserPlanModal';
+import ViewUserModal from '@/components/user/ViewUserModal';
 
 export default function UsersPage() {
   const { t } = useTranslation();
 
   const {
     query: { data },
+    setData: setUser,
   } = useUsersQuery();
+
+  const [activeUserId, setActiveUserId] = useState('');
+
+  const viewUserIsVisible = useToggle();
+  const manageUserPlanIsVisible = useToggle();
+  const manageUserPlanIsLoading = useToggle();
+
+  const userOptions = [
+    {
+      label: t('actions.view'),
+      func: viewUser,
+    },
+    {
+      label: t('actions.manage-plan'),
+      func: manageUserPlan,
+    },
+  ];
 
   const headers = [
     {
@@ -33,10 +58,6 @@ export default function UsersPage() {
       query: 'address',
     },
     {
-      title: t('titles.status'),
-      query: 'status',
-    },
-    {
       title: t('titles.plan'),
       query: 'plan',
     },
@@ -49,6 +70,10 @@ export default function UsersPage() {
       query: 'actions',
     },
   ];
+
+  const activeUser = useMemo(() => {
+    return data?.find(({ id }) => id === activeUserId) || null;
+  }, [activeUserId, data]);
 
   const usersData = useMemo(() => {
     if (!data) return [];
@@ -72,12 +97,78 @@ export default function UsersPage() {
       ),
       address: `${user.location.home_address}, ${user.location.local_government}`,
       createdAt: `${formatTimestampToDateTime(user.createdAt)}`,
+      actions: <UiDropDownMenu options={userOptions} itemId={user.id} />,
+      plan: t(`plans.${user.plan?.plan || 'no-active-plan'}`),
     }));
   }, [data]);
+
+  function manageUserPlan(userId: string) {
+    setActiveUserId(userId);
+
+    manageUserPlanIsVisible.on();
+  }
+
+  function viewUser(userId: string) {
+    setActiveUserId(userId);
+
+    viewUserIsVisible.on();
+  }
+
+  async function onChangeUserPlan(plan: Plans) {
+    if (!data) return;
+
+    if (!plan || !activeUserId) {
+      console.error('plan and id are required fields');
+
+      return;
+    }
+
+    if (!activeUser) {
+      console.error('user not found');
+
+      return;
+    }
+
+    manageUserPlanIsLoading.on();
+
+    try {
+      const startDate = Date.now();
+
+      const endDate = new Date(startDate);
+      endDate.setMonth(endDate.getMonth() + 1);
+
+      const newUser: User = {
+        ...activeUser,
+        plan: { plan, startDate, endDate: endDate.getTime() },
+      };
+      await Api.setUser(newUser);
+
+      setUser(newUser);
+
+      manageUserPlanIsVisible.off();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      manageUserPlanIsLoading.off();
+    }
+  }
 
   return (
     <BasePage navDetails={{ title: t('pages.users') }}>
       <UiTable data={usersData} headers={headers} />
+      <ManageUserPlanModal
+        isOpen={manageUserPlanIsVisible.value}
+        loading={manageUserPlanIsLoading.value}
+        onClose={manageUserPlanIsVisible.off}
+        onChangePlan={onChangeUserPlan}
+      />
+      {activeUser && (
+        <ViewUserModal
+          isOpen={viewUserIsVisible.value}
+          user={activeUser}
+          onClose={viewUserIsVisible.off}
+        />
+      )}
     </BasePage>
   );
 }
