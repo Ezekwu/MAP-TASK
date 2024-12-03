@@ -39,7 +39,7 @@ export default function ViewUserModal({ user, isOpen, onClose }: Props) {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 mt-6 gap-4">
+      <div className="grid sm:grid-cols-2 mt-6 gap-4">
         <UiInput
           name="first_name"
           label={t('fields.first-name')}

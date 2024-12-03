@@ -57,7 +57,7 @@ export default function UiTable({
         <tbody className="bg-white">
           {data.map((item) => (
             <tr
-              key={`data-item-${item._id}`}
+              key={`data-item-${item.id}`}
               className="border-b last:border-b-0 border-tertiary-700"
             >
               {headers.map((header, index) => (

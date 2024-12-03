@@ -2,7 +2,10 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useUsersData } from '../data/useUsersData';
 import User from '@/types/User';
-export function useUsersQuery() {
+import FilterData from '@/types/FilterData';
+import { useMemo } from 'react';
+
+export function useUsersQuery(filter?: FilterData) {
   const queryClient = useQueryClient();
 
   const queryKey = ['users'];
@@ -23,6 +26,28 @@ export function useUsersQuery() {
     queryClient.invalidateQueries({ queryKey });
   }
 
+  const users = useMemo(() => {
+    return queryClient.getQueryData<User[]>(queryKey) || [];
+  }, [queryClient, queryKey]);
+
+  const filteredData = useMemo(() => {
+    if (!users) return [];
+
+    if (!filter) return users;
+
+    if (!filter.key || !filter.value) return users;
+
+    const foundUsers = users.filter((user) => {
+      if (filter.key === 'plan') {
+        return user.plan?.plan === filter.value;
+      }
+
+      return user[filter.key as keyof User] === filter.value;
+    });
+
+    return foundUsers;
+  }, [filter, users]);
+
   function setData(newUser: User) {
     queryClient.setQueryData<User[]>(queryKey, (oldData) => {
       if (!oldData) return [newUser];
@@ -41,6 +66,7 @@ export function useUsersQuery() {
 
   return {
     query,
+    filteredData,
     reloadQuery,
     setData,
   };

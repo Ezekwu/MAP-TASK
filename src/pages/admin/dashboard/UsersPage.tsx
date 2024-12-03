@@ -15,18 +15,25 @@ import UiTable from '@/components/ui/UiTable';
 import ManageUserPlanModal from '@/components/user/ManageUserPlanModal';
 import ViewUserModal from '@/components/user/ViewUserModal';
 import UiFilter from '@/components/ui/UiFilter';
+import FilterData from '@/types/FilterData';
+import UiButton from '@/components/ui/UiButton';
+import AddUserModal from '@/components/user/AddUserModal';
 
 export default function UsersPage() {
   const { t } = useTranslation();
 
-  const {
-    query: { data },
-    setData: setUser,
-  } = useUsersQuery();
+  const [selectedFilter, setSelectedFilter] = useState<FilterData>({
+    key: '',
+    value: null,
+  });
+
+  const { filteredData: data, setData: setUser } =
+    useUsersQuery(selectedFilter);
 
   const [activeUserId, setActiveUserId] = useState('');
 
   const viewUserIsVisible = useToggle();
+  const addUserIsVisible = useToggle();
   const manageUserPlanIsVisible = useToggle();
   const manageUserPlanIsLoading = useToggle();
 
@@ -74,7 +81,8 @@ export default function UsersPage() {
 
   const filterData = [
     {
-      title: '',
+      title: t('general.by-plan'),
+      key: 'plan',
       options: [
         ...Object.values(Plans).map((plan) => ({
           label: t(`plans.${plan}`),
@@ -166,12 +174,32 @@ export default function UsersPage() {
     }
   }
 
+  function handleFilterChange(params: FilterData) {
+    setSelectedFilter(params);
+  }
+
   return (
-    <BasePage navDetails={{ title: t('pages.users') }}>
+    <BasePage
+      navDetails={{
+        title: t('pages.users'),
+        edgeNode: (
+          <UiButton
+            variant="secondary"
+            size="lg"
+            rounded="md"
+            onClick={addUserIsVisible.on}
+          >
+            {t('actions.add-user')}
+          </UiButton>
+        ),
+      }}
+    >
       <UiTable
         data={usersData}
         headers={headers}
-        controlsNode={<UiFilter data={filterData} onFilterChange={() => {}} />}
+        controlsNode={
+          <UiFilter data={filterData} onFilterChange={handleFilterChange} />
+        }
       />
       <ManageUserPlanModal
         isOpen={manageUserPlanIsVisible.value}
@@ -179,6 +207,7 @@ export default function UsersPage() {
         onClose={manageUserPlanIsVisible.off}
         onChangePlan={onChangeUserPlan}
       />
+
       {activeUser && (
         <ViewUserModal
           isOpen={viewUserIsVisible.value}
@@ -186,6 +215,10 @@ export default function UsersPage() {
           onClose={viewUserIsVisible.off}
         />
       )}
+      <AddUserModal
+        isOpen={addUserIsVisible.value}
+        onClose={addUserIsVisible.off}
+      />
     </BasePage>
   );
 }
