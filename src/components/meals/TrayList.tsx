@@ -58,11 +58,10 @@ export default function TrayList({
   }
 
   const totalPrice = trayMeals.reduce((total, meal) => {
-    total += Number(meal.price) * Number(meal.quantity)
-    return total
+    total += Number(meal.price) * Number(meal.quantity);
+    return total;
   }, 0);
 
-  
   const meals = useMemo(() => {
     if (trayMeals.length === 0) return;
 
@@ -134,7 +133,9 @@ export default function TrayList({
               </p>
             </article>
           </section>
-          <UiButton size='lg' block>Proceed to pay</UiButton>
+          <UiButton size="lg" block>
+            Proceed to pay
+          </UiButton>
         </div>
       )}
 

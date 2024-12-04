@@ -2,6 +2,9 @@ import { Outlet } from 'react-router-dom';
 
 import TheSidebar from '@/components/layout/TheSidebar';
 import { Icons } from '@/components/ui/UiIcon';
+import OverviewIcon from '@/components/icons/OverviewIcon';
+import MealIcon from '@/components/icons/MealIcon';
+import CalendarIcon from '@/components/icons/CalendarIcon';
 
 export interface Group {
   name: string;
@@ -19,22 +22,22 @@ export default function AdminLayout() {
       routes: [
         {
           path: '/admin',
-          icon: 'Overview',
+          icon: OverviewIcon,
           name: 'Overview',
         },
         {
           path: '/admin/meals',
-          icon: 'Meal',
+          icon: MealIcon,
           name: 'Meals',
         },
         {
           path: '/admin/payments',
-          icon: 'Meal',
+          icon: MealIcon,
           name: 'Payments',
         },
         {
           path: '/admin/schedules',
-          icon: 'Calendar',
+          icon: CalendarIcon,
           name: 'Schedules',
         },
       ],

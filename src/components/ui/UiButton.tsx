@@ -3,9 +3,9 @@ import { MouseEventHandler } from 'react';
 import UiLoader from './UiLoader';
 
 const sizeClasses = {
-  lg: 'h-[43px] text-sm leading-5',
-  md: 'h-[34px] text-sm',
-  sm: 'h-8 text-xs leading-5 px-5 ',
+  lg: 'h-[43px] text-sm leading-5 px-5',
+  md: 'h-[34px] text-sm px-5',
+  sm: 'h-8 text-xs leading-5 px-5',
   icon: 'h-8 px-2',
 };
 

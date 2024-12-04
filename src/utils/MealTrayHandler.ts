@@ -36,12 +36,11 @@ class MealTrayHandler {
 
     const mealIndex = trayItems.findIndex((meal) => meal.id === mealId);
 
-    if(mealIndex === -1) return;
+    if (mealIndex === -1) return;
 
     trayItems[mealIndex].quantity = `${quantity}`;
 
     console.log(trayItems, quantity);
-    
 
     localStorage.setItem('trayItems', JSON.stringify(trayItems));
   }

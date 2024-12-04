@@ -5,9 +5,10 @@ import { mealPlans } from '@/api/mock/mealPlans';
 import useMealsQuery from '@/api/query/useMealsQuery';
 import BasePage from '@/components/layout/BasePage';
 import MealCard from '@/components/meals/MealCard';
+import MealPlansList from '@/components/plans/MealPlansList';
 import TrayList from '@/components/meals/TrayList';
 import UiIcon from '@/components/ui/UiIcon';
-import MealPlanDetails from '@/components/meals/MealPlanDetails';
+import MealPlanCard from '@/components/plans/MealPlanCard';
 import Meal from '@/types/Meal';
 import StoredMeal from '@/types/StoredMeal';
 import MealTrayHandler from '@/utils/MealTrayHandler';
@@ -26,6 +27,7 @@ export default function MealPlansPage() {
   );
 
   const isTrayVisible = useToggle();
+  const isMealPlansVisible = useToggle();
 
   const pageMetaData = {
     title: 'Meal plans',
@@ -68,10 +70,10 @@ export default function MealPlansPage() {
   function updateMealQuantity(mealId: string, quantity: number) {
     const mealIndex = trayMeals.findIndex((meal) => meal.id === mealId);
 
-    if(mealIndex !== -1){
+    if (mealIndex !== -1) {
       const updatedMeals = [...trayMeals];
       updatedMeals[mealIndex].quantity = `${quantity}`;
-      setTrayMeals(updatedMeals)
+      setTrayMeals(updatedMeals);
     }
   }
 
@@ -96,7 +98,10 @@ export default function MealPlansPage() {
           You’re currently subscribed to the{' '}
           <span className="font-bold">“All inclusive”</span> plan
         </p>
-        <MealPlanDetails mealPlan={mealPlans[2]} />
+        <MealPlanCard
+          onAction={() => isMealPlansVisible.on()}
+          mealPlan={mealPlans[2]}
+        />
         <section className="mt-16">
           <h3 className="font-semibold text-secondary-1500 text-xl mb-1">
             Meal catalogue
@@ -146,6 +151,10 @@ export default function MealPlansPage() {
         updateMealQuantity={updateMealQuantity}
         isOpen={isTrayVisible.value}
         onClose={() => isTrayVisible.off()}
+      />
+      <MealPlansList
+        isOpen={isMealPlansVisible.value}
+        onClose={() => isMealPlansVisible.off()}
       />
     </BasePage>
   );

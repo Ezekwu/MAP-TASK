@@ -17,7 +17,11 @@ interface Props {
   updateMealQuantity: (mealId: string, quantity: number) => void;
 }
 
-export default function TrayMealCard({ meal, removeMeal, updateMealQuantity }: Props) {
+export default function TrayMealCard({
+  meal,
+  removeMeal,
+  updateMealQuantity,
+}: Props) {
   const nutrients = useMemo(() => {
     return Object.entries(meal.nutrients).map(
       ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
@@ -41,7 +45,7 @@ export default function TrayMealCard({ meal, removeMeal, updateMealQuantity }: P
           className="w-full rounded-xl group-hover:scale-110 transition-transform duration-300 ease-in-out"
         />
         <div className="absolute top-0 left-0 bg-[#00000099] rounded-xl w-full h-full flex justify-center items-center">
-          <UiIcon icon="Trash" size='24'/>
+          <UiIcon icon="Trash" size="24" />
         </div>
       </button>
       <div className="w-full">

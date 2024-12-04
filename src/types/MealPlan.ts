@@ -3,4 +3,5 @@ export default interface MealPlan {
   price: number;
   meals: string[];
   duration: string;
+  isActivePlan: boolean;
 }

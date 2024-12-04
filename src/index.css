@@ -33,12 +33,14 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #121217;
+  
 }
 
 .phone-input .PhoneInputInput{
   outline: none;
   width: 100% !important;
   flex-shrink: 0;
+  background-color: transparent;
   height: 100%;
 }
 

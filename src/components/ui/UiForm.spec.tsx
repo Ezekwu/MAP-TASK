@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import UiForm from './UiForm';
 import { FormikErrors } from 'formik';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import SignUpSchema from '@/utils/schemas/PersonalDetailsSchema';
 
 const defaultData = {
   email: '',

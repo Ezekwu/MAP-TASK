@@ -54,7 +54,8 @@ export default {
           1400: '#121217', // Extra color added here
           1500: '#101413', // Extra color added here
           1600: '#585B5A', // Extra color added here
-          1700: '#F2F2FF',
+          1700: '#F2F2FF', // Extra color added here
+          1800: '#CECED4', // Extra color added here
         },
         neutral: {
           100: '',

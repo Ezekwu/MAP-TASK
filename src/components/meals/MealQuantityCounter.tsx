@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import UiButton from "../ui/UiButton";
-import UiIcon from "../ui/UiIcon";
+import UiButton from '../ui/UiButton';
+import UiIcon from '../ui/UiIcon';
 
-import MealTrayHandler from "@/utils/MealTrayHandler";
+import MealTrayHandler from '@/utils/MealTrayHandler';
 
 interface Props {
   quantity: number;
   mealId: string;
   updateMealQuantity: (mealId: string, quantity: number) => void;
 }
-export default function MealQuantityCounter({ quantity, mealId, updateMealQuantity }: Props) {
+export default function MealQuantityCounter({
+  quantity,
+  mealId,
+  updateMealQuantity,
+}: Props) {
   const [mealQuantity, setMealQuantity] = useState(quantity);
 
   function increment() {
@@ -24,7 +28,6 @@ export default function MealQuantityCounter({ quantity, mealId, updateMealQuanti
     setMealQuantity((quantity) => quantity - 1);
     updateMealQuantity(mealId, quantity - 1);
     MealTrayHandler.setMealQuantity(mealId, mealQuantity - 1);
-
   }
   return (
     <div className="flex gap-1">
