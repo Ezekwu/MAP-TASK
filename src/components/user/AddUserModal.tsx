@@ -35,6 +35,8 @@ export default function AddUserModal({ isOpen, onClose }: Props) {
     if (!email) {
       setEmailRequiredError('This is a required field');
 
+      offLoading.on();
+
       return;
     }
     try {
