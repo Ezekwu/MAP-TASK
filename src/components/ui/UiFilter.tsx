@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 import useToggle from '@/hooks/useToggle';
-import FilterData from '@/types/FilterData';
 
 import UiButton from './UiButton';
 import UiIcon from './UiIcon';
@@ -19,31 +18,33 @@ export interface FilterSection {
   options: FilterOption[];
 }
 
-interface Props {
-  data: FilterSection[];
-  onFilterChange: (selectedFilter: {
-    key: string;
-    value: string | number | null;
-  }) => void;
+interface FilterValue {
+  key: string;
+  value: string | number | null;
 }
-export default function UiFilter({ data, onFilterChange }: Props) {
+
+interface Props {
+  data: FilterValue;
+  optionSections: FilterSection[];
+  onFilterChange: (selectedFilter: FilterValue) => void;
+}
+export default function UiFilter({
+  data,
+  optionSections,
+  onFilterChange,
+}: Props) {
   const { t } = useTranslation();
 
   const optionsAreVisible = useToggle();
 
-  const [selectedFilter, setSelectedFilter] = useState<FilterData>({
-    key: '',
-    value: null,
-  });
+  const selectedFilter = useMemo(() => data, [data]);
 
   function handleOptionSelect(key: string, value: string | number | null) {
-    setSelectedFilter({ key, value });
     onFilterChange({ key, value });
     optionsAreVisible.off();
   }
 
   function clearFilter() {
-    setSelectedFilter({ key: '', value: null });
     onFilterChange({ key: '', value: null });
   }
 
@@ -93,7 +94,7 @@ export default function UiFilter({ data, onFilterChange }: Props) {
                 <SelectedSignifier isSelected={selectedFilter.value === null} />
               </button>
             </li>
-            {data.map((section, index) => (
+            {optionSections.map((section, index) => (
               <li key={`${section.title}-${index}`}>
                 <p className="text-[8px] mt-3 font-semibold text-gray-500 uppercase">
                   {section.title}

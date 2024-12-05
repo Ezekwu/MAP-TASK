@@ -123,6 +123,20 @@ export default function UsersPage() {
     }));
   }, [data]);
 
+  const navDetails = {
+    title: t('pages.users'),
+    edgeNode: (
+      <UiButton
+        variant="secondary"
+        size="lg"
+        rounded="md"
+        onClick={addUserIsVisible.on}
+      >
+        {t('actions.add-user')}
+      </UiButton>
+    ),
+  };
+
   function manageUserPlan(userId: string) {
     setActiveUserId(userId);
 
@@ -162,6 +176,7 @@ export default function UsersPage() {
         ...activeUser,
         plan: { plan, startDate, endDate: endDate.getTime() },
       };
+
       await Api.setUser(newUser);
 
       setUser(newUser);
@@ -179,26 +194,16 @@ export default function UsersPage() {
   }
 
   return (
-    <BasePage
-      navDetails={{
-        title: t('pages.users'),
-        edgeNode: (
-          <UiButton
-            variant="secondary"
-            size="lg"
-            rounded="md"
-            onClick={addUserIsVisible.on}
-          >
-            {t('actions.add-user')}
-          </UiButton>
-        ),
-      }}
-    >
+    <BasePage navDetails={navDetails}>
       <UiTable
         data={usersData}
         headers={headers}
         controlsNode={
-          <UiFilter data={filterData} onFilterChange={handleFilterChange} />
+          <UiFilter
+            data={selectedFilter}
+            optionSections={filterData}
+            onFilterChange={handleFilterChange}
+          />
         }
       />
       <ManageUserPlanModal

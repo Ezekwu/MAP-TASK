@@ -43,7 +43,7 @@ export default function UiSelect({
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
 
   const displayText = useMemo(() => {
-    if (!value === null) return placeholder;
+    if (value === null) return placeholder;
 
     const foundOptionLabel = options.find((option) => value === option.value)
       ?.label;
