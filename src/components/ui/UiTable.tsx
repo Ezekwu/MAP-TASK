@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
 import UidropdownMenu, { DropDownData } from './UiDropdownMenu';
+
 interface Header {
   title: string;
   /** This field would be used to query the data object for how the data should be displayed.
@@ -7,7 +9,7 @@ interface Header {
   query: string;
 }
 interface Row extends Record<string, any> {
-  _id: string;
+  id: string;
 }
 interface Props {
   // Any is forbidden in this codebase. However, for the sake of the flexibility this component needs,
@@ -19,52 +21,68 @@ interface Props {
    */
   data: Row[];
   headers: Header[];
+  controlsNode?: ReactNode;
   /** This prop accepts a function in case there is a need to filter options available for rows based on data available */
   options?: DropDownData[] | ((row: Row) => DropDownData[]);
   onRowClick?: (id: string) => void;
 }
-export default function UiTable({ headers, data, options }: Props) {
+export default function UiTable({
+  headers,
+  data,
+  controlsNode,
+  options,
+}: Props) {
   return (
-    <table className="w-full text-left rounded overflow-hidden">
-      <thead className="bg-primary-10 rounded-md">
-        <tr className="border-b border-gray-50">
-          {headers.map((header, index) => (
-            <th
-              key={index}
-              data-testid={`ui-table-header-${header.query}`}
-              className="py-2 px-4 text-xs uppercase font-medium text-gray-700"
-            >
-              {header.title}
-            </th>
-          ))}
-          <th></th>
-        </tr>
-      </thead>
-      <tbody className="bg-white">
-        {data.map((item) => (
-          <tr key={item._id} className="border-b border-gray-50">
+    <div className="border border-tertiary-700 rounded-2xl">
+      {controlsNode && (
+        <header className="p-4 border-b border-tertiary-700">
+          {controlsNode}
+        </header>
+      )}
+      <table className="w-full text-left rounded overflow-hidden ">
+        <thead className="bg-primary-10 rounded-md bg-secondary-100">
+          <tr>
             {headers.map((header, index) => (
-              <td
-                data-testid={`ui-table-data-${header.query}`}
-                key={index}
-                className="p-4 text-sm text-gray-300 capitalize"
+              <th
+                key={`header-${index}`}
+                data-testid={`ui-table-header-${header.query}`}
+                className="py-2.5 px-2.5 text-xs capitalize font-medium text-typography-disabled"
               >
-                {item[header.query]}
-              </td>
+                {header.title}
+              </th>
             ))}
-            {options && (
-              <td>
-                <UidropdownMenu
-                  options={
-                    typeof options === 'function' ? options(item) : options
-                  }
-                  itemId={item._id}
-                />
-              </td>
-            )}
+            <th></th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="bg-white">
+          {data.map((item) => (
+            <tr
+              key={`data-item-${item.id}`}
+              className="border-b last:border-b-0 border-tertiary-700"
+            >
+              {headers.map((header, index) => (
+                <td
+                  data-testid={`ui-table-data-${header.query}`}
+                  key={`${header.query}-${index}`}
+                  className="p-4 text-xs text-secondary-1500 capitalize"
+                >
+                  {item[header.query]}
+                </td>
+              ))}
+              {options && (
+                <td>
+                  <UidropdownMenu
+                    options={
+                      typeof options === 'function' ? options(item) : options
+                    }
+                    itemId={item._id}
+                  />
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

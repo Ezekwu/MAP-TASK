@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { DotsThreeOutlineVertical } from '@phosphor-icons/react';
 import OutsideClickHandler from 'react-outside-click-handler';
+
+import UiButton from './UiButton';
 import UiDropdownItem from './UiDropdownItem';
+import UiIcon from './UiIcon';
+
+// ---
 
 export interface DropDownData {
   label: string;
-  func: (id?: string) => void;
+  func: (id: string) => void;
 }
 
 interface Props {
   options: DropDownData[];
   trigger?: React.ReactNode;
-  itemId?: string;
+  itemId: string;
 }
 
 export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
@@ -19,21 +23,28 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
 
   function selectOption(option: DropDownData) {
     option.func(itemId);
+
     setOptionsAreVisible(false);
   }
+
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
-      <button
-        data-testid="ui-dropdown-trigger"
-        onClick={() => setOptionsAreVisible(!optionsAreVisible)}
-      >
-        {trigger || <DotsThreeOutlineVertical />}
-      </button>
+      {trigger || (
+        <UiButton
+          data-testid="ui-dropdown-trigger"
+          size="sm"
+          variant="tertiary"
+          onClick={() => setOptionsAreVisible(!optionsAreVisible)}
+        >
+          <UiIcon icon="HorizontalThreeDots" />
+        </UiButton>
+      )}
 
+      {/* TODO: fix dropdown in modals */}
       {optionsAreVisible && (
         <ul
           data-testid="ui-dropdown-options"
-          className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-20 p-2"
+          className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-50 p-2"
         >
           {options.map((option, index) => (
             <UiDropdownItem
