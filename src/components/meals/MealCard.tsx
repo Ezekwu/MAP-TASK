@@ -17,8 +17,6 @@ export default function MealCard(props: Props) {
     );
   }, [props.meal]);
 
-  console.log(props.isMealInTray);
-
   return (
     <div className="w-56 flex flex-col justify-between">
       <div>

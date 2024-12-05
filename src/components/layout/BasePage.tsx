@@ -14,8 +14,8 @@ interface Props {
 export default function BasePage({ children, loading, navDetails }: Props) {
   return (
     <>
-      <TheTopNav pageTitle={navDetails?.title} subtitle={navDetails?.subtitle}>
-        {navDetails?.edgeNode}
+      <TheTopNav pageTitle={navDetails.title} subtitle={navDetails.subtitle}>
+        {navDetails.edgeNode}
       </TheTopNav>
       {loading ? (
         <UiLoader />

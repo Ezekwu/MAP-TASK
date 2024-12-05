@@ -1,20 +1,19 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { TrayMeal } from './TrayMealCard';
-import TrayMealCard from './TrayMealCard';
-import ClearTrayConfirmation from './ClearTrayConfirmation';
-import EmptyTrayState from './EmptyTrayState';
+import useMealsQuery from '@/api/query/useMealsQuery';
+import useToggle from '@/hooks/useToggle';
+import StoredMeal from '@/types/StoredMeal';
+import MealTrayHandler from '@/utils/MealTrayHandler';
+import { Toast } from '@/utils/toast';
 
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
 import UiLoader from '../ui/UiLoader';
 import UiModal from '../ui/UiModal';
 
-import useMealsQuery from '@/api/query/useMealsQuery';
-import StoredMeal from '@/types/StoredMeal';
-import MealTrayHandler from '@/utils/MealTrayHandler';
-import useToggle from '@/hooks/useToggle';
-import { Toast } from '@/utils/toast';
+import ClearTrayConfirmation from './ClearTrayConfirmation';
+import EmptyTrayState from './EmptyTrayState';
+import TrayMealCard, { TrayMeal } from './TrayMealCard';
 
 //--
 
@@ -143,8 +142,8 @@ export default function TrayList({
 
       {isClearTrayConfirmVisible.value && (
         <ClearTrayConfirmation
-          clearTray={clearTray}
-          hideConfirmModal={hideConfirmModal}
+          onAction={clearTray}
+          onCancel={hideConfirmModal}
         />
       )}
     </UiModal>

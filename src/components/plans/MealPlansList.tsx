@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import MealPlanCard from './MealPlanCard';
-import UpgradePlan from './UpgradePlan';
+import { mealPlans } from '@/api/mock/mealPlans';
+import useToggle from '@/hooks/useToggle';
+import MealPlan from '@/types/MealPlan';
 
 import UiModal from '../ui/UiModal';
 
-import { mealPlans } from '@/api/mock/mealPlans';
-import MealPlan from '@/types/MealPlan';
-import useToggle from '@/hooks/useToggle';
+import MealPlanCard from './MealPlanCard';
+import UpgradePlan from './UpgradePlan';
 
 //--
 

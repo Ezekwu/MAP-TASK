@@ -58,7 +58,7 @@ export default function UiButton({
         block && 'w-full'
       } ${variantClasses[variant]} ${sizeClasses[size]} ${
         roundedClasses[rounded]
-      }`}
+      } ${disabled && 'cursor-not-allowed opacity-75'}`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"
