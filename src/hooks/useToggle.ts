@@ -3,6 +3,10 @@ import { useState } from 'react';
 export default function useToggle(defaultState = false) {
   const [value, setValue] = useState(defaultState);
 
+  function set(val: boolean) {
+    setValue(val);
+  }
+
   function on() {
     setValue(true);
   }
@@ -17,6 +21,7 @@ export default function useToggle(defaultState = false) {
 
   return {
     value,
+    set,
     off,
     on,
     toggle,

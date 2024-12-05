@@ -1,21 +1,20 @@
-import UiIcon from "./UiIcon";
+import UiIcon from './UiIcon';
 
 interface Props {
   label: React.ReactNode;
   func: () => void;
   dataTestId: string;
-  optionValue: string | boolean;
-  value: string | null | number | boolean;
+  isActive?: boolean;
 }
-export default function UiDropdownItem({ dataTestId, label, optionValue, value, func }: Props) {
-
-  function isActiveCycle(optionValue: string | boolean) {
-    return value === optionValue;
-  }
-
+export default function UiDropdownItem({
+  dataTestId,
+  label,
+  isActive,
+  func,
+}: Props) {
   return (
     <li
-      className={`p-2 py-[10px] hover:bg-secondary-100 text-sm rounded-sm`}
+      className={`p-2 text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
       data-testid={dataTestId}
       tabIndex={0}
       role="button"
@@ -28,12 +27,12 @@ export default function UiDropdownItem({ dataTestId, label, optionValue, value, 
         {label}
         <span
           className={`flex justify-center items-center w-5 shrink-0 h-5 rounded-full  ${
-            isActiveCycle(optionValue)
+            isActive
               ? 'border-none bg-primary-500'
               : 'bg-gray-100 outiline outline-tertiary-700 '
           }`}
         >
-          {isActiveCycle(optionValue) && <UiIcon icon="Checkmark" size="10" />}
+          {isActive && <UiIcon icon="Checkmark" size="10" />}
         </span>
       </div>
     </li>

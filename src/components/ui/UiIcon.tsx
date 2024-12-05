@@ -10,8 +10,10 @@ import CustomerSupport from '@/assets/icons/customer-support.svg?react';
 import Dish from '@/assets/icons/dish.svg?react';
 import Eye from '@/assets/icons/eye.svg?react';
 import EyeSlash from '@/assets/icons/eye-slash.svg?react';
+import Filter from '@/assets/icons/filter.svg?react';
 import Google from '@/assets/icons/google.svg?react';
 import Info from '@/assets/icons/info.svg?react';
+import HorizontalThreeDots from '@/assets/icons/horizontal-three-dots.svg?react';
 import Logout from '@/assets/icons/logout.svg?react';
 import Meal from '@/assets/icons/meal.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
@@ -23,6 +25,7 @@ import Spaghetti from '@/assets/icons/spaghetti.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import TrashX from '@/assets/icons/trash-x.svg?react';
 import Tray from '@/assets/icons/tray.svg?react';
+import Users from '@/assets/icons/users.svg?react';
 import Warning from '@/assets/icons/warning.svg?react';
 import X from '@/assets/icons/x.svg?react';
 
@@ -40,8 +43,10 @@ const icons = {
   Dish,
   Eye,
   EyeSlash,
+  Filter,
   Google,
   Info,
+  HorizontalThreeDots,
   Logout,
   Meal,
   Minus,
@@ -53,6 +58,7 @@ const icons = {
   Trash,
   TrashX,
   Tray,
+  Users,
   Warning,
   X,
 };

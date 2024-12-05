@@ -1,31 +1,32 @@
 export const priorities = ['Low', 'Medium', 'High', 'Critical'];
 
-export const LGAS = [
-  { label: 'Agege', value: 'agege' },
-  { label: 'Ajeromi-Ifelodun', value: 'ajeromi-ifelodun' },
-  { label: 'Alimosho', value: 'alimosho' },
-  { label: 'Amuwo-Odofin', value: 'amuwo-odofin' },
-  { label: 'Apapa', value: 'apapa' },
-  { label: 'Badagry', value: 'badagry' },
-  { label: 'Epe', value: 'epe' },
-  { label: 'Eti-Osa', value: 'eti-osa' },
-  { label: 'Ibeju-Lekki', value: 'ibeju-lekki' },
-  { label: 'Ifako-Ijaiye', value: 'ifako-ijaiye' },
-  { label: 'Ikeja', value: 'ikeja' },
-  { label: 'Ikorodu', value: 'ikorodu' },
-  { label: 'Kosofe', value: 'kosofe' },
-  { label: 'Lagos Island', value: 'lagos-island' },
-  { label: 'Lagos Mainland', value: 'lagos-mainland' },
-  { label: 'Mushin', value: 'mushin' },
-  { label: 'Ojo', value: 'ojo' },
-  { label: 'Oshodi-Isolo', value: 'oshodi-isolo' },
-  { label: 'Somolu', value: 'somolu' },
-  { label: 'Surulere', value: 'surulere' }
+export const localGovernmentAreaOptions = [
+  { label: 'options.locations.agege', value: 'agege' },
+  { label: 'options.locations.alimosho', value: 'alimosho' },
+  { label: 'options.locations.apapa', value: 'apapa' },
+  { label: 'options.locations.ifako-ijaye', value: 'ifako-ijaye' },
+  { label: 'options.locations.ikeja', value: 'ikeja' },
+  { label: 'options.locations.kosofe', value: 'kosofe' },
+  { label: 'options.locations.mushin', value: 'mushin' },
+  { label: 'options.locations.oshodi-isolo', value: 'oshodi-isolo' },
+  { label: 'options.locations.shomolu', value: 'shomolu' },
+  { label: 'options.locations.eti-osa', value: 'eti-osa' },
+  { label: 'options.locations.lagos-island', value: 'lagos island' },
+  { label: 'options.locations.lagos-mainland', value: 'lagos mainland' },
+  { label: 'options.locations.surulere', value: 'surulere' },
+  { label: 'options.locations.ojo', value: 'ojo' },
+  { label: 'options.locations.ajeromi-ifelodun', value: 'ajeromi-ifelodun' },
+  { label: 'options.locations.amuwo-odofin', value: 'amuwo-odofin' },
+  { label: 'options.locations.badagry', value: 'badagry' },
+  { label: 'options.locations.ikorodu', value: 'ikorodu' },
+  { label: 'options.locations.ibeju-lekki', value: 'ibeju-lekki' },
+  { label: 'options.locations.epe', value: 'epe' },
 ];
 
-export const Goals = [
-  { label: 'Weight loss', value: 'weight loss' },
-  { label: 'Weight gain', value: 'weight gain' },
-  { label: 'Muscle growth', value: 'muscle growth' },
-  { label: 'Diabetes Management', value: 'diabetes management' },
+export const goalOptions = [
+  { label: 'options.goals.weight-loss', value: 'weight loss' },
+  { label: 'options.goals.weight-gain', value: 'weight gain' },
+  { label: 'options.goals.muscle-growth', value: 'muscle growth' },
+  { label: 'options.goals.diabetes-management', value: 'diabetes management' },
+  { label: 'options.goals.hassle-free-diner', value: 'hassle free diner' },
 ];

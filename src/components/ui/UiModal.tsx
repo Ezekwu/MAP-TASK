@@ -29,9 +29,9 @@ export default function UiModal({
   // TODO: animate modals
   const cardStyle = useMemo(() => {
     if (alignRight)
-      return 'fixed top-0 right-0 bottom-0 z-50 h-screen overflow-y-auto bg-[#fff]';
+      return 'fixed top-0 right-0 bottom-0 z-20 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
-    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white p-8  rounded';
+    return 'absolute z-20 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white p-8 w-2/5 rounded';
   }, [alignRight]);
 
   if (!isOpen) return <></>;
@@ -39,7 +39,7 @@ export default function UiModal({
   return (
     <>
       <div
-        className="fixed inset-0  flex items-center justify-center z-40 bg-black bg-opacity-50"
+        className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50"
         data-testid="overlay"
         onClick={onClose}
       />

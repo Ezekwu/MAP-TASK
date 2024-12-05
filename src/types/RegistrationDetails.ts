@@ -3,6 +3,6 @@ export default interface RegistrationDetails {
   first_name: string;
   last_name: string;
   phone_numner: string;
-  home_adress: string;
+  home_address: string;
   profile_img: File | null | string;
 }
