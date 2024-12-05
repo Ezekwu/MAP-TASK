@@ -40,7 +40,6 @@ export default function SelectMeals({
     query: { isLoading },
   } = useMealsQuery({ searchQuery: query });
 
-  // TODO: figure out why meals sent to parent don't delete
   const previouslyAssignedMeals = useMemo<MealEntryWithDay[]>(() => {
     return weeklyMealSchedule.days.flatMap(
       (day) =>
@@ -95,8 +94,6 @@ export default function SelectMeals({
       days: updatedDays,
     };
 
-    console.log({ updatedSchedule });
-
     onUpdateSchedule(updatedSchedule);
   }
 
@@ -104,7 +101,7 @@ export default function SelectMeals({
     return selectedMeals.some((meal) => meal.mealId === mealId);
   }
 
-  function next() {
+  function formattedData() {
     const updatedDays = [...weeklyMealSchedule.days];
 
     for (const meal of previouslyAssignedMeals) {
@@ -165,7 +162,21 @@ export default function SelectMeals({
       days: updatedMeals,
     };
 
-    onDone(updatedSchedule);
+    return updatedSchedule;
+  }
+
+  function next() {
+    const data = formattedData();
+
+    onDone(data);
+  }
+
+  function handleGoBack() {
+    const data = formattedData();
+
+    goBack();
+
+    onUpdateSchedule(data);
   }
 
   return (
@@ -192,14 +203,8 @@ export default function SelectMeals({
           />
         ))}
       </div>
-      <div className="p-4 border-t border-tertiary-700 grid grid-cols-2 gap-2">
-        <UiButton
-          block
-          variant="tertiary-outlined"
-          size="lg"
-          disabled={!selectedMeals.length}
-          onClick={goBack}
-        >
+      <div className="p-4 pb-10 border-t border-tertiary-700 grid grid-cols-2 gap-2 bg-white">
+        <UiButton block variant="tertiary-outlined" size="lg" onClick={goBack}>
           {t('actions.back')}
         </UiButton>
         <UiButton

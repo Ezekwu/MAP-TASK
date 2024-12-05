@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MealType } from '@/types/Meal';
+import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 import UiModal from '../ui/UiModal';
 
@@ -10,14 +11,15 @@ import useScheduleSteps, { Steps } from './steps';
 import SelectMeals from './SelectMeals';
 import SetMealDays from './SetMealDays';
 import SetScheduleForm from './SetScheduleForm';
-import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
+import { Api } from '@/api';
+
+// ---
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   schedule?: WeeklyMealSchedule;
 }
-
 export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
   const { t } = useTranslation();
 
@@ -48,11 +50,28 @@ export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
     nextStep(Steps.SET_MEAL_DAYS);
   }
 
+  function handleMealsAndDaysSelected(updatedSchedule: WeeklyMealSchedule) {
+    setLocalSchedule(updatedSchedule);
+
+    setMealTypeToFill(undefined);
+
+    nextStep(Steps.FORM);
+  }
+
+  async function submitSchedule() {
+    try {
+      await Api.setSchedule(localSchedule);
+
+      onClose();
+    } catch (err) {}
+  }
+
   const steps = {
     [Steps.FORM]: (
       <SetScheduleForm
         schedule={localSchedule}
         onSelectMealType={onSelectMealType}
+        onSubmit={submitSchedule}
       />
     ),
     [Steps.SELECT_MEALS]: (
@@ -67,13 +86,10 @@ export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
     [Steps.SET_MEAL_DAYS]: (
       <SetMealDays
         schedule={localSchedule}
+        mealType={mealTypeToFill}
+        onChange={setLocalSchedule}
         goBack={() => nextStep(Steps.SELECT_MEALS)}
-      />
-    ),
-    [Steps.ASSIGN_TO_USERS]: (
-      <SetScheduleForm
-        schedule={localSchedule}
-        onSelectMealType={onSelectMealType}
+        onDone={handleMealsAndDaysSelected}
       />
     ),
   };

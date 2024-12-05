@@ -8,16 +8,17 @@ import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 import UiButton from '../ui/UiButton';
 import UiField from '../ui/UiField';
 import UiForm from '../ui/UiForm';
-import UiIcon from '../ui/UiIcon';
 import UiInput from '../ui/UiInput';
 
 import MealTypeSelector from './MealTypeSelector';
+import ScheduleSchema from '@/utils/schemas/ScheduleSchema';
 
 // ---
 
 interface Props {
   schedule?: WeeklyMealSchedule;
   onSelectMealType: (type: MealType) => void;
+  onSubmit: () => void;
 }
 export default function SetScheduleForm(props: Props) {
   const { t } = useTranslation();
@@ -28,21 +29,30 @@ export default function SetScheduleForm(props: Props) {
 
   const mealTypes = Object.values(MealType);
 
-  function setSchedule() {}
+  function checkAddedMealsForMealType(mealType: MealType) {
+    return props.schedule?.days.some(({ meals }) =>
+      Boolean(meals[mealType]?.length),
+    );
+  }
 
-  function onSelectMealType() {}
+  function setSchedule() {}
 
   return (
     <div className="p-8">
       <p className="text-sm text-[#585B5A] mb-4">
         {t('modals.set-schedule.description')}
       </p>
-      <UiForm formData={formData.value} onSubmit={setSchedule}>
-        {() => (
+      <UiForm
+        formData={formData.value}
+        schema={ScheduleSchema}
+        onSubmit={setSchedule}
+      >
+        {({ errors }) => (
           <div className="grid ">
             <div className="border-b-dashed pb-4">
               <UiInput
                 label={t('fields.schedule-name')}
+                error={errors.name}
                 value={formData.value.name}
                 name="name"
                 onChange={formData.set}
@@ -55,23 +65,13 @@ export default function SetScheduleForm(props: Props) {
                     <MealTypeSelector
                       type={type}
                       key={type}
+                      hasMeals={(() => checkAddedMealsForMealType(type))()}
                       onSelectMealType={props.onSelectMealType}
                     />
                   ))}
                 </div>
               </UiField>
             </div>
-            <div className="mb-24">
-              <UiField label={t('fields.assign-schedule-to-users')}>
-                <UiButton size="lg" variant="tertiary-outlined" block>
-                  <UiIcon icon="Users" />
-                  <div className="text-xs text-[#55556D]">
-                    {t('actions.assign-schedules-to-users')}
-                  </div>
-                </UiButton>
-              </UiField>
-            </div>
-
             <UiButton block size="lg">
               {t('actions.create-schedule')}
             </UiButton>

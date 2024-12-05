@@ -5,6 +5,7 @@
     "back": "Back",
     "click-to-add-meals": "Click to add meals",
     "create-schedule": "Create schedule",
+    "edit-selection": "Edit selection",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
     "submit": "Submit"
@@ -40,7 +41,8 @@
     "schedule-name": "Schedule name"
   },
   "general": {
-    "high-calorie": "HIGH CALORIE"
+    "high-calorie": "HIGH CALORIE",
+    "meals-added": "meals added"
   },
   "messages": {
     "passwordResetLinkSent": "password reset link has been sent to your email",

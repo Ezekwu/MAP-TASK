@@ -4,11 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useMealsQuery from '@/api/query/useMealsQuery';
 
 import { MealType } from '@/types/Meal';
-import {
-  DaySchedule,
-  MealEntry,
-  WeeklyMealSchedule,
-} from '@/types/WeeklyMealSchedule';
+import { MealEntry, WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 import UiButton from '../ui/UiButton';
 
@@ -18,9 +14,13 @@ interface Props {
   schedule: WeeklyMealSchedule;
   mealType?: MealType;
   goBack: () => void;
+  onChange: (data: WeeklyMealSchedule) => void;
+  onDone: (data: WeeklyMealSchedule) => void;
 }
 export default function SetMealDays({
   schedule,
+  onChange,
+  onDone,
   mealType = MealType.BREAKFAST,
   goBack,
 }: Props) {
@@ -37,29 +37,24 @@ export default function SetMealDays({
 
   function onSelectDay({ id, day: selectedDay }: { id: string; day: string }) {
     setUpdatedSchedule((prevSchedule) => {
-      // Create a copy of the current schedule to maintain immutability
       const updatedDays = [...prevSchedule.days];
       let mealToUpdate: MealEntry | undefined;
 
-      // Find and remove the meal from its current day
       updatedDays.forEach((daySchedule) => {
         const mealIndex = daySchedule.meals[mealType]?.findIndex(
           ({ mealId }) => mealId === id,
         );
 
         if (mealIndex !== undefined && mealIndex > -1) {
-          // Remove the meal
           mealToUpdate = daySchedule.meals[mealType]?.splice(mealIndex, 1)[0];
         }
       });
 
       if (!mealToUpdate) return prevSchedule;
 
-      // Check if the selected day already exists in the schedule
       const dayIndex = updatedDays.findIndex((day) => day.day === selectedDay);
 
       if (dayIndex > -1) {
-        // Update the existing day's meals
         const targetDaySchedule = { ...updatedDays[dayIndex] };
         targetDaySchedule.meals[mealType] = [
           ...(targetDaySchedule.meals[mealType] || []),
@@ -67,7 +62,6 @@ export default function SetMealDays({
         ];
         updatedDays[dayIndex] = targetDaySchedule;
       } else {
-        // Insert the new day at the correct position, preserving order
         const newDaySchedule = {
           day: selectedDay,
           meals: {
@@ -86,15 +80,12 @@ export default function SetMealDays({
           },
         };
 
-        // Insert the new day at the same level as others in sorted order
         const insertionIndex = updatedDays.findIndex(
           (day) => day.day > selectedDay,
         );
         if (insertionIndex === -1) {
-          // If no larger date is found, add to the end
           updatedDays.push(newDaySchedule);
         } else {
-          // Insert before the first day with a larger date
           updatedDays.splice(insertionIndex, 0, newDaySchedule);
         }
       }
@@ -103,34 +94,52 @@ export default function SetMealDays({
     });
   }
 
+  function handleGoBack() {
+    onChange(updatedSchedule);
+
+    goBack();
+  }
+
+  function handleDone() {
+    const sanitizedSchedule = {
+      ...updatedSchedule,
+      days: updatedSchedule.days.filter(({ day }) => Boolean(day)),
+    };
+
+    onDone(sanitizedSchedule);
+  }
+
   return (
     <div>
       <p className="text-sm text-[#585B5A] mx-8 py-2">
         {t('modals.set-schedule.select-day-of-week')}
       </p>
       <div className="max-h-[55vh] overflow-auto grid gap-4">
-        {updatedSchedule.days.flatMap((daySchedule) =>
-          Object.keys(daySchedule.meals).map((mealType) => {
-            const typedMealType = mealType as keyof typeof daySchedule.meals;
-            return daySchedule.meals[typedMealType]?.map((mealSchedule) => {
+        {updatedSchedule.days.flatMap(
+          (daySchedule) =>
+            daySchedule.meals[mealType]?.map((mealSchedule) => {
               const foundMeal = findMealById(mealSchedule.mealId)!;
               return (
                 <MealItem
                   key={mealSchedule.mealId}
                   meal={foundMeal}
-                  day={mealSchedule.day}
+                  day={mealSchedule.day || ''}
                   onSelectDay={onSelectDay}
                 />
               );
-            });
-          }),
+            }),
         )}
       </div>
       <div className="p-4 border-t border-tertiary-700 grid grid-cols-2 gap-2">
-        <UiButton block variant="tertiary-outlined" size="lg" onClick={goBack}>
+        <UiButton
+          block
+          variant="tertiary-outlined"
+          size="lg"
+          onClick={handleGoBack}
+        >
           {t('actions.back')}
         </UiButton>
-        <UiButton block variant="tertiary" size="lg">
+        <UiButton block variant="tertiary" size="lg" onClick={handleDone}>
           {t('actions.add-meals')}
         </UiButton>
       </div>

@@ -7,6 +7,7 @@ import UiTag from '../ui/UiTag';
 import UiIcon from '../ui/UiIcon';
 import UiSelect from '../ui/UiSelect';
 import OnChangeParams from '@/types/OnChangeParams';
+import UiIconCheckMark from '../ui/UiIconCheckmark';
 
 interface Props {
   btnLabel?: string;
@@ -81,7 +82,7 @@ export default function MealItem({
 
   return (
     <div
-      className="flex gap-2 border-b-dashed py-4 px-8 cursor-pointer"
+      className="flex gap-2 border-b-dashed last:border-b-transparent py-4 px-8 cursor-pointer"
       onClick={handleClick}
     >
       <div className="relative  rounded overflow-hidden w-32 h-32">
@@ -106,15 +107,7 @@ export default function MealItem({
               onChange={onChange}
             />
           ) : (
-            <div
-              className={`${
-                isSelected
-                  ? 'bg-primary-500'
-                  : 'bg-tertiary-50 border border-tertiary-700'
-              } w-5 h-5 rounded-full flex items-center justify-center`}
-            >
-              {isSelected && <UiIcon icon="Checkmark" size="10" />}
-            </div>
+            <UiIconCheckMark value={isSelected} />
           )}
         </div>
         <div className="flex flex-wrap gap-1 mb-4">

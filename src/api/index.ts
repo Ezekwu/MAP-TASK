@@ -22,6 +22,7 @@ import AuthDetails from '@/types/AuthDetails';
 import Admin from '@/types/Admin';
 import Meal from '@/types/Meal';
 import db, { auth, googleProvider } from './firebase';
+import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
@@ -66,6 +67,10 @@ class ApiService {
 
   setUser(userData: User) {
     return this.set('users', userData.id, userData);
+  }
+
+  setSchedule(schedule: WeeklyMealSchedule) {
+    return this.set('schedule', schedule.id, schedule);
   }
 
   async doesDocumentExist(collectionName: string, id: string) {
