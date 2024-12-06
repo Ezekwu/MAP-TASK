@@ -28,7 +28,7 @@ export default function ForgotPasswordForm() {
 
       await Api.sendPasswordResetEmail(formData.value.email);
 
-      const msg = t(`messages.passwordResetLinkSent`);
+      const msg = t(`messages.password-reset-link-sent`);
 
       Toast.error({ msg });
     } catch (error) {

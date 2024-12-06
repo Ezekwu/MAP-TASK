@@ -3,6 +3,7 @@
     "activate-user": "Activate user",
     "add-meals": "Add meals",
     "add-user": "Add user",
+    "add-schedule": "Add schedule",
     "assign-schedules-to-users": "Click to assign this schedule to users",
     "back": "Back",
     "cancel": "Cancel",
@@ -61,7 +62,8 @@
     "phone-number": "Phone number",
     "plan-end-date": "Plan end date",
     "plan-start-date": "Plan start date",
-    "plan": "Plan"
+    "plan": "Plan",
+    "schedule-name": "Schedule name"
   },
   "general": {
     "high-calorie": "HIGH CALORIE",
@@ -70,10 +72,20 @@
     "meals-added": "meals added"
   },
   "messages": {
-    "passwordResetLinkSent": "Password reset link has been sent to your email",
-    "passwordResetSuccess": "Password has been reset"
+    "password-reset-link-sent": "Password reset link has been sent to your email",
+    "password-reset-success": "Password has been reset",
+    "schedule-created": "Schedule created successfully"
   },
   "modals": {
+    "add-user": {
+      "title": "Add user"
+    },
+    "assign-users-to-schedule": {
+      "title": "Assign users to schedule"
+    },
+    "manage-user-plan": {
+      "title": "Manager user plan"
+    },
     "set-schedule": {
       "create-title": "Create schedule",
       "description": "Schedules timeline last for a week by default",
@@ -82,12 +94,6 @@
       "selected-meals-would-appear-here": "Selected meals would appear here",
       "selected-meals": "Selected meals",
       "update-title": "Update schedule"
-    },
-    "manage-user-plan": {
-      "title": "Manager user plan"
-    },
-    "add-user": {
-      "title": "Add user"
     }
   },
   "options": {
@@ -142,7 +148,8 @@
     "wednesday": "Wednesday"
   },
   "pages": {
-    "users": "Users"
+    "users": "Users",
+    "manage-schedules": "Manage Schedules"
   },
   "placeholders": {
     "allergies": "Enter your allergies",
@@ -152,6 +159,7 @@
     "last-name": "Enter your last name",
     "local-government": "Select your LGA",
     "search-meals": "Search meals",
+    "search-users": "Search users",
     "select-day": "Select day",
     "select-new-plan": "Select new plan"
   },
@@ -166,20 +174,21 @@
   },
   "titles": {
     "action": "Action",
-    "dateJoined": "Date Joined",
-    "emailAddress": "Email Address",
-    "homeAddress": "Home Address",
-    "name": "Name",
-    "phoneNumber": "Phone Number",
-    "plan": "Plan",
-    "status": "Status",
-    "email": "Email",
-    "phone-number": "Phone number",
-    "plan-starts": "Plan starts",
-    "plan-ends": "Plan ends",
+    "actions": "Actions",
     "address": "Address",
     "createdAt": "Created at",
     "date-joined": "Date joined",
-    "actions": "Actions"
+    "dateJoined": "Date Joined",
+    "email": "Email",
+    "emailAddress": "Email Address",
+    "homeAddress": "Home Address",
+    "name": "Name",
+    "phone-number": "Phone number",
+    "phoneNumber": "Phone Number",
+    "plan-ends": "Plan ends",
+    "plan-starts": "Plan starts",
+    "plan": "Plan",
+    "status": "Status",
+    "user-groups": "User groups"
   }
 }

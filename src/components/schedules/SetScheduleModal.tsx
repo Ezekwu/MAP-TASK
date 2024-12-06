@@ -1,8 +1,15 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Api } from '@/api';
+
+import useToggle from '@/hooks/useToggle';
+
 import { MealType } from '@/types/Meal';
-import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
+import { DaySchedule, WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
+
+import { generateUuid, removeUndefined } from '@/utils/helpers';
+import { Toast } from '@/utils/toast';
 
 import UiModal from '../ui/UiModal';
 
@@ -11,16 +18,21 @@ import useScheduleSteps, { Steps } from './steps';
 import SelectMeals from './SelectMeals';
 import SetMealDays from './SetMealDays';
 import SetScheduleForm from './SetScheduleForm';
-import { Api } from '@/api';
 
 // ---
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onDone: (scheduleId: string) => void;
   schedule?: WeeklyMealSchedule;
 }
-export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
+export default function SetScheduleModal({
+  schedule,
+  isOpen,
+  onClose,
+  onDone,
+}: Props) {
   const { t } = useTranslation();
 
   const { step, nextStep } = useScheduleSteps();
@@ -33,6 +45,8 @@ export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
       days: [],
     },
   );
+
+  const loading = useToggle();
 
   const title = useMemo(() => {
     if (schedule) return t('modals.set-schedule.update-title');
@@ -58,18 +72,34 @@ export default function SetScheduleModal({ schedule, isOpen, onClose }: Props) {
     nextStep(Steps.FORM);
   }
 
-  async function submitSchedule() {
+  async function submitSchedule({ name }: { name: string }) {
     try {
-      await Api.setSchedule(localSchedule);
+      loading.on();
 
-      onClose();
-    } catch (err) {}
+      const schedule = {
+        name,
+        id: generateUuid(),
+        days: removeUndefined(localSchedule.days) as DaySchedule[],
+        createdAt: Date.now(),
+      };
+
+      await Api.setSchedule(schedule);
+
+      Toast.success({ msg: t('messages.schedule-created') });
+
+      onDone(schedule.id);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      loading.off();
+    }
   }
 
   const steps = {
     [Steps.FORM]: (
       <SetScheduleForm
         schedule={localSchedule}
+        loading={loading.value}
         onSelectMealType={onSelectMealType}
         onSubmit={submitSchedule}
       />

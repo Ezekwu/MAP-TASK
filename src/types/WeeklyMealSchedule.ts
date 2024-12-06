@@ -18,6 +18,6 @@ export interface WeeklyMealSchedule {
   id: string;
   name: string;
   days: DaySchedule[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: number;
+  updatedAt?: number;
 }

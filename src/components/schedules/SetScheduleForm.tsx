@@ -16,11 +16,17 @@ import ScheduleSchema from '@/utils/schemas/ScheduleSchema';
 // ---
 
 interface Props {
+  loading: boolean;
   schedule?: WeeklyMealSchedule;
   onSelectMealType: (type: MealType) => void;
-  onSubmit: () => void;
+  onSubmit: (params: { name: string }) => void;
 }
-export default function SetScheduleForm(props: Props) {
+export default function SetScheduleForm({
+  loading,
+  schedule,
+  onSubmit,
+  onSelectMealType,
+}: Props) {
   const { t } = useTranslation();
 
   const formData = useObjectState({
@@ -30,12 +36,12 @@ export default function SetScheduleForm(props: Props) {
   const mealTypes = Object.values(MealType);
 
   function checkAddedMealsForMealType(mealType: MealType) {
-    return props.schedule?.days.some(({ meals }) =>
-      Boolean(meals[mealType]?.length),
-    );
+    return schedule?.days.some(({ meals }) => Boolean(meals[mealType]?.length));
   }
 
-  function setSchedule() {}
+  function setSchedule() {
+    onSubmit(formData.value);
+  }
 
   return (
     <div className="p-8">
@@ -66,13 +72,13 @@ export default function SetScheduleForm(props: Props) {
                       type={type}
                       key={type}
                       hasMeals={(() => checkAddedMealsForMealType(type))()}
-                      onSelectMealType={props.onSelectMealType}
+                      onSelectMealType={onSelectMealType}
                     />
                   ))}
                 </div>
               </UiField>
             </div>
-            <UiButton block size="lg">
+            <UiButton block size="lg" loading={loading}>
               {t('actions.create-schedule')}
             </UiButton>
           </div>

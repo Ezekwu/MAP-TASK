@@ -20,6 +20,8 @@ const variantClasses = {
   tertiary: 'bg-tertiary-300 hover:bg-tertiary-500 text-typography-base',
   'tertiary-outlined':
     'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
+  'tertiary-outlined-filled':
+    'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300 bg-[#FAFAFA]',
 };
 
 const roundedClasses = {
@@ -27,6 +29,7 @@ const roundedClasses = {
   sm: 'rounded-lg',
   md: 'rounded-2xl',
   lg: 'rounded-3xl',
+  full: 'rounded-full',
 };
 
 interface Props {
