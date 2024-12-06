@@ -9,7 +9,6 @@ import ClearTrayConfirmation from './ClearTrayConfirmation';
 import EmptyTrayState from './EmptyTrayState';
 import TrayMealCard, { TrayMeal } from './TrayMealCard';
 
-
 import useMealsQuery from '@/api/query/useMealsQuery';
 
 import useToggle from '@/hooks/useToggle';
@@ -78,7 +77,7 @@ export default function TrayList({
     });
   }, [data, trayMeals]);
 
-  const ClearAllBtn = (
+  const clearAllBtn = (
     <UiButton
       onClick={() => isClearTrayConfirmVisible.on()}
       variant="danger-outlined"
@@ -95,13 +94,13 @@ export default function TrayList({
   return (
     <UiModal
       alignRight={true}
-      edgeNode={!isTrayEmpty && ClearAllBtn}
+      edgeNode={!isTrayEmpty && clearAllBtn}
       isOpen={isOpen}
       onClose={onClose}
       title="Food tray"
     >
       {!isTrayEmpty && (
-        <div className=''>
+        <div>
           <section className="grid gap-8">
             {meals?.map((meal) => (
               <div

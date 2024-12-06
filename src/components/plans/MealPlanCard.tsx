@@ -11,7 +11,6 @@ interface Props {
   isActivePlan?: boolean;
   onAction: (data?: MealPlan) => void;
 }
-
 export default function MealPlanCard({
   mealPlan,
   isColumn,
@@ -32,7 +31,7 @@ export default function MealPlanCard({
 
   return (
     <article
-      className={`rounded-3xl  bg-secondary-100 w-full xs:max-w-[481px] p-3 flex flex-col xs:flex-row ${
+      className={`rounded-3xl  bg-secondary-100 w-full xs:max-w-[520px] p-3 flex flex-col xs:flex-row ${
         isColumn && 'xs:flex-col w-full xs:w-full'
       }  ${isActivePlan && 'bg-tertiary-600'}`}
     >

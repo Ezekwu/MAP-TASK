@@ -3,17 +3,21 @@ import { useTranslation } from 'react-i18next';
 
 import { mealPlans } from '@/api/mock/mealPlans';
 import useMealsQuery from '@/api/query/useMealsQuery';
+
 import BasePage from '@/components/layout/BasePage';
 import MealCard from '@/components/meals/MealCard';
 import MealPlansList from '@/components/plans/MealPlansList';
 import TrayList from '@/components/meals/TrayList';
 import UiIcon from '@/components/ui/UiIcon';
 import MealPlanCard from '@/components/plans/MealPlanCard';
+
+import useToggle from '@/hooks/useToggle';
+
 import Meal from '@/types/Meal';
 import StoredMeal from '@/types/StoredMeal';
+
 import MealTrayHandler from '@/utils/MealTrayHandler';
 import { Toast } from '@/utils/toast';
-import useToggle from '@/hooks/useToggle';
 
 export default function MealPlansPage() {
   const {
@@ -32,22 +36,17 @@ export default function MealPlansPage() {
   const pageMetaData = {
     title: 'Meal plans',
     edgeNode: (
-      <div className="flex gap-3">
-        {/* <button className="w-12 h-12 border border-secondary-700 rounded-2xl flex justify-center items-center">
-          <UiIcon icon="Bell" />
-        </button> */}
-        <button
-          onClick={() => isTrayVisible.on()}
-          className="relative w-12 h-12 bg-secondary-1500 rounded-2xl flex justify-center items-center"
-        >
-          <UiIcon icon="Dish" />
-          {trayMeals.length > 0 && (
-            <span className="absolute bottom-8 left-8 w-[22px] h-[22px] rounded-full bg-primary-500 text-white text-sm font-bold border border-secondary-1500">
-              {trayMeals.length}
-            </span>
-          )}
-        </button>
-      </div>
+      <button
+        onClick={() => isTrayVisible.on()}
+        className="relative w-12 h-12 bg-secondary-1500 rounded-2xl flex justify-center items-center"
+      >
+        <UiIcon icon="Dish" />
+        {trayMeals.length > 0 && (
+          <span className="absolute bottom-8 left-8 w-[22px] h-[22px] rounded-full bg-primary-500 text-white text-sm font-bold border border-secondary-1500">
+            {trayMeals.length}
+          </span>
+        )}
+      </button>
     ),
   };
 
@@ -58,7 +57,9 @@ export default function MealPlansPage() {
       if (!acc.has(meal.mealType)) {
         acc.set(meal.mealType, []);
       }
+
       acc.get(meal.mealType)!.push(meal);
+
       return acc;
     }, new Map());
   }, [meals]);
