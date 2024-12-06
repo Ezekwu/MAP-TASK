@@ -36,7 +36,8 @@
     "auth/invalid-credential": "Invalid email or password",
     "default": "An unexpected error occurred.",
     "home-address": "Home address is a required field",
-    "lga": "Local government area is a required field"
+    "lga": "Local government area is a required field",
+    "auth/cancelled-popup-request": "Authentication was canceled. Please try again"
   },
   "fields": {
     "add-meals-to-schedule": "Add meals to schedule",
@@ -71,8 +72,9 @@
     "by-plan": "By plan"
   },
   "messages": {
-    "passwordResetLinkSent": "Password reset link has been sent to your email",
-    "passwordResetSuccess": "Password has been reset"
+    "meal-added-to-tray-success": "Meal added to tray!",
+    "password-reset-link-sent": "Password reset link has been sent to your email",
+    "password-reset-success": "Password has been reset"
   },
   "modals": {
     "set-schedule": {

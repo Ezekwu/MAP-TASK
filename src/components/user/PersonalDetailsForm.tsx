@@ -116,6 +116,7 @@ export default function PersonalDetailsForm({
             type="phone"
             value={formData.value.phone_number}
             name="phone_number"
+            prefixNode='+234'
             error={errors.phone_number}
             onChange={formData.set}
           />

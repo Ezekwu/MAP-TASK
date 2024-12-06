@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
+import { useTranslation } from 'react-i18next';
+
 
 import { Api } from '@/api';
 
-import UiButton from '@/components/ui/UiButton';
-import UiForm from '@/components/ui/UiForm';
-import UiImageUploader from '@/components/ui/UiImageUploader';
-import UiInput from '@/components/ui/UiInput';
-import UiSelect from '@/components/ui/UiSelect';
+import PersonalDetailsForm from '@/components/user/PersonalDetailsForm';
 
-import { goalOptions, localGovernmentAreaOptions } from '@/config/constants';
 import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 
@@ -19,11 +16,10 @@ import User from '@/types/User';
 import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
 import TokenHandler from '@/utils/TokenHandler';
-import { useTranslation } from 'react-i18next';
 
 // --
 
-export default function PersonalDetailsForm() {
+export default function PersonalDetailsPage() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -102,7 +98,7 @@ export default function PersonalDetailsForm() {
       <h2 className="font-semibold text-[32px] text-left leading-10 mb-10">
         Let’s get to know you
       </h2>
-      <PersonalDetailsForm />
+      <PersonalDetailsForm  onSubmitDetails={submitDetails} forceLoadOff />
       <p className="text-gray-500 text-center mt-20 text-xs font-medium">
         Already have an account?{' '}
         <Link to="/auth/login" className="text-primary font-bold text-gray-950">

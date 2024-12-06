@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
 
+import useMealsQuery from '@/api/query/useMealsQuery';
+
 import BasePage from '@/components/layout/BasePage';
+import MealCard from '@/components/meals/MealCard';
 import SetMealModal from '@/components/meals/SetMealModal';
 import UiButton from '@/components/ui/UiButton';
+import UiToggleButton from '@/components/ui/UiToggleButton';
 
 import useBooleanState from '@/hooks/useBooleanState';
 
 import Meal from '@/types/Meal';
-import useMealsQuery from '@/api/query/useMealsQuery';
-import MealCard from '@/components/meals/MealCard';
-import UiToggleButton from '@/components/ui/UiToggleButton';
 import MealFilter from '@/types/enums/MealFilter';
 
 export default function MealsPage() {

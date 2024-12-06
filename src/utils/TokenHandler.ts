@@ -1,15 +1,15 @@
 class TokenHandler {
   setToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('uid', token);
   }
-  
+
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('uid');
   }
-  
+
   removeToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('uid');
   }
 }
 
-export default new TokenHandler()
+export default new TokenHandler();

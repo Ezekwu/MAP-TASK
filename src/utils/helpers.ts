@@ -22,3 +22,14 @@ export function formatTimestampToDateTime(timestamp: number): string {
 
   return new Intl.DateTimeFormat('en-GB', options).format(date);
 }
+
+export function formatNutrients(nutrients:{
+    fibre?: number;
+    fat?: number;
+    kcal?: number;
+    protein?: number;
+  }) {
+    return Object.entries(nutrients).map(
+      ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
+    );
+}

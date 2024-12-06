@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import UiForm from './UiForm';
 import { FormikErrors } from 'formik';
-import SignUpSchema from '../../utils/schemas/SignUpSchema';
+import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
 
 const defaultData = {
   email: '',
@@ -30,7 +30,7 @@ describe('src/components/ui/UiButton.tsx', () => {
     const formComponent = render(
       <UiForm
         formData={defaultData}
-        schema={SignUpSchema}
+        schema={PersonalDetailsSchema}
         onSubmit={handleSubmit}
       >
         {({ errors }) => {
@@ -61,7 +61,7 @@ describe('src/components/ui/UiButton.tsx', () => {
     const formComponent = render(
       <UiForm
         formData={filledData}
-        schema={SignUpSchema}
+        schema={PersonalDetailsSchema}
         onSubmit={handleSubmit}
       >
         {({ errors }) => {

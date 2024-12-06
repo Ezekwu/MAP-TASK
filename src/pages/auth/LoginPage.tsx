@@ -37,13 +37,16 @@ export default function LoginPage() {
 
       const user = await Api.signInWithEmailAndPassword(formData.value);
 
+      console.log(user);
+
       TokenHandler.setToken(user.uid);
 
       const doesUserExist = await Api.doesDocumentExist('users', user.uid);
 
-      if (doesUserExist) {
-        navigate('/');
+      console.log(doesUserExist);
 
+      if (doesUserExist) {
+        window.location.reload();
         return;
       }
 
@@ -62,6 +65,7 @@ export default function LoginPage() {
   async function loginWithGoogle() {
     try {
       const user = await Api.signInWithGoogle();
+      console.log(user);
 
       TokenHandler.setToken(user.uid);
 
@@ -72,7 +76,11 @@ export default function LoginPage() {
         navigate('/auth/personal-details');
       }
     } catch (error) {
-      console.log(error);
+      const firebaseError = error as FirebaseError;
+
+      const msg = t(`errors.${firebaseError.code}`, t('errors.default'));
+
+      Toast.error({ msg });
     }
   }
 

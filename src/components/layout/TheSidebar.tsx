@@ -1,15 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import EatriteLogo from '../../assets/EatriteWithLuluLogo.svg';
+import EatriteLogo from '@/assets/EatriteLogo.svg';
+import IconProps from '@/types/IconProps';
+
 import UiButton from '../ui/UiButton';
-import UiIcon, { Icons } from '../ui/UiIcon';
+import UiIcon from '../ui/UiIcon';
+
+//--
 
 export interface Group {
   name: string;
   routes: Array<{
     path: string;
     name: string;
-    icon: Icons;
+    icon: React.ComponentType<IconProps>;
   }>;
 }
 
@@ -21,6 +25,10 @@ export default function TheSidebar(props: Props) {
   const location = useLocation();
 
   const activeRoute = location.pathname;
+
+  function isActiveRoute(route: string) {
+    return activeRoute === route;
+  }
 
   function logUserOut() {
     localStorage.removeItem('uid');
@@ -46,12 +54,19 @@ export default function TheSidebar(props: Props) {
                     <Link
                       to={route.path}
                       className={`${
-                        activeRoute === route.path
-                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border'
-                          : 'text-typography-inactive hover:text-typography-base border-transparent'
+                        isActiveRoute(route.path)
+                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border stroke-secondary-1500'
+                          : 'text-typography-inactive hover:text-typography-base'
                       } h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
                     >
-                      <UiIcon icon={route.icon} />
+                      <route.icon
+                        fillColor={
+                          isActiveRoute(route.path) ? '#E2AC64' : '#DBD7D1'
+                        }
+                        strokeColor={
+                          isActiveRoute(route.path) ? '#101413' : '#585755'
+                        }
+                      />
                       <span>{route.name}</span>
                     </Link>
                   </li>
@@ -62,7 +77,7 @@ export default function TheSidebar(props: Props) {
         </ul>
       </div>
 
-      <div className="w-full mb-12 flex items-center justify-between text-typography-base text-sm pl-6">
+      <div className="w-full mb-12 flex items-center  justify-between text-typography-base text-sm pl-6">
         <div className="flex gap-2 items-center">
           <div className="rounded-full w-8 h-8 bg-neutral-600" />
           <span className="text-sm text-typography-base font-medium">
