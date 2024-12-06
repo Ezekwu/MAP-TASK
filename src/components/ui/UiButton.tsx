@@ -53,11 +53,11 @@ export default function UiButton({
 }: Props) {
   return (
     <button
-      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-2 ${
-        !disabled && 'cursor-pointer'
-      } items-center justify-center font-semibold ${block && 'w-full'} ${
-        variantClasses[variant]
-      } ${sizeClasses[size]} ${roundedClasses[rounded]}`}
+      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-3 items-center justify-center font-semibold ${
+        block && 'w-full'
+      } ${variantClasses[variant]} ${sizeClasses[size]} ${
+        roundedClasses[rounded]
+      }`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"

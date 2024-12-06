@@ -14,6 +14,7 @@ interface Props {
   variant?: 'default' | 'light';
   name: string;
   error?: string;
+  optional?: boolean;
   disabled?: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
   onChange: (event: { name: string; value: string | null }) => void;
@@ -25,6 +26,7 @@ export default function UiInput({
   value,
   label,
   variant,
+  optional,
   name,
   placeholder,
   disabled,
@@ -52,7 +54,7 @@ export default function UiInput({
   }, [error]);
 
   return (
-    <UiField label={label} error={error}>
+    <UiField label={label} error={error} optional={optional}>
       <div
         className={`relative flex items-center rounded w-full border text-xs h-[52px] ${validationStyle}`}
       >

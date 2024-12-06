@@ -28,6 +28,7 @@ const AdminMealsPage = lazy(() => import('../pages/admin/dashboard/MealsPage'));
 const AdminSchedulesPage = lazy(
   () => import('../pages/admin/dashboard/SchedulesPage'),
 );
+const AdminUsersPage = lazy(() => import('../pages/admin/dashboard/UsersPage'));
 
 const PageError = lazy(() => import('../components/errors/PageError'));
 
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
           {
             path: 'schedules',
             element: <AdminSchedulesPage />,
+          },
+          {
+            path: 'users',
+            element: <AdminUsersPage />,
           },
         ],
       },

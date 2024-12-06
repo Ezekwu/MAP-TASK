@@ -83,6 +83,10 @@ class ApiService {
     return this.getCollection<Meal>('meal');
   }
 
+  getUsers() {
+    return this.getCollection<User>('users');
+  }
+
   private async getCollection<T>(collectionName: string): Promise<T[]> {
     const rawObjects = await getDocs(collection(db, collectionName));
     return rawObjects.docs.map((doc) => ({

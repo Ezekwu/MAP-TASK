@@ -20,7 +20,7 @@ export default function UiModal({
   const cardStyle = useMemo(() => {
     // TODO: handle sizing seperately from card styling.
     if (alignRight)
-      return 'fixed top-0 right-0 bottom-0 z-50 w-2/5 h-screen overflow-y-auto bg-[#fff]';
+      return 'fixed top-0 right-0 bottom-0 z-20 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
     return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-screen md:h-fit md:max-h-[95vh] mt-12 mx-auto bg-white w-full md:w-2/5 rounded-b-0 md:rounded-b-2xl rounded-2xl overflow-y-auto overflow-x-hidden';
   }, [alignRight]);
@@ -30,7 +30,7 @@ export default function UiModal({
   return (
     <>
       <div
-        className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50"
+        className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50"
         data-testid="overlay"
         onClick={onClose}
       />

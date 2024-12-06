@@ -1,10 +1,8 @@
 import * as Yup from 'yup';
-import { isRequiredMessage } from './validationVariables';
 
 export default Yup.object({
-  first_name: Yup.string().required(isRequiredMessage),
-  last_name: Yup.string().required(isRequiredMessage),
-  phone_number: Yup.string().required(isRequiredMessage),
-  home_adress: Yup.string().required(isRequiredMessage),
-  local_government: Yup.string().required(isRequiredMessage),
+  first_name: Yup.string().required('First name is required'),
+  last_name: Yup.string().required('Last name is required'),
+  phone_number: Yup.string().required('Phone number is required'),
+  goals: Yup.string().required('Your goal is a required field'),
 });
