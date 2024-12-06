@@ -83,7 +83,7 @@ export default function MealPlansPage() {
 
       setTrayMeals((prevMeals) => [...prevMeals, meal]);
 
-      const msg = t(`messages.mealAddedToTraySuccess`);
+      const msg = t(`messages.meal-added-to-tray-success`);
 
       Toast.success({ msg });
     } catch (error) {

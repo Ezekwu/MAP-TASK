@@ -14,7 +14,7 @@ export default function UiDropdownItem({
 }: Props) {
   return (
     <li
-      className={`p-2 text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
+      className={`px-2 py-[10px] text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
       data-testid={dataTestId}
       tabIndex={0}
       role="button"

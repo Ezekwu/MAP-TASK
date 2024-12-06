@@ -65,7 +65,7 @@ export default function UpgradePlan({ isOpen, mealPlan, onClose }: Props) {
               <button
                 key={option?.type}
                 onClick={() => handleActiveCycle(option.type)}
-                className={`flex rounded-2xl p-4  w-[215px] transition-all duration-300 ${
+                className={`flex rounded-2xl p-4 w-full min-w-[215px] transition-all duration-300 ${
                   isActiveCycle(option.type)
                     ? 'bg-secondary-1500 border'
                     : 'border border-tertiary-700  bg-white hover:bg-tertiary-50'

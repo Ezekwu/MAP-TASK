@@ -3,7 +3,7 @@ import UiButton from './UiButton';
 import { useMemo } from 'react';
 
 const sizeClasses = {
-  lg: 'w-2/3',
+  lg: 'w-4/6 max-w-[966px]',
   md: 'w-2/5',
   sm: '',
 };
@@ -43,8 +43,8 @@ export default function UiModal({
         data-testid="overlay"
         onClick={onClose}
       />
-      <div className={` ${cardStyle} ${sizeClasses[size]}`}>
-        <header className="sticky top-0 left-0 w-full bg-white z-20 flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
+      <div className={` ${cardStyle}  ${sizeClasses[size]}`}>
+        <header className="sticky top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
           <h2
             className="text-gray-900 text-xl font-semibold"
             data-testid="modal-title"

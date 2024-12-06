@@ -53,7 +53,7 @@ export default function MealPlanCard({
             MONTHLY PLAN
           </p>
         </div>
-        <div className="mb-10">
+        <div className={`mb-10 xs:mb-[60px]  ${isColumn && 'mb-10'}`}>
           <h3
             className={`text-secondary-1500 ${
               isActivePlan ? 'text-white' : 'text-secondary-1500'
@@ -69,12 +69,13 @@ export default function MealPlanCard({
           <UiButton
             onClick={() => onAction()}
             block
+            rounded="lg"
             variant={isActivePlan ? 'primary' : 'secondary'}
           >
             {isActivePlan ? 'Current plan' : 'Change plan'}
           </UiButton>
           {!isColumn && (
-            <UiButton block variant="danger-text">
+            <UiButton rounded="lg" block variant="danger-text">
               Unsubscribe
             </UiButton>
           )}

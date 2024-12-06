@@ -72,9 +72,9 @@
     "by-plan": "By plan"
   },
   "messages": {
-    "mealAddedToTraySuccess": "Meal added to tray!",
-    "passwordResetLinkSent": "Password reset link has been sent to your email",
-    "passwordResetSuccess": "Password has been reset"
+    "meal-added-to-tray-success": "Meal added to tray!",
+    "password-reset-link-sent": "Password reset link has been sent to your email",
+    "password-reset-success": "Password has been reset"
   },
   "modals": {
     "set-schedule": {

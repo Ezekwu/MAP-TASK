@@ -1,11 +1,5 @@
 import { useMemo } from 'react';
 
-import useMealsQuery from '@/api/query/useMealsQuery';
-import useToggle from '@/hooks/useToggle';
-import StoredMeal from '@/types/StoredMeal';
-import MealTrayHandler from '@/utils/MealTrayHandler';
-import { Toast } from '@/utils/toast';
-
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
 import UiLoader from '../ui/UiLoader';
@@ -14,6 +8,16 @@ import UiModal from '../ui/UiModal';
 import ClearTrayConfirmation from './ClearTrayConfirmation';
 import EmptyTrayState from './EmptyTrayState';
 import TrayMealCard, { TrayMeal } from './TrayMealCard';
+
+
+import useMealsQuery from '@/api/query/useMealsQuery';
+
+import useToggle from '@/hooks/useToggle';
+
+import StoredMeal from '@/types/StoredMeal';
+
+import MealTrayHandler from '@/utils/MealTrayHandler';
+import { Toast } from '@/utils/toast';
 
 //--
 
@@ -97,7 +101,7 @@ export default function TrayList({
       title="Food tray"
     >
       {!isTrayEmpty && (
-        <div>
+        <div className=''>
           <section className="grid gap-8">
             {meals?.map((meal) => (
               <div

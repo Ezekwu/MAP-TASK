@@ -6,6 +6,7 @@ import UiIcon from '../ui/UiIcon';
 import UiTag from '../ui/UiTag';
 
 import Meal from '@/types/Meal';
+import { formatNutrients } from '@/utils/helpers';
 
 export interface TrayMeal extends Meal {
   quantity: number;
@@ -23,9 +24,7 @@ export default function TrayMealCard({
   updateMealQuantity,
 }: Props) {
   const nutrients = useMemo(() => {
-    return Object.entries(meal.nutrients).map(
-      ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
-    );
+    return formatNutrients(meal.nutrients);
   }, [meal]);
 
   return (

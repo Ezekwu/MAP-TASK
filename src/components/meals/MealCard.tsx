@@ -1,8 +1,13 @@
-import Meal from '@/types/Meal';
 import { useMemo } from 'react';
-import UiTag from '../ui/UiTag';
+
+import Meal from '@/types/Meal';
+
+import { formatNutrients } from '@/utils/helpers';
+
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
+import UiTag from '../ui/UiTag';
+
 
 interface Props {
   btnLabel?: string;
@@ -12,9 +17,7 @@ interface Props {
 }
 export default function MealCard(props: Props) {
   const nutrients = useMemo(() => {
-    return Object.entries(props.meal.nutrients).map(
-      ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
-    );
+    return formatNutrients(props?.meal?.nutrients)
   }, [props.meal]);
 
   return (
