@@ -1,10 +1,11 @@
 {
   "actions": {
     "activate-user": "Activate user",
+    "active": "Active",
     "add-meals": "Add meals",
     "add-user": "Add user",
-    "assign-users": "Assign users",
     "assign-schedules-to-users": "Click to assign this schedule to users",
+    "assign-users": "Assign users",
     "back": "Back",
     "cancel": "Cancel",
     "change-plan": "Change plan",
@@ -13,7 +14,9 @@
     "deactivate-user": "Deactivate user",
     "edit-selection": "Edit selection",
     "filter": "Filter",
+    "inactive": "Inactive",
     "manage-plan": "Manage plan",
+    "pending": "Pending",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
     "submit": "Submit",
@@ -73,7 +76,8 @@
     "high-calorie": "HIGH CALORIE",
     "lunch": "Lunch",
     "meals-added": "meals added",
-    "you-havent-created-schedules": "You haven't created any schedules yet."
+    "you-havent-created-schedules": "You haven't created any schedules yet.",
+    "no-schedule-for-this-week": "No schedule has been added for this week."
   },
   "messages": {
     "password-reset-link-sent": "Password reset link has been sent to your email",
@@ -154,7 +158,7 @@
   },
   "pages": {
     "users": "Users",
-    "manage-schedules": "Manage Schedules"
+    "schedules": "Schedules"
   },
   "placeholders": {
     "allergies": "Enter your allergies",
@@ -187,13 +191,16 @@
     "email": "Email",
     "emailAddress": "Email Address",
     "homeAddress": "Home Address",
+    "inactive-schedules": "Inactive schedules",
     "name": "Name",
+    "next-week-schedules": "Next week's schedules",
     "phone-number": "Phone number",
     "phoneNumber": "Phone Number",
     "plan-ends": "Plan ends",
     "plan-starts": "Plan starts",
     "plan": "Plan",
     "status": "Status",
+    "this-week-schedules": "This week's schedules",
     "user-groups": "User groups"
   }
 }

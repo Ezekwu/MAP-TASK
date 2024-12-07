@@ -5,17 +5,23 @@ import { MealType } from '@/types/Meal';
 import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 import UiIcon from '../ui/UiIcon';
-import UiButton from '../ui/UiButton';
+import UiButton, { BtnVariants } from '../ui/UiButton';
 import UiDropDownMenu from '../ui/UiDropdownMenu';
+
+const variants: Record<string, BtnVariants> = {
+  pending: 'warning-light',
+  active: 'primary-light',
+  inactive: 'tertiary',
+};
 
 interface Props {
   schedule: WeeklyMealSchedule;
+  state?: keyof typeof variants;
 }
-export default function ScheduleCard({ schedule }: Props) {
+export default function ScheduleCard({ schedule, state = 'inactive' }: Props) {
   const { t } = useTranslation();
 
   const numOfMeals = useMemo(() => {
-    console.log(schedule);
     let mealCount = 0;
 
     schedule.days.forEach((day) => {
@@ -67,8 +73,8 @@ export default function ScheduleCard({ schedule }: Props) {
         </div>
       </div>
       <div className="flex gap-2 mt-2">
-        <UiButton variant="tertiary" size="lg" block>
-          active
+        <UiButton variant={variants[state]} disabled size="lg" block>
+          {t(`actions.${state}`)}
         </UiButton>
         <UiDropDownMenu options={[]} triggerSize="lg" itemId="" />
       </div>

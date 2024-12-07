@@ -13,6 +13,7 @@ export function useThisAndNextWeekAssignmentsQuery(userId?: string) {
       try {
         const response = await useThisAndNextWeekAssignmentsData();
 
+        console.log(response);
         return response;
       } catch (err) {
         return Promise.reject(err);

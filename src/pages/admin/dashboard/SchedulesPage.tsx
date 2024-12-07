@@ -1,5 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+
+import { useSchedulesQuery } from '@/api/query/useSchedulesQuery';
+import { useThisAndNextWeekAssignmentsQuery } from '@/api/query/useThisAndNextWeekAssignmentsQuery';
 
 import BasePage from '@/components/layout/BasePage';
 import AssignScheduleToUsersModal from '@/components/schedules/AssignScheduleToUsersModal';
@@ -9,10 +13,9 @@ import UiButton from '@/components/ui/UiButton';
 import useKey from '@/hooks/useKey';
 import useToggle from '@/hooks/useToggle';
 
-import { useSchedulesQuery } from '@/api/query/useSchedulesQuery';
-import { useThisAndNextWeekAssignmentsQuery } from '@/api/query/useThisAndNextWeekAssignmentsQuery';
 import ScheduleCard from '@/components/schedules/ScheduleCard';
-import UiEmptyPage from '@/components/ui/UiEmptyPage';
+import UiNoData from '@/components/ui/UiNoData';
+
 import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 export default function SchedulesPage() {
@@ -36,7 +39,7 @@ export default function SchedulesPage() {
   const assignScheduleToUserIsOpen = useToggle(true);
 
   const navDetails = {
-    title: t('pages.manage-schedules'),
+    title: t('pages.schedules'),
     edgeNode: (
       <UiButton
         variant="secondary"
@@ -52,26 +55,62 @@ export default function SchedulesPage() {
   const activeSchedules = useMemo(() => {
     const thisWeekAssignments = thisAndNextWeekAssignments?.thisWeekSchedules;
 
-    if (!thisWeekAssignments || !data) return [];
+    const startOfThisWeek = dayjs().startOf('week').format('ddd MMM DD YYYY');
+    const endOfThisWeek = dayjs().endOf('week').format('ddd MMM DD YYYY');
+
+    const date = `${startOfThisWeek} -  ${endOfThisWeek}`;
+    if (!thisWeekAssignments || !data) return { date, data: [] };
 
     const activeScheduleIds = thisWeekAssignments.map(
       ({ scheduleId }) => scheduleId,
     );
 
-    return data.filter(({ id }) => activeScheduleIds.includes(id));
+    const filteredSchedules = data.filter(({ id }) =>
+      activeScheduleIds.includes(id),
+    );
+
+    return { date, data: filteredSchedules };
   }, [data, thisAndNextWeekAssignments]);
 
   const pendingSchedules = useMemo(() => {
-    const nextWeekAssignments = thisAndNextWeekAssignments?.thisWeekSchedules;
+    const nextWeekAssignments = thisAndNextWeekAssignments?.nextWeekSchedules;
 
-    if (!nextWeekAssignments || !data) return [];
+    const startOfNextWeek = dayjs()
+      .add(1, 'week')
+      .startOf('week')
+      .format('ddd MMM DD YYYY');
+
+    const endOfNextWeek = dayjs()
+      .add(1, 'week')
+      .endOf('week')
+      .format('ddd MMM DD YYYY');
+
+    const date = `${startOfNextWeek} - ${endOfNextWeek}`;
+
+    if (!nextWeekAssignments || !data) return { date, data: [] };
 
     const pendingScheduleIds = nextWeekAssignments.map(
       ({ scheduleId }) => scheduleId,
     );
 
-    return data.filter(({ id }) => pendingScheduleIds.includes(id));
+    const filteredSchedules = data.filter(({ id }) =>
+      pendingScheduleIds.includes(id),
+    );
+
+    return { date, data: filteredSchedules };
   }, [data, thisAndNextWeekAssignments]);
+
+  const inactiveSchedules = useMemo(() => {
+    const existingScheduleIds = [
+      ...pendingSchedules.data.map(({ id }) => id),
+      ...activeSchedules.data.map(({ id }) => id),
+    ];
+
+    return (
+      data?.filter((schedule) => !existingScheduleIds.includes(schedule.id)) ||
+      []
+    );
+  }, [data, pendingSchedules, activeSchedules]);
 
   function onScheduleCreated(schedule: WeeklyMealSchedule) {
     setActiveSchedule(schedule);
@@ -91,20 +130,63 @@ export default function SchedulesPage() {
 
   return (
     <BasePage navDetails={navDetails}>
-      <div className="flex flex-wrap gap-4">
-        {activeSchedules.map((schedule) => (
-          <ScheduleCard key={schedule.id} schedule={schedule} />
-        ))}
-      </div>
-      <div className="flex flex-wrap gap-4">
-        {pendingSchedules.map((schedule) => (
-          <ScheduleCard key={schedule.id} schedule={schedule} />
-        ))}
-      </div>
-      {!data?.length && (
-        <UiEmptyPage
+      {data?.length ? (
+        <>
+          <div className="grid gap-4 border-b-dashed">
+            <span className="text-sm font-medium text-typography-base">
+              {t('titles.this-week-schedules')}{' '}
+              <span className="text-[10px]">({activeSchedules.date})</span>
+            </span>
+
+            {activeSchedules.data.length ? (
+              <div className="flex flex-wrap gap-4 pb-8">
+                {activeSchedules.data.map((schedule) => (
+                  <ScheduleCard
+                    key={schedule.id}
+                    schedule={schedule}
+                    state="active"
+                  />
+                ))}
+              </div>
+            ) : (
+              <UiNoData text={t('general.no-schedule-for-this-week')} />
+            )}
+          </div>
+
+          <div className="grid gap-4 border-b-dashed">
+            <span className="text-sm font-medium text-typography-base mb-4">
+              {t('titles.next-week-schedules')}{' '}
+              <span className="text-[10px]">({pendingSchedules.date})</span>
+            </span>
+
+            <div className="flex flex-wrap gap-4 pb-8">
+              {pendingSchedules.data.map((schedule) => (
+                <ScheduleCard
+                  key={schedule.id}
+                  schedule={schedule}
+                  state="pending"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <span className="text-sm font-medium text-typography-base mb-4">
+              {t('titles.inactive-schedules')}
+            </span>
+
+            <div className="flex flex-wrap gap-4 pb-8">
+              {inactiveSchedules.map((schedule) => (
+                <ScheduleCard key={schedule.id} schedule={schedule} />
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <UiNoData
           actionText={t('actions.create-schedule')}
           onAction={setScheduleIsOpen.on}
+          screen
           text={t('general.you-havent-created-schedules')}
         />
       )}

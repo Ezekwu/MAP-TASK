@@ -65,6 +65,17 @@ export default {
           800: '',
           900: '',
         },
+        warning: {
+          100: '#FFF4E5', // Lightest warning
+          200: '#FFE6CC',
+          300: '#FFD1A3',
+          400: '#FFB973',
+          500: '#FF9E40', // Primary warning color
+          600: '#CC7D33',
+          700: '#995C26',
+          800: '#663D19',
+          900: '#33200D', // Darkest warning
+        },
         navigation: {
           background: '#FAF1E5',
           active: '#EFD1A9',

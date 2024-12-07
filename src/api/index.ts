@@ -147,6 +147,7 @@ class ApiService {
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
   }
+
   private async query<T = unknown>({
     collectionName,
     conditions,
