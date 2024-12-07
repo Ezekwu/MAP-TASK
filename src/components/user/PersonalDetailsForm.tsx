@@ -15,6 +15,7 @@ import User from '@/types/User';
 
 import Cloudinary from '@/utils/Cloudinary';
 import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
+import UiAvatar from '../ui/UiAvatar';
 
 interface Props {
   forceLoadOff?: boolean;
@@ -156,17 +157,7 @@ export default function PersonalDetailsForm({
           />
           {/* TODO: when I merge my admin add meals, use the display/update component to handle this */}
           <div className="flex items-center gap-4">
-            <div>
-              {imgSrc ? (
-                <img
-                  className="w-20 h-20 rounded-full object-cover"
-                  src={imgSrc}
-                  alt="profile image"
-                />
-              ) : (
-                <div className="w-20 h-20 rounded-full bg-primary-500"></div>
-              )}
-            </div>
+            <UiAvatar avatar={imgSrc} />
             <div className="flex flex-col gap-3 mt-5">
               <UiImageUploader
                 name="profile_img"

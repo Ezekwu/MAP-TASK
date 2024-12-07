@@ -7,7 +7,10 @@ import User from '@/types/User';
 
 import { useUsersData } from '../data/useUsersData';
 
-export function useUsersQuery(filter?: FilterData) {
+export function useUsersQuery(queryOptions?: {
+  filter?: FilterData;
+  query?: string | null;
+}) {
   const queryClient = useQueryClient();
 
   const queryKey = ['users'];
@@ -34,6 +37,8 @@ export function useUsersQuery(filter?: FilterData) {
   const filteredData = useMemo(() => {
     if (!users) return [];
 
+    const filter = queryOptions?.filter;
+
     if (!filter) return users;
 
     if (!filter.key || !filter.value) return users;
@@ -47,7 +52,7 @@ export function useUsersQuery(filter?: FilterData) {
     });
 
     return foundUsers;
-  }, [filter, users]);
+  }, [queryOptions?.filter, users]);
 
   function setData(newUser: User) {
     queryClient.setQueryData<User[]>(queryKey, (oldData) => {

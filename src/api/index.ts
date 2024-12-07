@@ -23,6 +23,7 @@ import Admin from '@/types/Admin';
 import Meal from '@/types/Meal';
 import db, { auth, googleProvider } from './firebase';
 import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
+import ScheduleAssignment from '@/types/ScheduleAssignment';
 
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
@@ -73,10 +74,8 @@ class ApiService {
     return this.set('schedule', schedule.id, schedule);
   }
 
-  async doesDocumentExist(collectionName: string, id: string) {
-    const docRef = doc(db, collectionName, id);
-    const docSnap = await getDoc(docRef);
-    return docSnap.exists();
+  assignSchedule(assignment: ScheduleAssignment) {
+    return this.set('weekly-schedules', assignment.id, assignment);
   }
 
   getMeals() {
@@ -87,12 +86,22 @@ class ApiService {
     return this.getCollection<User>('users');
   }
 
+  getSchedules() {
+    return this.getCollection<WeeklyMealSchedule>('schedule');
+  }
+
   private async getCollection<T>(collectionName: string): Promise<T[]> {
     const rawObjects = await getDocs(collection(db, collectionName));
     return rawObjects.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     })) as unknown as T[];
+  }
+
+  async doesDocumentExist(collectionName: string, id: string) {
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists();
   }
 
   private async query<T = unknown>({

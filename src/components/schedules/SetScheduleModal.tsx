@@ -24,7 +24,7 @@ import SetScheduleForm from './SetScheduleForm';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onDone: (scheduleId: string) => void;
+  onDone: (schedule: WeeklyMealSchedule) => void;
   schedule?: WeeklyMealSchedule;
 }
 export default function SetScheduleModal({
@@ -87,7 +87,7 @@ export default function SetScheduleModal({
 
       Toast.success({ msg: t('messages.schedule-created') });
 
-      onDone(schedule.id);
+      onDone(schedule);
     } catch (err) {
       console.error(err);
     } finally {

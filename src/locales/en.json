@@ -3,7 +3,7 @@
     "activate-user": "Activate user",
     "add-meals": "Add meals",
     "add-user": "Add user",
-    "add-schedule": "Add schedule",
+    "assign-users": "Assign users",
     "assign-schedules-to-users": "Click to assign this schedule to users",
     "back": "Back",
     "cancel": "Cancel",
@@ -66,14 +66,19 @@
     "schedule-name": "Schedule name"
   },
   "general": {
-    "high-calorie": "HIGH CALORIE",
     "all": "All",
+    "breakfast": "Breakfast",
     "by-plan": "By plan",
-    "meals-added": "meals added"
+    "dinner":"Dinner",
+    "high-calorie": "HIGH CALORIE",
+    "lunch": "Lunch",
+    "meals-added": "meals added",
+    "you-havent-created-schedules": "You haven't created any schedules yet."
   },
   "messages": {
     "password-reset-link-sent": "Password reset link has been sent to your email",
     "password-reset-success": "Password has been reset",
+    "schedules-assigned-to-users": "Schedules assigned to users",
     "schedule-created": "Schedule created successfully"
   },
   "modals": {

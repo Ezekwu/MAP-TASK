@@ -16,9 +16,15 @@ interface Props {
   options: DropDownData[];
   trigger?: React.ReactNode;
   itemId: string;
+  triggerSize?: 'sm' | 'lg' | 'md';
 }
 
-export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
+export default function UiDropDownMenu({
+  options,
+  itemId,
+  trigger,
+  triggerSize = 'sm',
+}: Props) {
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
 
   function selectOption(option: DropDownData) {
@@ -32,7 +38,7 @@ export default function UiDropDownMenu({ options, itemId, trigger }: Props) {
       {trigger || (
         <UiButton
           data-testid="ui-dropdown-trigger"
-          size="sm"
+          size={triggerSize}
           variant="tertiary"
           onClick={() => setOptionsAreVisible(!optionsAreVisible)}
         >

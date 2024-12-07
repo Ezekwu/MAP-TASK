@@ -1,3 +1,4 @@
+import User from '@/types/User';
 import { v4 as uuidv4 } from 'uuid';
 
 export function generateUuid() {
@@ -46,4 +47,10 @@ export function removeUndefined(obj: any): any {
   }
   // Return the value if it's not an object or array (primitive value)
   return obj;
+}
+
+export function getUserFullName(user?: User) {
+  if (!user) return 'Eatrite user';
+
+  return `${user.first_name || 'Eatrite'} ${user?.last_name || 'User'}`;
 }

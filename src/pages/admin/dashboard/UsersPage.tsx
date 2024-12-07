@@ -27,8 +27,9 @@ export default function UsersPage() {
     value: null,
   });
 
-  const { filteredData: data, setData: setUser } =
-    useUsersQuery(selectedFilter);
+  const { filteredData: data, setData: setUser } = useUsersQuery({
+    filter: selectedFilter,
+  });
 
   const [activeUserId, setActiveUserId] = useState('');
 
