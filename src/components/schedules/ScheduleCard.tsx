@@ -15,6 +15,7 @@ export default function ScheduleCard({ schedule }: Props) {
   const { t } = useTranslation();
 
   const numOfMeals = useMemo(() => {
+    console.log(schedule);
     let mealCount = 0;
 
     schedule.days.forEach((day) => {

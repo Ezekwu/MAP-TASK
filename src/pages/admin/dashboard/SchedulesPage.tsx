@@ -9,10 +9,11 @@ import UiButton from '@/components/ui/UiButton';
 import useKey from '@/hooks/useKey';
 import useToggle from '@/hooks/useToggle';
 
-import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 import { useSchedulesQuery } from '@/api/query/useSchedulesQuery';
-import UiEmptyPage from '@/components/ui/UiEmptyPage';
+import { useThisAndNextWeekAssignmentsQuery } from '@/api/query/useThisAndNextWeekAssignmentsQuery';
 import ScheduleCard from '@/components/schedules/ScheduleCard';
+import UiEmptyPage from '@/components/ui/UiEmptyPage';
+import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 
 export default function SchedulesPage() {
   const { t } = useTranslation();
@@ -23,6 +24,10 @@ export default function SchedulesPage() {
     query: { data },
     setData,
   } = useSchedulesQuery();
+
+  const {
+    query: { data: thisAndNextWeekAssignments },
+  } = useThisAndNextWeekAssignmentsQuery();
 
   const [activeSchedule, setActiveSchedule] =
     useState<WeeklyMealSchedule | null>(null);
@@ -44,6 +49,30 @@ export default function SchedulesPage() {
     ),
   };
 
+  const activeSchedules = useMemo(() => {
+    const thisWeekAssignments = thisAndNextWeekAssignments?.thisWeekSchedules;
+
+    if (!thisWeekAssignments || !data) return [];
+
+    const activeScheduleIds = thisWeekAssignments.map(
+      ({ scheduleId }) => scheduleId,
+    );
+
+    return data.filter(({ id }) => activeScheduleIds.includes(id));
+  }, [data, thisAndNextWeekAssignments]);
+
+  const pendingSchedules = useMemo(() => {
+    const nextWeekAssignments = thisAndNextWeekAssignments?.thisWeekSchedules;
+
+    if (!nextWeekAssignments || !data) return [];
+
+    const pendingScheduleIds = nextWeekAssignments.map(
+      ({ scheduleId }) => scheduleId,
+    );
+
+    return data.filter(({ id }) => pendingScheduleIds.includes(id));
+  }, [data, thisAndNextWeekAssignments]);
+
   function onScheduleCreated(schedule: WeeklyMealSchedule) {
     setActiveSchedule(schedule);
     setData(schedule);
@@ -63,7 +92,12 @@ export default function SchedulesPage() {
   return (
     <BasePage navDetails={navDetails}>
       <div className="flex flex-wrap gap-4">
-        {data?.map((schedule) => (
+        {activeSchedules.map((schedule) => (
+          <ScheduleCard key={schedule.id} schedule={schedule} />
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-4">
+        {pendingSchedules.map((schedule) => (
           <ScheduleCard key={schedule.id} schedule={schedule} />
         ))}
       </div>
