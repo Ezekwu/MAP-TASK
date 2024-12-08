@@ -9,7 +9,7 @@ import useToggle from '@/hooks/useToggle';
 
 import Plans from '@/types/enums/Plans';
 
-import { getUserFullName } from '@/utils/helpers';
+import { generateUuid, getUserFullName } from '@/utils/helpers';
 import { Toast } from '@/utils/toast';
 
 import UiAvatar from '../ui/UiAvatar';
@@ -18,6 +18,7 @@ import UiIconCheckMark from '../ui/UiIconCheckmark';
 import UiModal from '../ui/UiModal';
 import UiScrollableTabs from '../ui/UiScrollableTabs';
 import UiSearchInput from '../ui/UiSearchInput';
+import ScheduleAssignment from '@/types/ScheduleAssignment';
 
 // ---
 
@@ -25,10 +26,12 @@ interface Props {
   scheduleId: string;
   isOpen: boolean;
   onClose: () => void;
+  onDone: (assignments: ScheduleAssignment[]) => void;
 }
 export default function AssignScheduleToUsersModal({
   scheduleId,
   isOpen,
+  onDone,
   onClose,
 }: Props) {
   const { t } = useTranslation();
@@ -85,7 +88,7 @@ export default function AssignScheduleToUsersModal({
         const assignment = {
           scheduleId,
           userId,
-          id: `${userId}-${startDate}-${endDate}`,
+          id: generateUuid(),
           startDate,
           endDate,
           createdAt: Date.now(),
@@ -94,11 +97,11 @@ export default function AssignScheduleToUsersModal({
         return Api.assignSchedule(assignment);
       });
 
-      await Promise.all(requests);
+      const assignments = await Promise.all(requests);
 
       Toast.success({ msg: t('messages.schedules-assigned-to-users') });
 
-      onClose();
+      onDone(assignments);
     } catch (err) {
       console.error(err);
       Toast.error({ msg: t('errors.default') });

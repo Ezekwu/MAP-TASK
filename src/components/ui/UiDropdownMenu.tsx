@@ -10,8 +10,8 @@ import UiIcon from './UiIcon';
 export interface DropDownData {
   label: string;
   func: (id: string) => void;
+  disabled?: boolean;
 }
-
 interface Props {
   options: DropDownData[];
   trigger?: React.ReactNode;
@@ -35,33 +35,36 @@ export default function UiDropDownMenu({
 
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
-      {trigger || (
-        <UiButton
-          data-testid="ui-dropdown-trigger"
-          size={triggerSize}
-          variant="tertiary"
-          onClick={() => setOptionsAreVisible(!optionsAreVisible)}
-        >
-          <UiIcon icon="HorizontalThreeDots" />
-        </UiButton>
-      )}
+      <div className="relative">
+        {trigger || (
+          <UiButton
+            data-testid="ui-dropdown-trigger"
+            size={triggerSize}
+            variant="tertiary"
+            onClick={() => setOptionsAreVisible(!optionsAreVisible)}
+          >
+            <UiIcon icon="HorizontalThreeDots" />
+          </UiButton>
+        )}
 
-      {/* TODO: fix dropdown in modals */}
-      {optionsAreVisible && (
-        <ul
-          data-testid="ui-dropdown-options"
-          className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-50 p-2"
-        >
-          {options.map((option, index) => (
-            <UiDropdownItem
-              key={index}
-              dataTestId={`ui-dropdown-option-${option.label}`}
-              label={option.label}
-              func={() => selectOption(option)}
-            />
-          ))}
-        </ul>
-      )}
+        {/* TODO: fix dropdown in modals */}
+        {optionsAreVisible && (
+          <ul
+            data-testid="ui-dropdown-options"
+            className="absolute bg-white rounded-md mt-2 border-gray-50 border w-fit z-50 p-2"
+          >
+            {options.map((option, index) => (
+              <UiDropdownItem
+                key={index}
+                disabled={option.disabled}
+                dataTestId={`ui-dropdown-option-${option.label}`}
+                label={option.label}
+                func={() => selectOption(option)}
+              />
+            ))}
+          </ul>
+        )}
+      </div>
     </OutsideClickHandler>
   );
 }

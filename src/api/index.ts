@@ -11,6 +11,7 @@ import 'firebase/firestore';
 import {
   WhereFilterOp,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -75,8 +76,10 @@ class ApiService {
     return this.set(Collections.SCHEDULE, schedule.id, schedule);
   }
 
-  assignSchedule(assignment: ScheduleAssignment) {
-    return this.set(Collections.WEEKLY_SCHEDULES, assignment.id, assignment);
+  async assignSchedule(assignment: ScheduleAssignment) {
+    await this.set(Collections.WEEKLY_SCHEDULES, assignment.id, assignment);
+
+    return assignment;
   }
 
   getMeals() {
@@ -135,6 +138,10 @@ class ApiService {
     }
   }
 
+  async deleteSchedule(scheduleId: string) {
+    return this.deleteItem(Collections.SCHEDULE, scheduleId);
+  }
+
   private async getCollection<T>(collectionName: Collections): Promise<T[]> {
     const rawObjects = await getDocs(collection(db, collectionName));
     return rawObjects.docs.map((doc) => ({
@@ -157,7 +164,6 @@ class ApiService {
   }): Promise<T[]> {
     const dbRef = collection(db, collectionName);
 
-    // Dynamically add query conditions
     const rawQuery = query(
       dbRef,
       ...conditions.map(({ key, condition, value }) =>
@@ -186,6 +192,20 @@ class ApiService {
 
   private async set(collectionName: Collections, id: string, data: unknown) {
     return await setDoc(doc(db, collectionName, id), data);
+  }
+
+  private async deleteItem(
+    collectionName: Collections,
+    itemId: string,
+  ): Promise<void> {
+    try {
+      const documentRef = doc(db, collectionName, itemId);
+      await deleteDoc(documentRef);
+      return;
+    } catch (error) {
+      console.error(`Error deleting document: ${error}`);
+      throw error;
+    }
   }
 }
 

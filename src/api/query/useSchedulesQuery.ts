@@ -41,9 +41,18 @@ export function useSchedulesQuery() {
     });
   }
 
+  function removeData(scheduleId: string) {
+    queryClient.setQueryData<WeeklyMealSchedule[]>(queryKey, (oldData) => {
+      if (!oldData) return [];
+
+      return oldData.filter((schedule) => schedule.id !== scheduleId);
+    });
+  }
+
   return {
     query,
     reloadQuery,
     setData,
+    removeData,
   };
 }

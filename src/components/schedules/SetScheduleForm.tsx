@@ -12,6 +12,7 @@ import UiInput from '../ui/UiInput';
 
 import MealTypeSelector from './MealTypeSelector';
 import ScheduleSchema from '@/utils/schemas/ScheduleSchema';
+import { useEffect } from 'react';
 
 // ---
 
@@ -42,6 +43,12 @@ export default function SetScheduleForm({
   function setSchedule() {
     onSubmit(formData.value);
   }
+
+  useEffect(() => {
+    if (!schedule) return;
+
+    formData.set({ value: schedule.name, name: 'name' });
+  }, [schedule]);
 
   return (
     <div className="p-8">
@@ -79,7 +86,10 @@ export default function SetScheduleForm({
               </UiField>
             </div>
             <UiButton block size="lg" loading={loading}>
-              {t('actions.create-schedule')}
+              {}
+              {schedule?.id
+                ? t('actions.update-schedule')
+                : t('actions.create-schedule')}
             </UiButton>
           </div>
         )}

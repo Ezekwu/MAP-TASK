@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Api } from '@/api';
@@ -25,7 +25,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onDone: (schedule: WeeklyMealSchedule) => void;
-  schedule?: WeeklyMealSchedule;
+  schedule?: WeeklyMealSchedule | null;
 }
 export default function SetScheduleModal({
   schedule,
@@ -78,7 +78,7 @@ export default function SetScheduleModal({
 
       const schedule = {
         name,
-        id: generateUuid(),
+        id: localSchedule.id || generateUuid(),
         days: removeUndefined(localSchedule.days) as DaySchedule[],
         createdAt: Date.now(),
       };
@@ -123,6 +123,12 @@ export default function SetScheduleModal({
       />
     ),
   };
+
+  useEffect(() => {
+    if (!schedule) return;
+
+    setLocalSchedule(schedule);
+  }, [schedule]);
 
   return (
     <UiModal isOpen={isOpen} title={title} onClose={onClose}>

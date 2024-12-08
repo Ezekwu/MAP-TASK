@@ -30,10 +30,8 @@ export function formatTimestampToDateTime(timestamp: number): string {
 
 export function removeUndefined(obj: any): any {
   if (Array.isArray(obj)) {
-    // Recursively clean each item in the array
     return obj.map(removeUndefined).filter((item) => item !== undefined);
   } else if (obj && typeof obj === 'object') {
-    // Recursively clean each key in the object
     return Object.entries(obj).reduce(
       (acc, [key, value]) => {
         const cleanedValue = removeUndefined(value);
@@ -45,7 +43,7 @@ export function removeUndefined(obj: any): any {
       {} as Record<string, any>,
     );
   }
-  // Return the value if it's not an object or array (primitive value)
+
   return obj;
 }
 
