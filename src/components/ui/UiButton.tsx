@@ -3,10 +3,10 @@ import { MouseEventHandler } from 'react';
 import UiLoader from './UiLoader';
 
 const sizeClasses = {
-  lg: 'h-[43px] text-sm leading-5',
-  md: 'h-[34px] text-sm',
-  sm: 'h-8 text-xs leading-5',
-  icon: 'w-4 h-8 box-border',
+  lg: 'h-[43px] text-sm leading-5 px-5',
+  md: 'h-[34px] text-sm px-5',
+  sm: 'h-8 text-xs leading-5 px-5',
+  icon: 'h-8 px-2',
 };
 
 const variantClasses = {
@@ -19,6 +19,7 @@ const variantClasses = {
     'bg-danger-100 hover:bg-danger-200 hover:text-light text-danger-200',
   'primary-light': 'bg-primary-100 text-primary-500',
   'warning-light': 'bg-warning-100 text-warning-500',
+  'danger-outlined': 'bg-danger-100  border border-danger-200 text-danger-200',
   tertiary: 'bg-tertiary-300 hover:bg-tertiary-500 text-typography-base',
   'tertiary-outlined':
     'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
@@ -60,11 +61,11 @@ export default function UiButton({
 }: Props) {
   return (
     <button
-      className={`outline-none whitespace-nowrap w-fit px-5 flex gap-3 items-center justify-center font-semibold ${
+      className={`outline-none whitespace-nowrap flex gap-3 items-center justify-center font-semibold ${
         block && 'w-full'
       } ${variantClasses[variant]} ${sizeClasses[size]} ${
         roundedClasses[rounded]
-      }`}
+      } ${disabled && 'cursor-not-allowed opacity-75'}`}
       disabled={disabled}
       type={type}
       data-testid="ui-button"

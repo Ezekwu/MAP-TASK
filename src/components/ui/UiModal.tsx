@@ -2,23 +2,32 @@ import { X } from '@phosphor-icons/react';
 import UiButton from './UiButton';
 import { useMemo } from 'react';
 
+const sizeClasses = {
+  lg: 'w-4/6 max-w-[966px]',
+  md: 'w-2/5',
+  sm: '',
+};
+
 interface Props {
   alignRight?: boolean;
+  size?: keyof typeof sizeClasses;
   children: React.ReactNode;
   isOpen: boolean;
   title: string;
+  edgeNode?: React.ReactNode;
   onClose: () => void;
 }
 export default function UiModal({
   alignRight,
   children,
+  size = 'md',
   isOpen,
   title,
+  edgeNode,
   onClose,
 }: Props) {
   // TODO: animate modals
   const cardStyle = useMemo(() => {
-    // TODO: handle sizing seperately from card styling.
     if (alignRight)
       return 'fixed top-0 right-0 bottom-0 z-20 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
@@ -34,17 +43,20 @@ export default function UiModal({
         data-testid="overlay"
         onClick={onClose}
       />
-      <div className={cardStyle}>
-        <header className="flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
+      <div className={` ${cardStyle}  ${sizeClasses[size]}`}>
+        <header className="sticky top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
           <h2
-            className="text-gray-900 text-md font-bold"
+            className="text-gray-900 text-xl font-semibold"
             data-testid="modal-title"
           >
             {title}
           </h2>
-          <UiButton variant="tertiary-outlined" size="icon" onClick={onClose}>
-            <X size="16" />
-          </UiButton>
+          <div className="flex gap-2 items-center">
+            {edgeNode}
+            <UiButton variant="tertiary-outlined" size="icon" onClick={onClose}>
+              <X size="16" />
+            </UiButton>
+          </div>
         </header>
         <div className="overflow-y-auto">{children}</div>
       </div>

@@ -46,7 +46,8 @@
     "auth/invalid-credential": "Invalid email or password",
     "default": "An unexpected error occurred.",
     "home-address": "Home address is a required field",
-    "lga": "Local government area is a required field"
+    "lga": "Local government area is a required field",
+    "auth/cancelled-popup-request": "Authentication was canceled. Please try again"
   },
   "fields": {
     "add-meals-to-schedule": "Add meals to schedule",
@@ -86,13 +87,14 @@
     "no-schedule-for-this-week": "No schedule has been added for this week."
   },
   "messages": {
+    "meal-added-to-tray-success": "Meal added to tray!",
     "password-reset-link-sent": "Password reset link has been sent to your email",
     "password-reset-success": "Password has been reset",
-    "schedules-assigned-to-users": "Schedules assigned to users",
     "schedule-created": "Schedule created successfully",
+    "schedule-deleted": "Schedule deleted successfully",
+    "schedules-assigned-to-users": "Schedules assigned to users",
     "sure-you-want-to-delete": "Are you sure you want to delete",
-    "this-action-cant-be-undone": "This action cannot be undone.",
-    "schedule-deleted": "Schedule deleted successfully"
+    "this-action-cant-be-undone": "This action cannot be undone."
   },
   "modals": {
     "add-user": {

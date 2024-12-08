@@ -19,12 +19,12 @@ export function ProtectedRoute({
     return <Navigate to={reRouteUrl} />;
   };
 
-  // if (allowNavigationFunc) {
-  //   if (allowNavigationFunc(location.search)) return next;
+  if (allowNavigationFunc) {
+    if (allowNavigationFunc(location.search)) return next;
 
-  //   return reRoute();
-  // }
-  // if (!allowNavigation) return reRoute();
+    return reRoute();
+  }
+  if (!allowNavigation) return reRoute();
 
   return next;
 }

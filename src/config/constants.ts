@@ -1,4 +1,5 @@
 export const priorities = ['Low', 'Medium', 'High', 'Critical'];
+
 export const localGovernmentAreaOptions = [
   { label: 'options.locations.agege', value: 'agege' },
   { label: 'options.locations.alimosho', value: 'alimosho' },

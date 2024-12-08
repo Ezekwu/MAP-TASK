@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useMealsQuery from '@/api/query/useMealsQuery';
+
 import BasePage from '@/components/layout/BasePage';
+import MealCard from '@/components/meals/MealCard';
 import SetMealModal from '@/components/meals/SetMealModal';
 import UiButton from '@/components/ui/UiButton';
+import UiToggleButton from '@/components/ui/UiToggleButton';
 
 import useToggle from '@/hooks/useToggle';
 
-import useMealsQuery from '@/api/query/useMealsQuery';
-import MealCard from '@/components/meals/MealCard';
-import UiToggleButton from '@/components/ui/UiToggleButton';
 import Meal from '@/types/Meal';
 import MealFilter from '@/types/enums/MealFilter';
 

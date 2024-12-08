@@ -4,16 +4,24 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { authGuard, userIsLoggedIn } from './navigationGuards';
 
+console.log(userIsLoggedIn());
+
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 
-const DashboardPage = lazy(() => import('../pages/app/DashboardPage'));
-const CalendarPage = lazy(() => import('../pages/app/CalendarPage'));
-const SignUpPage = lazy(() => import('../pages/auth/SignUpPage'));
-const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+//Pages
+
+const MealPlansPage = lazy(() => import('@/pages/app/MealPlansPage'));
+const DashboardPage = lazy(() => import('@/pages/app/DashboardPage'));
+const CalendarPage = lazy(() => import('@/pages/app/CalendarPage'));
+
+//Auth pages
+
+const SignUpPage = lazy(() => import('@/pages/auth/SignUpPage'));
+const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
 const PersonalDetalsPage = lazy(
-  () => import('../pages/auth/PersonalDetailPage'),
+  () => import('@/pages/auth/PersonalDetailPage'),
 );
 const ForgotPassword = lazy(() => import('../pages/auth/ForgotPasswordPage'));
 const RestPassword = lazy(() => import('../pages/auth/ResetPasswordPage'));
@@ -30,7 +38,7 @@ const AdminSchedulesPage = lazy(
 );
 const AdminUsersPage = lazy(() => import('../pages/admin/dashboard/UsersPage'));
 
-const PageError = lazy(() => import('../components/errors/PageError'));
+const PageError = lazy(() => import('@/components/errors/PageError'));
 
 const router = createBrowserRouter([
   {
@@ -53,12 +61,16 @@ const router = createBrowserRouter([
         path: '/calendar',
         element: <CalendarPage />,
       },
+      {
+        path: '/plans',
+        element: <MealPlansPage />,
+      },
     ],
   },
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" allowNavigation={!userIsLoggedIn()}>
+      <ProtectedRoute reRouteUrl="/" >
         <AuthLayout />
       </ProtectedRoute>
     ),

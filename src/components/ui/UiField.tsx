@@ -11,7 +11,7 @@ export default function UiField({ error, label, children, optional }: Props) {
   const { t } = useTranslation();
 
   return (
-    <div className="text-left relative">
+    <div className="text-left relative  w-full">
       {label && (
         <label className="text-xs font-medium text-typography-label leading-9">
           {label} {optional ? `${t('fields.optional')}` : ''}

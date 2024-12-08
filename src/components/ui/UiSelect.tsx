@@ -87,11 +87,12 @@ export default function UiSelect({
         {optionsAreVisible && (
           <ul
             data-testid="ui-select-options"
-            className="absolute bg-white border-tertiary-700 border rounded-2xl text-gray-700 mt-2  z-20 p-2 w-full"
+            className="absolute bg-white border-tertiary-700 border rounded text-gray-700 mt-2 z-20 p-2 w-full"
           >
             <div className="overflow-auto max-h-72 custom-sidebar">
               {options.map((option, index) => (
                 <UiDropdownItem
+                  isActive={option.value === value}
                   key={index}
                   dataTestId="ui-select-option"
                   disabled={option.disabled}

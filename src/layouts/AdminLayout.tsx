@@ -1,30 +1,44 @@
 import { Outlet } from 'react-router-dom';
 
-import TheSidebar, { Group } from '@/components/layout/TheSidebar';
+import TheSidebar from '@/components/layout/TheSidebar';
+import { Icons } from '@/components/ui/UiIcon';
+import OverviewIcon from '@/components/icons/OverviewIcon';
+import MealIcon from '@/components/icons/MealIcon';
+import CalendarIcon from '@/components/icons/CalendarIcon';
+
+export interface Group {
+  name: string;
+  routes: Array<{
+    path: string;
+    name: string;
+    icon: Icons;
+  }>;
+}
 
 export default function AdminLayout() {
-  const routeGroups: Group[] = [
+  const routeGroups = [
     {
       name: 'MAIN MENU',
       routes: [
         {
           path: '/admin',
-          icon: 'Overview',
+          icon: OverviewIcon,
           name: 'Overview',
         },
         {
           path: '/admin/meals',
-          icon: 'Meal',
+          icon: MealIcon,
           name: 'Meals',
         },
         {
           path: '/admin/users',
-          icon: 'Users',
+          // TODO: replace with actual icon
+          icon: CalendarIcon,
           name: 'Users',
         },
         {
           path: '/admin/schedules',
-          icon: 'Calendar',
+          icon: CalendarIcon,
           name: 'Schedules',
         },
       ],

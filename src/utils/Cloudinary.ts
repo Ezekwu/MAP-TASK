@@ -1,5 +1,4 @@
-import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from "@/config";
-
+import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '@/config';
 
 class Cloudinary {
   async upload(file: File) {
@@ -10,10 +9,10 @@ class Cloudinary {
       formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
       formData.append('resource_type', 'raw');
 
-      const response = await fetch(
-      `${CLOUDINARY_URL}`,
-        { method: 'POST', body: formData },
-      );
+      const response = await fetch(`${CLOUDINARY_URL}`, {
+        method: 'POST',
+        body: formData,
+      });
 
       if (!response.ok) {
         throw new Error('Failed to upload file');

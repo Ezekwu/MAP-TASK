@@ -2,6 +2,11 @@ import { Outlet } from 'react-router-dom';
 import { useUserQuery } from '../api/query/useUserQuery';
 import TheSidebar, { Group } from '../components/layout/TheSidebar';
 import UiLoader from '../components/ui/UiLoader';
+import SupportIcon from '@/components/icons/SupportIcon';
+import CogIcon from '@/components/icons/CogIcon';
+import OverviewIcon from '@/components/icons/OverviewIcon';
+import CalendarIcon from '@/components/icons/CalendarIcon';
+import MealIcon from '@/components/icons/MealIcon';
 
 export default function DashboardLayout() {
   const uid = localStorage.getItem('uid')!;
@@ -17,17 +22,17 @@ export default function DashboardLayout() {
         {
           path: '/',
           name: 'Overview',
-          icon: 'Overview',
+          icon: OverviewIcon,
         },
         {
           path: '/calendar',
           name: 'Calendar',
-          icon: 'Calendar',
+          icon: CalendarIcon,
         },
         {
           path: '/plans',
           name: 'Meal plans',
-          icon: 'Meal',
+          icon: MealIcon,
         },
       ],
     },
@@ -37,12 +42,12 @@ export default function DashboardLayout() {
         {
           path: '/support',
           name: 'Support',
-          icon: 'CustomerSupport',
+          icon: SupportIcon,
         },
         {
           path: '/settings',
           name: 'Settings',
-          icon: 'Cog',
+          icon: CogIcon,
         },
       ],
     },

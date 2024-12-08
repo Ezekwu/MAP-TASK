@@ -52,3 +52,14 @@ export function getUserFullName(user?: User) {
 
   return `${user.first_name || 'Eatrite'} ${user?.last_name || 'User'}`;
 }
+
+export function formatNutrients(nutrients: {
+  fibre?: number;
+  fat?: number;
+  kcal?: number;
+  protein?: number;
+}) {
+  return Object.entries(nutrients).map(
+    ([key, value]) => `${value}${key === 'kcal' ? '' : 'g'} ${key}`,
+  );
+}
