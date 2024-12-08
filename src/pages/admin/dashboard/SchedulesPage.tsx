@@ -236,16 +236,20 @@ export default function SchedulesPage() {
               <span className="text-[10px]">({pendingSchedules.date})</span>
             </span>
 
-            <div className="flex flex-wrap gap-4 pb-8">
-              {pendingSchedules.data.map((schedule) => (
-                <ScheduleCard
-                  key={schedule.id}
-                  schedule={schedule}
-                  state="pending"
-                  onHandleActions={handleActions}
-                />
-              ))}
-            </div>
+            {pendingSchedules.data.length ? (
+              <div className="flex flex-wrap gap-4 pb-8">
+                {pendingSchedules.data.map((schedule) => (
+                  <ScheduleCard
+                    key={schedule.id}
+                    schedule={schedule}
+                    state="pending"
+                    onHandleActions={handleActions}
+                  />
+                ))}
+              </div>
+            ) : (
+              <UiNoData text={t('general.no-schedule-for-next-week')} />
+            )}
           </div>
 
           <div className="grid gap-4">
