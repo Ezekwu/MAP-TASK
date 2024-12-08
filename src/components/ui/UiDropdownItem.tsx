@@ -18,7 +18,9 @@ export default function UiDropdownItem({
 
   return (
     <li
-      className={`p-2 hover:bg-gray-25 text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
+      className={`p-2 hover:bg-gray-25 text-sm rounded-sm whitespace-nowrap ${
+        disabled ? 'cursor-not-allowed' : 'hover:bg-tertiary-100'
+      }`}
       data-testid={dataTestId}
       tabIndex={0}
       role="button"

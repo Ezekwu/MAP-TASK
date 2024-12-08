@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import Meal from '@/types/Meal';
 
-import UiTag from '../ui/UiTag';
-import UiIcon from '../ui/UiIcon';
-import UiSelect from '../ui/UiSelect';
 import OnChangeParams from '@/types/OnChangeParams';
 import UiIconCheckMark from '../ui/UiIconCheckmark';
+import UiSelect from '../ui/UiSelect';
+import UiTag from '../ui/UiTag';
 
 interface Props {
   btnLabel?: string;
@@ -18,6 +17,7 @@ interface Props {
   isSelected?: boolean;
   showDay?: boolean;
   day?: string;
+  weekdayOptions?: { label: string; value: string }[];
 }
 export default function MealItem({
   meal,
@@ -25,40 +25,10 @@ export default function MealItem({
   onRemove,
   day,
   onSelect,
+  weekdayOptions,
   onSelectDay,
 }: Props) {
   const { t } = useTranslation();
-
-  const weekdayOptions = [
-    {
-      label: t('options.sunday'),
-      value: 'sunday',
-    },
-    {
-      label: t('options.monday'),
-      value: 'monday',
-    },
-    {
-      label: t('options.tuesday'),
-      value: 'tuesday',
-    },
-    {
-      label: t('options.wednesday'),
-      value: 'wednesday',
-    },
-    {
-      label: t('options.thursday'),
-      value: 'thursday',
-    },
-    {
-      label: t('options.friday'),
-      value: 'friday',
-    },
-    {
-      label: t('options.saturday'),
-      value: 'saturday',
-    },
-  ];
 
   const nutrients = useMemo(() => {
     return Object.entries(meal.nutrients).map(
@@ -98,7 +68,7 @@ export default function MealItem({
           <div className="text-sm font-semibold text-typography-base my-2">
             {meal.name}
           </div>
-          {day !== undefined ? (
+          {day !== undefined && weekdayOptions ? (
             <UiSelect
               options={weekdayOptions}
               value={day}

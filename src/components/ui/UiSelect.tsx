@@ -11,6 +11,7 @@ import UiField from './UiField';
 export interface Option {
   label: React.ReactNode;
   value: string | boolean;
+  disabled?: boolean;
 }
 
 interface Props {
@@ -93,6 +94,7 @@ export default function UiSelect({
                 <UiDropdownItem
                   key={index}
                   dataTestId="ui-select-option"
+                  disabled={option.disabled}
                   label={
                     typeof option.label === 'string'
                       ? t(option.label)
