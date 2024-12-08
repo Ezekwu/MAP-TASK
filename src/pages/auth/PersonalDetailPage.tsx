@@ -59,7 +59,7 @@ export default function PersonalDetailsPage() {
       <h2 className="font-semibold text-[32px] text-left leading-10 mb-10">
         Let’s get to know you
       </h2>
-      <PersonalDetailsForm onSubmitDetails={submitDetails} forceLoadOff />
+      <PersonalDetailsForm onSubmitDetails={submitDetails} />
       <p className="text-gray-500 text-center mt-20 text-xs font-medium">
         Already have an account?{' '}
         <Link to="/auth/login" className="text-primary font-bold text-gray-950">
