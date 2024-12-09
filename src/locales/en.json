@@ -116,6 +116,11 @@
       "update-title": "Update schedule"
     }
   },
+  "navigation": {
+    "overview": "Overview",
+    "schedule": "Schedule",
+    "meal-plans": "Meal plans"
+  },
   "options": {
     "all": "All",
     "best-seller": "Best Seller",
@@ -169,6 +174,7 @@
   },
   "pages": {
     "users": "Users",
+    "schedule": "Schedule",
     "schedules": "Schedules"
   },
   "placeholders": {

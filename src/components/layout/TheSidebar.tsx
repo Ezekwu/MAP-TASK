@@ -1,8 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 
+import { useUserQuery } from '@/api/query/useUserQuery';
+
 import EatriteLogo from '@/assets/EatriteLogo.svg';
+
 import IconProps from '@/types/IconProps';
 
+import TokenHandler from '@/utils/TokenHandler';
+import { getUserFullName } from '@/utils/helpers';
+
+import UiAvatar from '../ui/UiAvatar';
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
 
@@ -25,6 +32,10 @@ export default function TheSidebar(props: Props) {
   const location = useLocation();
 
   const activeRoute = location.pathname;
+
+  const {
+    query: { data: user },
+  } = useUserQuery(TokenHandler.getToken());
 
   function isActiveRoute(route: string) {
     return activeRoute === route;
@@ -79,9 +90,9 @@ export default function TheSidebar(props: Props) {
 
       <div className="w-full mb-12 flex items-center  justify-between text-typography-base text-sm pl-6">
         <div className="flex gap-2 items-center">
-          <div className="rounded-full w-8 h-8 bg-neutral-600" />
+          <UiAvatar size="sm" avatar={user?.profile_img as string} />
           <span className="text-sm text-typography-base font-medium">
-            {props.isAdmin ? 'Eatrite Admin' : 'Henry Eze'}
+            {props.isAdmin ? 'Eatrite Admin' : `${getUserFullName(user)}`}
           </span>
         </div>
         <UiButton

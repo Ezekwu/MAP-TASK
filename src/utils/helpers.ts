@@ -47,7 +47,7 @@ export function removeUndefined(obj: any): any {
   return obj;
 }
 
-export function getUserFullName(user?: User) {
+export function getUserFullName(user?: User | null) {
   if (!user) return 'Eatrite user';
 
   return `${user.first_name || 'Eatrite'} ${user?.last_name || 'User'}`;

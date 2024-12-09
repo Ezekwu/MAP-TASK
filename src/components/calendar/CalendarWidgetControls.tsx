@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
 import UiToggleButton from '../ui/UiToggleButton';
+import useToggle from '@/hooks/useToggle';
 
 export enum Display {
   WEEK = 'week',
@@ -22,6 +23,8 @@ export default function CalendarWidgetControls({
   onChange,
   onSelectDisplay,
 }: Props) {
+  const changeDisplayIsEnabled = useToggle();
+
   const displayOptions = [
     {
       title: 'Week',
@@ -71,11 +74,13 @@ export default function CalendarWidgetControls({
           <UiIcon icon="CaretRight" size="10" />
         </UiButton>
       </div>
-      <UiToggleButton
-        active={display}
-        options={displayOptions}
-        onSelect={(param) => onSelectDisplay(param as Display)}
-      />
+      {changeDisplayIsEnabled.value && (
+        <UiToggleButton
+          active={display}
+          options={displayOptions}
+          onSelect={(param) => onSelectDisplay(param as Display)}
+        />
+      )}
     </div>
   );
 }

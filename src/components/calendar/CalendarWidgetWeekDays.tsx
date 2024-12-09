@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function CalendarWidgetWeekDays(props: Props) {
-  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Calculate start date and total days in the current month
   const startOfWeek = useMemo(() => {

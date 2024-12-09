@@ -3,9 +3,12 @@ import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import CalenderWidgetDataItem from './CalendarWidgetDataItem';
+import { MealType } from '@/types/Meal';
+
 import CalenderWidgetControls, { Display } from './CalendarWidgetControls';
+import CalenderWidgetDataItem from './CalendarWidgetDataItem';
 import CalendarWidgetWeekDays from './CalendarWidgetWeekDays';
 
 dayjs.extend(weekday);
@@ -16,7 +19,7 @@ interface Props {
   size?: 'sm' | 'lg';
   data?: { date: string | Dayjs; name: string; [key: string]: unknown }[];
   selectDate?: (day: Dayjs) => void;
-  itemNode?: (day: Dayjs) => React.ReactNode;
+  itemNode?: (day: Dayjs, type?: MealType) => React.ReactNode;
 }
 export default function CalendarWidget({
   value,
@@ -24,11 +27,11 @@ export default function CalendarWidget({
   itemNode,
   selectDate,
 }: Props) {
+  const { t } = useTranslation();
   const [display, setDisplay] = useState(Display.WEEK);
 
   const today = dayjs().format('YYYY-MM-DD');
-  const mealTypes = ['Breakfast', 'Lunch', 'Dinner'];
-  const arrayForEachDayOfTheWeek = Array.from({ length: 7 }, (_, i) => i + 1);
+  const mealTypes = Object.values(MealType);
 
   const [activeMonthDayReference, setActiveMonthDayReference] = useState(value);
 
@@ -56,6 +59,14 @@ export default function CalendarWidget({
       };
     });
   }, [numberOfDaysInSelectedMonth, yearOfActiveDate, monthOfActiveDate]);
+
+  const daysInSelectedWeek = useMemo(() => {
+    if (!activeMonthDayReference) return [];
+
+    const startOfWeek = activeMonthDayReference.startOf('week');
+
+    return Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
+  }, [activeMonthDayReference]);
 
   const visibleDaysInPreviousMonth = useMemo(() => {
     const firstDayOfTheMonthWeekday = getWeekday(daysInSelectedMonth[0].date);
@@ -105,25 +116,21 @@ export default function CalendarWidget({
     });
   }, [yearOfActiveDate, monthOfActiveDate, daysInSelectedMonth]);
 
-  const visibleDays = useMemo(
-    () => [
+  const visibleDays = useMemo(() => {
+    return [
       ...visibleDaysInPreviousMonth,
       ...daysInSelectedMonth,
       ...visibleDaysInNextMonth,
-    ],
-    [visibleDaysInPreviousMonth, daysInSelectedMonth, visibleDaysInNextMonth],
-  );
+    ];
+  }, [visibleDaysInPreviousMonth, daysInSelectedMonth, visibleDaysInNextMonth]);
 
   function selectMonth(date: Dayjs) {
     setActiveMonthDayReference(date);
+    selectDate?.(date);
   }
 
   function getWeekday(date: Dayjs | string) {
     return dayjs(date).weekday();
-  }
-
-  function selectDay(e: Dayjs) {
-    selectDate?.(e);
   }
 
   return (
@@ -163,14 +170,14 @@ export default function CalendarWidget({
                       writingMode: 'vertical-rl',
                     }}
                   >
-                    {type}
+                    {t(`general.${type}`)}
                   </div>
                   <ol className="grid grid-cols-7 w-full">
-                    {arrayForEachDayOfTheWeek.map((index) => (
+                    {daysInSelectedWeek.map((day, index) => (
                       <CalenderWidgetDataItem
                         key={index}
                         size={size}
-                        itemNode={(() => itemNode?.(visibleDays[0].date))()}
+                        itemNode={(() => itemNode?.(day, type))()}
                         isCurrent
                       />
                     ))}

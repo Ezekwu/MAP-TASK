@@ -27,6 +27,11 @@ import { WeeklyMealSchedule } from '@/types/WeeklyMealSchedule';
 import ScheduleAssignment from '@/types/ScheduleAssignment';
 import dayjs from 'dayjs';
 
+interface QuerySchema {
+  key: string;
+  condition: WhereFilterOp;
+  value: string | number;
+}
 class ApiService {
   async createUserWithEmailAndPassword(data: AuthDetails) {
     return createUserWithEmailAndPassword(auth, data.email, data.password).then(
@@ -65,7 +70,7 @@ class ApiService {
   }
 
   getUser(userId: string) {
-    return Promise.resolve({ userId, name: 'Henry Eze' });
+    return this.get<User>(Collections.USERS, userId);
   }
 
   setUser(userData: User) {
@@ -90,11 +95,14 @@ class ApiService {
     return this.getCollection<User>(Collections.USERS);
   }
 
+  getSchedule(scheduleId: string) {
+    return this.get<WeeklyMealSchedule>(Collections.SCHEDULE, scheduleId);
+  }
+
   getSchedules() {
     return this.getCollection<WeeklyMealSchedule>(Collections.SCHEDULE);
   }
-
-  async getThisAndNextWeekSchedules() {
+  async getThisAndNextWeekSchedules(userId?: string) {
     const startOfThisWeek = dayjs().startOf('week').toDate().getTime();
     const endOfThisWeek = dayjs().endOf('week').toDate().getTime();
     const startOfNextWeek = dayjs()
@@ -110,22 +118,40 @@ class ApiService {
       .getTime();
 
     try {
-      // Query for this week's schedules
+      const thisWeekConditions: QuerySchema[] = [
+        { key: 'startDate', condition: '>=', value: startOfThisWeek },
+        { key: 'endDate', condition: '<=', value: endOfThisWeek },
+      ];
+
+      if (userId) {
+        thisWeekConditions.push({
+          key: 'userId',
+          condition: '==',
+          value: userId,
+        });
+      }
+
       const thisWeekSchedules = await this.query<ScheduleAssignment>({
         collectionName: Collections.WEEKLY_SCHEDULES,
-        conditions: [
-          { key: 'startDate', condition: '>=', value: startOfThisWeek },
-          { key: 'endDate', condition: '<=', value: endOfThisWeek },
-        ],
+        conditions: thisWeekConditions,
       });
 
-      // Query for next week's schedules
+      const nextWeekConditions: QuerySchema[] = [
+        { key: 'startDate', condition: '>=', value: startOfNextWeek },
+        { key: 'endDate', condition: '<=', value: endOfNextWeek },
+      ];
+
+      if (userId) {
+        nextWeekConditions.push({
+          key: 'userId',
+          condition: '==',
+          value: userId,
+        });
+      }
+
       const nextWeekSchedules = await this.query<ScheduleAssignment>({
         collectionName: Collections.WEEKLY_SCHEDULES,
-        conditions: [
-          { key: 'startDate', condition: '>=', value: startOfNextWeek },
-          { key: 'endDate', condition: '<=', value: endOfNextWeek },
-        ],
+        conditions: nextWeekConditions,
       });
 
       return {

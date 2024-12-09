@@ -6,13 +6,13 @@ import ScheduleAssignment from '@/types/ScheduleAssignment';
 export function useThisAndNextWeekAssignmentsQuery(userId?: string) {
   const queryClient = useQueryClient();
 
-  const queryKey = ['thisAndNextWeekSchedules', userId];
+  const queryKey = ['thisAndNextWeekSchedules', userId || ''];
 
   const query = useQuery({
     queryKey,
     queryFn: async () => {
       try {
-        const response = await useThisAndNextWeekAssignmentsData();
+        const response = await useThisAndNextWeekAssignmentsData(userId);
 
         return response;
       } catch (err) {

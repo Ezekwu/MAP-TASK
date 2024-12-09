@@ -7,9 +7,12 @@ import CogIcon from '@/components/icons/CogIcon';
 import OverviewIcon from '@/components/icons/OverviewIcon';
 import CalendarIcon from '@/components/icons/CalendarIcon';
 import MealIcon from '@/components/icons/MealIcon';
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardLayout() {
   const uid = localStorage.getItem('uid')!;
+
+  const { t } = useTranslation();
 
   const {
     query: { isLoading },
@@ -21,17 +24,17 @@ export default function DashboardLayout() {
       routes: [
         {
           path: '/',
-          name: 'Overview',
+          name: t('navigation.overview'),
           icon: OverviewIcon,
         },
         {
-          path: '/calendar',
-          name: 'Calendar',
+          path: '/schedule',
+          name: t('navigation.schedule'),
           icon: CalendarIcon,
         },
         {
           path: '/plans',
-          name: 'Meal plans',
+          name: t('navigation.meal-plans'),
           icon: MealIcon,
         },
       ],
