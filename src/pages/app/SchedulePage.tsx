@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 import { useScheduleQuery } from '@/api/query/useScheduleQuery';
 import { useThisAndNextWeekAssignmentsQuery } from '@/api/query/useThisAndNextWeekAssignmentsQuery';
+import useMealsQuery from '@/api/query/useMealsQuery';
 
 import CalendarWidget from '@/components/calendar/CalendarWidget';
 import TheTopNav from '@/components/layout/TheTopNav';
@@ -12,9 +13,8 @@ import MealScheduleCard from '@/components/meals/MealScheduleCard';
 
 import { MealType } from '@/types/Meal';
 
-import TokenHandler from '@/utils/TokenHandler';
-import useMealsQuery from '@/api/query/useMealsQuery';
 import UiLoader from '@/components/ui/UiLoader';
+import TokenHandler from '@/utils/TokenHandler';
 
 export default function SchedulesPage() {
   const { t } = useTranslation();
@@ -22,19 +22,15 @@ export default function SchedulesPage() {
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const {
-    query: {
-      data: thisAndNextWeekAssignmentData,
-      isLoading: assignmentIsLoading,
-    },
+    query: { data: thisAndNextWeekAssignments, isLoading: assignmentIsLoading },
   } = useThisAndNextWeekAssignmentsQuery(TokenHandler.getToken());
 
   const { findMealById } = useMealsQuery();
 
   const activeAssignment = useMemo(() => {
-    if (!thisAndNextWeekAssignmentData) return null;
+    if (!thisAndNextWeekAssignments) return null;
 
-    const { thisWeekSchedules, nextWeekSchedules } =
-      thisAndNextWeekAssignmentData;
+    const { thisWeekSchedules, nextWeekSchedules } = thisAndNextWeekAssignments;
 
     const selectedTimestamp = selectedDate.valueOf();
 
@@ -57,7 +53,7 @@ export default function SchedulesPage() {
       return { ...nextWeekAssignment, period: 'nextWeek' };
 
     return null;
-  }, [thisAndNextWeekAssignmentData, selectedDate]);
+  }, [thisAndNextWeekAssignments, selectedDate]);
 
   const {
     query: { data: schedule, isLoading: scheduleIsLoading },
