@@ -1,82 +1,43 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Api } from '@/api';
 
 import PersonalDetailsForm from '@/components/user/PersonalDetailsForm';
 
-import useObjectState from '@/hooks/useObjectState';
 import useToggle from '@/hooks/useToggle';
 
 import User from '@/types/User';
 
 import Cloudinary from '@/utils/Cloudinary';
-import PersonalDetailsSchema from '@/utils/schemas/PersonalDetailsSchema';
 import TokenHandler from '@/utils/TokenHandler';
 
 // --
 
 export default function PersonalDetailsPage() {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
-
-  const [homeAddressNotSetMessage, setHomeAddressNotSetMessage] = useState('');
-  const [lgaNotSetMessage, setLgaNotSetMessage] = useState('');
-
-  const formData = useObjectState({
-    id: '',
-    first_name: '',
-    last_name: '',
-    phone_number: '',
-    location: { home_address: '', local_government: '' },
-    profile_img: null,
-    goals: '',
-    allergies: '',
-  } as User);
-
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
 
   const loading = useToggle();
   const auth = getAuth();
 
   const user = auth.currentUser;
 
-  async function submitDetails() {
+  async function submitDetails(data: User) {
     if (!user) return;
-
-    if (!formData.value.location.home_address) {
-      setHomeAddressNotSetMessage(t('errors.home-address'));
-
-      return;
-    } else {
-      setHomeAddressNotSetMessage('');
-    }
-
-    if (!formData.value.location.local_government) {
-      setLgaNotSetMessage(t('errors.lga'));
-
-      return;
-    } else {
-      setLgaNotSetMessage('');
-    }
 
     loading.on();
 
     let userDetails = {
-      ...formData.value,
+      ...data,
       id: user.uid,
       email: user.email as string,
       createdAt: Date.now(),
     };
 
-    if (formData.value.profile_img) {
-      const imgUrl = await Cloudinary.upload(
-        formData.value.profile_img as File,
-      );
+    if (data.profile_img) {
+      const imgUrl = await Cloudinary.upload(data.profile_img as File);
 
       userDetails = {
         ...userDetails,
@@ -98,7 +59,7 @@ export default function PersonalDetailsPage() {
       <h2 className="font-semibold text-[32px] text-left leading-10 mb-10">
         Let’s get to know you
       </h2>
-      <PersonalDetailsForm  onSubmitDetails={submitDetails} forceLoadOff />
+      <PersonalDetailsForm onSubmitDetails={submitDetails} />
       <p className="text-gray-500 text-center mt-20 text-xs font-medium">
         Already have an account?{' '}
         <Link to="/auth/login" className="text-primary font-bold text-gray-950">

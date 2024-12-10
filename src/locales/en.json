@@ -1,21 +1,31 @@
 {
   "actions": {
     "activate-user": "Activate user",
+    "active": "Active",
     "add-meals": "Add meals",
     "add-user": "Add user",
+    "assign-schedule-to-users": "Assign schedule to users",
     "assign-schedules-to-users": "Click to assign this schedule to users",
+    "assign-users": "Assign users",
     "back": "Back",
     "cancel": "Cancel",
     "change-plan": "Change plan",
     "click-to-add-meals": "Click to add meals",
+    "clone-schedule": "Clone schedule",
     "create-schedule": "Create schedule",
     "deactivate-user": "Deactivate user",
+    "delete-schedule": "Delete schedule",
+    "edit-selection": "Edit selection",
     "filter": "Filter",
+    "inactive": "Inactive",
     "manage-plan": "Manage plan",
+    "pending": "Pending",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
     "submit": "Submit",
-    "view": "View"
+    "update-schedule": "Update schedule",
+    "view": "View",
+    "yes-delete": "Yes, Delete"
   },
   "components": {
     "filter": {
@@ -48,6 +58,7 @@
     "first-name": "First name",
     "goals": "Goals",
     "home-address": "Home address",
+    "how-many": "How many {{text}}?",
     "last-name": "Last name",
     "local-government": "Local government",
     "meal-class": "Meal class",
@@ -62,21 +73,41 @@
     "plan-end-date": "Plan end date",
     "plan-start-date": "Plan start date",
     "plan": "Plan",
-    "price-of-meal": "Price of Meal",
-    "quantity-of-nutrient": "How many {{text}}?",
+    "price-of-meal": "Price of meal",
     "schedule-name": "Schedule name"
   },
   "general": {
-    "high-calorie": "HIGH CALORIE",
     "all": "All",
-    "by-plan": "By plan"
+    "breakfast": "Breakfast",
+    "by-plan": "By plan",
+    "dinner":"Dinner",
+    "high-calorie": "HIGH CALORIE",
+    "lunch": "Lunch",
+    "meals-added": "meals added",
+    "you-havent-created-schedules": "You haven't created any schedules yet.",
+    "no-schedule-for-next-week": "No schedule has been added for next week.",
+    "no-schedule-for-this-week": "No schedule has been added for this week."
   },
   "messages": {
     "meal-added-to-tray-success": "Meal added to tray!",
     "password-reset-link-sent": "Password reset link has been sent to your email",
-    "password-reset-success": "Password has been reset"
+    "password-reset-success": "Password has been reset",
+    "schedule-created": "Schedule created successfully",
+    "schedule-deleted": "Schedule deleted successfully",
+    "schedules-assigned-to-users": "Schedules assigned to users",
+    "sure-you-want-to-delete": "Are you sure you want to delete",
+    "this-action-cant-be-undone": "This action cannot be undone."
   },
   "modals": {
+    "add-user": {
+      "title": "Add user"
+    },
+    "assign-users-to-schedule": {
+      "title": "Assign users to schedule"
+    },
+    "manage-user-plan": {
+      "title": "Manager user plan"
+    },
     "set-schedule": {
       "create-title": "Create schedule",
       "description": "Schedules timeline last for a week by default",
@@ -85,12 +116,6 @@
       "selected-meals-would-appear-here": "Selected meals would appear here",
       "selected-meals": "Selected meals",
       "update-title": "Update schedule"
-    },
-    "manage-user-plan": {
-      "title": "Manager user plan"
-    },
-    "add-user": {
-      "title": "Add user"
     }
   },
   "options": {
@@ -145,7 +170,8 @@
     "wednesday": "Wednesday"
   },
   "pages": {
-    "users": "Users"
+    "users": "Users",
+    "schedules": "Schedules"
   },
   "placeholders": {
     "allergies": "Enter your allergies",
@@ -155,6 +181,7 @@
     "last-name": "Enter your last name",
     "local-government": "Select your LGA",
     "search-meals": "Search meals",
+    "search-users": "Search users",
     "select-day": "Select day",
     "select-new-plan": "Select new plan"
   },
@@ -169,20 +196,25 @@
   },
   "titles": {
     "action": "Action",
-    "dateJoined": "Date Joined",
-    "emailAddress": "Email Address",
-    "homeAddress": "Home Address",
-    "name": "Name",
-    "phoneNumber": "Phone Number",
-    "plan": "Plan",
-    "status": "Status",
-    "email": "Email",
-    "phone-number": "Phone number",
-    "plan-starts": "Plan starts",
-    "plan-ends": "Plan ends",
+    "actions": "Actions",
     "address": "Address",
     "createdAt": "Created at",
     "date-joined": "Date joined",
-    "actions": "Actions"
+    "dateJoined": "Date Joined",
+    "email": "Email",
+    "emailAddress": "Email Address",
+    "homeAddress": "Home Address",
+    "inactive-schedules": "Inactive schedules",
+    "name": "Name",
+    "confirm-action": "Confirm action",
+    "next-week-schedules": "Next week's schedules",
+    "phone-number": "Phone number",
+    "phoneNumber": "Phone Number",
+    "plan-ends": "Plan ends",
+    "plan-starts": "Plan starts",
+    "plan": "Plan",
+    "status": "Status",
+    "this-week-schedules": "This week's schedules",
+    "user-groups": "User groups"
   }
 }

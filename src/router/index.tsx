@@ -4,8 +4,6 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { authGuard, userIsLoggedIn } from './navigationGuards';
 
-console.log(userIsLoggedIn());
-
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -33,6 +31,9 @@ const AdminOverview = lazy(
   () => import('../pages/admin/dashboard/OverviewPage'),
 );
 const AdminMealsPage = lazy(() => import('../pages/admin/dashboard/MealsPage'));
+const AdminSchedulesPage = lazy(
+  () => import('../pages/admin/dashboard/SchedulesPage'),
+);
 const AdminUsersPage = lazy(() => import('../pages/admin/dashboard/UsersPage'));
 
 const PageError = lazy(() => import('@/components/errors/PageError'));
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" >
+      <ProtectedRoute reRouteUrl="/">
         <AuthLayout />
       </ProtectedRoute>
     ),
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
           {
             path: 'meals',
             element: <AdminMealsPage />,
+          },
+          {
+            path: 'schedules',
+            element: <AdminSchedulesPage />,
           },
           {
             path: 'users',

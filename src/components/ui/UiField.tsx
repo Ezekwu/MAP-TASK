@@ -17,7 +17,7 @@ export default function UiField({ error, label, children, optional }: Props) {
           {label} {optional ? `${t('fields.optional')}` : ''}
         </label>
       )}
-      <div>{children}</div>
+      <div className="h-full">{children}</div>
       {error && (
         <div data-testid="error-text" className=" text-danger-200 text-xs mt-1">
           {error}

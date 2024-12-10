@@ -1,5 +1,5 @@
 import { Api } from '@/api';
-import useBooleanState from '@/hooks/useBooleanState';
+import useToggle from '@/hooks/useToggle';
 import useObjectState from '@/hooks/useObjectState';
 import Meal, { MealType } from '@/types/Meal';
 import Cloudinary from '@/utils/Cloudinary';
@@ -14,6 +14,8 @@ import UiModal from '../ui/UiModal';
 import UiSelect from '../ui/UiSelect';
 import UiSelectableTags from '../ui/UiSelectableTags';
 import UiSwitch from '../ui/UiSwitch';
+import { useTranslation } from 'react-i18next';
+import UiField from '../ui/UiField';
 
 interface Props {
   isOpen: boolean;
@@ -22,7 +24,9 @@ interface Props {
   onDone: (data: Meal) => void;
 }
 export default function SetMealModal(props: Props) {
-  const loading = useBooleanState(false);
+  const { t } = useTranslation();
+
+  const loading = useToggle(false);
 
   const defaultMeal = {
     id: '',
@@ -51,45 +55,45 @@ export default function SetMealModal(props: Props) {
 
   const calorieClassOptions = [
     {
-      label: 'High Calorie',
+      label: t('options.high-calorie'),
       value: true,
     },
     {
-      label: 'Low Calorie',
+      label: t('options.low-calorie'),
       value: false,
     },
   ];
 
   const nutrients = [
     {
-      label: 'Fibre',
+      label: t('options.fibre'),
       value: 'fibre',
     },
     {
-      label: 'Fat',
+      label: t('options.fat'),
       value: 'fat',
     },
     {
-      label: 'Protein',
+      label: t('options.protein'),
       value: 'protein',
     },
     {
-      label: 'Calories(kcal)',
+      label: t('options.calories'),
       value: 'kcal',
     },
   ];
 
   const mealTypeOptions = [
     {
-      label: 'Breakfast',
+      label: t('options.breakfast'),
       value: MealType.BREAKFAST,
     },
     {
-      label: 'Lunch',
+      label: t('options.lunch'),
       value: MealType.LUNCH,
     },
     {
-      label: 'Dinner',
+      label: t('options.dinner'),
       value: MealType.DINNER,
     },
   ];
@@ -157,11 +161,11 @@ export default function SetMealModal(props: Props) {
         onSubmit={onSubmit}
       >
         {({ errors }) => (
-          <div className="grid">
+          <div className="grid p-8">
             <div className="border-b-dashed pb-8 grid gap-4">
               <UiInput
                 name="name"
-                label="Meal Name"
+                label={t('fields.meal-name')}
                 error={errors.name}
                 placeholder="e.g Potatoes with minced beef and fried eggs"
                 value={formData.value.name}
@@ -170,14 +174,14 @@ export default function SetMealModal(props: Props) {
               <div className="grid grid-cols-2 gap-4">
                 <UiInput
                   name="price"
-                  label="Price of Meal"
+                  label={t('fields.price-of-meal')}
                   error={errors.price}
                   value={formData.value.price}
                   onChange={formData.set}
                 />
                 <UiSelect
                   name="mealType"
-                  label="Meal Type"
+                  label={t('fields.meal-type')}
                   options={mealTypeOptions}
                   error={errors.mealType}
                   value={formData.value.mealType}
@@ -186,15 +190,17 @@ export default function SetMealModal(props: Props) {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-10 border-b-dashed py-8 mb-8">
-              <UiImageUploadWithView
-                name="img"
-                value={formData.value.img}
-                onChange={formData.set}
-              />
+              <UiField error={errors.img}>
+                <UiImageUploadWithView
+                  name="img"
+                  value={formData.value.img}
+                  onChange={formData.set}
+                />
+              </UiField>
               <div>
                 <div className="border-b-dashed pb-4 mb-4">
                   <UiSwitch
-                    label="Meal status"
+                    label={t('fields.meal-status')}
                     offLabel="Sold Out"
                     onLabel="In Stock"
                     value={Boolean(!formData.value.soldOut)}
@@ -204,7 +210,7 @@ export default function SetMealModal(props: Props) {
                   />
                 </div>
                 <UiSelect
-                  label="Meal class"
+                  label={t('fields.meal-class')}
                   placeholder=""
                   name="highCalorie"
                   onChange={formData.set}
@@ -214,52 +220,29 @@ export default function SetMealModal(props: Props) {
               </div>
             </div>
             <UiSelectableTags
-              label="What nutrients does the meal contain?"
+              label={t('fields.nutrients-of-meal')}
               tags={nutrients}
               value={availableNutrients}
               onChange={(e) => setAvailableNutrients(e as Nutrient[])}
             />
             <div className="my-8 grid gap-4">
-              {hasNutrient('protein') && (
+              {availableNutrients.map((nutrient) => (
                 <UiInput
-                  suffixNode="g"
-                  label="How many g of protein?"
-                  name="nutrients.protein"
+                  name={`nutrients.${nutrient}`}
+                  key={nutrient}
+                  value={formData.value.nutrients[nutrient] || ''}
+                  label={t('fields.how-many', {
+                    text:
+                      nutrient === 'kcal'
+                        ? 'Calories'
+                        : `g of ${
+                            nutrient.charAt(0).toUpperCase() + nutrient.slice(1)
+                          }`,
+                  })}
                   type="number"
-                  value={formData.value.nutrients.protein || ''}
                   onChange={formData.setDeep}
                 />
-              )}
-              {hasNutrient('fat') && (
-                <UiInput
-                  suffixNode="g"
-                  label="How many g of fat?"
-                  name="nutrients.fat"
-                  type="number"
-                  value={formData.value.nutrients.fat || ''}
-                  onChange={formData.setDeep}
-                />
-              )}
-              {hasNutrient('fibre') && (
-                <UiInput
-                  suffixNode="g"
-                  type="number"
-                  label="How many g of fibre?"
-                  name="nutrients.fibre"
-                  value={formData.value.nutrients.fibre || ''}
-                  onChange={formData.setDeep}
-                />
-              )}
-              {hasNutrient('kcal') && (
-                <UiInput
-                  suffixNode="kcal"
-                  type="number"
-                  label="How many calories?"
-                  name="nutrients.kcal"
-                  value={formData.value.nutrients.kcal || ''}
-                  onChange={formData.setDeep}
-                />
-              )}
+              ))}
             </div>
             <div className="mt-4">
               <UiButton size="lg" block loading={loading.value}>

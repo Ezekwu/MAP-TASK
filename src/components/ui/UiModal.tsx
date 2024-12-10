@@ -31,7 +31,7 @@ export default function UiModal({
     if (alignRight)
       return 'fixed top-0 right-0 bottom-0 z-20 w-2/5 h-screen overflow-y-auto bg-[#fff]';
 
-    return 'absolute z-20 top-0 left-0 right-0 bottom-0 h-fit mt-24 mx-auto bg-white p-8 w-2/5 rounded';
+    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-screen md:h-fit md:max-h-[95vh] mt-12 mx-auto bg-white w-full md:w-2/5 rounded-b-0 md:rounded-b-2xl rounded-2xl overflow-y-auto overflow-x-hidden';
   }, [alignRight]);
 
   if (!isOpen) return <></>;
@@ -44,7 +44,7 @@ export default function UiModal({
         onClick={onClose}
       />
       <div className={` ${cardStyle}  ${sizeClasses[size]}`}>
-        <header className="sticky top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
+        <header className="sticky z-10 top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
           <h2
             className="text-gray-900 text-xl font-semibold"
             data-testid="modal-title"
@@ -58,7 +58,7 @@ export default function UiModal({
             </UiButton>
           </div>
         </header>
-        <div className="p-8 overflow-y-auto">{children}</div>
+        <div className="overflow-y-auto">{children}</div>
       </div>
     </>
   );

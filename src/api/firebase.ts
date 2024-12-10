@@ -26,5 +26,14 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
-export { auth, googleProvider };
+enum Collections {
+  ADMIN = 'admin',
+  MEAL = 'meal',
+  USERS = 'users',
+  SCHEDULE = 'schedule',
+  WEEKLY_SCHEDULES = 'weekly-schedules',
+}
+
+export { auth, googleProvider, Collections };
+
 export default db;

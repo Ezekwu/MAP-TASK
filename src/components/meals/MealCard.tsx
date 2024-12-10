@@ -21,6 +21,7 @@ export default function MealCard(props: Props) {
   }, [props.meal]);
 
   return (
+    // TODO: figure out if we should use fixed width or full width
     <div className="w-56 flex flex-col justify-between">
       <div>
         <div className=" overflow-hidden rounded relative">

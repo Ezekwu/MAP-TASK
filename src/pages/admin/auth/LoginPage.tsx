@@ -4,14 +4,16 @@ import UiButton from '@/components/ui/UiButton';
 import UiForm from '@/components/ui/UiForm';
 import UiInput from '@/components/ui/UiInput';
 
-import useBooleanState from '@/hooks/useBooleanState';
+import useToggle from '@/hooks/useToggle';
 import useObjectState from '@/hooks/useObjectState';
 
 import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function AdminLoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const formData = useObjectState({
@@ -19,7 +21,7 @@ export default function AdminLoginPage() {
     password: '',
   });
 
-  const loading = useBooleanState(false);
+  const loading = useToggle(false);
 
   async function loginUser() {
     try {
@@ -50,7 +52,7 @@ export default function AdminLoginPage() {
             <UiInput
               placeholder="Enter email address"
               value={formData.value.email}
-              label="Email"
+              label={t('fields.email')}
               name="email"
               error={errors.email}
               onChange={formData.set}
@@ -60,7 +62,7 @@ export default function AdminLoginPage() {
               type="password"
               value={formData.value.password}
               name="password"
-              label="Password"
+              label={t('fields.password')}
               error={errors.password}
               onChange={formData.set}
             />

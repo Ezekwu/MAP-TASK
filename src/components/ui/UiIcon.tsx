@@ -12,8 +12,8 @@ import Eye from '@/assets/icons/eye.svg?react';
 import EyeSlash from '@/assets/icons/eye-slash.svg?react';
 import Filter from '@/assets/icons/filter.svg?react';
 import Google from '@/assets/icons/google.svg?react';
-import Info from '@/assets/icons/info.svg?react';
 import HorizontalThreeDots from '@/assets/icons/horizontal-three-dots.svg?react';
+import Info from '@/assets/icons/info.svg?react';
 import Logout from '@/assets/icons/logout.svg?react';
 import Meal from '@/assets/icons/meal.svg?react';
 import Minus from '@/assets/icons/minus.svg?react';
@@ -21,6 +21,7 @@ import Notification from '@/assets/icons/notification.svg?react';
 import Overview from '@/assets/icons/overview.svg?react';
 import Plate from '@/assets/icons/plate.svg?react';
 import Plus from '@/assets/icons/plus.svg?react';
+import Search from '@/assets/icons/search.svg?react';
 import Spaghetti from '@/assets/icons/spaghetti.svg?react';
 import Trash from '@/assets/icons/trash.svg?react';
 import TrashX from '@/assets/icons/trash-x.svg?react';
@@ -45,8 +46,8 @@ const icons = {
   EyeSlash,
   Filter,
   Google,
-  Info,
   HorizontalThreeDots,
+  Info,
   Logout,
   Meal,
   Minus,
@@ -54,6 +55,7 @@ const icons = {
   Overview,
   Plate,
   Plus,
+  Search,
   Spaghetti,
   Trash,
   TrashX,

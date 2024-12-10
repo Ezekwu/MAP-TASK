@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import useMealsQuery from '@/api/query/useMealsQuery';
 
@@ -8,13 +9,15 @@ import SetMealModal from '@/components/meals/SetMealModal';
 import UiButton from '@/components/ui/UiButton';
 import UiToggleButton from '@/components/ui/UiToggleButton';
 
-import useBooleanState from '@/hooks/useBooleanState';
+import useToggle from '@/hooks/useToggle';
 
 import Meal from '@/types/Meal';
 import MealFilter from '@/types/enums/MealFilter';
 
 export default function MealsPage() {
-  const setMealIsVisible = useBooleanState(false);
+  const { t } = useTranslation();
+
+  const setMealIsVisible = useToggle(false);
 
   const [activeMeal, setActiveMeal] = useState<Meal | null>(null);
 
@@ -22,23 +25,23 @@ export default function MealsPage() {
 
   const filterOptions = [
     {
-      title: 'All',
+      title: t('options.all'),
       value: MealFilter.ALL,
     },
     {
-      title: 'Spotlight',
+      title: t('options.spotlight'),
       value: MealFilter.SPOTLIGHT,
     },
     {
-      title: 'High Calorie',
+      title: t('options.high-calorie'),
       value: MealFilter.HIGH_CALORIE,
     },
     {
-      title: 'Best Sellers',
+      title: t('options.best-seller'),
       value: MealFilter.BEST_SELLER,
     },
     {
-      title: 'Sold out',
+      title: t('options.sold-out'),
       value: MealFilter.SOLD_OUT,
     },
   ];
@@ -47,7 +50,7 @@ export default function MealsPage() {
     query: { isLoading },
     setData,
     filteredMeals: meals,
-  } = useMealsQuery(filter);
+  } = useMealsQuery({ filter });
 
   const navDetails = useMemo(() => {
     return {
@@ -59,7 +62,7 @@ export default function MealsPage() {
           rounded="md"
           onClick={setMealIsVisible.on}
         >
-          Create new meal
+          Add new meal
         </UiButton>
       ),
     };

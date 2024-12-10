@@ -5,22 +5,31 @@ interface Props {
   func: () => void;
   dataTestId: string;
   isActive?: boolean;
+  disabled?: boolean;
 }
 export default function UiDropdownItem({
   dataTestId,
   label,
   isActive,
+  disabled,
   func,
 }: Props) {
+  function trigger() {
+    if (disabled) return;
+
+    func();
+  }
   return (
     <li
-      className={`px-2 py-[10px] text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100`}
+      className={`px-2 py-[10px] text-sm rounded-sm whitespace-nowrap hover:bg-tertiary-100 ${
+        disabled ? 'cursor-not-allowed' : 'hover:bg-tertiary-100'
+      }`}
       data-testid={dataTestId}
       tabIndex={0}
       role="button"
-      onClick={() => func()}
+      onClick={trigger}
       onKeyDown={(event) => {
-        if (event.key === 'Enter') func();
+        if (event.key === 'Enter') trigger();
       }}
     >
       <div className="flex justify-between items-center">
