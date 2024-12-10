@@ -12,7 +12,9 @@ export function useSchedulesQuery() {
     queryKey,
     queryFn: async () => {
       try {
-        return useSchedulesData();
+        const response = await useSchedulesData();
+
+        return response;
       } catch (err) {
         return Promise.reject(err);
       }

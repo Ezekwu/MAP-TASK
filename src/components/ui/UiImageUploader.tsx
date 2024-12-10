@@ -43,6 +43,7 @@ export default function UiImageUploader({
 
   return (
     <>
+      {/* TODO: figure why this is not working */}
       <UiButton
         size="lg"
         rounded="sm"

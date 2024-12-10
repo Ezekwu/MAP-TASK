@@ -58,6 +58,7 @@
     "first-name": "First name",
     "goals": "Goals",
     "home-address": "Home address",
+    "how-many": "How many {{text}}?",
     "last-name": "Last name",
     "local-government": "Local government",
     "meal-class": "Meal class",
@@ -72,6 +73,7 @@
     "plan-end-date": "Plan end date",
     "plan-start-date": "Plan start date",
     "plan": "Plan",
+    "price-of-meal": "Price of meal",
     "schedule-name": "Schedule name"
   },
   "general": {

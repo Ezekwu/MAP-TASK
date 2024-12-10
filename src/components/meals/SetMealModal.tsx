@@ -161,7 +161,7 @@ export default function SetMealModal(props: Props) {
         onSubmit={onSubmit}
       >
         {({ errors }) => (
-          <div className="grid">
+          <div className="grid p-8">
             <div className="border-b-dashed pb-8 grid gap-4">
               <UiInput
                 name="name"
@@ -229,8 +229,9 @@ export default function SetMealModal(props: Props) {
               {availableNutrients.map((nutrient) => (
                 <UiInput
                   name={`nutrients.${nutrient}`}
+                  key={nutrient}
                   value={formData.value.nutrients[nutrient] || ''}
-                  label={t('fields.quantity-of-nutrient', {
+                  label={t('fields.how-many', {
                     text:
                       nutrient === 'kcal'
                         ? 'Calories'

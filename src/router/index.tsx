@@ -4,8 +4,6 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import { authGuard, userIsLoggedIn } from './navigationGuards';
 
-console.log(userIsLoggedIn());
-
 import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -70,7 +68,7 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: (
-      <ProtectedRoute reRouteUrl="/" >
+      <ProtectedRoute reRouteUrl="/">
         <AuthLayout />
       </ProtectedRoute>
     ),
