@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import Meal, { MealType } from '@/types/Meal';
 
@@ -35,6 +35,15 @@ export default function DayScheduleOverviewModal({
     ) as MealType[];
   }, [schedule]);
 
+  const isSwapDurationPast = useMemo(() => {
+    const fridayOfCurrentWeek = dayjs()
+      .startOf('week')
+      .add(5, 'days')
+      .endOf('day');
+
+    return dayjs().isAfter(fridayOfCurrentWeek, 'day');
+  }, [dayjs()]);
+
   function handleChangeMeal(type: MealType) {
     onSwapMeal({ type, day: schedule?.day });
   }
@@ -57,6 +66,7 @@ export default function DayScheduleOverviewModal({
           <ScheduleOverviewMealItem
             meal={schedule.meals[type]!}
             mealType={type}
+            isWithinSwapDuration={!isSwapDurationPast}
             onChangeMeal={() => handleChangeMeal(type)}
           />
         </div>

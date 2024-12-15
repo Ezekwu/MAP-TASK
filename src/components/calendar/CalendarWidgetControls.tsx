@@ -1,10 +1,16 @@
+import { useMemo } from 'react';
+
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
+
+import useToggle from '@/hooks/useToggle';
+
 import UiButton from '../ui/UiButton';
 import UiIcon from '../ui/UiIcon';
 import UiToggleButton from '../ui/UiToggleButton';
-import useToggle from '@/hooks/useToggle';
 
 export enum Display {
   WEEK = 'week',
@@ -49,6 +55,22 @@ export default function CalendarWidgetControls({
     return `${startFormatted}-${endFormatted}, ${year}`;
   }, [selectedDate, display]);
 
+  const prevIsDisabled = useMemo(() => {
+    const startOfWeek = dayjs().startOf('week');
+    const endOfWeek = dayjs().endOf('week');
+
+    return selectedDate.isBetween(startOfWeek, endOfWeek, 'day', '[]');
+  }, [selectedDate]);
+
+  const nextIsDisabled = useMemo(() => {
+    const endOfWeek = dayjs().endOf('week');
+
+    return !(
+      selectedDate.isBefore(endOfWeek, 'day') ||
+      selectedDate.isSame(endOfWeek, 'day')
+    );
+  }, [selectedDate]);
+
   function goToPrev() {
     const newSelectedDate = dayjs(selectedDate).subtract(1, display);
 
@@ -64,13 +86,23 @@ export default function CalendarWidgetControls({
   return (
     <div className="w-full flex flex-col-reverse xs:flex-row items-start xs:items-center justify-between gap-5 xs:gap-8 py-4">
       <div className="flex items-center w-full justify-between xs:justify-start gap-3 sm:gap-8">
-        <UiButton variant="tertiary" size="icon" onClick={goToPrev}>
+        <UiButton
+          variant="tertiary"
+          size="icon"
+          disabled={prevIsDisabled}
+          onClick={goToPrev}
+        >
           <UiIcon icon="CaretLeft" size="10" />
         </UiButton>
         <span className="text-sm font-semibold text-typography-base">
           {durationDisplayText}
         </span>
-        <UiButton variant="tertiary" size="icon" onClick={goToNext}>
+        <UiButton
+          variant="tertiary"
+          size="icon"
+          disabled={nextIsDisabled}
+          onClick={goToNext}
+        >
           <UiIcon icon="CaretRight" size="10" />
         </UiButton>
       </div>

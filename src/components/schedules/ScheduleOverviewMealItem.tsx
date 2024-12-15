@@ -11,11 +11,13 @@ import UiTag from '../ui/UiTag';
 
 interface Props {
   mealType: MealType;
+  isWithinSwapDuration?: boolean;
   meal: Meal;
   onChangeMeal: () => void;
 }
 export default function ScheduleOverviewMealItem({
   meal,
+  isWithinSwapDuration = true,
   mealType = MealType.BREAKFAST,
   onChangeMeal,
 }: Props) {
@@ -54,9 +56,11 @@ export default function ScheduleOverviewMealItem({
         <p className="text-[12px] text-typography-disabled mb-4">
           {t('general.meals-will-be-delivered-by', { time: times[mealType] })}
         </p>
-        <UiButton variant="tertiary" onClick={onChangeMeal}>
-          {t('actions.change-meal-option')}
-        </UiButton>
+        {isWithinSwapDuration && (
+          <UiButton variant="tertiary" onClick={onChangeMeal}>
+            {t('actions.change-meal-option')}
+          </UiButton>
+        )}
       </div>
     </div>
   );
