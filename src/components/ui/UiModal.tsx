@@ -44,7 +44,7 @@ export default function UiModal({
         onClick={onClose}
       />
       <div className={` ${cardStyle}  ${sizeClasses[size]}`}>
-        <header className="sticky top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
+        <header className="sticky z-10 top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
           <h2
             className="text-gray-900 text-xl font-semibold"
             data-testid="modal-title"
