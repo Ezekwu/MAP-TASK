@@ -18,14 +18,16 @@ interface Props {
   value: Dayjs;
   size?: 'sm' | 'lg';
   data?: { date: string | Dayjs; name: string; [key: string]: unknown }[];
-  selectDate?: (day: Dayjs) => void;
+  onChangeDate?: (day: Dayjs) => void;
   itemNode?: (day: Dayjs, type?: MealType) => React.ReactNode;
+  onSelectDate?: (day: Dayjs) => void;
 }
 export default function CalendarWidget({
   value,
   size = 'lg',
   itemNode,
-  selectDate,
+  onChangeDate,
+  onSelectDate,
 }: Props) {
   const { t } = useTranslation();
   const [display, setDisplay] = useState(Display.WEEK);
@@ -126,7 +128,7 @@ export default function CalendarWidget({
 
   function selectMonth(date: Dayjs) {
     setActiveMonthDayReference(date);
-    selectDate?.(date);
+    onChangeDate?.(date);
   }
 
   function getWeekday(date: Dayjs | string) {
@@ -176,9 +178,12 @@ export default function CalendarWidget({
                     {daysInSelectedWeek.map((day, index) => (
                       <CalenderWidgetDataItem
                         key={index}
+                        day={day}
                         size={size}
+                        hideLabel
                         itemNode={(() => itemNode?.(day, type))()}
                         isCurrent
+                        onSelectDate={onSelectDate}
                       />
                     ))}
                   </ol>

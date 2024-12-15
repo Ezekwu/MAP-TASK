@@ -102,6 +102,14 @@ class ApiService {
   getSchedules() {
     return this.getCollection<WeeklyMealSchedule>(Collections.SCHEDULE);
   }
+
+  getAvailableMeals() {
+    return this.query({
+      collectionName: Collections.MEAL,
+      conditions: [{ key: 'soldOut', condition: '==', value: false }],
+    });
+  }
+
   async getThisAndNextWeekSchedules(userId?: string) {
     const startOfThisWeek = dayjs().startOf('week').toDate().getTime();
     const endOfThisWeek = dayjs().endOf('week').toDate().getTime();
