@@ -17,6 +17,7 @@ import useToggle from '@/hooks/useToggle';
 import TokenHandler from '@/utils/TokenHandler';
 import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Toast } from '@/utils/toast';
+import { Collections } from '@/api/firebase';
 
 // ---
 
@@ -41,9 +42,10 @@ export default function LoginPage() {
 
       TokenHandler.setToken(user.uid);
 
-      const doesUserExist = await Api.doesDocumentExist('users', user.uid);
-
-      console.log(doesUserExist);
+      const doesUserExist = await Api.doesDocumentExist(
+        Collections.USERS,
+        user.uid,
+      );
 
       if (doesUserExist) {
         window.location.reload();
@@ -69,7 +71,11 @@ export default function LoginPage() {
 
       TokenHandler.setToken(user.uid);
 
-      const doesUserExist = await Api.doesDocumentExist('users', user.uid);
+      const doesUserExist = await Api.doesDocumentExist(
+        Collections.USERS,
+        user.uid,
+      );
+
       if (doesUserExist) {
         navigate('/');
       } else {

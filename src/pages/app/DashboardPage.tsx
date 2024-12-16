@@ -54,7 +54,8 @@ export default function DashboardPage() {
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-8">
           {meals.map((meal) => (
-            <MealCard key={meal.id} meal={meal} />
+            <></>
+            // <MealCard key={meal.id} meal={meal} />
           ))}
         </div>
       </div>

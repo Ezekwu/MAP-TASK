@@ -16,6 +16,7 @@ import useObjectState from '@/hooks/useObjectState';
 import EmailAndPasswordSchema from '@/utils/schemas/EmailAndPasswordSchema';
 import { Toast } from '@/utils/toast';
 import User from '@/types/User';
+import { Collections } from '@/api/firebase';
 
 // ---
 
@@ -60,7 +61,10 @@ export default function SignUpForm() {
     try {
       const user = await Api.signInWithGoogle();
 
-      const doesUserExist = await Api.doesDocumentExist('users', user.uid);
+      const doesUserExist = await Api.doesDocumentExist(
+        Collections.USERS,
+        user.uid,
+      );
       if (doesUserExist) {
         navigate('/');
 
