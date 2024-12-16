@@ -209,10 +209,14 @@ export default function SchedulesPage() {
       });
     }
 
+    const clientUpdateText = '- Client update';
+
     return {
       ...updatedSchedule,
       id: generateUuid(),
-      name: `${updatedSchedule.name} - Client update`,
+      name: `${updatedSchedule.name} ${
+        updatedSchedule.name.includes(clientUpdateText) ? '' : clientUpdateText
+      }`,
     };
   }
 
