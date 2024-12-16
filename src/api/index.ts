@@ -104,7 +104,7 @@ class ApiService {
   }
 
   getAvailableMeals() {
-    return this.query({
+    return this.query<Meal>({
       collectionName: Collections.MEAL,
       conditions: [{ key: 'soldOut', condition: '==', value: false }],
     });

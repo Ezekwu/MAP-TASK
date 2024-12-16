@@ -47,6 +47,7 @@ export default function SwapMealModal({
           })}
         </div>
         <div className="flex flex-wrap gap-4">
+          {/* TODO: check if empty state would be needed */}
           {meals.map((meal) => (
             <MealCard
               key={meal.id}
