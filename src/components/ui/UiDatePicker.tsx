@@ -37,6 +37,7 @@ export default function UiDatePicker({
     onChange({ name, value });
     setCalendarIsVisible(false);
   }
+
   return (
     <OutsideClickHandler onOutsideClick={() => setCalendarIsVisible(false)}>
       <UiField error={error} label={label}>
@@ -60,7 +61,7 @@ export default function UiDatePicker({
             data-testid="ui-date-picker-calendar"
             className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
           >
-            <CalendarWidget value={value} size="sm" selectDate={selectDate} />
+            {/* <CalendarWidget value={value} size="sm" selectDate={selectDate} /> */}
           </div>
         )}
       </UiField>

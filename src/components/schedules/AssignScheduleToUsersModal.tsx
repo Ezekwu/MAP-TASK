@@ -88,7 +88,7 @@ export default function AssignScheduleToUsersModal({
         const assignment = {
           scheduleId,
           userId,
-          id: generateUuid(),
+          id: `${userId}-${startDate}-${endDate}`,
           startDate,
           endDate,
           createdAt: Date.now(),

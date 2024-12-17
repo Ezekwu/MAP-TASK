@@ -9,6 +9,7 @@
     "assign-users": "Assign users",
     "back": "Back",
     "cancel": "Cancel",
+    "change-meal-option": "Change meal option",
     "change-plan": "Change plan",
     "click-to-add-meals": "Click to add meals",
     "clone-schedule": "Clone schedule",
@@ -20,12 +21,14 @@
     "inactive": "Inactive",
     "manage-plan": "Manage plan",
     "pending": "Pending",
+    "select-meal": "Select meal",
     "set-date": "Set date",
     "sign-in-with-google": "Sign in with Google",
     "submit": "Submit",
     "update-schedule": "Update schedule",
     "view": "View",
-    "yes-delete": "Yes, Delete"
+    "yes-delete": "Yes, Delete",
+    "yes-switch": "Yes, Switch"
   },
   "components": {
     "filter": {
@@ -83,13 +86,18 @@
     "dinner":"Dinner",
     "high-calorie": "HIGH CALORIE",
     "lunch": "Lunch",
+    "available-meals-text": "Here are the meals available for {{type}} on {{day}}",
     "meals-added": "meals added",
+    "meals-will-be-delivered-by": "Meals will be delivered on or before {{time}}",
     "you-havent-created-schedules": "You haven't created any schedules yet.",
     "no-schedule-for-next-week": "No schedule has been added for next week.",
     "no-schedule-for-this-week": "No schedule has been added for this week."
   },
   "messages": {
+    "are-you-sure-you-want-to-change-meal": "Are you sure you want to switch your {{mealType}} for {{day}}?",
+    "schedule-not-properly-formatted": "Schedule not properly formatted",
     "meal-added-to-tray-success": "Meal added to tray!",
+    "no-schedule-exists-to-change": "No schedule exists to change",
     "password-reset-link-sent": "Password reset link has been sent to your email",
     "password-reset-success": "Password has been reset",
     "schedule-created": "Schedule created successfully",
@@ -116,7 +124,15 @@
       "selected-meals-would-appear-here": "Selected meals would appear here",
       "selected-meals": "Selected meals",
       "update-title": "Update schedule"
+    },
+    "swap-meal": {
+      "title": "Swap meal"
     }
+  },
+  "navigation": {
+    "overview": "Overview",
+    "schedule": "Schedule",
+    "meal-plans": "Meal plans"
   },
   "options": {
     "all": "All",
@@ -171,6 +187,7 @@
   },
   "pages": {
     "users": "Users",
+    "schedule": "Schedule",
     "schedules": "Schedules"
   },
   "placeholders": {

@@ -1,21 +1,20 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useUserData } from '../data/useUserData';
+import useSchedulesData from '../data/useSchedulesData';
+import useScheduleData from '../data/useScheduleData';
 
-export function useUserQuery(userId?: string | null) {
+export function useScheduleQuery(scheduleId?: string) {
   const queryClient = useQueryClient();
 
-  const queryKey = ['user', userId];
+  const queryKey = ['schedule', scheduleId];
 
   const query = useQuery({
     queryKey,
     queryFn: async () => {
       try {
-        if (!userId) return null;
+        if (!scheduleId) return null;
 
-        const response = await useUserData(userId);
-
-        return response;
+        return useScheduleData(scheduleId);
       } catch (err) {
         return Promise.reject(err);
       }

@@ -4,7 +4,7 @@ class TokenHandler {
   }
 
   getToken() {
-    return localStorage.getItem('uid');
+    return localStorage.getItem('uid') || undefined;
   }
 
   removeToken() {

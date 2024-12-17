@@ -47,7 +47,7 @@ const pastMealTypeConfigs = {
 
 interface Props {
   type: keyof typeof mealTypeConfigs;
-  meal: Partial<Meal>;
+  meal: Meal;
   isPast?: boolean;
 }
 export default function MealScheduleCard(props: Props) {

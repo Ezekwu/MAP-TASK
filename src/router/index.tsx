@@ -8,13 +8,13 @@ import AuthLayout from '../layouts/AuthLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 
-//Pages
+// Pages
 
 const MealPlansPage = lazy(() => import('@/pages/app/MealPlansPage'));
 const DashboardPage = lazy(() => import('@/pages/app/DashboardPage'));
-const CalendarPage = lazy(() => import('@/pages/app/CalendarPage'));
+const SchedulePage = lazy(() => import('@/pages/app/SchedulePage'));
 
-//Auth pages
+// Auth pages
 
 const SignUpPage = lazy(() => import('@/pages/auth/SignUpPage'));
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -56,8 +56,8 @@ const router = createBrowserRouter([
         element: <DashboardPage />,
       },
       {
-        path: '/calendar',
-        element: <CalendarPage />,
+        path: '/schedule',
+        element: <SchedulePage />,
       },
       {
         path: '/plans',

@@ -19,6 +19,8 @@ import StoredMeal from '@/types/StoredMeal';
 import MealTrayHandler from '@/utils/MealTrayHandler';
 import { Toast } from '@/utils/toast';
 
+// ---
+
 export default function MealPlansPage() {
   const {
     query: { data: meals, isLoading },

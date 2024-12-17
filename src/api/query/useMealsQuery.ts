@@ -22,6 +22,7 @@ export default function useMealsQuery(props?: Props) {
     queryFn: async () => {
       try {
         const response = await useMealsData();
+
         return response;
       } catch (err) {
         return Promise.reject(err);
