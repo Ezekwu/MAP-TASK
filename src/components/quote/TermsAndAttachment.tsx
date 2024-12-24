@@ -3,6 +3,7 @@ import { QuoteTermsAndAttachments } from "@/types/Quote";
 import UiInput from "../ui/UiInput";
 import UiSelect from "../ui/UiSelect";
 import { paymentTerms, deliverySchedule, leadTime, shippingMethods } from "@/utils/constants";
+import UiIcon from "../ui/UiIcon";
 
 
 interface Props {
@@ -47,13 +48,24 @@ export default function TermsAndAttachment({ termsAndAttachments }: Props) {
           options={shippingMethods}
           onChange={formData.set}
         />
-        <UiSelect
+        <UiInput
           name="shippingMethod"
-          label="Shipping Method"
-          value={formData.value.shippingMethod}
-          options={shippingMethods}
+          label="Lead time"
+          value={formData.value.leadTime}
           onChange={formData.set}
+          suffixNode={
+            <div className="flex gap-1 items-center h-6 px-2 bg-tertiary-50 rounded">
+              Days <UiIcon icon="CaretDown" size="16" />
+            </div>
+          }
         />
+        <div className="border border-tertiary-300" />
+      </div>
+      <div className="mt-4">
+        <h4 className="font-bold text-primary-1000 mb-2">Attachments</h4>
+        <p className="text-sm text-tertiary-350">
+          Attach all necessary files or documents
+        </p>
       </div>
     </div>
   );

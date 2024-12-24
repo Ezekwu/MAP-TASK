@@ -9,7 +9,7 @@ body {
   height: 100%;
   overflow: hidden;
   text-align: left;
-  font-family: 'Montserrat', serif;
+  font-family: "Montserrat", serif;
 }
 
 .or-border::before {
