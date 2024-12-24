@@ -14,7 +14,6 @@ const RequestInformation = lazy(
 const TermsAndAttachment = lazy(()=> import('@/components/quote/TermsAndAttachment'));
 const Review = lazy(() => import('@/components/quote/Review'));
 
-
 export default function RespondToQuote() {
   const [quote, setQuote] = useState(quotes[0]);
   const [activeStep, setActiveStep] = useState(0);
@@ -28,7 +27,7 @@ export default function RespondToQuote() {
     {
       title: 'Terms and Attachments',
       description: 'Payment and delivery terms',
-      component: <TermsAndAttachment/>,
+      component: <TermsAndAttachment termsAndAttachments={quote.termsAndAttachments}/>,
     },
     {
       title: 'Review',

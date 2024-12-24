@@ -13,7 +13,7 @@ type QuoteTotals = {
   total: number;
 };
 
-type QuoteTermsAndAttachments = {
+export type QuoteTermsAndAttachments = {
   paymentTerms: string;
   shippingMethod: string;
   deliverySchedule: string;
