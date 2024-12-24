@@ -66,23 +66,26 @@ export default function RespondToQuote() {
             />
           ))}
         </div>
-        {quoteResponceSteps[activeStep].component}
-        <div className="mt-10 w-full flex gap-6 justify-end">
-          <UiButton size="lg" variant="tertiary">
-            Cancel
-          </UiButton>
-          <div className="w-[188px]">
-            <UiButton variant="secondary" size="lg" block>
-              Save as draft
+        <UiBorderedBox>
+          {quoteResponceSteps[activeStep].component}
+
+          <div className="mt-10 w-full flex gap-6 justify-end">
+            <UiButton size="lg" variant="tertiary">
+              Cancel
             </UiButton>
+            <div className="w-[188px]">
+              <UiButton variant="secondary" size="lg" block>
+                Save as draft
+              </UiButton>
+            </div>
+            <div className="w-[188px]">
+              {' '}
+              <UiButton onClick={handleActiveStep} size="lg" block>
+                Continue
+              </UiButton>
+            </div>
           </div>
-          <div className="w-[188px]">
-            {' '}
-            <UiButton onClick={handleActiveStep} size="lg" block>
-              Continue
-            </UiButton>
-          </div>
-        </div>
+        </UiBorderedBox>
       </div>
     </section>
   );

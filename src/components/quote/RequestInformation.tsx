@@ -118,7 +118,7 @@ export default function RequestInformation({ quote }: Props) {
   }, [quote.items]);
 
   return (
-    <UiBorderedBox>
+    <div>
       <div className="mb-8">
         <h3 className="text-xl mb-2 font-bold text-primary-1000">
           Request for Quote
@@ -189,6 +189,6 @@ export default function RequestInformation({ quote }: Props) {
           maxChar={200}
         />
       </div>
-    </UiBorderedBox>
+    </div>
   );
 }
