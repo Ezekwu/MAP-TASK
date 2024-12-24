@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { quotes } from '@/api/mock/quoteDetails';
 
-import QuoteResponceStep from '@/components/quote/QuoteResponceStep';
+import QuoteResponseStep from '@/components/quote/QuoteResponseStep';
+import QuoteResponseConfirmation from '@/components/quote/QuoteResponseConfirmation';
 import TheTopNav from '@/components/layout/TheTopNav';
 import UiBorderedBox from '@/components/ui/UiBorderedBox';
 import UiButton from '@/components/ui/UiButton';
+import UiModal from '@/components/ui/UiModal';
+import useToggle from '@/hooks/useToggle';
 
 const RequestInformation = lazy(
   () => import('@/components/quote/RequestInformation'),
@@ -19,6 +22,8 @@ const Review = lazy(() => import('@/components/quote/Review'));
 export default function RespondToQuote() {
   const [quote, setQuote] = useState(quotes[0]);
   const [activeStep, setActiveStep] = useState(0);
+
+  const isQuoteResConfirmVisible = useToggle()
 
   const quoteResponceSteps = [
     {
@@ -41,8 +46,11 @@ export default function RespondToQuote() {
   ];
 
   function goToNextStep() {
-    if (activeStep < quoteResponceSteps.length - 1)
+    if (activeStep < quoteResponceSteps.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else if (activeStep === quoteResponceSteps.length - 1) {
+      isQuoteResConfirmVisible.on();
+    }
   }
 
   function handleStep (step: number) {
@@ -67,7 +75,7 @@ export default function RespondToQuote() {
         </div>
         <div className="border border-tertiary-300 rounded-[10px] px-5 py-6 flex gap-6 mb-8">
           {quoteResponceSteps.map((step, index) => (
-            <QuoteResponceStep
+            <QuoteResponseStep
               step={step}
               stepNumber={index + 1}
               currentStep={activeStep + 1}
@@ -96,6 +104,10 @@ export default function RespondToQuote() {
           </div>
         </UiBorderedBox>
       </div>
+      <QuoteResponseConfirmation
+        isOpen={isQuoteResConfirmVisible.value}
+        onClose={() => isQuoteResConfirmVisible.off()}
+      />
     </section>
   );
 }

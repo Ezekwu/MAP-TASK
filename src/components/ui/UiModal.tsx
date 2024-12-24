@@ -1,6 +1,6 @@
 import { X } from '@phosphor-icons/react';
 import UiButton from './UiButton';
-import { useMemo } from 'react';
+import { Children, useMemo } from 'react';
 
 const sizeClasses = {
   lg: 'w-4/6 max-w-[966px]',
@@ -9,30 +9,21 @@ const sizeClasses = {
 };
 
 interface Props {
-  alignRight?: boolean;
   size?: keyof typeof sizeClasses;
   children: React.ReactNode;
   isOpen: boolean;
-  title: string;
-  edgeNode?: React.ReactNode;
   onClose: () => void;
 }
 export default function UiModal({
-  alignRight,
   children,
   size = 'md',
   isOpen,
-  title,
-  edgeNode,
   onClose,
 }: Props) {
   // TODO: animate modals
   const cardStyle = useMemo(() => {
-    if (alignRight)
-      return 'fixed top-0 right-0 bottom-0 z-20 w-2/5 h-screen overflow-y-auto bg-[#fff]';
-
-    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-screen md:h-fit md:max-h-[95vh] mt-12 mx-auto bg-white w-full md:w-2/5 rounded-b-0 md:rounded-b-2xl rounded-2xl overflow-y-auto overflow-x-hidden';
-  }, [alignRight]);
+    return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit py-8 px-6 rounded-lg mt-12 mx-auto bg-white w-full md:w-2/5 overflow-y-auto overflow-x-hidden';
+  }, []);
 
   if (!isOpen) return <></>;
 
@@ -43,23 +34,7 @@ export default function UiModal({
         data-testid="overlay"
         onClick={onClose}
       />
-      <div className={` ${cardStyle}  ${sizeClasses[size]}`}>
-        <header className="sticky z-10 top-0 left-0 w-full bg-white flex justify-between items-center border-b border-tertiary-700 p-8 pb-4">
-          <h2
-            className="text-gray-900 text-xl font-semibold"
-            data-testid="modal-title"
-          >
-            {title}
-          </h2>
-          <div className="flex gap-2 items-center">
-            {edgeNode}
-            <UiButton variant="tertiary-outlined" size="icon" onClick={onClose}>
-              <X size="16" />
-            </UiButton>
-          </div>
-        </header>
-        <div className="overflow-y-auto">{children}</div>
-      </div>
+      <div className={` ${cardStyle}  ${sizeClasses[size]}`}>{children}</div>
     </>
   );
 }
