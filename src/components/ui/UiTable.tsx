@@ -1,88 +1,113 @@
-import { ReactNode } from 'react';
-import UidropdownMenu, { DropDownData } from './UiDropdownMenu';
 
-interface Header {
+import UiCheckbox from './UiCheckbox';
+
+export interface Header {
   title: string;
-  /** This field would be used to query the data object for how the data should be displayed.
-   * It should be the same as the key of the key-value pair in the array.
-   */
   query: string;
+  alignText?: 'left' | 'right' | 'center';
 }
-interface Row extends Record<string, any> {
-  id: string;
+export interface Row extends Record<string, any> {
+  _id: string;
+  isCheckable?: boolean;
 }
 interface Props {
-  // Any is forbidden in this codebase. However, for the sake of the flexibility this component needs,
-  // it's required that we disable the type checks to make it truly dynamic.
-  /**
-   * This field is used to pass in data that would be displayed by the custom table.
-   * This field would be queried through the query parameter placed in the header of the table column.
-   * Hence, it needs to be the same as the
-   */
   data: Row[];
   headers: Header[];
-  controlsNode?: ReactNode;
-  /** This prop accepts a function in case there is a need to filter options available for rows based on data available */
-  options?: DropDownData[] | ((row: Row) => DropDownData[]);
+  checkable?: boolean;
+  checkedIds?: string[];
+  link?: string;
+  simplified?: boolean; 
+  onCheckboxChange?: (id: string) => void;
+  checkAllIds?: () => void;
+  actionTriggers?: (id: string) => React.ReactNode;
   onRowClick?: (id: string) => void;
 }
 export default function UiTable({
   headers,
+  checkable,
+  checkedIds,
+  link,
+  simplified=false,
+  checkAllIds,
+  onCheckboxChange,
   data,
-  controlsNode,
-  options,
+  actionTriggers,
 }: Props) {
+
+  
   return (
-    <div className="border border-tertiary-700 rounded-2xl">
-      {controlsNode && (
-        <header className="p-4 border-b border-tertiary-700">
-          {controlsNode}
-        </header>
-      )}
-      <table className="w-full text-left rounded overflow-hidden ">
-        <thead className="bg-primary-10 rounded-md bg-secondary-100">
-          <tr>
-            {headers.map((header, index) => (
-              <th
-                key={`header-${index}`}
-                data-testid={`ui-table-header-${header.query}`}
-                className="py-2.5 px-2.5 text-xs capitalize font-medium text-typography-disabled"
-              >
-                {header.title}
-              </th>
-            ))}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody className="bg-white">
-          {data.map((item) => (
+    <>
+      <div
+        className={`bg-white ${simplified ? 'border-none' : 'border  border-tertiary-300'}  rounded-lg hidden md:block`}
+      >
+        <table className="w-full text-left">
+          <thead className="">
             <tr
-              key={`data-item-${item.id}`}
-              className="border-b last:border-b-0 border-tertiary-700"
+              className={` rounded-md  ${simplified ? 'border-none bg-tertiary-50' : 'border-b border-tertiary-300'} bg-[#F9FAFB] overflow-hidden`}
             >
-              {headers.map((header, index) => (
-                <td
-                  data-testid={`ui-table-data-${header.query}`}
-                  key={`${header.query}-${index}`}
-                  className="p-4 text-xs text-secondary-1500 capitalize"
-                >
-                  {item[header.query]}
-                </td>
-              ))}
-              {options && (
-                <td>
-                  <UidropdownMenu
-                    options={
-                      typeof options === 'function' ? options(item) : options
-                    }
-                    itemId={item._id}
+              {checkable && (
+                <th className="pl-6 hidden md:table-cell rounded-tl-md rounded-bl-md">
+                  <UiCheckbox
+                    onChange={checkAllIds!}
+                    value={checkedIds?.length === data.length}
+                    name="check"
+                    variant="light"
                   />
-                </td>
+                </th>
               )}
+              {headers.map((header, index) => (
+                <th
+                  key={`table-headers-second ${index}`}
+                  className={`text-sm font-normal text-tertiary-700  max-w-fit ${simplified ? 'px-2 py-2' : 'px-6 py-[14px]'}`}
+                >
+                  {header.title}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody className="bg-white">
+            {data.map((item, index) => (
+              <tr
+                className={`${index + 1 < data.length && !simplified && 'border-b  border-tertiary-300 '}`}
+                key={item._id || `table- ${index}`}
+              >
+                {checkable && (
+                  <td className={`pl-6 w-fit text-sm`}>
+                    <UiCheckbox
+                      onChange={() => {
+                        onCheckboxChange!(item._id);
+                        console.log(item._id);
+                      }}
+                      value={checkedIds?.includes(item._id)!}
+                      name="check"
+                      variant="light"
+                    />
+                  </td>
+                )}
+                {headers.map((header, index) => (
+                  <td
+                    data-testid={`ui-table-data-${header.query}`}
+                    key={`table-header${index}`}
+                    style={{
+                      textAlign: header.alignText,
+                    }}
+                    className={`text-sm  text-gray-1000 font-ceraRegular capitalize ${simplified ? 'pt-4 pr-4' : 'px-6 py-4 '}`}
+                  >
+                    {item[header.query]}
+                  </td>
+                ))}
+                {actionTriggers && (
+                  <td className="relative overflow-visible">
+                    <div className="flex items-center gap-6 justify-end px-2 ">
+                      {actionTriggers?.(item._id)}
+                    </div>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

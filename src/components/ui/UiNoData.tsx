@@ -16,7 +16,7 @@ export default function UiNoData({
     <div
       className={`${
         screen ? 'h-[82vh]' : 'h-[40vh]'
-      } border border-tertiary-500 bg-tertiary-50 rounded-2xl flex flex-col items-center justify-center gap-5`}
+      } border border-tertiary-400 bg-tertiary-50 rounded-2xl flex flex-col items-center justify-center gap-5`}
     >
       <span className="text-typography-base font-semibold text-xl">{text}</span>
 

@@ -1,109 +1,188 @@
+import { useMemo } from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
 
-import { useUserQuery } from '@/api/query/useUserQuery';
+import AvatarMale from '@/assets/avatar-male.jpeg'
+import MapLogo from '@/assets/map-logo-full.svg'
 
-import EatriteLogo from '@/assets/EatriteLogo.svg';
-
-import IconProps from '@/types/IconProps';
-
-import TokenHandler from '@/utils/TokenHandler';
-import { getUserFullName } from '@/utils/helpers';
+import RouteType from '@/types/enum/RouteType';
 
 import UiAvatar from '../ui/UiAvatar';
-import UiButton from '../ui/UiButton';
-import UiIcon from '../ui/UiIcon';
+import UiRouteDropdownMenu from '../ui/UiRouteDropdownMenu';
+import UiIcon,  { Icons } from '../ui/UiIcon';
 
 //--
 
-export interface Group {
-  name: string;
-  routes: Array<{
-    path: string;
-    name: string;
-    icon: React.ComponentType<IconProps>;
-  }>;
+interface BaseRoute {
+  path: string;
+  label: string;
+  icon?: Icons;
+  notifications?: number;
 }
 
-interface Props {
-  routeGroups: Group[];
-  isAdmin?: boolean;
+interface NormalRoute extends BaseRoute {
+  type: RouteType.NORMAL;
 }
-export default function TheSidebar(props: Props) {
+
+interface DropdownRoute extends BaseRoute {
+  type: RouteType.DROPDOWN;
+  subRoutes: BaseRoute[]; 
+}
+
+type SidebarRoute = NormalRoute | DropdownRoute;
+
+//--
+
+export default function TheSidebar() {
   const location = useLocation();
 
-  const activeRoute = location.pathname;
+  const currentRoute = location.pathname;
 
-  const {
-    query: { data: user },
-  } = useUserQuery(TokenHandler.getToken());
+  const routes: SidebarRoute[] = [
+    {
+      label: 'Dashboard',
+      path: '',
+      type: RouteType.NORMAL,
+      icon: 'DashboardIcon',
+    },
+    {
+      label: 'Inventory',
+      path: '',
+      type: RouteType.NORMAL,
+      icon: 'Box',
+    },
+    {
+      label: 'Procurement',
+      path: '/procurement',
+      type: RouteType.DROPDOWN,
+      icon: 'Cart',
+      subRoutes: [
+        {
+          label: 'Quotes',
+          path: '/procurement/quotes',
+        },
+        {
+          label: 'Orders',
+          path: '/procurement/orders',
+        },
+      ],
+    },
+    {
+      label: 'Finance',
+      path: '/finance',
+      type: RouteType.DROPDOWN,
+      icon: 'Money',
+      subRoutes: [
+        {
+          label: 'Overview',
+          path: '/finance/overview',
+        },
+        {
+          label: 'Reports',
+          path: '/finance/reports',
+        },
+      ],
+    },
+    {
+      label: 'Communication',
+      path: '',
+      type: RouteType.NORMAL,
+      icon: 'Chats',
+      notifications: 10,
+    },
+    {
+      label: 'Calendar',
+      path: '',
+      type: RouteType.NORMAL,
+      icon: 'CalendarAlt',
+      notifications: 10,
+    },
+    {
+      label: 'Contracts',
+      path: '',
+      type: RouteType.NORMAL,
+      icon: 'SignDoc',
+    },
+  ];
+
+  const linkStyles = useMemo(() => {
+    return `h-10 rounded-[4px] flex items-center justify-between py-3 px-4 fill-tertiary-400 hover:bg-primary-300`;
+  }, [])
 
   function isActiveRoute(route: string) {
-    return activeRoute === route;
-  }
-
-  function logUserOut() {
-    localStorage.removeItem('uid');
-    window.location.reload();
+    return currentRoute === route;
   }
 
   return (
-    <nav className="hidden md:flex h-screen bg-navigation-background w-60 pr-4 flex-col">
-      <div className="py-8 px-6 flex justify-center">
-        <img src={EatriteLogo} width={110} alt="Eatrite logo" />
+    <nav className="hidden md:flex h-screen bg-primary-100 w-[272px] px-6 pt-8 flex-col ">
+      <div className="mb-6 flex justify-center">
+        <img src={MapLogo} width={193} alt="Eatrite logo" />
       </div>
-
-      <div className="flex-1 overflow-y-auto">
-        <ul>
-          {props.routeGroups.map((group, index) => (
-            <li key={index} className="mb-4">
-              <div className="w-4/5 mx-auto p-2 text-[10px] text-typography-muted font-semibold">
-                {group.name}
-              </div>
-              <ul>
-                {group.routes.map((route, index) => (
-                  <li key={index}>
-                    <Link
-                      to={route.path}
-                      className={`${
-                        isActiveRoute(route.path)
-                          ? 'bg-navigation-active text-typography-base border-l-navigation-active-border stroke-secondary-1500'
-                          : 'text-typography-inactive hover:text-typography-base'
-                      } h-12 py-2 px-6 flex items-center gap-4 rounded-r-lg text-sm border-l-[5px] font-semibold`}
-                    >
-                      <route.icon
-                        fillColor={
-                          isActiveRoute(route.path) ? '#E2AC64' : '#DBD7D1'
-                        }
-                        strokeColor={
-                          isActiveRoute(route.path) ? '#101413' : '#585755'
-                        }
-                      />
-                      <span>{route.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
+      <section className="custom-sidebar flex-1 overflow-y-auto flex flex-col justify-between">
+        <ul className="flex flex-col gap-1">
+          {routes.map((route, index) => {
+            if (route.type === RouteType.NORMAL) {
+              return (
+                <li key={index}>
+                  <Link className={linkStyles} to={route.path}>
+                    <div className="flex items-center gap-3">
+                      <UiIcon icon={route.icon!} />
+                      <span className="text-tertiary-700 text-sm">
+                        {route.label}
+                      </span>
+                    </div>
+                    {route.notifications && route.notifications > 0 && (
+                      <span className="bg-primary-500 text-white text-xs leading-none w-7 h-4 rounded-lg flex items-center justify-center font-medium">
+                        {route.notifications}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              );
+            } else {
+              return (
+                <UiRouteDropdownMenu
+                  icon={route.icon!}
+                  label={route.label}
+                  subRoutes={route.subRoutes}
+                  currentRoute={currentRoute}
+                />
+              );
+            }
+          })}
         </ul>
-      </div>
-
-      <div className="w-full mb-12 flex items-center  justify-between text-typography-base text-sm pl-6">
-        <div className="flex gap-2 items-center">
-          <UiAvatar size="sm" avatar={user?.profile_img as string} />
-          <span className="text-sm text-typography-base font-medium">
-            {props.isAdmin ? 'Eatrite Admin' : `${getUserFullName(user)}`}
-          </span>
+      </section>
+      <section className="w-full pt-8">
+        <ul className="mb-[30px]">
+          <li>
+            <Link className={linkStyles} to="">
+              <div className="flex items-center gap-3">
+                <UiIcon icon="QuestionCircle" />
+                <span className="text-tertiary-700">Support</span>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link className={linkStyles} to="">
+              <div className="flex items-center gap-3">
+                <UiIcon icon="QuestionCircle" />
+                <span className="text-tertiary-700">Settings</span>
+              </div>
+            </Link>
+          </li>
+        </ul>
+        <div className="flex pb-11 gap-2 items-center">
+          <UiAvatar size="md" avatar={AvatarMale} />
+          <div className="flex flex-col">
+            <span className="text-sm text-tertiary-900 font-bold">
+              Mark Benson
+            </span>
+            <span className="text-sm text-tertiary-600 w-[132px] truncate overflow-hidden">
+              markbenson@coremed.com
+            </span>
+          </div>
         </div>
-        <UiButton
-          rounded="sm"
-          variant="neutral"
-          size="icon"
-          onClick={logUserOut}
-        >
-          <UiIcon icon="Logout" size="12" />
-        </UiButton>
-      </div>
+      </section>
     </nav>
   );
 }

@@ -1,77 +1,59 @@
 import Bell from '@/assets/icons/bell.svg?react';
+import Bin from '@/assets/icons/bin.svg?react';
+import Box from '@/assets/icons/box.svg?react';
+import Building from '@/assets/icons/building.svg?react';
 import Calendar from '@/assets/icons/calendar.svg?react';
-import CalendarNoDots from '@/assets/icons/calandar-no-dot.svg?react';
+import CalendarAlt from '@/assets/icons/calendar-alt.svg?react';
+import CaretDown from '@/assets/icons/caret-down.svg?react';
 import CaretLeft from '@/assets/icons/caret-left.svg?react';
-import CaretRight from '@/assets/icons/caret-right.svg?react';
-import Checkmark from '@/assets/icons/check-mark.svg?react';
-import CheckMarkDouble from '@/assets/icons/check-mark-double.svg?react';
-import Cog from '@/assets/icons/cog.svg?react';
-import CustomerSupport from '@/assets/icons/customer-support.svg?react';
-import Dish from '@/assets/icons/dish.svg?react';
-import Eye from '@/assets/icons/eye.svg?react';
-import EyeSlash from '@/assets/icons/eye-slash.svg?react';
-import Filter from '@/assets/icons/filter.svg?react';
-import Google from '@/assets/icons/google.svg?react';
-import HorizontalThreeDots from '@/assets/icons/horizontal-three-dots.svg?react';
-import Info from '@/assets/icons/info.svg?react';
-import Logout from '@/assets/icons/logout.svg?react';
-import Meal from '@/assets/icons/meal.svg?react';
-import Minus from '@/assets/icons/minus.svg?react';
-import Notification from '@/assets/icons/notification.svg?react';
-import Overview from '@/assets/icons/overview.svg?react';
-import Plate from '@/assets/icons/plate.svg?react';
-import Plus from '@/assets/icons/plus.svg?react';
+import CaretUp from '@/assets/icons/caret-up.svg?react';
+import Cart from '@/assets/icons/cart.svg?react';
+import Chats from '@/assets/icons/chats.svg?react';
+import ChatsSolid from '@/assets/icons/chats-solid.svg?react';
+import Check from '@/assets/icons/CheckMark.svg?react'
+import DashboardIcon from '@/assets/icons/dashboard-icon.svg?react';
+import Dollar from '@/assets/icons/dollar.svg?react';
+import Money from '@/assets/icons/money.svg?react';
+import Multiply from '@/assets/icons/multiply.svg?react';
+import QuestionCircle from '@/assets/icons/question-circle.svg?react';
 import Search from '@/assets/icons/search.svg?react';
-import Spaghetti from '@/assets/icons/spaghetti.svg?react';
-import Trash from '@/assets/icons/trash.svg?react';
-import TrashX from '@/assets/icons/trash-x.svg?react';
-import Tray from '@/assets/icons/tray.svg?react';
-import Users from '@/assets/icons/users.svg?react';
-import Warning from '@/assets/icons/warning.svg?react';
-import X from '@/assets/icons/x.svg?react';
+import Settings from '@/assets/icons/settings.svg?react';
+import SignDoc from '@/assets/icons/sign-doc.svg?react';
+import SignDocEmpt from '@/assets/icons/sign-doc-empt.svg?react';
 
-// These icons are arranged alphabetically for easy sorting
 const icons = {
   Bell,
+  Bin,
+  Box,
+  Building,
   Calendar,
-  CalendarNoDots,
+  CalendarAlt,
+  CaretDown,
+  CaretUp,
   CaretLeft,
-  CaretRight,
-  Checkmark,
-  CheckMarkDouble,
-  Cog,
-  CustomerSupport,
-  Dish,
-  Eye,
-  EyeSlash,
-  Filter,
-  Google,
-  HorizontalThreeDots,
-  Info,
-  Logout,
-  Meal,
-  Minus,
-  Notification,
-  Overview,
-  Plate,
-  Plus,
+  Cart,
+  Chats,
+  ChatsSolid,
+  Check,
+  DashboardIcon,
+  Dollar,
+  Money,
+  Multiply,
+  QuestionCircle,
   Search,
-  Spaghetti,
-  Trash,
-  TrashX,
-  Tray,
-  Users,
-  Warning,
-  X,
+  Settings,
+  SignDoc,
+  SignDocEmpt,
 };
 
 export type Icons = keyof typeof icons;
+
 interface Props {
-  /** Name of the icon as stored in the icons object */
   icon: Icons;
   size?: string;
 }
-export default function UiIcon({ icon, size = '16' }: Props) {
+
+export default function UiIcon({ icon, size = '20' }: Props) {
   const LazyLoadedIcon = icons[icon];
   return (
     <span>

@@ -1,70 +1,85 @@
-import { useMemo, useState } from 'react';
-import { CaretDown, CaretUp } from '@phosphor-icons/react';
-import OutsideClickHandler from 'react-outside-click-handler';
-import OnChangeParams from '../../types/OnChangeParams';
-import UiField from './UiField';
-import dayjs, { Dayjs } from 'dayjs';
-import CalendarWidget from '../calendar/CalendarWidget';
+import OutsideClickHandler from "react-outside-click-handler";
+import Calendar from "react-calendar"
+import 'react-calendar/dist/Calendar.css';
+import useToggle from "@/hooks/useToggle";
+// import styles from './datepicker.module.scss'
+// import './datepicker.css'
+import UiField from "./UiField";
+import OnChangeParams from "@/types/OnChangeParams";
+import UiIcon from "./UiIcon";
 
 interface Props {
-  label?: string;
-  value: Dayjs;
-  placeholder?: string;
-  /** The name property should always be the same as the model value. example if the input belongs to
-   * formData.confirm_password, the name prop should be confirm_password.
-   */
   name: string;
-  error?: string;
-  disabled?: boolean;
+  label: string;
   onChange: (event: OnChangeParams) => void;
+  value: Date;
+  disabled?: boolean;
 }
-export default function UiDatePicker({
-  value = dayjs(),
-  label,
-  placeholder = 'Pick a date from the calendar',
-  name,
-  error,
-  onChange,
-}: Props) {
-  const [calendarIsVisible, setCalendarIsVisible] = useState(false);
-  const valueLabel = useMemo(() => {
-    if (!value) return placeholder;
 
-    return value.format('YYYY-MM-DD');
-  }, [value]);
+export default function UidatePicker({ name, label, onChange, value, disabled }: Props) {
+  const isCalendarVisible = useToggle();
 
-  function selectDate(value: Dayjs) {
-    onChange({ name, value });
-    setCalendarIsVisible(false);
+  function hideCalendar() {
+    return isCalendarVisible.off();
+  }
+
+  function toggleCalendar() {
+    return isCalendarVisible.toggle();
+  }
+
+  function handleChange() {
+    onChange({name, value})
   }
 
   return (
-    <OutsideClickHandler onOutsideClick={() => setCalendarIsVisible(false)}>
-      <UiField error={error} label={label}>
-        <button
-          type="button"
-          data-testid="ui-select-trigger"
-          className={`outline-none rounded-md w-full border text-left text-xs py-2  flex items-center h-12 justify-between px-4 ${
-            !!error
-              ? 'bg-danger-100 placeholder:text-danger border-danger'
-              : `bg-white border-gray-50`
-          }`}
-          onClick={() => setCalendarIsVisible(!calendarIsVisible)}
+    <OutsideClickHandler
+      onOutsideClick={(e) => {
+        hideCalendar();
+      }}
+    >
+      <UiField label={label}>
+        <div
+          onClick={() => {
+            !disabled && toggleCalendar();
+          }}
+          className={`border border-[#D0D5DD] h-10 flex items-center gap-2 px-3 rounded-md ${disabled ? 'bg-[#F0F2F5] text-tertiary-350' : 'bg-transparent text-tertiary-900 '}`}
         >
-          <div className="w-full">
-            {!!valueLabel ? valueLabel : placeholder}
-          </div>
-          {calendarIsVisible ? <CaretUp /> : <CaretDown />}
-        </button>
-        {calendarIsVisible && (
-          <div
-            data-testid="ui-date-picker-calendar"
-            className="absolute bg-white rounded-md mt-2 border-gray-50 border z-20 p-2 w-full"
-          >
-            {/* <CalendarWidget value={value} size="sm" selectDate={selectDate} /> */}
-          </div>
-        )}
+          <UiIcon icon="Calendar"/>
+          <p>{value?.toDateString() || 'Select Date'}</p>
+        </div>
+        <div>
+          {isCalendarVisible.value && (
+            <Calendar value={value} onChange={handleChange} />
+          )}
+        </div>
       </UiField>
+      {/* <div
+        className={`${styles.date_picker_wrapper}  ${error && styles.error}`}
+      >
+        <label>{label}</label>
+        <Controller
+          name={name}
+          control={control}
+          defaultValue={date}
+          render={({ field }) => (
+            <div  className={styles.input_calendar_wrapper}>
+              <div
+                onClick={toggleCalendar}
+                className={`${styles.date_picker} ${isCalendarVisible.value && styles.picker_visible}`}
+              >
+                <p>{field.value?.toDateString() || 'Select Date'}</p>
+                <CalendarThinSvg />
+              </div>
+              <div className={styles.calendar_wrapper}>
+                {isCalendarVisible.value && (
+                  <Calendar  onChange={field.onChange} value={field.value} />
+                )}
+              </div>
+            </div>
+          )}
+        />
+        {<span className={styles.error__span}>{error && `${error}`}</span>}
+      </div> */}
     </OutsideClickHandler>
   );
 }

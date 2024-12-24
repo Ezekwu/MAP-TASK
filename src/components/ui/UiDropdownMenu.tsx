@@ -9,13 +9,13 @@ import UiIcon from './UiIcon';
 
 export interface DropDownData {
   label: string;
-  func: (id: string) => void;
+  func: (id?: string) => void;
   disabled?: boolean;
 }
 interface Props {
   options: DropDownData[];
-  trigger?: React.ReactNode;
-  itemId: string;
+  trigger?: React.ReactNode | ((optionsAreVisible: boolean) => React.ReactNode);
+  itemId?: string;
   triggerSize?: 'sm' | 'lg' | 'md';
 }
 
@@ -36,18 +36,13 @@ export default function UiDropDownMenu({
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
       <div className="relative">
-        {trigger || (
-          <UiButton
-            data-testid="ui-dropdown-trigger"
-            size={triggerSize}
-            variant="tertiary"
-            onClick={() => setOptionsAreVisible(!optionsAreVisible)}
-          >
-            <UiIcon icon="HorizontalThreeDots" />
-          </UiButton>
-        )}
-
-        {/* TODO: fix dropdown in modals */}
+        <button
+          onClick={() => setOptionsAreVisible(!optionsAreVisible)}
+        >
+          {typeof trigger === 'function'
+            ? trigger(optionsAreVisible)
+            : trigger || <UiIcon icon="CaretDown" />}
+        </button>
         {optionsAreVisible && (
           <ul
             data-testid="ui-dropdown-options"

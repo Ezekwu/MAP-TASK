@@ -1,6 +1,6 @@
 const sizes = {
   sm: 'w-8 h-8',
-  md: '',
+  md: 'w-10 h-10',
   lg: 'w-20 h-20 ',
 };
 interface Props {

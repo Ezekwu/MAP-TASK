@@ -6,6 +6,11 @@ import 'react-phone-number-input/style.css';
 
 export type InputType = 'text' | 'password' | 'number' | 'phone' | 'date';
 
+const sizeClasses = {
+  md: 'h-10',
+  sm: 'h-8',
+};
+
 interface Props {
   label?: string;
   type?: InputType;
@@ -13,6 +18,7 @@ interface Props {
   placeholder?: string;
   variant?: 'default' | 'light';
   name: string;
+  size?: keyof typeof sizeClasses;
   error?: string;
   optional?: boolean;
   disabled?: boolean;
@@ -26,6 +32,7 @@ export default function UiInput({
   value,
   label,
   variant,
+  size="md",
   optional,
   name,
   placeholder,
@@ -35,76 +42,41 @@ export default function UiInput({
   prefixNode,
   suffixNode,
 }: Props) {
-  const [inputType, setInputType] = useState(type);
 
   function sendValue(e: React.ChangeEvent<HTMLInputElement>) {
     onChange({ name: e.target.name, value: e.target.value });
   }
 
-  function handlePhoneChange(value: string | undefined) {
-    onChange({ name, value: value! });
-  }
-
-  function togglePassword() {
-    setInputType((prev) => (prev === 'password' ? 'text' : 'password'));
-  }
-
   const validationStyle = useMemo(() => {
-    return error ? 'border-danger-200' : `bg-white border-tertiary-700`;
+    return error ? 'border-danger-200' : `border-[#D0D5DD] `;
   }, [error]);
 
   return (
     <UiField label={label} error={error} optional={optional}>
       <div
-        className={`relative flex items-center rounded w-full border text-xs h-[52px] ${validationStyle}`}
+        className={`relative flex  items-center rounded-md  ${disabled ? 'bg-[#F0F2F5]' : ' bg-transparent'} border text-sm h-10 ${validationStyle} ${sizeClasses[size]}`}
       >
         {prefixNode && (
-          <div className="pl-2  text-gray-500 text-sm flex items-center">
+          <div className="pl-2 ext-gray-500 text-sm flex items-center">
             {prefixNode}
           </div>
         )}
-
-        {type === 'phone' ? (
-          <PhoneInput
-            country="NG"
-            defaultCountry="NG"
-            className="phone-input flex-1"
-            value={`${value || ''}`}
-            onChange={handlePhoneChange}
-          />
-        ) : (
-          <input
-            className={`flex-1 outline-none text-gray-1000 bg-transparent rounded placeholder:text-sm placeholder:font-normal placeholder:text-typography-disabled text-xs font-semibold h-full pl-4 ${
-              prefixNode ? 'pl-0' : ''
-            }`}
-            placeholder={placeholder}
-            type={inputType}
-            value={value || ''}
-            name={name}
-            id={name}
-            disabled={disabled}
-            onChange={sendValue}
-          />
-        )}
-
+        <input
+          className={`flex-1 outline-none rounded-md placeholder:text-sm  text-sm h-full pl-4 ${
+            prefixNode ? 'pl-0' : ''
+          } ${disabled ? 'text-tertiary-350' : 'text-tertiary-900 '}`}
+          placeholder={placeholder}
+          value={value || ''}
+          name={name}
+          id={name}
+          disabled={disabled}
+          onChange={sendValue}
+        />
         {/* Suffix Node */}
         {suffixNode && (
-          <div className="pl-2 pr-4 text-gray-500 text-sm flex items-center">
+          <div className="pl-2 pr-1 text-gray-500 text-sm flex items-center fill-tertiary-400">
             {suffixNode}
           </div>
-        )}
-
-        {type === 'password' && (
-          <button
-            type="button"
-            onClick={togglePassword}
-            className="absolute right-0 top-[25%] mx-3 bg-white"
-          >
-            <UiIcon
-              size="20"
-              icon={inputType === 'password' ? 'EyeSlash' : 'Eye'}
-            />
-          </button>
         )}
       </div>
     </UiField>

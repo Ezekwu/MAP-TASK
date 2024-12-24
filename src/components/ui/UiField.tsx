@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
   error?: string;
@@ -8,13 +7,12 @@ interface Props {
   optional?: boolean;
 }
 export default function UiField({ error, label, children, optional }: Props) {
-  const { t } = useTranslation();
 
   return (
     <div className="text-left relative  w-full">
       {label && (
-        <label className="text-xs font-medium text-typography-label leading-9">
-          {label} {optional ? `${t('fields.optional')}` : ''}
+        <label className="text-sm font-bold text-tertiary-600 leading-9">
+          {label}
         </label>
       )}
       <div className="h-full">{children}</div>
