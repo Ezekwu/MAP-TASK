@@ -148,7 +148,7 @@ export default function UiImageUploader({
                 </div>
                 <div className="text-gray-1000 text-base mt-2 gap-1">
                   <p className="text-sm flex justify-center items-center gap-1 font-medium text-tertiary-600">
-                    <button className="text-primary-500">
+                    <button onClick={openFilePicker} className="text-primary-500">
                       Click to Upload
                     </button>{' '}
                     or drag and drop
@@ -174,9 +174,16 @@ export default function UiImageUploader({
           )}
         </div>
         {imgUrl.length > 0 && (
-          <UiButton type="button" onClick={openFilePicker} variant="secondary">
-            Change image
-          </UiButton>
+          <div className='mt-4'>
+            <UiButton
+              size="lg"
+              type="button"
+              onClick={openFilePicker}
+              variant="secondary"
+            >
+              Change image
+            </UiButton>
+          </div>
         )}
       </div>
     );
