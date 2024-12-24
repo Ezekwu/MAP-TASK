@@ -23,7 +23,7 @@ export default function RespondToQuote() {
   const [quote, setQuote] = useState(quotes[0]);
   const [activeStep, setActiveStep] = useState(0);
 
-  const isQuoteResConfirmVisible = useToggle()
+  const isQuoteResConfirmVisible = useToggle();
 
   const quoteResponceSteps = [
     {
@@ -53,8 +53,8 @@ export default function RespondToQuote() {
     }
   }
 
-  function handleStep (step: number) {
-    setActiveStep(step)
+  function handleStep(step: number) {
+    setActiveStep(step);
   }
 
   return (
@@ -105,6 +105,8 @@ export default function RespondToQuote() {
         </UiBorderedBox>
       </div>
       <QuoteResponseConfirmation
+        client={quote.client.name}
+        rfqNumber={quote.rfqNumber}
         isOpen={isQuoteResConfirmVisible.value}
         onClose={() => isQuoteResConfirmVisible.off()}
       />

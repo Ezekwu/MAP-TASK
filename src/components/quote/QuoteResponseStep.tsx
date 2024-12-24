@@ -9,14 +9,14 @@ interface Props {
   step: Step;
   stepNumber: number;
   currentStep: number;
-  onStepChange: (step: number) => void
+  onStepChange: (step: number) => void;
 }
 
 export default function QuoteResponceStep({
   step,
   stepNumber,
   currentStep,
-  onStepChange
+  onStepChange,
 }: Props) {
   const activeStepStyle = {
     title: 'font-bold ',
@@ -52,7 +52,10 @@ export default function QuoteResponceStep({
   }, [currentStep]);
 
   return (
-    <div onClick={() => onStepChange(stepNumber - 1)} className="flex gap-4 w-full cursor-pointer">
+    <div
+      onClick={() => onStepChange(stepNumber - 1)}
+      className="flex gap-4 w-full cursor-pointer"
+    >
       <div
         className={`w-8 h-8 rounded-full flex items-center justify-center text-lg ${stepStyle.step}`}
       >
