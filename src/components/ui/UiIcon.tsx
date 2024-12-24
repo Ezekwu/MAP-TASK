@@ -11,6 +11,7 @@ import Cart from '@/assets/icons/cart.svg?react';
 import Chats from '@/assets/icons/chats.svg?react';
 import ChatsSolid from '@/assets/icons/chats-solid.svg?react';
 import Check from '@/assets/icons/CheckMark.svg?react';
+import CloudUpLoad from '@/assets/icons/cloud-upload.svg?react';
 import DashboardIcon from '@/assets/icons/dashboard-icon.svg?react';
 import Dollar from '@/assets/icons/dollar.svg?react';
 import Edit from '@/assets/icons/pencil-edit.svg?react';
@@ -36,6 +37,7 @@ const icons = {
   Chats,
   ChatsSolid,
   Check,
+  CloudUpLoad,
   DashboardIcon,
   Dollar,
   Edit,

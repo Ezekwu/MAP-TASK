@@ -2,6 +2,8 @@ import useObjectState from '@/hooks/useObjectState';
 import { QuoteTermsAndAttachments } from '@/types/Quote';
 import UiInput from '../ui/UiInput';
 import UiSelect from '../ui/UiSelect';
+import UiImageUploader from '../ui/UiImageUploader';
+
 import {
   paymentTerms,
   deliverySchedule,
@@ -19,6 +21,7 @@ export default function TermsAndAttachment({ termsAndAttachments }: Props) {
     deliverySchedule: termsAndAttachments.deliverySchedule,
     shippingMethod: termsAndAttachments.shippingMethod,
     leadTime: termsAndAttachments.leadTime,
+    attachments: '',
   });
   return (
     <div>
@@ -67,9 +70,16 @@ export default function TermsAndAttachment({ termsAndAttachments }: Props) {
       </div>
       <div className="mt-4">
         <h4 className="font-bold text-primary-1000 mb-2">Attachments</h4>
-        <p className="text-sm text-tertiary-350">
+        <p className="text-sm text-tertiary-350 mb-6">
           Attach all necessary files or documents
         </p>
+        <div className="w-1/2">
+          <UiImageUploader
+            name="attachments"
+            onChange={formData.set}
+            value={formData.value.attachments}
+          />
+        </div>
       </div>
     </div>
   );

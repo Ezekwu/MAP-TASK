@@ -23,7 +23,7 @@ export default function RespondToQuote() {
   const [activeStep, setActiveStep] = useState(0);
 
   const isQuoteResConfirmVisible = useToggle();
-  const isQuoteSending = useToggle()
+  const isQuoteSending = useToggle();
 
   const quoteResponceSteps = [
     {
@@ -58,12 +58,12 @@ export default function RespondToQuote() {
   }
 
   function onSubmit() {
-    isQuoteSending.on()
+    isQuoteSending.on();
 
-    setTimeout(()=>{
-      isQuoteSending.off()
-      isQuoteResConfirmVisible.off()
-    }, 4000)
+    setTimeout(() => {
+      isQuoteSending.off();
+      isQuoteResConfirmVisible.off();
+    }, 4000);
   }
 
   return (

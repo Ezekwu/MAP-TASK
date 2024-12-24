@@ -13,6 +13,7 @@ const variantClasses = {
   primary: 'bg-primary-500 text-white',
   tertiary: 'bg-white border border-tertiary-300 text-tertiary-600',
   secondary: 'bg-white border border-primary-500 text-primary-500',
+  'secondary-text': 'bg-white text-primary-500',
   danger: 'bg-danger-200 text-light',
   neutral: 'bg-transparent border-none',
 };

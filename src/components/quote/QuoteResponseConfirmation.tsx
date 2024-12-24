@@ -8,7 +8,7 @@ interface Props {
   isLoading: boolean;
   rfqNumber: string;
   client: string;
-  sendQuoteResponse: () => void
+  sendQuoteResponse: () => void;
 }
 
 export default function QuoteResponseConfirmation({
@@ -19,13 +19,12 @@ export default function QuoteResponseConfirmation({
   isLoading,
   rfqNumber,
 }: Props) {
-
   const QuoteIsSending = () => {
     return (
       <div className=" py-9 flex justify-center items-center">
         <div>
           <UiLoader />
-          <p className='text-sm mt-2'>Sending Quote...</p>
+          <p className="text-sm mt-2">Sending Quote...</p>
         </div>
       </div>
     );

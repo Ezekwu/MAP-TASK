@@ -39,7 +39,7 @@ export default {
           900: '#101928',
         },
         secondary: {
-          100: '#F7F7F8',
+          100: '#F0F2F5',
           200: '#F6F6F7',
           300: '#F0F0F0',
           400: '#EEEEEE',
@@ -71,7 +71,8 @@ export default {
         },
         success: {
           100: '#E7F6EC',
-          500: '#0F973D'
+          500: '#0F973D',
+          600: '#04802E'
         },
         warning: {
           100: '#FFF4E5', // Lightest warning
