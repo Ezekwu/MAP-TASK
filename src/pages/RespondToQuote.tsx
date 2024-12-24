@@ -8,7 +8,6 @@ import QuoteResponseConfirmation from '@/components/quote/QuoteResponseConfirmat
 import TheTopNav from '@/components/layout/TheTopNav';
 import UiBorderedBox from '@/components/ui/UiBorderedBox';
 import UiButton from '@/components/ui/UiButton';
-import UiModal from '@/components/ui/UiModal';
 import useToggle from '@/hooks/useToggle';
 
 const RequestInformation = lazy(
@@ -24,6 +23,7 @@ export default function RespondToQuote() {
   const [activeStep, setActiveStep] = useState(0);
 
   const isQuoteResConfirmVisible = useToggle();
+  const isQuoteSending = useToggle()
 
   const quoteResponceSteps = [
     {
@@ -55,6 +55,15 @@ export default function RespondToQuote() {
 
   function handleStep(step: number) {
     setActiveStep(step);
+  }
+
+  function onSubmit() {
+    isQuoteSending.on()
+
+    setTimeout(()=>{
+      isQuoteSending.off()
+      isQuoteResConfirmVisible.off()
+    }, 4000)
   }
 
   return (
@@ -109,6 +118,8 @@ export default function RespondToQuote() {
         rfqNumber={quote.rfqNumber}
         isOpen={isQuoteResConfirmVisible.value}
         onClose={() => isQuoteResConfirmVisible.off()}
+        isLoading={isQuoteSending.value}
+        sendQuoteResponse={onSubmit}
       />
     </section>
   );

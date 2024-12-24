@@ -20,7 +20,7 @@ export default function UiModal({
   isOpen,
   onClose,
 }: Props) {
-  // TODO: animate modals
+
   const cardStyle = useMemo(() => {
     return 'fixed z-50 top-0 left-0 right-0 bottom-0 h-fit py-8 px-6 rounded-lg mt-12 mx-auto bg-white w-full md:w-2/5 overflow-y-auto overflow-x-hidden';
   }, []);
