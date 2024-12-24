@@ -77,6 +77,7 @@ export default function TermsAndAttachment({ termsAndAttachments }: Props) {
           <UiImageUploader
             name="attachments"
             onChange={formData.set}
+            acceptMultiple
             value={formData.value.attachments}
           />
         </div>
