@@ -32,9 +32,7 @@ export default function UiDropdownItem({
         if (event.key === 'Enter') trigger();
       }}
     >
-      <div className="flex justify-between items-center">
-        {label}
-      </div>
+      <div className="flex justify-between items-center">{label}</div>
     </li>
   );
 }

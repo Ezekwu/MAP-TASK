@@ -16,7 +16,11 @@ interface Props {
   actionTriggers?: (id: string) => React.ReactNode;
 }
 
-export default function UiTableSimplified({ headers, data, actionTriggers }: Props) {
+export default function UiTableSimplified({
+  headers,
+  data,
+  actionTriggers,
+}: Props) {
   return (
     <div className="bg-white border border-tertiary-300 rounded-lg ">
       {/* Header */}

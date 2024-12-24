@@ -1,12 +1,12 @@
-import OutsideClickHandler from "react-outside-click-handler";
-import Calendar from "react-calendar"
+import OutsideClickHandler from 'react-outside-click-handler';
+import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import useToggle from "@/hooks/useToggle";
+import useToggle from '@/hooks/useToggle';
 // import styles from './datepicker.module.scss'
 // import './datepicker.css'
-import UiField from "./UiField";
-import OnChangeParams from "@/types/OnChangeParams";
-import UiIcon from "./UiIcon";
+import UiField from './UiField';
+import OnChangeParams from '@/types/OnChangeParams';
+import UiIcon from './UiIcon';
 
 interface Props {
   name: string;
@@ -16,7 +16,13 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function UidatePicker({ name, label, onChange, value, disabled }: Props) {
+export default function UidatePicker({
+  name,
+  label,
+  onChange,
+  value,
+  disabled,
+}: Props) {
   const isCalendarVisible = useToggle();
 
   function hideCalendar() {
@@ -28,7 +34,7 @@ export default function UidatePicker({ name, label, onChange, value, disabled }:
   }
 
   function handleChange() {
-    onChange({name, value})
+    onChange({ name, value });
   }
 
   return (
@@ -44,7 +50,7 @@ export default function UidatePicker({ name, label, onChange, value, disabled }:
           }}
           className={`border border-[#D0D5DD] h-10 flex items-center gap-2 px-3 rounded-md ${disabled ? 'bg-[#F0F2F5] text-tertiary-350' : 'bg-transparent text-tertiary-900 '}`}
         >
-          <UiIcon icon="Calendar"/>
+          <UiIcon icon="Calendar" />
           <p>{value?.toDateString() || 'Select Date'}</p>
         </div>
         <div>

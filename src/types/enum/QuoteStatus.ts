@@ -1,5 +1,5 @@
-enum QuoteStatus  {
-  AWAITING = 'Awaiting'
+enum QuoteStatus {
+  AWAITING = 'Awaiting',
 }
 
-export default QuoteStatus
+export default QuoteStatus;

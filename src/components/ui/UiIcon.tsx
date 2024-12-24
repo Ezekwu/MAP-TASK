@@ -10,9 +10,10 @@ import CaretUp from '@/assets/icons/caret-up.svg?react';
 import Cart from '@/assets/icons/cart.svg?react';
 import Chats from '@/assets/icons/chats.svg?react';
 import ChatsSolid from '@/assets/icons/chats-solid.svg?react';
-import Check from '@/assets/icons/CheckMark.svg?react'
+import Check from '@/assets/icons/CheckMark.svg?react';
 import DashboardIcon from '@/assets/icons/dashboard-icon.svg?react';
 import Dollar from '@/assets/icons/dollar.svg?react';
+import Edit from '@/assets/icons/pencil-edit.svg?react';
 import Money from '@/assets/icons/money.svg?react';
 import Multiply from '@/assets/icons/multiply.svg?react';
 import QuestionCircle from '@/assets/icons/question-circle.svg?react';
@@ -37,6 +38,7 @@ const icons = {
   Check,
   DashboardIcon,
   Dollar,
+  Edit,
   Money,
   Multiply,
   QuestionCircle,

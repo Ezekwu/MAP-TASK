@@ -1,14 +1,14 @@
-import { QuoteClient } from "@/types/Quote";
+import { QuoteClient } from '@/types/Quote';
 
-import UiInitialsAvatar from "../ui/UiInitialsAvatar";
-import UiIcon from "../ui/UiIcon";
+import UiInitialsAvatar from '../ui/UiInitialsAvatar';
+import UiIcon from '../ui/UiIcon';
 
 interface Props {
-  client: QuoteClient
+  client: QuoteClient;
 }
 
 export default function ClientDetailsCard({ client }: Props) {
-  const companyNameFirstWord = client.name.split('')[0]
+  const companyNameFirstWord = client.name.split('')[0];
   return (
     <article className="p-4 border border-tertiary-300 rounded-[10px] w-[352px] h-fit">
       <div className="flex gap-2 items-center mb-2">

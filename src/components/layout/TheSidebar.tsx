@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 
-import AvatarMale from '@/assets/avatar-male.jpeg'
-import MapLogo from '@/assets/map-logo-full.svg'
+import AvatarMale from '@/assets/avatar-male.jpeg';
+import MapLogo from '@/assets/map-logo-full.svg';
 
 import RouteType from '@/types/enum/RouteType';
 
 import UiAvatar from '../ui/UiAvatar';
 import UiRouteDropdownMenu from '../ui/UiRouteDropdownMenu';
-import UiIcon,  { Icons } from '../ui/UiIcon';
+import UiIcon, { Icons } from '../ui/UiIcon';
 
 //--
 
@@ -26,7 +26,7 @@ interface NormalRoute extends BaseRoute {
 
 interface DropdownRoute extends BaseRoute {
   type: RouteType.DROPDOWN;
-  subRoutes: BaseRoute[]; 
+  subRoutes: BaseRoute[];
 }
 
 type SidebarRoute = NormalRoute | DropdownRoute;
@@ -107,7 +107,7 @@ export default function TheSidebar() {
 
   const linkStyles = useMemo(() => {
     return `h-10 rounded-[4px] flex items-center justify-between py-3 px-4 fill-tertiary-400 hover:bg-primary-300`;
-  }, [])
+  }, []);
 
   function isActiveRoute(route: string) {
     return currentRoute === route;

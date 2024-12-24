@@ -1,17 +1,19 @@
-import { useState, lazy } from "react";
-import { Link } from "react-router-dom";
+import { useState, lazy } from 'react';
+import { Link } from 'react-router-dom';
 
-import { quotes } from "@/api/mock/quoteDetails";
+import { quotes } from '@/api/mock/quoteDetails';
 
-import QuoteResponceStep from "@/components/quote/QuoteResponceStep";
-import TheTopNav from "@/components/layout/TheTopNav"
-import UiBorderedBox from "@/components/ui/UiBorderedBox";
-import UiButton from "@/components/ui/UiButton";
+import QuoteResponceStep from '@/components/quote/QuoteResponceStep';
+import TheTopNav from '@/components/layout/TheTopNav';
+import UiBorderedBox from '@/components/ui/UiBorderedBox';
+import UiButton from '@/components/ui/UiButton';
 
 const RequestInformation = lazy(
   () => import('@/components/quote/RequestInformation'),
 );
-const TermsAndAttachment = lazy(()=> import('@/components/quote/TermsAndAttachment'));
+const TermsAndAttachment = lazy(
+  () => import('@/components/quote/TermsAndAttachment'),
+);
 const Review = lazy(() => import('@/components/quote/Review'));
 
 export default function RespondToQuote() {
@@ -27,12 +29,14 @@ export default function RespondToQuote() {
     {
       title: 'Terms and Attachments',
       description: 'Payment and delivery terms',
-      component: <TermsAndAttachment termsAndAttachments={quote.termsAndAttachments}/>,
+      component: (
+        <TermsAndAttachment termsAndAttachments={quote.termsAndAttachments} />
+      ),
     },
     {
       title: 'Review',
       description: 'Payment and delivery terms',
-      component: <Review />,
+      component: <Review quote={quote} />,
     },
   ];
 

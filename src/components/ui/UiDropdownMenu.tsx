@@ -36,9 +36,7 @@ export default function UiDropDownMenu({
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
       <div className="relative">
-        <button
-          onClick={() => setOptionsAreVisible(!optionsAreVisible)}
-        >
+        <button onClick={() => setOptionsAreVisible(!optionsAreVisible)}>
           {typeof trigger === 'function'
             ? trigger(optionsAreVisible)
             : trigger || <UiIcon icon="CaretDown" />}

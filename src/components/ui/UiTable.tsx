@@ -1,4 +1,3 @@
-
 import UiCheckbox from './UiCheckbox';
 
 export interface Header {
@@ -16,7 +15,7 @@ interface Props {
   checkable?: boolean;
   checkedIds?: string[];
   link?: string;
-  simplified?: boolean; 
+  simplified?: boolean;
   onCheckboxChange?: (id: string) => void;
   checkAllIds?: () => void;
   actionTriggers?: (id: string) => React.ReactNode;
@@ -27,14 +26,12 @@ export default function UiTable({
   checkable,
   checkedIds,
   link,
-  simplified=false,
+  simplified = false,
   checkAllIds,
   onCheckboxChange,
   data,
   actionTriggers,
 }: Props) {
-
-  
   return (
     <>
       <div

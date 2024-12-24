@@ -41,19 +41,19 @@ export default function UiSelect({
   optional,
   placeholder = 'Select from the options',
   name,
-  size="md",
+  size = 'md',
   options,
   error,
   onChange,
 }: Props) {
-
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
 
   const displayText = useMemo(() => {
     if (value === null) return placeholder;
 
-    const foundOptionLabel = options.find((option) => value === option.value)
-      ?.label;
+    const foundOptionLabel = options.find(
+      (option) => value === option.value,
+    )?.label;
 
     if (!foundOptionLabel) return placeholder;
 

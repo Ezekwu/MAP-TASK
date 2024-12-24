@@ -1,3 +1,5 @@
+import QuoteStatus from './enum/QuoteStatus';
+
 type QuoteItem = {
   id: number;
   name: string;
@@ -34,16 +36,16 @@ type QuoteDelivery = {
   expectedDate: Date;
 };
 
-export default interface Quote  {
+export default interface Quote {
   createdDate: Date;
   title: string;
   rfqNumber: string;
   requestor: QuoteRequestor;
-  status: string;
+  status: QuoteStatus;
   department: string;
   client: QuoteClient;
   delivery: QuoteDelivery;
   items: QuoteItem[];
   totals: QuoteTotals;
   termsAndAttachments: QuoteTermsAndAttachments;
-};
+}

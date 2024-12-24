@@ -1,12 +1,12 @@
 import FemaleAvater from '@/assets/avatar-female.png';
 
-import UiDropDownMenu from "../ui/UiDropdownMenu";
-import UiIcon from "../ui/UiIcon";
+import UiDropDownMenu from '../ui/UiDropdownMenu';
+import UiIcon from '../ui/UiIcon';
 
 //--
 
 interface Props {
-  startNode?: React.ReactNode 
+  startNode?: React.ReactNode;
 }
 
 export default function TheTopNav({ startNode }: Props) {

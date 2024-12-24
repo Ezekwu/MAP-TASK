@@ -32,7 +32,7 @@ export default function UiInput({
   value,
   label,
   variant,
-  size="md",
+  size = 'md',
   optional,
   name,
   placeholder,
@@ -42,7 +42,6 @@ export default function UiInput({
   prefixNode,
   suffixNode,
 }: Props) {
-
   function sendValue(e: React.ChangeEvent<HTMLInputElement>) {
     onChange({ name: e.target.name, value: e.target.value });
   }

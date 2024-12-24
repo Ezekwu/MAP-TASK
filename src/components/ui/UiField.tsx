@@ -7,7 +7,6 @@ interface Props {
   optional?: boolean;
 }
 export default function UiField({ error, label, children, optional }: Props) {
-
   return (
     <div className="text-left relative  w-full">
       {label && (

@@ -1,33 +1,35 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import dayjs from "dayjs";
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 
-import { quotes } from "@/api/mock/quoteDetails";
+import { quotes } from '@/api/mock/quoteDetails';
 
 import QuoteItem from '@/assets/quote-item.png';
 
-import ClientDetailsCard from "@/components/quote/ClientDetailsCard";
-import CostBreakDown from "@/components/quote/CostBreakDown";
+import ClientDetailsCard from '@/components/quote/ClientDetailsCard';
+import CostBreakDown from '@/components/quote/CostBreakDown';
 import QuoteInformation, { Title } from '@/components/quote/QuoteInformation';
-import TheTopNav from "@/components/layout/TheTopNav";
-import UiBorderedBox from "@/components/ui/UiBorderedBox";
-import UiButton from "@/components/ui/UiButton";
-import UiIcon from "@/components/ui/UiIcon";
-import UiInitialsAvatar from "@/components/ui/UiInitialsAvatar";
-import UiPill from "@/components/ui/UiPill";
-import UiTable, { Header } from "@/components/ui/UiTable";
+import TheTopNav from '@/components/layout/TheTopNav';
+import UiBorderedBox from '@/components/ui/UiBorderedBox';
+import UiButton from '@/components/ui/UiButton';
+import UiIcon from '@/components/ui/UiIcon';
+import UiInitialsAvatar from '@/components/ui/UiInitialsAvatar';
+import UiPill from '@/components/ui/UiPill';
+import UiTable, { Header } from '@/components/ui/UiTable';
 
-import QuoteStatus from "@/types/enum/QuoteStatus";
-import Pill from "@/types/Pill";
+import QuoteStatus from '@/types/enum/QuoteStatus';
+import Pill from '@/types/Pill';
 
 //--
 
 export default function QuoteDetailsPage() {
-  const [selectedItemsId, setSelectedItemsId] = useState<string[]>([])
+  const [selectedItemsId, setSelectedItemsId] = useState<string[]>([]);
 
   const quote = quotes[0];
   const createdDate = dayjs(quote.createdDate).format('ddd, MMMM YYYY, hh:mma');
-  const expectedDeliveryDate = dayjs(quote.delivery.expectedDate).format('YYYY-MM-DD'); 
+  const expectedDeliveryDate = dayjs(quote.delivery.expectedDate).format(
+    'YYYY-MM-DD',
+  );
 
   const quoteInfoTitle: Title[] = [
     {
@@ -82,14 +84,14 @@ export default function QuoteDetailsPage() {
   function getPillVariant(status: QuoteStatus): Pill {
     if (status === QuoteStatus.AWAITING)
       return { text: 'Awaiting', variant: 'warning' };
-    
+
     return { text: 'Completed', variant: 'success' };
   }
 
-  const { text, variant} = getPillVariant(quote.status);
+  const { text, variant } = getPillVariant(quote.status);
 
   const totalPrice = quote.items.reduce((total, item) => {
-    total += Number(item.amount) 
+    total += Number(item.amount);
     return total;
   }, 0);
 
@@ -144,23 +146,23 @@ export default function QuoteDetailsPage() {
     }));
   }, [quote.items]);
 
-    function handleCheckbox(id: string) {
-      setSelectedItemsId((prevData) => {
-        if (prevData.includes(id)) {
-          return prevData.filter((selectedId) => selectedId !== id);
-        } else {
-          return [...prevData, id];
-        }
-      });
-    }
-
-    function selectAllItems() {
-      if (quote.items.length === selectedItemsId.length) {
-        setSelectedItemsId([]);
+  function handleCheckbox(id: string) {
+    setSelectedItemsId((prevData) => {
+      if (prevData.includes(id)) {
+        return prevData.filter((selectedId) => selectedId !== id);
       } else {
-        setSelectedItemsId(quote.items.map((item) => String(item.id)));
+        return [...prevData, id];
       }
+    });
+  }
+
+  function selectAllItems() {
+    if (quote.items.length === selectedItemsId.length) {
+      setSelectedItemsId([]);
+    } else {
+      setSelectedItemsId(quote.items.map((item) => String(item.id)));
     }
+  }
 
   return (
     <section>

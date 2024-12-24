@@ -1,18 +1,21 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 type Step = {
-  title: string,
-  description: string
-}
+  title: string;
+  description: string;
+};
 
 interface Props {
   step: Step;
   stepNumber: number;
-  currentStep: number
+  currentStep: number;
 }
 
-export default function QuoteResponceStep({ step, stepNumber, currentStep }: Props) {
-
+export default function QuoteResponceStep({
+  step,
+  stepNumber,
+  currentStep,
+}: Props) {
   const activeStepStyle = {
     title: 'font-bold ',
     step: 'font-bold bg-primary-500 text-white',
@@ -33,7 +36,7 @@ export default function QuoteResponceStep({ step, stepNumber, currentStep }: Pro
   }
 
   function isCompeted() {
-    return currentStep > stepNumber
+    return currentStep > stepNumber;
   }
 
   const stepStyle = useMemo(() => {
@@ -45,7 +48,7 @@ export default function QuoteResponceStep({ step, stepNumber, currentStep }: Pro
 
     return inActiveStepStyle;
   }, [currentStep]);
-  
+
   return (
     <div className="flex gap-4 w-full ">
       <div

@@ -3,7 +3,7 @@ import UiField from './UiField';
 
 interface Props {
   label?: string;
-  value: string ;
+  value: string;
   placeholder?: string;
   variant?: 'default' | 'light';
   /** The name property should always be the same as the model value. example if the input belongs to
@@ -49,7 +49,7 @@ export default function UiTextarea({
         onChange={sendValue}
       />
       {maxChar && (
-        <div className='flex justify-end text-tertiary-400 mt-2 text-sx'>
+        <div className="flex justify-end text-tertiary-400 mt-2 text-sx">
           <span>{value.length}</span>/ <span>{maxChar}</span>
         </div>
       )}

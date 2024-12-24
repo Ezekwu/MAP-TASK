@@ -1,6 +1,6 @@
 interface Props {
   children: React.ReactNode;
-  boxShadow?: boolean
+  boxShadow?: boolean;
 }
 
 export default function UiBorderedBox({ children, boxShadow }: Props) {

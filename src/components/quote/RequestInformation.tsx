@@ -1,26 +1,26 @@
-import Quote from "@/types/Quote"
-import UiInput from "../ui/UiInput"
-import UiIcon from "../ui/UiIcon"
-import UiTable from "../ui/UiTable"
-import UidatePicker from "../ui/UiDatePicker"
-import UiBorderedBox from "../ui/UiBorderedBox"
-import { Header } from "../ui/UiTable"
-import { useMemo } from "react"
-import UiSelect from "../ui/UiSelect"
-import { itemVariants } from "@/utils/constants"
-import dayjs from "dayjs"
-import CostBreakDown from "./CostBreakDown"
-import UiTextarea from "../ui/UiTextarea"
-import useObjectState from "@/hooks/useObjectState"
+import Quote from '@/types/Quote';
+import UiInput from '../ui/UiInput';
+import UiIcon from '../ui/UiIcon';
+import UiTable from '../ui/UiTable';
+import UidatePicker from '../ui/UiDatePicker';
+import UiBorderedBox from '../ui/UiBorderedBox';
+import { Header } from '../ui/UiTable';
+import { useMemo } from 'react';
+import UiSelect from '../ui/UiSelect';
+import { itemVariants } from '@/utils/constants';
+import dayjs from 'dayjs';
+import CostBreakDown from './CostBreakDown';
+import UiTextarea from '../ui/UiTextarea';
+import useObjectState from '@/hooks/useObjectState';
 
 interface Props {
-  quote: Quote
+  quote: Quote;
 }
 
 export default function RequestInformation({ quote }: Props) {
   const formData = useObjectState({
-    note:''
-  })
+    note: '',
+  });
   const headers: Header[] = [
     {
       title: 'Items',

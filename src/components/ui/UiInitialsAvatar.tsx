@@ -8,7 +8,7 @@ interface Props {
   size?: keyof typeof sizeClasses;
 }
 
-export default function UiInitialsAvatar({ name , size = 'md' }: Props) {
+export default function UiInitialsAvatar({ name, size = 'md' }: Props) {
   function getFirstLetters() {
     const names = name.split(' ');
 

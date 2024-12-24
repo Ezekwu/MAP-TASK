@@ -1,6 +1,6 @@
 enum RouteType {
   NORMAL = 'normal',
-  DROPDOWN = 'dropDown'
+  DROPDOWN = 'dropDown',
 }
 
-export default RouteType
+export default RouteType;

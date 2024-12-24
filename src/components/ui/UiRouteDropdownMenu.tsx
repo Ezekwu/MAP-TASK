@@ -13,14 +13,19 @@ export interface DropDownData {
 
 interface Props {
   label: string;
-  icon: Icons
+  icon: Icons;
   subRoutes: DropDownData[];
-  currentRoute: string
+  currentRoute: string;
 }
 
-export default function UiRouteDropdownMenu({ subRoutes, label, icon, currentRoute }: Props) {
+export default function UiRouteDropdownMenu({
+  subRoutes,
+  label,
+  icon,
+  currentRoute,
+}: Props) {
   const [optionsAreVisible, setOptionsAreVisible] = useState(false);
-  
+
   return (
     <OutsideClickHandler onOutsideClick={() => setOptionsAreVisible(false)}>
       <div className="">

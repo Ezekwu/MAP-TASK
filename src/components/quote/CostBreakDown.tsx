@@ -3,7 +3,6 @@ interface Props {
   extraCharges?: number;
 }
 
-
 export default function CostBreakDown({ subTotal, extraCharges }: Props) {
   return (
     <div className="w-full flex justify-end">

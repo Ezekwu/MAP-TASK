@@ -14,16 +14,7 @@ const variantClasses = {
   tertiary: 'bg-white border border-tertiary-300 text-tertiary-600',
   secondary: 'bg-white border border-primary-500 text-primary-500',
   danger: 'bg-danger-200 text-light',
-  'danger-text': 'bg-light hover:bg-danger-100 text-danger-200',
-  'danger-light':
-    'bg-danger-100 hover:bg-danger-200 hover:text-light text-danger-200',
-  'primary-light': 'bg-primary-100 text-primary-500',
-  'warning-light': 'bg-warning-100 text-warning-500',
-  'danger-outlined': 'bg-danger-100  border border-danger-200 text-danger-200',
-  'tertiary-outlined':
-    'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300',
-  'tertiary-outlined-filled':
-    'bg-light hover:bg-tertiary-300 text-typography-base border border-tertiary-300 bg-[#FAFAFA]',
+  neutral: 'bg-transparent border-none',
 };
 
 export type BtnVariants = keyof typeof variantClasses;

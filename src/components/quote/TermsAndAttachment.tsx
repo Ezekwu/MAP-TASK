@@ -1,10 +1,14 @@
-import useObjectState from "@/hooks/useObjectState";
-import { QuoteTermsAndAttachments } from "@/types/Quote";
-import UiInput from "../ui/UiInput";
-import UiSelect from "../ui/UiSelect";
-import { paymentTerms, deliverySchedule, leadTime, shippingMethods } from "@/utils/constants";
-import UiIcon from "../ui/UiIcon";
-
+import useObjectState from '@/hooks/useObjectState';
+import { QuoteTermsAndAttachments } from '@/types/Quote';
+import UiInput from '../ui/UiInput';
+import UiSelect from '../ui/UiSelect';
+import {
+  paymentTerms,
+  deliverySchedule,
+  leadTime,
+  shippingMethods,
+} from '@/utils/constants';
+import UiIcon from '../ui/UiIcon';
 
 interface Props {
   termsAndAttachments: QuoteTermsAndAttachments;
