@@ -15,7 +15,7 @@ export default function QuoteResponceStep({ step, stepNumber, currentStep }: Pro
 
   const activeStepStyle = {
     title: 'font-bold ',
-    step: 'bg-primary-500 text-white',
+    step: 'font-bold bg-primary-500 text-white',
   };
 
   const inActiveStepStyle = {
