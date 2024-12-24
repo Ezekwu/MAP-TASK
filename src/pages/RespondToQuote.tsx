@@ -40,10 +40,15 @@ export default function RespondToQuote() {
     },
   ];
 
-  function handleActiveStep() {
+  function goToNextStep() {
     if (activeStep < quoteResponceSteps.length - 1)
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   }
+
+  function handleStep (step: number) {
+    setActiveStep(step)
+  }
+
   return (
     <section>
       <TheTopNav />
@@ -66,6 +71,7 @@ export default function RespondToQuote() {
               step={step}
               stepNumber={index + 1}
               currentStep={activeStep + 1}
+              onStepChange={handleStep}
             />
           ))}
         </div>
@@ -83,7 +89,7 @@ export default function RespondToQuote() {
             </div>
             <div className="w-[188px]">
               {' '}
-              <UiButton onClick={handleActiveStep} size="lg" block>
+              <UiButton onClick={goToNextStep} size="lg" block>
                 Continue
               </UiButton>
             </div>

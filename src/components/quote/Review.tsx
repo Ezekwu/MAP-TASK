@@ -195,6 +195,22 @@ export default function Review({ quote }: Props) {
           </div>
         </UiBorderedBox>
       </div>
+      <UiBorderedBox>
+      <div className="flex justify-between items-center">
+        <div className="flex gap-3">
+          <UiIcon icon="SignDocEmpt" size="32" />
+          <div>
+            <h3 className="text-xl font-bold text-primary-1000 mb-2">
+              Terms and Attachments
+            </h3>
+            <p className="text-sm text-tertiary-600">
+              Review payment and delivery terms
+            </p>
+          </div>
+        </div>
+        <UiIcon icon="CaretDown" size="28" />
+      </div>
+    </UiBorderedBox>
     </div>
   );
 }
